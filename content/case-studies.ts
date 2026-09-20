@@ -95,7 +95,7 @@ export const aiLearnerDiagnostic = {
   title: "AI Learner Diagnostic",
   subtitle: "A self-built AI product for diagnosis → learning path → practice → evaluation",
   type: "Independent portfolio project",
-  status: "Prototype / product case study — no real-user results claimed",
+  status: "Working prototype · Evaluation-led AI product",
   sections: [
     ["Why AI", "Diagnosis and recommendation are judgment-heavy tasks. An AI layer can synthesize learner evidence and propose a next-best action, while keeping the learner and educator in control."],
     ["User journey", "Assess → diagnose skill gaps → explain the diagnosis → recommend a learning path → generate targeted practice → evaluate → adapt the next step."],
