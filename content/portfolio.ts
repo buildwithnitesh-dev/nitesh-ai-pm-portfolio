@@ -22,7 +22,8 @@ export const seo = {
 };
 
 export const nav = [
-  { href: "#impact", label: "Impact" },
+  { href: "#about", label: "About" },
+  { href: "#metrics", label: "Impact" },
   { href: "#expertise", label: "Expertise" },
   { href: "#work", label: "Work" },
   { href: "#experience", label: "Experience" },
@@ -39,26 +40,90 @@ export const hero = {
   secondaryCta: { href: "#contact", label: "Start a conversation" },
 };
 
+export const about = {
+  eyebrow: "About",
+  title: "Senior Product Manager · AI Product Manager",
+  body: "Over 10+ years, I have led products across EdTech, Gaming, and Consumer Technology — always with the same focus: design outcomes that people return to, then prove them with data. I work at the intersection of product strategy, growth systems, and AI, building personalization, engagement, and retention into the product surface rather than bolting them on after launch.",
+  highlights: [
+    "10+ years across EdTech, Gaming, and Consumer Technology",
+    "Impacted 100,000+ learners through adaptive learning and engagement systems",
+    "Improved assignment completion by approximately 18–25% through adaptive assignment design",
+    "Improved Day-7 retention from 12% to 25% through gaming onboarding redesign",
+    "Increased DAU by approximately 12–15% through quiz and gamification experiences",
+    "Increased session time by approximately 15%",
+    "Improved student retention by approximately 8–12% through faculty engagement dashboards",
+    "Increased GMV approximately 10% week-over-week through A/B testing and user segmentation",
+    "Reduced bonus expenditure approximately 20% while maintaining retention",
+  ],
+};
+
+export const metrics = [
+  {
+    value: "100K+",
+    label: "Learners impacted",
+    detail: "Built and improved learning experiences used by 100,000+ learners across engagement, personalization, and adaptive learning journeys.",
+  },
+  {
+    value: "18–25%",
+    label: "Assignment completion uplift",
+    detail: "Improved assignment completion by approximately 18–25% through an adaptive assignment experience designed around learner behavior.",
+  },
+  {
+    value: "12% → 25%",
+    label: "Day-7 retention",
+    detail: "Improved Day-7 retention from 12% to 25% through an end-to-end redesign of the gaming onboarding funnel.",
+  },
+  {
+    value: "12–15%",
+    label: "DAU growth",
+    detail: "Increased daily active users by approximately 12–15% through quiz and gamification experiences.",
+  },
+  {
+    value: "+15%",
+    label: "Session time increase",
+    detail: "Increased session time by approximately 15% through engagement and personalization improvements.",
+  },
+  {
+    value: "8–12%",
+    label: "Student retention improvement",
+    detail: "Improved student retention by approximately 8–12% through faculty engagement dashboards.",
+  },
+  {
+    value: "+10% WoW",
+    label: "GMV growth",
+    detail: "Increased GMV approximately 10% week-over-week through A/B testing and user segmentation.",
+  },
+  {
+    value: "~20%",
+    label: "Bonus expenditure reduction",
+    detail: "Reduced bonus expenditure approximately 20% while maintaining retention through targeted incentives.",
+  },
+];
+
 export const signals = [
   {
-    value: "10+",
-    label: "Years in product",
-    detail: "Leading strategy, delivery, and iteration across consumer-scale experiences.",
+    value: "100K+",
+    label: "Learners impacted",
+    detail:
+      "Built and improved learning experiences used by 100,000+ learners across engagement, personalization, and adaptive learning journeys.",
   },
   {
-    value: "3",
-    label: "Sectors",
-    detail: "EdTech, Gaming, and Consumer Technology — distinct users, shared growth problems.",
+    value: "18–25%",
+    label: "Completion uplift",
+    detail:
+      "Improved assignment completion by approximately 18–25% through an adaptive assignment experience designed around learner behavior.",
   },
   {
-    value: "7",
-    label: "Core strengths",
-    detail: "Strategy, growth, AI products, personalization, engagement, retention, experimentation.",
+    value: "12% → 25%",
+    label: "Day-7 retention",
+    detail:
+      "Improved Day-7 retention from 12% to 25% through an end-to-end redesign of the gaming onboarding funnel.",
   },
   {
-    value: "End-to-end",
-    label: "How I operate",
-    detail: "From problem framing and bets through launch, learning loops, and compounding retention.",
+    value: "12–15%",
+    label: "DAU growth",
+    detail:
+      "Increased daily active users by approximately 12–15% through quiz and gamification experiences.",
   },
 ] as const;
 

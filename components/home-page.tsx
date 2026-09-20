@@ -9,14 +9,16 @@ import {
   hero,
   philosophy,
   profile,
-  signals,
 } from "@/content/portfolio";
+import { AboutSection } from "@/components/about-section";
+import { MetricsGrid } from "@/components/metrics-grid";
 
 export function HomePage() {
   return (
     <>
       <Hero />
-      <Impact />
+      <AboutSection />
+      <MetricsGrid />
       <Expertise />
       <Work />
       <Experience />
@@ -91,36 +93,6 @@ function Hero() {
             </div>
           </dl>
         </aside>
-      </Container>
-    </section>
-  );
-}
-
-function Impact() {
-  return (
-    <section
-      id="impact"
-      aria-labelledby="impact-heading"
-      className="scroll-mt-24 border-b border-line py-20 lg:py-24"
-    >
-      <Container>
-        <SectionHeading
-          id="impact-heading"
-          eyebrow="Selected signals"
-          title="A decade of product work, distilled."
-          description="These are the facts of the practice — not vanity metrics. Named outcomes belong with the case studies still to come."
-        />
-        <ul className="mt-12 grid gap-px overflow-hidden border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-          {signals.map((item) => (
-            <li key={item.label} className="bg-background p-7">
-              <p className="font-serif text-3xl tracking-tight text-ink sm:text-4xl">
-                {item.value}
-              </p>
-              <p className="mt-3 text-sm font-medium text-ink">{item.label}</p>
-              <p className="mt-2 text-sm leading-6 text-muted">{item.detail}</p>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );
