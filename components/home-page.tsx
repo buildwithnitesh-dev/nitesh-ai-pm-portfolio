@@ -32,7 +32,7 @@ function Work() {
   return <section id="work" className="scroll-mt-24 border-b border-line py-20 lg:py-24"><Container><SectionHeading eyebrow="Selected work" title="Proof through product decisions." description="A mix of professional outcomes and an independent AI product build. Each case study separates verified results from product reasoning."/>
     <ol className="mt-14 divide-y divide-line border-y border-line">{caseStudies.map(s=><li key={s.index} className="grid gap-6 py-10 lg:grid-cols-[5rem_1fr_10rem] lg:gap-10">
       <p className="font-serif text-2xl text-accent">{s.index}</p><div><p className="text-xs tracking-[0.18em] text-muted uppercase">{s.domain}</p><h3 className="mt-2 font-serif text-2xl leading-snug text-ink sm:text-3xl"><Link href={s.href} className="hover:text-accent">{s.title} ↗</Link></h3><p className="mt-4 max-w-2xl text-base leading-7 text-muted">{s.summary}</p></div>
-      <ul className="flex flex-wrap content-start gap-2 lg:justify-end">{s.tags.map(t=><li key={t} className="h-8 rounded-full border border-line px-3 text-xs leading-8 text-muted">{t}</li>)}</ul>
+      <div className="flex flex-col items-start gap-3 lg:items-end"><p className="text-xs tracking-[0.18em] text-muted uppercase">Outcome</p><p className="font-serif text-xl text-ink">{s.index === "01" ? "18–25% completion uplift" : s.index === "02" ? "12% → 25% Day-7 retention" : "Prototype · no real-user results"}</p><ul className="flex flex-wrap gap-2 lg:justify-end">{s.tags.map(t=><li key={t} className="h-8 rounded-full border border-line px-3 text-xs leading-8 text-muted">{t}</li>)}</ul></div>
     </li>)}</ol>
   </Container></section>;
 }

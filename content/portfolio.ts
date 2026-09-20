@@ -89,7 +89,7 @@ export const caseStudies = [
     title: "Onboarding Funnel Redesign",
     summary:
       "End-to-end onboarding work that improved Day-7 retention from 12% to 25%, using funnel analysis, experimentation, and behavioral segmentation.",
-    href: "#metrics",
+    href: "/work/onboarding-funnel-redesign",
     tags: ["Growth", "Activation", "Experimentation"],
   },
   {
