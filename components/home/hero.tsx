@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceMark, button } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
+import { ResumeCta } from "@/components/resume-cta";
 import { contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
@@ -18,6 +19,12 @@ export function Hero() {
             <a href={hero.primaryCta.href} className={`group ${button.primary}`}>{hero.primaryCta.label} <Arrow /></a>
             <a href={hero.secondaryCta.href} className={button.secondary}>{hero.secondaryCta.label}</a>
           </div>
+          <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+            <ResumeCta className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent" />
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
+              LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
+            </a>
+          </p>
         </div>
         <GlanceCard />
       </Container>
@@ -55,7 +62,7 @@ function GlanceCard() {
       <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
         <div>
           <p className="text-sm font-medium text-ink">{profile.name}</p>
-          <p className="text-xs text-muted">{profile.experience} · EdTech · Gaming · Consumer</p>
+          <p className="text-xs text-muted">Senior PM · most recently Edfora · {profile.experience}</p>
         </div>
         <a href="#contact" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs whitespace-nowrap text-accent transition-colors hover:bg-accent-tint">
           <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
@@ -76,11 +83,11 @@ function GlanceCard() {
 
       <dl className="grid grid-cols-2 border-t border-line">
         <div className="border-r border-line px-6 py-4">
-          <dt className="text-xs text-muted">Assignment completion</dt>
+          <dt className="text-xs text-muted">Assignment completion · Edfora</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">+18–25%</dd>
         </div>
         <div className="px-6 py-4">
-          <dt className="text-xs text-muted">Learners impacted</dt>
+          <dt className="text-xs text-muted">Learners reached · Edfora</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">100K+</dd>
         </div>
       </dl>

@@ -16,6 +16,8 @@ export function AdaptiveAssignmentCaseStudy() {
         focus: c.focus,
         outcome: "+18–25% assignment completion",
         evidence: "verified",
+        role: c.role,
+        company: "Edfora",
         note: `${c.scale}. ${c.confidentiality}`,
       }}
       tldr={c.tldr}
@@ -123,6 +125,7 @@ function OutcomeTile() {
             <span className="text-muted">Progression through the journey · engagement with assignments · behavioral patterns</span>
           </li>
         </ol>
+        <p className="mt-4 grid grid-cols-[5.5rem_1fr] gap-3 text-sm"><span className="font-mono text-xs text-muted uppercase">Also</span><span className="text-ink">Practice drop-offs reduced</span></p>
         <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">One outcome decides success; supporting signals explain why it moved, so the team learns rather than just celebrates.</p>
       </div>
     </div>

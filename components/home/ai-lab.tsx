@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
-import { Arrow, EvidenceTag, SectionHeading, button } from "@/components/ui";
+import { Arrow, EvidenceMark, EvidenceTag, SectionHeading, button } from "@/components/ui";
 import { LoopDiagram } from "@/components/viz/loop-diagram";
 import { aiCapabilities, aiLoop } from "@/content/portfolio";
 
@@ -19,9 +19,25 @@ export function AiLab() {
               description="This loop is the product. The model is one step inside it; evaluation and human control are what make it shippable."
             />
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="/work/ai-learner-diagnostic" className={`group ${button.onDark}`}>View AI product <Arrow /></Link>
+              <Link href="/work/ai-learner-diagnostic" className={`group ${button.onDark}`}>View the AI prototype <Arrow /></Link>
               <EvidenceTag kind="prototype" tone="dark" />
             </div>
+            {/* Professional AI work and the independent prototype are kept visibly separate. */}
+            <dl className="mt-10 grid gap-px overflow-hidden rounded-xl bg-white/10 sm:grid-cols-2">
+              <div className="bg-ink-raised p-5">
+                <dt className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-panel/70 uppercase"><EvidenceMark kind="verified" tone="dark" />Professional · Edfora</dt>
+                <dd className="mt-2 text-sm leading-6 text-panel/85">
+                  The Adaptive Assignment Engine used an LLM API to adjust question difficulty from student performance history.{" "}
+                  <Link href="/work/adaptive-assignment-engine" className="text-panel underline decoration-white/30 underline-offset-4 hover:decoration-accent-soft">Case 01</Link>
+                </dd>
+              </div>
+              <div className="bg-ink-raised p-5">
+                <dt className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-panel/70 uppercase"><EvidenceMark kind="prototype" tone="dark" />Independent · portfolio project</dt>
+                <dd className="mt-2 text-sm leading-6 text-panel/85">
+                  The AI Learner Diagnostic: a self-built prototype of this loop — no real users, no production results.
+                </dd>
+              </div>
+            </dl>
           </div>
           <LoopDiagram steps={aiLoop} tone="dark" label="The AI product loop: assess, diagnose, explain, recommend, practice, evaluate, adapt" />
         </div>

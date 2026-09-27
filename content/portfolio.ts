@@ -31,7 +31,7 @@ export const hero = {
   eyebrow: "Senior Product Manager  ·  AI Product Manager",
   headline: "I build products that earn the next session.",
   lede:
-    "10+ years across EdTech, Gaming, and Consumer Technology. I connect product strategy, growth, personalization, and AI with measurable product outcomes.",
+    "10+ years across EdTech, Gaming, and Consumer Technology — from Android engineering to senior product management. I work on growth, personalization, experimentation, and AI-led product experiences, judged by measurable outcomes.",
   primaryCta: { href: "#work", label: "Explore selected work" },
   secondaryCta: { href: "#contact", label: "Talk about a product problem" },
 };
@@ -49,7 +49,7 @@ export const about = {
   body:
     "I work across strategy, discovery, UX, experimentation, and growth. My strongest work sits where a messy user problem becomes a measurable product system — with clear trade-offs, instrumentation, and a reason for every feature.",
   facts: [
-    ["Experience", "10+ years in product"],
+    ["Experience", "10+ years in technology · product management since 2019"],
     ["Domains", "EdTech · Gaming · Consumer Technology"],
     ["Scale", "100K+ learners impacted"],
     ["Looking for", "Senior / Principal PM — Growth, Consumer, AI-led experiences"],
@@ -72,27 +72,27 @@ export type Metric = {
 };
 
 export const metrics: readonly Metric[] = [
-  { id: "learners", value: "100K+", label: "Learners impacted", detail: "Across learning, personalization, and engagement experiences.", areas: ["Learning"], precision: "Approximate" },
-  { id: "completion", value: "18–25%", label: "Assignment completion uplift", detail: "Adaptive assignment experience designed around learner behavior.", areas: ["Learning"], precision: "Range", chart: { low: 18, high: 25, direction: "up" } },
-  { id: "d7", value: "12% → 25%", label: "Day-7 retention", detail: "End-to-end redesign of a gaming onboarding funnel.", areas: ["Retention"], precision: "Exact" },
-  { id: "dau", value: "12–15%", label: "DAU growth", detail: "Quiz and gamification experiences.", areas: ["Engagement"], precision: "Range", chart: { low: 12, high: 15, direction: "up" } },
-  { id: "session", value: "~15%", label: "Session time", detail: "Engagement and personalization improvements.", areas: ["Engagement"], precision: "Approximate", chart: { low: 15, high: 15, direction: "up" } },
-  { id: "student-retention", value: "8–12%", label: "Student retention", detail: "Faculty engagement dashboards.", areas: ["Retention", "Learning"], precision: "Range", chart: { low: 8, high: 12, direction: "up" } },
-  { id: "gmv", value: "~10% WoW", label: "GMV growth", detail: "A/B testing and user segmentation. A weekly rate, so it is not plotted against one-time uplifts.", areas: ["Monetization"], precision: "Approximate" },
-  { id: "bonus", value: "~20%", label: "Bonus spend reduction", detail: "Targeted incentives while maintaining retention.", areas: ["Monetization", "Retention"], precision: "Approximate", chart: { low: 20, high: 20, direction: "down" } },
+  { id: "learners", value: "100K+", label: "Learners impacted", detail: "Reach of Edfora’s broader learning and engagement work — not a single feature.", areas: ["Learning"], precision: "Approximate" },
+  { id: "completion", value: "18–25%", label: "Assignment completion uplift", detail: "Adaptive Assignment Engine at Edfora; practice drop-offs also reduced.", areas: ["Learning"], precision: "Range", chart: { low: 18, high: 25, direction: "up" } },
+  { id: "d7", value: "12% → 25%", label: "Day-7 retention", detail: "Redesign of the first 60 seconds of onboarding at Witzeal Technologies.", areas: ["Retention"], precision: "Exact" },
+  { id: "dau", value: "12–15%", label: "DAU growth", detail: "Quiz and gamification features at Edfora.", areas: ["Engagement"], precision: "Range", chart: { low: 12, high: 15, direction: "up" } },
+  { id: "session", value: "~15%", label: "Average session time", detail: "Quiz and gamification features at Edfora.", areas: ["Engagement"], precision: "Approximate", chart: { low: 15, high: 15, direction: "up" } },
+  { id: "student-retention", value: "8–12%", label: "Student retention", detail: "Improved following engagement dashboards at Edfora — the dashboards contributed; they were not the only factor.", areas: ["Retention", "Learning"], precision: "Range", chart: { low: 8, high: 12, direction: "up" } },
+  { id: "gmv", value: "~10% WoW", label: "GMV growth", detail: "Experimentation roadmap across pricing and reward loops, with hypothesis-led A/B tests, at Witzeal Technologies. A weekly rate, so it is not plotted against one-time uplifts.", areas: ["Monetization"], precision: "Approximate" },
+  { id: "bonus", value: "~20%", label: "Bonus spend reduction", detail: "Bonus and reward allocation rebuilt around expected ROI per user segment at Witzeal Technologies; retention held steady.", areas: ["Monetization", "Retention"], precision: "Approximate", chart: { low: 20, high: 20, direction: "down" } },
 ];
 
-export const retentionHeadline = { before: 12, after: 25, label: "Day-7 retention", context: "Gaming onboarding funnel redesign" };
+export const retentionHeadline = { before: 12, after: 25, label: "Day-7 retention", context: "Witzeal · first-60-seconds onboarding redesign" };
 
 export const caseStudies = [
   {
     index: "01",
     slug: "adaptive-assignment-engine",
     short: "Adaptive Assignments",
-    domain: "EdTech · Professional experience",
+    domain: "EdTech · Edfora · Senior Product Manager",
     title: "Adaptive Assignment Engine",
     summary:
-      "Redesigned assignment progression around learner behavior and personalization, improving assignment completion by approximately 18–25%.",
+      "Made assignment progression adapt to each learner — an LLM API adjusted question difficulty from student performance history — improving assignment completion by approximately 18–25% and reducing practice drop-offs.",
     href: "/work/adaptive-assignment-engine",
     tags: ["Personalization", "Learning", "Retention"],
     outcome: "18–25% completion uplift",
@@ -104,10 +104,10 @@ export const caseStudies = [
     index: "02",
     slug: "onboarding-funnel-redesign",
     short: "Onboarding Funnel",
-    domain: "Gaming · Professional experience",
+    domain: "Gaming · Witzeal Technologies · Product Manager",
     title: "Onboarding Funnel Redesign",
     summary:
-      "End-to-end onboarding work that improved Day-7 retention from 12% to 25%, using funnel analysis, experimentation, and behavioral segmentation.",
+      "Redesigned the first 60 seconds of onboarding, improving Day-7 retention from 12% to 25% — with experimentation used to test changes rather than opinion.",
     href: "/work/onboarding-funnel-redesign",
     tags: ["Growth", "Activation", "Experimentation"],
     outcome: "12% → 25% Day-7 retention",
@@ -125,7 +125,7 @@ export const caseStudies = [
       "A self-built AI PM portfolio product: diagnose skill gaps, generate a learning path, evaluate outputs, and design the human-in-the-loop experience.",
     href: "/work/ai-learner-diagnostic",
     tags: ["LLMs", "Evaluation", "Product Design"],
-    outcome: "Working prototype · no real-user results claimed",
+    outcome: "Independent prototype · deterministic demo, no real-user results",
     evidence: "prototype",
     inside: ["Playable prototype", "System map", "Evaluation rubric"],
     readTime: "8 min",
@@ -164,9 +164,11 @@ export const capabilities: readonly Capability[] = [
     title: "AI Product",
     practice: "Start with the decision or workflow that should change, then choose model, data, and UX — with evaluation and human override designed in before scale.",
     buildsOn: ["personalization", "consumer-ux"],
-    cases: [{ slug: "ai-learner-diagnostic", role: "primary", note: "Diagnostic loop, evaluation rubric, guardrails, and educator override — an independent prototype." }],
+    cases: [
+      { slug: "ai-learner-diagnostic", role: "primary", note: "Diagnostic loop, evaluation rubric, guardrails, and educator override — an independent prototype." },
+      { slug: "adaptive-assignment-engine", role: "supporting", note: "Professional: an LLM API adjusted question difficulty from student performance history (Edfora)." },
+    ],
     metrics: [],
-    context: "RAG, LLM evaluation, AI UX, guardrails, human-in-the-loop design.",
   },
   {
     id: "personalization",
@@ -177,7 +179,7 @@ export const capabilities: readonly Capability[] = [
       { slug: "adaptive-assignment-engine", role: "primary", note: "Adaptive decision points inside the assignment journey." },
       { slug: "ai-learner-diagnostic", role: "supporting", note: "Learning-path recommendation from diagnosed gaps." },
     ],
-    metrics: ["completion", "session"],
+    metrics: ["completion"],
   },
   {
     id: "consumer-ux",
@@ -196,8 +198,9 @@ export const capabilities: readonly Capability[] = [
     title: "Growth",
     practice: "Design activation, habit, retention, and experimentation as connected product loops.",
     buildsOn: [],
-    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "End-to-end onboarding funnel redesign." }],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "Redesign of the first 60 seconds of onboarding (Witzeal)." }],
     metrics: ["d7", "gmv", "bonus"],
+    context: "Owned lifecycle messaging across push, in-app, and email, using segmented cohorts rather than one generic blast (Witzeal).",
   },
   {
     id: "product-analytics",
@@ -209,6 +212,7 @@ export const capabilities: readonly Capability[] = [
       { slug: "adaptive-assignment-engine", role: "supporting", note: "One primary outcome, with supporting signals to explain movement." },
     ],
     metrics: ["student-retention"],
+    context: "Behavioral clustering used to redesign journeys by player segment (Baazi Games).",
   },
   {
     id: "experimentation",
@@ -217,6 +221,7 @@ export const capabilities: readonly Capability[] = [
     buildsOn: [],
     cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "A/B tests read by segment to explain why retention moved." }],
     metrics: ["gmv"],
+    context: "Ran 20+ A/B tests end-to-end (Baazi Games); built an experimentation roadmap across pricing and reward loops (Witzeal).",
   },
   {
     id: "gamification",
@@ -224,16 +229,117 @@ export const capabilities: readonly Capability[] = [
     practice: "Use quiz and game mechanics to give people a reason to come back — judged by daily engagement, not novelty.",
     buildsOn: [],
     cases: [],
-    metrics: ["dau"],
-    context: "Gamification and learner engagement in EdTech.",
+    metrics: ["dau", "session"],
+    context: "Quiz and gamification features at Edfora.",
   },
 ];
 
-export const experience = [
-  ["10+ years", "Product leadership across EdTech, Gaming, and Consumer Technology", "Framing problems, prioritizing bets, aligning design and engineering, and measuring outcomes after launch."],
-  ["EdTech", "Learning progress as a product outcome", "Adaptive learning, personalization, gamification, learner engagement, and faculty-facing product experiences."],
-  ["Gaming", "Retention and growth under competition", "Onboarding, session quality, experimentation, segmentation, incentives, and long-horizon retention."],
-  ["AI", "Building the next layer of product judgment", "RAG, LLM evaluation, AI UX, guardrails, human-in-the-loop design, and measurable AI product outcomes."],
+export type Role = {
+  company: string;
+  title: string;
+  period: string;
+  location: string;
+  /** The stage of the career this role represents. */
+  phase: "Engineering foundation" | "Program & release management" | "Product management" | "Senior product management";
+  summary: string;
+  /** For the product roles I owned end to end: scope and independent decisions. */
+  owned?: readonly string[];
+  decided?: readonly string[];
+  highlights: readonly string[];
+};
+
+/** Verified career timeline, most recent first. */
+export const career: readonly Role[] = [
+  {
+    company: "Edfora",
+    title: "Senior Product Manager",
+    period: "Jul 2023 – Jul 2026",
+    location: "Gurugram",
+    phase: "Senior product management",
+    summary: "Owned the end-to-end strategy, product roadmap, and delivery of the core digital learning and engagement ecosystem, across web and mobile.",
+    owned: [
+      "Product discovery and PRDs",
+      "UI/UX design collaboration",
+      "Sprint planning",
+      "Post-launch analytics: retention, DAU, feature adoption",
+    ],
+    decided: [
+      "Daily sprint prioritization and feature scoping",
+      "UI/UX interaction flows",
+      "A/B experiment design",
+      "Core engineering trade-offs",
+      "Breaking business goals into epics, user stories, and release milestones",
+    ],
+    highlights: [
+      "Adaptive Assignment Engine — an LLM API adjusted question difficulty from student performance history: assignment completion up ~18–25%, practice drop-offs reduced",
+      "Quiz and gamification: DAU up ~12–15%, average session time up ~15%",
+      "Engagement dashboards contributed to improved student retention (~8–12%)",
+      "The broader learning and engagement work reached 100K+ learners",
+    ],
+  },
+  {
+    company: "Witzeal Technologies",
+    title: "Product Manager",
+    period: "May 2022 – Mar 2023",
+    location: "Gurugram",
+    phase: "Product management",
+    summary: "Growth, onboarding, experimentation, and lifecycle for a gaming product.",
+    highlights: [
+      "Redesigned the first 60 seconds of onboarding: Day-7 retention from 12% to 25%",
+      "Built an experimentation roadmap across pricing and reward loops with hypothesis-led A/B tests: GMV growth reached ~10% week over week",
+      "Rebuilt bonus and reward allocation around expected ROI per user segment: bonus and discount spend down ~20%, retention held steady",
+      "Owned lifecycle messaging across push, in-app, and email, using segmented cohorts rather than one generic blast",
+    ],
+  },
+  {
+    company: "Baazi Games",
+    title: "Product Manager",
+    period: "Jun 2019 – May 2022",
+    location: "New Delhi",
+    phase: "Product management",
+    summary: "Experimentation, player segmentation, and fraud detection for a gaming product.",
+    highlights: [
+      "Ran 20+ A/B tests end-to-end: core funnel conversion up ~15%",
+      "Used behavioral clustering to redesign journeys by player segment: session duration up ~35%, retention up ~25%",
+      "Rules-based anomaly detection reduced fraud losses by ~18%",
+    ],
+  },
+  {
+    company: "PwC India",
+    title: "Program & Release Manager",
+    period: "Jan 2019 – Jun 2019",
+    location: "Gurgaon",
+    phase: "Program & release management",
+    summary: "Release and delivery management — the bridge from engineering into product.",
+    highlights: [
+      "Standardized release processes for a web application deployed to 150+ Fortune companies",
+      "Coordinated four distributed teams across development, QA, UAT, and deployment",
+      "Ran UX A/B tests that lifted client engagement by ~25%",
+      "Introduced basic Agile ceremonies to improve delivery predictability",
+    ],
+  },
+  {
+    company: "Direct Create",
+    title: "Android Developer",
+    period: "May 2014 – Dec 2018",
+    location: "Gurgaon",
+    phase: "Engineering foundation",
+    summary: "Built a B2B collaboration platform for the global handmade industry.",
+    highlights: [
+      "Real-time chat and file sharing using Firebase",
+      "Reduced crash rate by ~30%",
+      "Iterative UX fixes; maintained a 4.6+ Play Store rating",
+      "Implemented OAuth 2.0 authentication and encrypted local storage with SQLite",
+    ],
+  },
+];
+
+/** The progression the timeline shows, oldest first. */
+export const careerArc = [
+  { phase: "Engineering foundation", years: "2014–2018" },
+  { phase: "Program & release management", years: "2019" },
+  { phase: "Product management", years: "2019–2023" },
+  { phase: "Senior product management", years: "2023–2026" },
 ] as const;
 
 export const aiCapabilities = [
@@ -260,7 +366,12 @@ export const contact = {
   body:
     "I’m exploring Senior Product Manager and Principal Product Manager opportunities across Delhi NCR and, where relevant, Mumbai — especially Growth, Consumer Products, and AI-led experiences.",
   email: "buildwithnitesh@gmail.com",
-  linkedin: "https://www.linkedin.com/in/buildwithnitesh",
+  linkedin: "https://www.linkedin.com/in/buildwithnitesh/",
+  /**
+   * Set to a real file (e.g. "/Nitesh-Tiwari-Resume.pdf" placed in /public) to turn the
+   * résumé CTA into a download. Until then it is a request-by-email link — never a fake URL.
+   */
+  resumeUrl: null as string | null,
 };
 
 export const footer = {

@@ -1,6 +1,7 @@
 import { Container } from "@/components/container";
 import { Eyebrow, button } from "@/components/ui";
 import { CopyEmail } from "@/components/home/copy-email";
+import { ResumeCta } from "@/components/resume-cta";
 import { about, contact } from "@/content/portfolio";
 
 export function Contact() {
@@ -30,6 +31,7 @@ export function Contact() {
                 LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
               </a>
             </div>
+            <ResumeCta className={button.secondary} />
           </div>
         </div>
       </Container>

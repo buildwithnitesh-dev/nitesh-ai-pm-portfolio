@@ -23,7 +23,7 @@ export function Impact() {
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-line bg-line lg:grid-cols-[1.4fr_1fr]">
           <div className="bg-panel p-6 sm:p-9">
             <p className="text-xs tracking-[0.16em] text-muted uppercase">Headline outcome</p>
-            <p className="mt-3 max-w-md font-serif text-3xl leading-tight text-ink">Day-7 retention rose from 12% to 25% after an onboarding redesign.</p>
+            <p className="mt-3 max-w-md font-serif text-3xl leading-tight text-ink">Day-7 retention rose from 12% to 25% after I redesigned the first 60 seconds of onboarding at Witzeal.</p>
             <div className="mt-8">
               <BeforeAfter before={retentionHeadline.before} after={retentionHeadline.after} beforeLabel="Before" afterLabel="After redesign" caption={retentionHeadline.context} />
             </div>

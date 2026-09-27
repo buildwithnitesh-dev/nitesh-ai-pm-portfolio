@@ -90,7 +90,7 @@ export const graveyard: readonly { belief: string; lesson: string; evidence: Evi
   },
   {
     belief: "Incentives are the fastest retention lever.",
-    lesson: "Reduce friction before adding incentives, and target the incentives you keep. In separate documented work, targeted incentives reduced bonus spend by ~20% while maintaining retention.",
+    lesson: "Reduce friction before adding incentives, and target the incentives you keep. At Witzeal, rebuilding bonus allocation around expected ROI per user segment reduced bonus spend by ~20% while retention held steady.",
     evidence: { label: "Documented outcome", href: "/#metrics" },
   },
   {

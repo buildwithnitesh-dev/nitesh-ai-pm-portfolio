@@ -12,16 +12,17 @@ export const adaptiveAssignmentEngine = {
   slug: "adaptive-assignment-engine",
   title: "Adaptive Assignment Engine",
   subtitle: "Improving learning progress through personalization",
-  type: "Professional experience · EdTech",
+  type: "Edfora · EdTech · Professional experience",
+  role: "Senior Product Manager · Edfora · 2023–2026",
   outcome: "Approximately 18–25% improvement in assignment completion",
-  scale: "100K+ learners impacted across learning and engagement experiences",
+  scale: "Part of Edfora’s broader learning and engagement work, which reached 100K+ learners — the 100K+ figure is not specific to this engine",
   focus: ["Personalization", "Learning", "Retention"],
   confidentiality:
     "This case study focuses on product reasoning and outcomes. Proprietary implementation details, internal data, and confidential employer information are intentionally omitted.",
   tldr: {
     problem: "Learners dropped off when the next assignment felt too hard, too repetitive, or poorly timed — a fixed sequence treated every learner the same.",
-    approach: "Introduced adaptive decision points: read learner state, choose the next-best assignment, then feed progress back into the next decision.",
-    outcome: "Approximately 18–25% improvement in assignment completion across a 100K+ learner base.",
+    approach: "Introduced adaptive decision points: an LLM API adjusted question difficulty based on each student’s performance history, and progress fed back into the next decision.",
+    outcome: "Assignment completion improved by approximately 18–25%, and practice drop-offs reduced.",
   } satisfies Tldr,
   journey: [
     { step: "Receive", note: "An assignment arrives" },
@@ -107,6 +108,7 @@ export const adaptiveAssignmentEngine = {
           title: "An adaptive assignment layer",
           body: [
             "The experience introduced personalization into the assignment journey rather than treating it as a separate recommendation surface.",
+            "The engine used an LLM API to adjust question difficulty based on student performance history.",
             "The important product principle was restraint: adaptation should reduce friction and improve relevance without making learners wonder why the system changed their path.",
           ],
         },
@@ -122,7 +124,7 @@ export const adaptiveAssignmentEngine = {
           body: [
             "Primary outcome: assignment completion.",
             "Supporting signals: progression through the learning journey, engagement with assignments, and behavioral patterns that could explain movement in completion.",
-            "Verified outcome: approximately 18–25% improvement in assignment completion.",
+            "Verified outcome: approximately 18–25% improvement in assignment completion, with practice drop-offs reduced.",
           ],
         },
       ],
@@ -155,15 +157,16 @@ export const adaptiveAssignmentEngine = {
 export const onboardingFunnelRedesign = {
   slug: "onboarding-funnel-redesign",
   title: "Onboarding Funnel Redesign",
-  subtitle: "Improving early product value and Day-7 retention through funnel thinking, segmentation, and experimentation.",
-  type: "Gaming · Professional experience",
+  subtitle: "Redesigning the first 60 seconds of onboarding to improve early product value and Day-7 retention.",
+  type: "Witzeal Technologies · Gaming · Professional experience",
+  role: "Product Manager · Witzeal Technologies · 2022–2023",
   outcome: "12% → 25% Day-7 retention",
   focus: ["Growth", "Activation", "Experimentation"],
   confidentiality:
     "This case study focuses on product reasoning and the verified outcome. Proprietary implementation details, internal data, and confidential employer information are intentionally omitted.",
   tldr: {
     problem: "Most of the product’s value sat in the first few sessions, and new users were losing momentum before they reached it.",
-    approach: "Treated onboarding as one system of decisions, reduced friction before the first meaningful action, and tested changes with segmentation and A/B tests.",
+    approach: "Redesigned the first 60 seconds of onboarding as one system of decisions, reduced friction before the first meaningful action, and tested changes through experimentation.",
     outcome: "Day-7 retention improved from 12% to 25%.",
   } satisfies Tldr,
   journey: [
@@ -192,7 +195,7 @@ export const onboardingFunnelRedesign = {
       id: "decision",
       label: "Decision",
       sections: [
-        { eyebrow: "Strategy", title: "Reduce friction before adding more incentives", body: ["The redesign focused on the end-to-end onboarding journey and the moments that determined whether a new user reached meaningful product value. Experimentation was used to test changes rather than relying on opinion."] },
+        { eyebrow: "Strategy", title: "Reduce friction before adding more incentives", body: ["The redesign focused on the first 60 seconds of the onboarding experience — the moments that determined whether a new user reached meaningful product value. Experimentation was used to test changes rather than relying on opinion."] },
         { eyebrow: "Hypothesis", title: "A clearer first-session path should improve early retention", body: ["If the onboarding journey makes the first meaningful experience easier to reach and removes avoidable friction, then more users should return after the first week."] },
       ],
     },
@@ -225,7 +228,7 @@ export const aiLearnerDiagnostic = {
   title: "AI Learner Diagnostic",
   subtitle: "A self-built AI product for diagnosis → learning path → practice → evaluation",
   type: "Independent portfolio project",
-  status: "Working prototype · Evaluation-led AI product",
+  status: "Independent prototype · deterministic demo, no real-user results",
   focus: ["LLMs", "Evaluation", "Product Design"],
   tldr: {
     problem: "Diagnosing a learner’s gaps and choosing the next step is judgment-heavy work that teachers rarely have time to do for every learner.",

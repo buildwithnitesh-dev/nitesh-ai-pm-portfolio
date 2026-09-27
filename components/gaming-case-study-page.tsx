@@ -33,6 +33,8 @@ export function GamingCaseStudyPage() {
         focus: c.focus,
         outcome: c.outcome,
         evidence: "verified",
+        role: c.role,
+        company: "Witzeal Technologies",
         note: c.confidentiality,
       }}
       tldr={c.tldr}
@@ -84,7 +86,7 @@ const visuals = {
       </div>
       <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">12% → 25%</p>
       <div className="mt-8">
-        <BeforeAfter before={12} after={25} beforeLabel="Before" afterLabel="After redesign" caption="Share of new users returning on Day 7" />
+        <BeforeAfter before={12} after={25} beforeLabel="Before" afterLabel="After redesign" caption="Witzeal · first-60-seconds onboarding redesign" />
       </div>
     </div>
   ),
