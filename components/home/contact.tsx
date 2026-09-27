@@ -1,0 +1,30 @@
+import { Container } from "@/components/container";
+import { Eyebrow, button } from "@/components/ui";
+import { CopyEmail } from "@/components/home/copy-email";
+import { contact } from "@/content/portfolio";
+
+export function Contact() {
+  return (
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-24 py-20 lg:py-28">
+      <Container>
+        <div className="grid gap-12 rounded-2xl border border-line bg-panel px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:px-16">
+          <div>
+            <Eyebrow><span className="mr-3 text-subtle">07</span>{contact.eyebrow}</Eyebrow>
+            <h2 id="contact-title" className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">{contact.title}</h2>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-muted">{contact.body}</p>
+          </div>
+          <div className="grid gap-3">
+            {/* Many recruiters paste an address into an ATS rather than open a mail client — so both are first-class. */}
+            <CopyEmail email={contact.email} />
+            <div className="grid gap-3 sm:grid-cols-2">
+              <a href={`mailto:${contact.email}`} className={button.primary}>Email Nitesh</a>
+              <a href={contact.linkedin} target="_blank" rel="noreferrer" className={button.secondary}>
+                LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  );
+}
