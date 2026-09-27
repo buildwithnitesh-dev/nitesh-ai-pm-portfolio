@@ -5,7 +5,7 @@ import { DiagnosticDemo } from "@/components/diagnostic-demo";
 
 export function AiLearnerDiagnosticPage() {
   const c = aiLearnerDiagnostic;
-  return <main>
+  return <main id="main">
     <section className="border-b border-line"><Container className="py-16 lg:py-24"><Link href="/#work" className="text-sm text-muted hover:text-ink">← Back to selected work</Link>
       <p className="mt-12 text-xs font-medium tracking-[0.22em] text-accent uppercase">{c.type}</p><h1 className="mt-4 max-w-5xl font-serif text-5xl leading-[1.04] tracking-tight text-ink sm:text-6xl lg:text-7xl">{c.title}</h1>
       <p className="mt-6 max-w-3xl text-xl leading-8 text-muted">{c.subtitle}</p>
