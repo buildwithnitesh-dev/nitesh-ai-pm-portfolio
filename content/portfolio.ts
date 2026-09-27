@@ -17,13 +17,13 @@ export const seo = {
 };
 
 export const nav = [
-  { href: "#about", label: "About" },
-  { href: "#metrics", label: "Impact" },
-  { href: "#expertise", label: "Expertise" },
-  { href: "#work", label: "Work" },
-  { href: "#experience", label: "Experience" },
-  { href: "#ai", label: "AI Lab" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#about", label: "About" },
+  { href: "/#metrics", label: "Impact" },
+  { href: "/#expertise", label: "Expertise" },
+  { href: "/#work", label: "Work" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#ai", label: "AI Lab" },
+  { href: "/#contact", label: "Contact" },
 ] as const;
 
 export const hero = {

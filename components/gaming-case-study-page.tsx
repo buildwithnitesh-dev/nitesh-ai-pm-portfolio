@@ -12,7 +12,7 @@ const sections = [
 ] as const;
 
 export function GamingCaseStudyPage() {
-  return <main>
+  return <main id="main">
     <section className="border-b border-line"><Container className="py-16 lg:py-24">
       <Link href="/#work" className="text-sm text-muted hover:text-ink">← Back to selected work</Link>
       <p className="mt-12 text-xs font-medium tracking-[0.22em] text-accent uppercase">Gaming · Professional experience</p>
