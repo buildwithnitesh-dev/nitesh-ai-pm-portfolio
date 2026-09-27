@@ -13,7 +13,7 @@ export function AiLab() {
             <SectionHeading
               id="ai-title"
               tone="dark"
-              index="06"
+              index="05"
               eyebrow="AI product lab"
               title="I treat AI as a product system — not a feature checkbox."
               description="This loop is the product. The model is one step inside it; evaluation and human control are what make it shippable."

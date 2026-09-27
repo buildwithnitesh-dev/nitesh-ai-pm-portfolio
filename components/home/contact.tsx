@@ -1,7 +1,7 @@
 import { Container } from "@/components/container";
 import { Eyebrow, button } from "@/components/ui";
 import { CopyEmail } from "@/components/home/copy-email";
-import { contact } from "@/content/portfolio";
+import { about, contact } from "@/content/portfolio";
 
 export function Contact() {
   return (
@@ -12,6 +12,14 @@ export function Contact() {
             <Eyebrow><span className="mr-3 text-subtle">07</span>{contact.eyebrow}</Eyebrow>
             <h2 id="contact-title" className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">{contact.title}</h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-muted">{contact.body}</p>
+            <dl className="mt-8 grid max-w-2xl border-t border-line text-sm">
+              {about.facts.filter(([k]) => k !== "Scale").map(([k, v]) => (
+                <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-4 border-b border-line py-3">
+                  <dt className="text-muted">{k}</dt>
+                  <dd className="text-ink">{v}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
           <div className="grid gap-3">
             {/* Many recruiters paste an address into an ATS rather than open a mail client — so both are first-class. */}

@@ -68,7 +68,6 @@ export function BeforeAfter({
       {caption ? (
         <figcaption className={`${compact ? "mt-3" : "mt-5"} flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs text-muted`}>
           <span className="font-semibold text-ink">+{delta} pts</span>
-          <span>{after / before >= 2 ? "more than doubled" : `${Math.round((after / before - 1) * 100)}% relative`}</span>
           <span className={compact ? "basis-full" : "before:mr-3 before:content-['·']"}>{caption}</span>
         </figcaption>
       ) : null}

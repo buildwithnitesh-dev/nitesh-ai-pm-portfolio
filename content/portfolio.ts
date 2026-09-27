@@ -16,14 +16,14 @@ export const seo = {
     "Senior Product Manager and AI Product Manager with 10+ years across EdTech, Gaming, and Consumer Technology.",
 };
 
-/** Ordered to match the page: proof first, biography second. */
+/** Ordered to match the page: proof first, then how I think, then biography. */
 export const nav = [
   { href: "/#metrics", id: "metrics", label: "Impact" },
   { href: "/#work", id: "work", label: "Work" },
-  { href: "/#about", id: "about", label: "About" },
-  { href: "/#expertise", id: "expertise", label: "Expertise" },
-  { href: "/#experience", id: "experience", label: "Experience" },
+  { href: "/#expertise", id: "expertise", label: "Capabilities" },
+  { href: "/#about", id: "about", label: "Thinking" },
   { href: "/#ai", id: "ai", label: "AI Lab" },
+  { href: "/#experience", id: "experience", label: "Experience" },
   { href: "/#contact", id: "contact", label: "Contact" },
 ] as const;
 
@@ -56,13 +56,6 @@ export const about = {
     ["Location", "Delhi NCR · Mumbai where relevant"],
   ],
 };
-
-/** Principles lifted from the case studies, so each one links back to where it was earned. */
-export const principles = [
-  { quote: "Optimize the journey, not just the feature.", source: "Adaptive Assignment Engine", href: "/work/adaptive-assignment-engine#reflection" },
-  { quote: "Retention is won before the retention metric.", source: "Onboarding Funnel Redesign", href: "/work/onboarding-funnel-redesign#reflection" },
-  { quote: "Problem first, model second.", source: "AI product lab", href: "#ai" },
-] as const;
 
 export type MetricArea = "Retention" | "Engagement" | "Learning" | "Monetization";
 export const metricAreas: readonly MetricArea[] = ["Retention", "Engagement", "Learning", "Monetization"];
@@ -141,17 +134,99 @@ export const caseStudies = [
 
 export type CaseSlug = (typeof caseStudies)[number]["slug"];
 
+export type CapabilityId =
+  | "ai-product" | "personalization" | "consumer-ux" | "growth"
+  | "product-analytics" | "experimentation" | "gamification";
+
+export type Capability = {
+  id: CapabilityId;
+  title: string;
+  /** What I practice — the working method, in one sentence. */
+  practice: string;
+  /** Capabilities this one is built on (drawn as thin connecting lines). */
+  buildsOn: readonly CapabilityId[];
+  /** Case studies that demonstrate it; `note` says what in the case shows it. */
+  cases: readonly { slug: CaseSlug; role: "primary" | "supporting"; note: string }[];
+  /** Documented outcomes (ids in `metrics`) that demonstrate it. */
+  metrics: readonly string[];
+  /** Other documented experience, quoted from the Experience section. */
+  context?: string;
+};
+
 /**
- * Claims mapped to proof. "primary" = the case study is built around this skill;
- * "supporting" = the skill is visibly used but is not the headline.
+ * Demonstrated capabilities, not self-ratings: every entry points only at
+ * evidence that already exists on this site (a case study or a documented metric).
+ * Platform thinking is deliberately absent — nothing here documents it yet.
  */
-export const expertise: readonly { title: string; body: string; evidence: Partial<Record<CaseSlug, "primary" | "supporting">> }[] = [
-  { title: "Product strategy", body: "Frame the user, business problem, strategic choices, and sequence of bets.", evidence: { "adaptive-assignment-engine": "supporting", "onboarding-funnel-redesign": "supporting", "ai-learner-diagnostic": "primary" } },
-  { title: "Growth systems", body: "Design activation, habit, retention, and experimentation as connected product loops.", evidence: { "onboarding-funnel-redesign": "primary" } },
-  { title: "AI products", body: "Start with the decision or workflow that should change, then choose model, data, and UX.", evidence: { "ai-learner-diagnostic": "primary" } },
-  { title: "Personalization", body: "Use behavioral signals to make the next experience more relevant without creating unnecessary complexity.", evidence: { "adaptive-assignment-engine": "primary", "ai-learner-diagnostic": "supporting" } },
-  { title: "Experimentation", body: "Turn product opinions into hypotheses, tests, guardrails, and learning loops.", evidence: { "onboarding-funnel-redesign": "primary", "adaptive-assignment-engine": "supporting", "ai-learner-diagnostic": "supporting" } },
-  { title: "Product analytics", body: "Connect journeys and funnels to a small set of metrics that represent real user value.", evidence: { "onboarding-funnel-redesign": "primary", "adaptive-assignment-engine": "supporting" } },
+export const capabilities: readonly Capability[] = [
+  {
+    id: "ai-product",
+    title: "AI Product",
+    practice: "Start with the decision or workflow that should change, then choose model, data, and UX — with evaluation and human override designed in before scale.",
+    buildsOn: ["personalization", "consumer-ux"],
+    cases: [{ slug: "ai-learner-diagnostic", role: "primary", note: "Diagnostic loop, evaluation rubric, guardrails, and educator override — an independent prototype." }],
+    metrics: [],
+    context: "RAG, LLM evaluation, AI UX, guardrails, human-in-the-loop design.",
+  },
+  {
+    id: "personalization",
+    title: "Personalization",
+    practice: "Use behavioral signals to make the next experience more relevant without creating unnecessary complexity.",
+    buildsOn: ["product-analytics", "growth"],
+    cases: [
+      { slug: "adaptive-assignment-engine", role: "primary", note: "Adaptive decision points inside the assignment journey." },
+      { slug: "ai-learner-diagnostic", role: "supporting", note: "Learning-path recommendation from diagnosed gaps." },
+    ],
+    metrics: ["completion", "session"],
+  },
+  {
+    id: "consumer-ux",
+    title: "Consumer UX",
+    practice: "Design each step around the question the user is silently asking, so the next action is obvious.",
+    buildsOn: ["experimentation", "gamification"],
+    cases: [
+      { slug: "onboarding-funnel-redesign", role: "primary", note: "First-session journey redesigned around the first meaningful action." },
+      { slug: "adaptive-assignment-engine", role: "supporting", note: "Adaptation that changes the path without confusing the learner." },
+      { slug: "ai-learner-diagnostic", role: "supporting", note: "AI UX for uncertainty: evidence, confidence, override." },
+    ],
+    metrics: [],
+  },
+  {
+    id: "growth",
+    title: "Growth",
+    practice: "Design activation, habit, retention, and experimentation as connected product loops.",
+    buildsOn: [],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "End-to-end onboarding funnel redesign." }],
+    metrics: ["d7", "gmv", "bonus"],
+  },
+  {
+    id: "product-analytics",
+    title: "Product Analytics",
+    practice: "Connect journeys and funnels to a small set of metrics that represent real user value.",
+    buildsOn: [],
+    cases: [
+      { slug: "onboarding-funnel-redesign", role: "supporting", note: "Funnel analysis and behavioral segmentation to find where momentum was lost." },
+      { slug: "adaptive-assignment-engine", role: "supporting", note: "One primary outcome, with supporting signals to explain movement." },
+    ],
+    metrics: ["student-retention"],
+  },
+  {
+    id: "experimentation",
+    title: "Experimentation",
+    practice: "Turn product opinions into hypotheses, tests, guardrails, and learning loops.",
+    buildsOn: [],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "A/B tests read by segment to explain why retention moved." }],
+    metrics: ["gmv"],
+  },
+  {
+    id: "gamification",
+    title: "Gamification",
+    practice: "Use quiz and game mechanics to give people a reason to come back — judged by daily engagement, not novelty.",
+    buildsOn: [],
+    cases: [],
+    metrics: ["dau"],
+    context: "Gamification and learner engagement in EdTech.",
+  },
 ];
 
 export const experience = [

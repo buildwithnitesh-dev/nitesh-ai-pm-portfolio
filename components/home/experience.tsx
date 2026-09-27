@@ -7,7 +7,7 @@ export function Experience() {
   return (
     <section id="experience" aria-labelledby="experience-title" className="scroll-mt-24 border-b border-line py-20 lg:py-28">
       <Container>
-        <SectionHeading id="experience-title" index="05" eyebrow="Experience" title="A career shaped by three kinds of product problems." />
+        <SectionHeading id="experience-title" index="06" eyebrow="Experience" title="A career shaped by three kinds of product problems." />
         <ol className="relative mt-14 ml-1.5 border-l border-line-strong">
           {experience.map(([period, title, body], i) => {
             const current = i === experience.length - 1;

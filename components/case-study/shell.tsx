@@ -170,12 +170,12 @@ function NextCase({ slug }: { slug: CaseSlug }) {
  * next to the paragraph they explain rather than in a gallery at the end.
  */
 export function ChapterList({
-  chapters, after = {}, measure,
-}: { chapters: readonly ChapterData[]; after?: Record<string, React.ReactNode>; measure: string }) {
+  chapters, after = {}, measure, start = 1,
+}: { chapters: readonly ChapterData[]; after?: Record<string, React.ReactNode>; measure: string; start?: number }) {
   return (
     <>
       {chapters.map((c, i) => (
-        <Chapter key={c.id} id={c.id} index={i + 1} label={c.label}>
+        <Chapter key={c.id} id={c.id} index={start + i} label={c.label}>
           {c.sections.map((s) => (
             <div key={s.title} className="grid gap-8">
               {s.eyebrow === "Hypothesis" ? (

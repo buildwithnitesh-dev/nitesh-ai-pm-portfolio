@@ -23,6 +23,11 @@
   --data-after: #1f5a50;
   --data-muted: #857d71;
   --data-track: #ebe5d9;
+
+  /* Capability map (dark surface only): restrained accents for structure vs. evidence. */
+  --ink-raised: #151514;
+  --cap-cyan: #8fd3de;
+  --cap-violet: #b8adf2;
 }
 
 @theme inline {
@@ -41,6 +46,9 @@
   --color-data-after: var(--data-after);
   --color-data-muted: var(--data-muted);
   --color-data-track: var(--data-track);
+  --color-ink-raised: var(--ink-raised);
+  --color-cap-cyan: var(--cap-cyan);
+  --color-cap-violet: var(--cap-violet);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
