@@ -33,7 +33,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <Container className="pb-8 lg:pb-10">
+      <Container className="pb-6 lg:pb-8">
         <nav aria-label="Choose your reading depth">
           <p className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Short on time? Choose your depth</p>
           <ol className="mt-4 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">

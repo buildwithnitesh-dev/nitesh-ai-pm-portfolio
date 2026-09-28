@@ -6,7 +6,7 @@ import { retentionHeadline } from "@/content/portfolio";
 
 export function Impact() {
   return (
-    <section id="metrics" aria-labelledby="metrics-title" className="scroll-mt-24 border-b border-line pt-14 pb-10 lg:pt-20 lg:pb-14">
+    <section id="metrics" aria-labelledby="metrics-title" className="scroll-mt-24 border-b border-line pt-11 pb-7 lg:pt-15 lg:pb-10">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeading
@@ -32,13 +32,13 @@ export function Impact() {
             <div>
               <p className="text-xs tracking-[0.16em] text-muted uppercase">Scale</p>
               <p className="mt-3 text-6xl font-semibold tracking-tight text-ink">100K+</p>
-              <p className="mt-2 text-sm text-ink">Learners impacted</p>
-              <p className="mt-1 text-sm leading-6 text-muted">Across learning, personalization, and engagement experiences.</p>
+              <p className="mt-2 text-sm text-ink">Learners reached</p>
+              <p className="mt-1 text-sm leading-6 text-muted">Across Edfora’s broader learning and engagement work — not a single feature.</p>
             </div>
             <div className="border-t border-line pt-5">
               <p className="text-xs tracking-[0.16em] text-muted uppercase">Growth</p>
               <p className="mt-2 text-3xl font-semibold tracking-tight text-ink">~10% <span className="text-base font-normal text-muted">week over week</span></p>
-              <p className="mt-1 text-sm leading-6 text-muted">GMV growth from A/B testing and user segmentation.</p>
+              <p className="mt-1 text-sm leading-6 text-muted">GMV growth at Witzeal, from an experimentation roadmap of hypothesis-led A/B tests across pricing and reward loops.</p>
             </div>
           </div>
         </div>
