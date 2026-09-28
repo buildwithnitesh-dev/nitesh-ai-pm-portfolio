@@ -367,11 +367,8 @@ export const contact = {
     "I’m exploring Senior Product Manager and Principal Product Manager opportunities across Delhi NCR and, where relevant, Mumbai — especially Growth, Consumer Products, and AI-led experiences.",
   email: "buildwithnitesh@gmail.com",
   linkedin: "https://www.linkedin.com/in/buildwithnitesh/",
-  /**
-   * Set to a real file (e.g. "/Nitesh-Tiwari-Resume.pdf" placed in /public) to turn the
-   * résumé CTA into a download. Until then it is a request-by-email link — never a fake URL.
-   */
-  resumeUrl: null as string | null,
+  /** The résumé PDF, served from /public. */
+  resumeUrl: "/Nitesh_Product_Manager_Resume.pdf",
 };
 
 export const footer = {
