@@ -60,7 +60,7 @@ export function LoopDiagram({
                   onClick={() => setActive(i)}
                   className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs whitespace-nowrap transition-colors duration-200 ${
                     dark
-                      ? on ? "border-accent-soft bg-accent-soft text-ink" : "border-white/20 bg-ink text-panel/75 hover:border-white/50"
+                      ? on ? "border-accent-soft bg-accent-soft text-ink" : "border-white/20 bg-dark text-panel/75 hover:border-white/50"
                       : on ? "border-accent bg-accent text-panel" : "border-line-strong bg-panel text-muted hover:border-ink"
                   }`}
                 >

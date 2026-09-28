@@ -187,7 +187,7 @@ function NextCase({ slug }: { slug: CaseSlug }) {
   const next = caseStudies[(i + 1) % caseStudies.length];
   const prev = caseStudies[(i - 1 + caseStudies.length) % caseStudies.length];
   return (
-    <nav aria-label="More case studies" className="on-dark border-t border-line bg-ink text-panel">
+    <nav aria-label="More case studies" className="on-dark border-t border-line bg-dark text-panel">
       <Container className="grid gap-10 py-16 lg:grid-cols-[1fr_auto] lg:items-end">
         <Link href={next.href} className="group block">
           <p className="text-xs tracking-[0.18em] text-accent-soft/70 uppercase">Next case study · {next.index}</p>

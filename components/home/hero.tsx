@@ -3,6 +3,7 @@ import { Container } from "@/components/container";
 import { Arrow, EvidenceMark, button } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
 import { ResumeCta } from "@/components/resume-cta";
+import { ThinkingLoop } from "@/components/viz/thinking-loop";
 import { contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
@@ -26,7 +27,10 @@ export function Hero() {
             </a>
           </p>
         </div>
-        <GlanceCard />
+        <div>
+          <GlanceCard />
+          <ThinkingLoop />
+        </div>
       </Container>
 
       <Container className="pb-16 lg:pb-20">

@@ -6,28 +6,32 @@
  * the evidence: outcomes, decisions, and data.
  */
 :root {
-  --background: #f3efe6;
-  --foreground: #161513;
-  --muted: #5f5a53;
+  /* Warm editorial foundation; teal is reserved for state, connection, and highlights (~5–10%). */
+  --background: #f5f1e8;
+  --foreground: #111111;
+  --muted: #5f5b54;
   --subtle: #6f685e; /* tertiary text: ≥ 4.5:1 on background and panel */
-  --line: #ddd6c8;
-  --line-strong: #c4baa8;
-  --panel: #faf7f1;
-  --ink: #111110;
-  --accent: #1c4a44;
-  --accent-soft: #e7efe8;
-  --accent-tint: #d6e4dc;
+  --line: #d8d2c7;
+  --line-strong: #c3bbac;
+  --panel: #fbf9f4;
+  --ink: #111111;
+  --accent: #0f766e;
+  --accent-soft: #e3efea;
+  --accent-tint: #cce3dc;
 
-  /* Data marks — one hue, two validated shades (light end ≥ 2:1, de-emphasis gray ≥ 3:1 vs panel). */
-  --data-before: #86ada2;
-  --data-after: #1f5a50;
+  /* Dark editorial sections. */
+  --dark: #111513;
+  --ink-raised: #181d1a;
+
+  /* Data marks — one hue, two validated shades (light end ≥ 2:1 on background and panel). */
+  --data-before: #7cb3ab;
+  --data-after: #0f766e;
   --data-muted: #857d71;
-  --data-track: #ebe5d9;
+  --data-track: #ece6da;
 
-  /* Capability map (dark surface only): restrained accents for structure vs. evidence. */
-  --ink-raised: #151514;
-  --cap-cyan: #8fd3de;
-  --cap-violet: #b8adf2;
+  /* Capability map (dark surface only): teal for structure and selection, warm sand for evidence. */
+  --cap-structure: #5eafa3;
+  --cap-evidence: #cdbb94;
 }
 
 @theme inline {
@@ -46,9 +50,10 @@
   --color-data-after: var(--data-after);
   --color-data-muted: var(--data-muted);
   --color-data-track: var(--data-track);
+  --color-dark: var(--dark);
   --color-ink-raised: var(--ink-raised);
-  --color-cap-cyan: var(--cap-cyan);
-  --color-cap-violet: var(--cap-violet);
+  --color-cap-structure: var(--cap-structure);
+  --color-cap-evidence: var(--cap-evidence);
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
@@ -61,7 +66,7 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
 }
-::selection { background: var(--accent); color: #faf7f1; }
+::selection { background: var(--accent); color: #fbf9f4; }
 
 /* One focus language everywhere: visible and offset. In the base layer so a
    component can swap it for its own indicator (e.g. a whole-card ring). */

@@ -20,8 +20,8 @@ const capPos: Record<CapabilityId, { x: number; y: number }> = {
 
 type EvidenceId = CaseSlug | "outcomes";
 const evidencePos: Record<EvidenceId, { x: number; y: number }> = {
-  "adaptive-assignment-engine": { x: 12, y: 89 },
-  "onboarding-funnel-redesign": { x: 37, y: 89 },
+  "adaptive-assignment-engine": { x: 13, y: 89 },
+  "onboarding-funnel-redesign": { x: 38, y: 89 },
   "ai-learner-diagnostic": { x: 63, y: 89 },
   outcomes: { x: 88, y: 89 },
 };
@@ -59,7 +59,7 @@ export function CapabilityMap() {
       id="expertise"
       aria-labelledby="capabilities-title"
       onKeyDown={(e) => { if (e.key === "Escape" && selected) setSelected(null); }}
-      className="on-dark scroll-mt-24 border-b border-line bg-ink py-20 text-panel lg:py-28"
+      className="on-dark scroll-mt-24 border-b border-line bg-dark py-20 text-panel lg:py-28"
     >
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -72,13 +72,15 @@ export function CapabilityMap() {
             description="Not a self-rated skill list. Every capability connects to a case study or a documented outcome on this site; follow a line to check it."
           />
           <p className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/15 px-3 py-1.5 font-mono text-[11px] tracking-wide text-panel/80 lg:self-auto">
-            <span className="text-cap-cyan">Capability</span> → <span className="text-cap-violet">Evidence</span> → Case study
+            <span className="text-cap-structure">Capability</span> → <span className="text-cap-evidence">Evidence</span> → Case study
           </p>
         </div>
 
         {/* Wide screens: the map. */}
         <div className="mt-14 hidden items-start gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div className="relative rounded-2xl border border-white/10 bg-ink-raised p-8">
+            <div className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-4">
+            <ClaimRail />
             <div className="relative aspect-[16/11]" onMouseLeave={() => setHover(null)}>
               <svg aria-hidden viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible">
                 {/* Evidence edges: capability → case study / outcomes. */}
@@ -93,7 +95,7 @@ export function CapabilityMap() {
                         fill="none"
                         vectorEffect="non-scaling-stroke"
                         strokeWidth={on ? 1.5 : 1}
-                        className={`transition-[stroke,stroke-opacity] duration-300 ${on ? "stroke-cap-violet" : "stroke-white"}`}
+                        className={`transition-[stroke,stroke-opacity] duration-300 ${on ? "stroke-cap-evidence" : "stroke-white"}`}
                         strokeOpacity={on ? (supporting ? 0.55 : 0.9) : anyLit ? 0.03 : 0.07}
                       />
                     );
@@ -110,7 +112,7 @@ export function CapabilityMap() {
                         fill="none"
                         vectorEffect="non-scaling-stroke"
                         strokeWidth={on ? 1.5 : 1}
-                        className={`transition-[stroke,stroke-opacity] duration-300 ${on ? "stroke-cap-cyan" : "stroke-white"}`}
+                        className={`transition-[stroke,stroke-opacity] duration-300 ${on ? "stroke-cap-structure" : "stroke-white"}`}
                         strokeOpacity={on ? 0.85 : anyLit ? 0.08 : 0.22}
                       />
                     );
@@ -139,12 +141,12 @@ export function CapabilityMap() {
                           aria-hidden
                           className={`block h-3 w-3 rounded-full border transition-all duration-300 ${
                             primary || isSel
-                              ? "border-cap-cyan bg-cap-cyan shadow-[0_0_0_5px_rgba(143,211,222,0.12),0_0_22px_rgba(143,211,222,0.45)]"
+                              ? "border-cap-structure bg-cap-structure shadow-[0_0_0_5px_rgba(94,175,163,0.12),0_0_22px_rgba(94,175,163,0.45)]"
                               : lit
-                                ? "border-cap-cyan bg-ink shadow-[0_0_0_4px_rgba(143,211,222,0.08)]"
+                                ? "border-cap-structure bg-dark shadow-[0_0_0_4px_rgba(94,175,163,0.08)]"
                                 : anyLit
-                                  ? "border-white/25 bg-ink"
-                                  : "border-white/60 bg-ink group-hover:border-cap-cyan"
+                                  ? "border-white/25 bg-dark"
+                                  : "border-white/60 bg-dark group-hover:border-cap-structure"
                           }`}
                         />
                         <span className={`rounded bg-ink-raised px-1.5 text-sm whitespace-nowrap transition-colors duration-300 ${primary || isSel ? "text-panel" : lit ? "text-panel/90" : "text-panel/70 group-hover:text-panel"}`}>
@@ -157,8 +159,6 @@ export function CapabilityMap() {
               </ul>
 
               <div aria-hidden className="absolute inset-x-0 top-[74%] flex items-center gap-3">
-                <span className="h-px flex-1 bg-white/10" />
-                <span className="bg-ink-raised px-2 font-mono text-[10px] tracking-[0.18em] text-panel/60 uppercase">Evidence</span>
                 <span className="h-px flex-1 bg-white/10" />
               </div>
 
@@ -174,13 +174,13 @@ export function CapabilityMap() {
                         onMouseEnter={() => setHover({ kind: "ev", id: ev })}
                         onFocus={() => setHover({ kind: "ev", id: ev })}
                         onBlur={() => setHover(null)}
-                        className={`flex flex-col items-center gap-0.5 rounded-md border px-3 py-2 text-center text-xs leading-4 whitespace-nowrap transition-all duration-300 ${
+                        className={`flex w-[7rem] flex-col items-center gap-0.5 rounded-md border px-2 py-2 text-center text-xs leading-4 transition-all duration-300 ${
                           lit
-                            ? "border-cap-violet/70 bg-ink-raised text-panel shadow-[inset_0_0_0_1px_rgba(184,173,242,0.25),0_0_24px_rgba(184,173,242,0.18)]"
+                            ? "border-cap-evidence/70 bg-ink-raised text-panel shadow-[inset_0_0_0_1px_rgba(205,187,148,0.25),0_0_24px_rgba(205,187,148,0.18)]"
                             : "border-white/15 bg-ink-raised text-panel/75 hover:border-white/40 hover:text-panel"
                         }`}
                       >
-                        <span aria-hidden className={`font-mono text-[10px] ${lit ? "text-cap-violet" : "text-panel/60"}`}>{cs ? `Case ${cs.index}` : "Impact ↗"}</span>
+                        <span aria-hidden className={`font-mono text-[10px] ${lit ? "text-cap-evidence" : "text-panel/60"}`}>{cs ? `Case ${cs.index}` : "Impact ↗"}</span>
                         {cs ? cs.short : "Documented outcomes"}
                       </Link>
                     </li>
@@ -188,11 +188,12 @@ export function CapabilityMap() {
                 })}
               </ul>
             </div>
+            </div>
 
             <div className="mt-6 flex items-center justify-between gap-4 border-t border-white/10 pt-4 text-xs text-panel/70">
               <span className="flex items-center gap-5">
-                <span className="flex items-center gap-2"><span aria-hidden className="h-px w-5 bg-cap-cyan" />Built on</span>
-                <span className="flex items-center gap-2"><span aria-hidden className="h-px w-5 bg-cap-violet" />Evidenced by</span>
+                <span className="flex items-center gap-2"><span aria-hidden className="h-px w-5 bg-cap-structure" />Built on</span>
+                <span className="flex items-center gap-2"><span aria-hidden className="h-px w-5 bg-cap-evidence" />Evidenced by</span>
               </span>
               <span>Hover to preview · click to pin · Esc to reset</span>
             </div>
@@ -254,19 +255,48 @@ function evidenceSummary(c: Capability) {
   return parts.join(" · ");
 }
 
+/** A node on the detail panel's rail; sits on the vertical line at the step it marks. */
+function RailDot({ tone }: { tone: "claim" | "practice" | "evidence" | "case" }) {
+  const cls = {
+    claim: "bg-cap-structure border-cap-structure",
+    practice: "bg-ink-raised border-white/40",
+    evidence: "bg-cap-evidence border-cap-evidence",
+    case: "bg-ink-raised border-cap-evidence",
+  }[tone];
+  return <span aria-hidden className={`absolute top-[2px] -left-6 h-[11px] w-[11px] rounded-full border ${cls}`} />;
+}
+
+/** Editorial annotations beside the map: which band is the claim and which is the evidence. */
+function ClaimRail() {
+  return (
+    <div aria-hidden className="relative">
+      <div className="absolute top-[4%] bottom-[38%] left-0 w-full border-l border-cap-structure/50 pl-3">
+        <p className="font-mono text-[10px] tracking-[0.1em] whitespace-nowrap text-cap-structure uppercase">01 · Claim</p>
+        <p className="mt-1 text-[11px] leading-4 text-panel/65">Capabilities I say I have</p>
+      </div>
+      <div className="absolute top-[78%] bottom-[0%] left-0 w-full border-l border-cap-evidence/60 pl-3">
+        <p className="font-mono text-[10px] tracking-[0.1em] whitespace-nowrap text-cap-evidence uppercase">02 · Evidence</p>
+        <p className="mt-1 text-[11px] leading-4 text-panel/65">→ 03 · open the case study</p>
+      </div>
+    </div>
+  );
+}
+
 /** Capability → what I practice → evidence → relevant case studies. */
 function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: CapabilityId) => void }) {
   const ms = c.metrics.map((id) => metrics.find((m) => m.id === id)!).filter(Boolean);
   const related = [...c.buildsOn, ...capabilities.filter((x) => x.buildsOn.includes(c.id)).map((x) => x.id)];
   return (
-    <div className="fade-up">
-      <p className="font-mono text-[11px] tracking-[0.16em] text-cap-cyan uppercase">Capability</p>
+    <div className="fade-up relative pl-6">
+      {/* The chain, drawn: claim → practice → evidence → case study. */}
+      <span aria-hidden className="absolute top-2 bottom-2 left-[5px] w-px bg-white/15" />
+      <p className="relative font-mono text-[11px] tracking-[0.16em] text-cap-structure uppercase"><RailDot tone="claim" />01 · Claim</p>
       <h3 className="mt-2 font-serif text-3xl leading-tight">{c.title}</h3>
 
-      <p className="mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase">→ What I practice</p>
+      <p className="relative mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase"><RailDot tone="practice" />What I practice</p>
       <p className="mt-2 text-sm leading-6 text-panel/85">{c.practice}</p>
 
-      <p className="mt-6 font-mono text-[11px] tracking-[0.16em] text-cap-violet uppercase">→ Evidence</p>
+      <p className="relative mt-6 font-mono text-[11px] tracking-[0.16em] text-cap-evidence uppercase"><RailDot tone="evidence" />02 · Evidence</p>
       <ul className="mt-3 grid gap-3 text-sm">
         {c.cases.map((k) => {
           const cs = caseStudies.find((x) => x.slug === k.slug)!;
@@ -294,14 +324,14 @@ function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: Capabili
 
       {c.cases.length ? (
         <>
-          <p className="mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase">→ Relevant case studies</p>
+          <p className="relative mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase"><RailDot tone="case" />03 · Case study</p>
           <ul className="mt-3 flex flex-wrap gap-2">
             {c.cases.map((k) => {
               const cs = caseStudies.find((x) => x.slug === k.slug)!;
               return (
                 <li key={k.slug}>
-                  <Link href={cs.href} className="group inline-flex items-center gap-2 rounded-full border border-cap-violet/40 px-3 py-1.5 text-xs text-panel transition-colors hover:border-cap-violet hover:bg-cap-violet/10">
-                    <span className="font-mono text-cap-violet">{cs.index}</span>{cs.short}
+                  <Link href={cs.href} className="group inline-flex items-center gap-2 rounded-full border border-cap-evidence/40 px-3 py-1.5 text-xs text-panel transition-colors hover:border-cap-evidence hover:bg-cap-evidence/10">
+                    <span className="font-mono text-cap-evidence">{cs.index}</span>{cs.short}
                     <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
                   </Link>
                 </li>
@@ -319,7 +349,7 @@ function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: Capabili
           {related.map((r, i) => (
             <span key={r}>
               {i ? ", " : ""}
-              <button type="button" onClick={() => onPick(r)} className="text-panel underline decoration-white/30 underline-offset-4 hover:decoration-cap-cyan">{byId[r].title}</button>
+              <button type="button" onClick={() => onPick(r)} className="text-panel underline decoration-white/30 underline-offset-4 hover:decoration-cap-structure">{byId[r].title}</button>
             </span>
           ))}
         </p>
@@ -347,7 +377,7 @@ function MobileCapabilities() {
             <li key={c.id} className="relative pl-6">
               <span
                 aria-hidden
-                className={`absolute top-[22px] -left-[6.5px] h-3 w-3 rounded-full border transition-all duration-300 ${isOpen ? "border-cap-cyan bg-cap-cyan shadow-[0_0_18px_rgba(143,211,222,0.45)]" : "border-white/50 bg-ink"}`}
+                className={`absolute top-[22px] -left-[6.5px] h-3 w-3 rounded-full border transition-all duration-300 ${isOpen ? "border-cap-structure bg-cap-structure shadow-[0_0_18px_rgba(94,175,163,0.45)]" : "border-white/50 bg-dark"}`}
               />
               <button
                 type="button"

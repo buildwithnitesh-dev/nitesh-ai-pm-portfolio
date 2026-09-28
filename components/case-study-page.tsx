@@ -75,23 +75,46 @@ function FitBand() {
   );
 }
 
+/**
+ * The three-layer strategy as a flow. Layer 1 splits into the signal and the
+ * difficulty call, because that is where the documented LLM API sat.
+ */
 function Layers() {
-  const layers = [
-    ["Learner state", "What does behavior say about readiness right now?"],
-    ["Next-best assignment", "Which task moves this learner forward?"],
-    ["Feedback & progression", "Did it work — and what should change next time?"],
+  const steps = [
+    { name: "Learner signal", note: "What does behavior say about readiness right now?" },
+    { name: "Difficulty / need", note: "An LLM API adjusted question difficulty from student performance history.", fact: true },
+    { name: "Assignment", note: "Which task moves this learner forward?" },
+    { name: "Feedback", note: "Did it work — and what should change next time?" },
+  ];
+  const groups = [
+    { label: "Layer 1 · learner state", span: "sm:col-span-2" },
+    { label: "Layer 2 · decision", span: "" },
+    { label: "Layer 3 · progression", span: "" },
   ];
   return (
-    <ol aria-label="Three layers of the personalization system" className="grid gap-3 sm:grid-cols-3">
-      {layers.map(([t, q], i) => (
-        <li key={t} className="relative rounded-xl border border-line bg-panel p-5">
-          <p className="font-mono text-xs text-accent">Layer {i + 1}</p>
-          <p className="mt-2 font-serif text-xl text-ink">{t}</p>
-          <p className="mt-2 text-sm leading-6 text-muted">{q}</p>
-          {i < layers.length - 1 ? <span aria-hidden className="absolute top-1/2 -right-3 z-10 hidden -translate-y-1/2 text-subtle sm:block">→</span> : null}
-        </li>
-      ))}
-    </ol>
+    <figure aria-label="The adaptive loop: learner signal, difficulty, assignment, feedback" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <ol className="relative grid gap-5 sm:grid-cols-4 sm:gap-4">
+        {/* Hairline through the nodes (wide screens) or down the left (phones). */}
+        <span aria-hidden className="absolute top-2 bottom-2 left-[5px] w-px bg-line-strong sm:top-[5px] sm:right-[12.5%] sm:bottom-auto sm:left-[12.5%] sm:h-px sm:w-auto" />
+        {steps.map((st) => (
+          <li key={st.name} className="relative pl-6 sm:pl-0 sm:text-center">
+            <span aria-hidden className={`absolute top-0.5 left-0 block h-[11px] w-[11px] rounded-full sm:relative sm:top-0 sm:mx-auto ${st.fact ? "bg-accent ring-4 ring-accent-soft" : "border border-line-strong bg-panel"}`} />
+            <p className="font-mono text-[11px] tracking-[0.14em] text-ink uppercase sm:mt-3">{st.name}</p>
+            <p className="mt-1.5 text-sm leading-6 text-muted">{st.note}</p>
+            {st.fact ? <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-accent"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />Documented at Edfora</p> : null}
+          </li>
+        ))}
+      </ol>
+      <div aria-hidden className="mt-6 hidden grid-cols-4 gap-4 sm:grid">
+        {groups.map((g) => (
+          <p key={g.label} className={`border-t border-accent/40 pt-2 text-center font-mono text-[10px] tracking-[0.12em] text-muted uppercase ${g.span}`}>{g.label}</p>
+        ))}
+      </div>
+      <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
+        <span aria-hidden className="text-accent">↺</span>
+        Feedback becomes the next learner signal. Layers follow the case: learner state, next-best assignment decision, feedback and progression. Exact signals and thresholds are confidential.
+      </figcaption>
+    </figure>
   );
 }
 
