@@ -33,9 +33,9 @@ export function Thinking() {
   }
 
   return (
-    <section id="about" aria-labelledby="thinking-title" className="scroll-mt-24 border-b border-line py-20 lg:py-28">
+    <section id="about" aria-labelledby="thinking-title" className="scroll-mt-24 border-b border-line py-16 lg:py-22">
       <Container>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-20">
           <div>
             <Eyebrow><span className="mr-3 text-subtle">04</span>Product thinking</Eyebrow>
             <h2 id="thinking-title" className="mt-3 font-serif text-4xl leading-[1.06] tracking-tight text-ink sm:text-5xl">How I think about products.</h2>

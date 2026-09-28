@@ -9,7 +9,7 @@ import { contact, hero, profile, readingPaths, retentionHeadline } from "@/conte
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="border-b border-line">
-      <Container className="grid gap-14 pt-14 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-20">
+      <Container className="grid gap-14 pt-11.5 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-16">
         <div>
           <p className="text-xs font-medium tracking-[0.22em] text-accent uppercase">{hero.eyebrow}</p>
           <h1 id="hero-title" className="mt-5 max-w-4xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-[4.9rem]">
@@ -33,7 +33,7 @@ export function Hero() {
         </div>
       </Container>
 
-      <Container className="pb-16 lg:pb-20">
+      <Container className="pb-8 lg:pb-10">
         <nav aria-label="Choose your reading depth">
           <p className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Short on time? Choose your depth</p>
           <ol className="mt-4 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">

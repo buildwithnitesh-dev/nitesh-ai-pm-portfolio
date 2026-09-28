@@ -7,7 +7,7 @@ import { aiCapabilities, aiLoop } from "@/content/portfolio";
 
 export function AiLab() {
   return (
-    <section id="ai" aria-labelledby="ai-title" className="on-dark scroll-mt-24 border-b border-line bg-dark py-20 text-panel lg:py-28">
+    <section id="ai" aria-labelledby="ai-title" className="on-dark scroll-mt-24 border-b border-line bg-dark py-16 text-panel lg:py-22">
       <Container>
         <div className="grid gap-14 lg:grid-cols-[1fr_28rem] lg:items-center lg:gap-16">
           <div>
@@ -43,7 +43,7 @@ export function AiLab() {
           <LoopDiagram steps={aiLoop} tone="dark" label="The AI product loop: assess, diagnose, explain, recommend, practice, evaluate, adapt" />
         </div>
 
-        <div className="mt-16">
+        <div className="mt-12">
           <AiSystemFlow />
         </div>
 

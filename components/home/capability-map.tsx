@@ -59,7 +59,7 @@ export function CapabilityMap() {
       id="expertise"
       aria-labelledby="capabilities-title"
       onKeyDown={(e) => { if (e.key === "Escape" && selected) setSelected(null); }}
-      className="on-dark scroll-mt-24 border-b border-line bg-dark py-20 text-panel lg:py-28"
+      className="on-dark scroll-mt-24 border-b border-line bg-dark py-16 text-panel lg:py-22"
     >
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">

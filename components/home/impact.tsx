@@ -6,7 +6,7 @@ import { retentionHeadline } from "@/content/portfolio";
 
 export function Impact() {
   return (
-    <section id="metrics" aria-labelledby="metrics-title" className="scroll-mt-24 border-b border-line py-20 lg:py-28">
+    <section id="metrics" aria-labelledby="metrics-title" className="scroll-mt-24 border-b border-line pt-14 pb-10 lg:pt-20 lg:pb-14">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeading
@@ -43,7 +43,7 @@ export function Impact() {
           </div>
         </div>
 
-        <div className="mt-16">
+        <div className="mt-12">
           <UpliftChart />
         </div>
       </Container>

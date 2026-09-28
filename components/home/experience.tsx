@@ -9,7 +9,7 @@ import { career, careerArc } from "@/content/portfolio";
  */
 export function Experience() {
   return (
-    <section id="experience" aria-labelledby="experience-title" className="scroll-mt-24 border-b border-line py-20 lg:py-28">
+    <section id="experience" aria-labelledby="experience-title" className="scroll-mt-24 border-b border-line py-16 lg:py-22">
       <Container>
         <SectionHeading
           id="experience-title"
@@ -35,7 +35,7 @@ export function Experience() {
           {career.map((r, i) => {
             const latest = i === 0;
             return (
-              <li key={r.company} className="relative grid gap-3 pb-14 pl-8 last:pb-0 sm:grid-cols-[11rem_1fr] sm:gap-10 sm:pl-10">
+              <li key={r.company} className="relative grid gap-3 pb-12 pl-8 last:pb-0 sm:grid-cols-[11rem_1fr] sm:gap-10 sm:pl-10">
                 <span
                   aria-hidden
                   className={`absolute top-1 -left-[7px] h-3.5 w-3.5 rounded-full border-2 ${latest ? "border-accent bg-accent ring-4 ring-accent-soft" : "border-line-strong bg-background"}`}

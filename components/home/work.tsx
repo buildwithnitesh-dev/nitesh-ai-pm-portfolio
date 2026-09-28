@@ -6,7 +6,7 @@ import { caseStudies } from "@/content/portfolio";
 
 export function Work() {
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-24 border-b border-line py-20 lg:py-28">
+    <section id="work" aria-labelledby="work-title" className="scroll-mt-24 border-b border-line pt-14 pb-16 lg:pt-20 lg:pb-22">
       <Container>
         <SectionHeading
           id="work-title"

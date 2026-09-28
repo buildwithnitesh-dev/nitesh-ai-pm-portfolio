@@ -68,7 +68,7 @@ export function BeforeAfter({
       {caption ? (
         <figcaption className={`${compact ? "mt-3" : "mt-5"} flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs text-muted`}>
           <span className="font-semibold text-ink">+{delta} pts</span>
-          <span className={compact ? "basis-full" : "before:mr-3 before:content-['·']"}>{caption}</span>
+          <span className={compact ? "basis-full" : "basis-full sm:basis-auto sm:before:mr-3 sm:before:content-['·']"}>{caption}</span>
         </figcaption>
       ) : null}
     </figure>

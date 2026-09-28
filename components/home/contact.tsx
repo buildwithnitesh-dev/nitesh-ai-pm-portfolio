@@ -6,9 +6,9 @@ import { about, contact } from "@/content/portfolio";
 
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-24 py-20 lg:py-28">
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-24 py-16 lg:py-22">
       <Container>
-        <div className="grid gap-12 rounded-2xl border border-line bg-panel px-6 py-12 sm:px-12 sm:py-16 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:px-16">
+        <div className="grid gap-12 rounded-2xl border border-line bg-panel px-6 py-12 sm:px-12 sm:py-12 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:px-16">
           <div>
             <Eyebrow><span className="mr-3 text-subtle">07</span>{contact.eyebrow}</Eyebrow>
             <h2 id="contact-title" className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">{contact.title}</h2>
