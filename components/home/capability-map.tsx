@@ -272,7 +272,7 @@ function ClaimRail() {
     <div aria-hidden className="relative">
       <div className="absolute top-[4%] bottom-[38%] left-0 w-full border-l border-cap-structure/50 pl-3">
         <p className="font-mono text-[10px] tracking-[0.1em] whitespace-nowrap text-cap-structure uppercase">01 · Claim</p>
-        <p className="mt-1 text-[11px] leading-4 text-panel/65">Capabilities I say I have</p>
+        <p className="mt-1 text-[11px] leading-4 text-panel/65">Capabilities I bring</p>
       </div>
       <div className="absolute top-[78%] bottom-[0%] left-0 w-full border-l border-cap-evidence/60 pl-3">
         <p className="font-mono text-[10px] tracking-[0.1em] whitespace-nowrap text-cap-evidence uppercase">02 · Evidence</p>

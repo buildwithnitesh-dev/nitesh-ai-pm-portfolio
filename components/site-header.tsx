@@ -35,28 +35,31 @@ export function SiteHeader() {
         <Link href="/#top" onClick={() => setOpen(false)} className="font-serif text-lg tracking-tight text-ink transition-colors hover:text-accent">
           {profile.name}
         </Link>
-        <nav aria-label="Primary" className="hidden items-center gap-1 xl:flex">
-          {nav.map((item) => {
-            const current = active === item.id;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={current ? "location" : undefined}
-                className={`relative rounded-full px-3 py-2 text-sm transition-colors ${current ? "text-ink" : "text-muted hover:text-ink"}`}
-              >
-                {item.label}
-                <span
-                  aria-hidden
-                  className={`absolute inset-x-3 -bottom-[13px] h-[2px] origin-left bg-accent transition-transform duration-300 ${current ? "scale-x-100" : "scale-x-0"}`}
-                />
-              </Link>
-            );
-          })}
-        </nav>
-        <Link href="/#contact" className="hidden rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent xl:inline-flex">
-          Get in touch
-        </Link>
+        {/* Nav and CTA sit together on the right: 28px between items (px-3 + gap-1 + px-3), 34px before the CTA. */}
+        <div className="hidden items-center gap-[22px] xl:flex">
+          <nav aria-label="Primary" className="flex items-center gap-1">
+            {nav.map((item) => {
+              const current = active === item.id;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={current ? "location" : undefined}
+                  className={`relative rounded-full px-3 py-2 text-sm transition-colors ${current ? "text-ink" : "text-muted hover:text-ink"}`}
+                >
+                  {item.label}
+                  <span
+                    aria-hidden
+                    className={`absolute inset-x-3 -bottom-[13px] h-[2px] origin-left bg-accent transition-transform duration-300 ${current ? "scale-x-100" : "scale-x-0"}`}
+                  />
+                </Link>
+              );
+            })}
+          </nav>
+          <Link href="/#contact" className="inline-flex rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent">
+            Get in touch
+          </Link>
+        </div>
         <button
           ref={toggleRef}
           type="button"

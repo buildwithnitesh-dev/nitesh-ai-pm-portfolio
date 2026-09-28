@@ -14,7 +14,7 @@ const nodes: { name: string; edfora: Cell; prototype: Cell }[] = [
   },
   {
     name: "Diagnostic engine",
-    edfora: { text: "Not documented", kind: "none" },
+    edfora: { text: "Not part of documented experience", kind: "none" },
     prototype: { text: "Skill-gap diagnosis with an evidence trace", kind: "prototype" },
   },
   {
@@ -29,7 +29,7 @@ const nodes: { name: string; edfora: Cell; prototype: Cell }[] = [
   },
   {
     name: "Evaluation",
-    edfora: { text: "Not documented", kind: "none" },
+    edfora: { text: "Not part of documented experience", kind: "none" },
     prototype: { text: "Rubric designed — not yet run", kind: "designed" },
   },
 ];
