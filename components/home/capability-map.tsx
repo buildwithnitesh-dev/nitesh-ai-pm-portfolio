@@ -318,7 +318,7 @@ function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: Capabili
         {ms.map((m) => (
           <li key={m.id} className="border-l border-white/15 pl-3">
             <span className="font-semibold text-panel">{m.value}</span> <span className="text-panel/85">{m.label}</span>
-            <span className="ml-2 text-[11px] text-panel/60">Verified</span>
+            <span className="ml-2 text-[11px] text-panel/60">Documented</span>
             <span className="mt-0.5 block leading-5 text-panel/70">{m.detail.split(". ")[0].replace(/\.$/, "")}.</span>
           </li>
         ))}

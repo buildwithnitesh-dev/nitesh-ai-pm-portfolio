@@ -161,7 +161,7 @@ export const onboardingFunnelRedesign = {
   outcome: "12% → 25% Day-7 retention",
   focus: ["Growth", "Activation", "Experimentation"],
   confidentiality:
-    "This case study covers product reasoning and the verified outcome. Proprietary implementation details, internal data and confidential employer information are left out.",
+    "This case study covers product reasoning and the documented outcome. Proprietary implementation details, internal data and confidential employer information are left out.",
   tldr: {
     problem: "Day-7 retention was 12%, and most of the drop-off happened before a player’s second session. It looked like a retention problem. It was an activation problem.",
     approach: "Redesigned the first 60 seconds as a chain of decisions: less effort before the first moment of value, a clearer path to the first meaningful action, and changes tested and read by segment.",

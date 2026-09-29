@@ -64,7 +64,7 @@ export function Experience() {
                       ) : null}
                       {r.decided ? (
                         <div className="bg-panel p-4">
-                          <p className="text-[11px] tracking-[0.14em] text-muted uppercase">What I decided independently</p>
+                          <p className="text-[11px] tracking-[0.14em] text-muted uppercase">Decisions I owned</p>
                           <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
                             {r.decided.map((d) => <li key={d}>{d}</li>)}
                           </ul>

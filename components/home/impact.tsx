@@ -12,7 +12,7 @@ export function Impact() {
           <SectionHeading
             id="metrics-title"
             index="01"
-            eyebrow="Verified impact"
+            eyebrow="Documented impact"
             title="Results from shipped work, not projections."
             description="Selected outcomes from professional product work, charted with exactly the precision available: ranges stay ranges, approximations stay approximate."
           />

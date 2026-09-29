@@ -77,7 +77,7 @@ function GlanceCard() {
       <div className="px-6 py-5">
         <div className="flex items-baseline justify-between gap-3">
           <p className="text-xs text-muted">{retentionHeadline.label}</p>
-          <p className="flex items-center gap-1.5 text-[11px] text-muted"><EvidenceMark kind="verified" /> Verified</p>
+          <p className="flex items-center gap-1.5 text-[11px] text-muted"><EvidenceMark kind="verified" /> Documented</p>
         </div>
         <p className="mt-1 text-4xl font-semibold tracking-tight text-ink">12% → 25%</p>
         <div className="mt-4">
