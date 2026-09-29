@@ -66,7 +66,7 @@ function GlanceCard() {
       <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
         <div>
           <p className="text-sm font-medium text-ink">{profile.name}</p>
-          <p className="text-xs text-muted">Senior PM · {profile.experience} · most recently Edfora</p>
+          <p className="text-xs text-muted">Senior PM · {profile.experience}</p>
         </div>
         <a href="#contact" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs whitespace-nowrap text-accent transition-colors hover:bg-accent-tint">
           <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />

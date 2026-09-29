@@ -1,16 +1,16 @@
 # Nitesh Tiwari · Senior Product Manager portfolio
 
-A recruiter-first Next.js portfolio for Senior and Principal Product Manager roles in Growth, Consumer, and AI & Data products.
+A recruiter-first Next.js portfolio for Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products. It presents about 7 years in product management (since 2019) within 10+ years in technology.
 
 ## Included
 - Editorial homepage ordered proof first: impact → work → capability map → product thinking → AI lab → experience → contact
 - Three case studies, each told in its own shape:
   - **Adaptive Assignment Engine** (Edfora): the mechanism (learner ability vs. question difficulty, discrimination and guessing), the options and how each fails, an interactive decision trace, and the documented outcome
-  - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, an illustrative decision simulator, and the documented before/after
+  - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, an illustrative decision simulator, a proposed validation approach (labelled as reasoning), and the documented before/after
   - **AI Learner Diagnostic** (independent prototype): rules vs. model split, failure modes and fallbacks, evaluation rubric, guardrails, launch gate, and a playable deterministic demo
 - Decision log under the case studies: six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`)
 - Product Capability Map: capability → evidence → case study or decision; every edge ends at something on the site
-- Product thinking: principles, anti-patterns and "changed my mind" lessons, each linked to its evidence
+- Product thinking: principles, anti-patterns and "what I watch for" lessons, each linked to its evidence
 - Evidence labels on every claim: documented outcome, product reasoning, illustrative model, independent prototype
 - Charts built only from documented figures, each with a table view
 - Direct résumé PDF download, email (with copy) and LinkedIn

@@ -14,7 +14,7 @@ export const principles: readonly { title: string; body: string; evidence: Evide
   },
   {
     title: "Check where the drop actually happens.",
-    body: "A 12% Day-7 retention reads like a retention problem. Most of the loss was before the second session, which made it an activation problem with a very different fix.",
+    body: "A 12% Day-7 retention reads like a retention problem. Most of the loss was before the second session, which points to an activation problem with a very different fix.",
     evidence: { label: "Onboarding Funnel Redesign · Diagnosis", href: "/work/onboarding-funnel-redesign#diagnosis" },
   },
   {
@@ -24,7 +24,7 @@ export const principles: readonly { title: string; body: string; evidence: Evide
   },
   {
     title: "Get the signal to the person who can act, while it still matters.",
-    body: "Retention data that reached faculty monthly described students who had already gone. The fix was timing and routing, not more data.",
+    body: "Retention data that reached faculty monthly described students who had already gone. The fix was getting the signal to them sooner, not more data.",
     evidence: { label: "Decision log · Faculty signals", href: "/#decision-faculty-signals" },
   },
   {
@@ -58,7 +58,7 @@ export const antiPatterns: readonly { avoid: string; instead: string; evidence: 
   {
     avoid: "Treating experimentation as a checkbox",
     instead: "Write the hypothesis and the decision rule before the test, and read the result by segment.",
-    evidence: { label: "Experimentation", href: "/work/onboarding-funnel-redesign#experimentation" },
+    evidence: { label: "Decision log · Testing roadmap", href: "/#decision-experimentation-roadmap" },
   },
   {
     avoid: "Hiding uncertainty in AI experiences",

@@ -1,6 +1,6 @@
 # Nitesh Tiwari
 
-> Senior Product Manager with 10+ years across EdTech, gaming and consumer technology. Works on growth, personalization, experimentation, product analytics, retention, monetization, and AI and data products. Started as an Android developer; in product management since 2019. Based in Delhi NCR, open to Mumbai. Looking for Senior or Principal Product Manager roles in Growth, Consumer, and AI & Data products.
+> Product Manager with about 7 years in product management (since 2019) and 10+ years across technology, consumer products and enterprise software. Most recently Senior Product Manager at Edfora (Jul 2023 – Jul 2026). Career path: Android Developer → Program & Release Manager → Product Manager → Senior Product Manager. Works on growth, personalization, experimentation, product analytics, retention, monetization, and AI and data products. Based in Delhi NCR, open to Mumbai. Open to Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products.
 
 Contact: buildwithnitesh@gmail.com · https://www.linkedin.com/in/buildwithnitesh/
 Résumé (PDF): /Nitesh_Product_Manager_Resume.pdf
@@ -8,8 +8,8 @@ Résumé (PDF): /Nitesh_Product_Manager_Resume.pdf
 ## Case studies
 
 - [Adaptive Assignment Engine](/work/adaptive-assignment-engine): Edfora, Senior Product Manager. A fixed practice sequence was the wrong difficulty for many learners. The engine estimated each learner's ability and matched it against question difficulty, discrimination and guessing parameters, with an LLM API adjusting difficulty from performance history. Assignment completion improved by roughly 18–25%; practice drop-offs reduced.
-- [Onboarding Funnel Redesign](/work/onboarding-funnel-redesign): Witzeal Technologies (real-money gaming), Product Manager. Most drop-off happened before a player's second session. Redesigning the first 60 seconds took Day-7 retention from 12% to 25%.
-- [AI Learner Diagnostic](/work/ai-learner-diagnostic): Independent portfolio prototype, not shipped at any employer and with no real users or model results. Shows the rules vs. model split, failure modes and fallbacks, evaluation rubric, confidence UX and teacher override.
+- [Onboarding Funnel Redesign](/work/onboarding-funnel-redesign): Witzeal Technologies (real-money gaming), Product Manager. Most drop-off happened before a player's second session. After the first 60 seconds of the experience were redesigned, Day-7 retention went from 12% to 25%. How the redesign was tested is not documented; the case labels its validation approach as product reasoning.
+- [AI Learner Diagnostic](/work/ai-learner-diagnostic): Independent portfolio prototype, not shipped at any employer and with no real users, production adoption or model results. Shows the rules vs. model split, grounding, failure modes and fallbacks, evaluation rubric, confidence UX and teacher override.
 
 ## Other documented outcomes
 
@@ -18,4 +18,4 @@ Résumé (PDF): /Nitesh_Product_Manager_Resume.pdf
 - Witzeal: experimentation roadmap across pricing and reward loops: GMV growth ~10% week over week. Bonus allocation by expected ROI per segment: bonus spend down ~20% with retention held. Segmented lifecycle messaging: long-term retention stabilized at 48%.
 - Baazi Games (PokerBaazi, Lagai Khai, FanBlaze): 20+ A/B tests, core funnel conversion up ~15%; behavioral segmentation, session duration up ~35% and retention up ~25%; rules-based fraud detection, fraud losses down ~18%.
 - PwC India, Program & Release Manager: release process for a web application deployed to 150+ Fortune companies.
-- Direct Create, Android Developer (2014–2018): sole Android developer; proposed one app with role selection for makers, buyers and designers instead of three apps. The platform grew to 400+ maker shops and 100+ designers.
+- Direct Create, Android Developer (2014–2018), not a product management role: sole Android developer; built the app from scratch and proposed one app with role selection for makers, buyers and designers instead of separate apps. Platform scale: 400+ maker shops and 100+ designers.

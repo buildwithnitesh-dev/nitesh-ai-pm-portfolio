@@ -20,7 +20,7 @@ export function GamingCaseStudyPage() {
   const split = c.chapters.findIndex((ch) => ch.id === "decision") + 1;
   const toc = [
     ...c.chapters.slice(0, split).map(({ id, label }) => ({ id, label })),
-    { id: "simulator", label: "Explore the decision" },
+    { id: "simulator", label: "Explore the reasoning" },
     ...c.chapters.slice(split).map(({ id, label }) => ({ id, label })),
   ];
   return (
@@ -41,10 +41,10 @@ export function GamingCaseStudyPage() {
       toc={toc}
     >
       <ChapterList chapters={c.chapters.slice(0, split)} measure={measure} after={visuals} />
-      <Chapter id="simulator" index={split + 1} label="Explore the decision">
+      <Chapter id="simulator" index={split + 1} label="Explore the reasoning">
         <Prose
           eyebrow="Illustrative simulator"
-          title="Explore the product decision."
+          title="Explore the reasoning behind the levers."
           body={[
             "Change the levers and watch the reasoning update: which lever is the bottleneck, what the hypothesis becomes, which direction behavior should move, and what I would decide.",
             "This is how I reason about onboarding levers, made interactive. It is not a replay of the historical result, and it does not produce numbers.",
@@ -65,17 +65,17 @@ const visuals = {
     <JourneyMap
       title="The first-session journey, as a sequence of user decisions"
       steps={onboardingFunnelRedesign.journey}
-      caption="Each stage carries the question a new player is implicitly asking. Most players who left never reached the second session, so the redesign concentrated on everything before it."
+      caption="Each stage carries the question a new player is implicitly asking. The documented finding is that most players who left never reached the second session; the documented redesign, the first 60 seconds, sits before it."
     />
   ),
-  Experimentation: (
+  "Proposed validation": (
     <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-ink">The experiment loop</p>
+        <p className="text-sm font-medium text-ink">Proposed validation loop</p>
         <EvidenceTag kind="reasoning" />
       </div>
       <div className="mt-6">
-        <LoopDiagram steps={experimentLoop} label="Experiment loop: hypothesis, A/B test, segment, learn" />
+        <LoopDiagram steps={experimentLoop} label="Proposed validation loop: hypothesis, A/B test, segment, learn" />
       </div>
     </div>
   ),

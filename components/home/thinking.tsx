@@ -10,7 +10,7 @@ import { antiPatterns, graveyard, principles } from "@/content/thinking";
 const tabs = [
   { id: "principles", label: "Principles", count: principles.length },
   { id: "avoid", label: "What I avoid", count: antiPatterns.length },
-  { id: "graveyard", label: "Changed my mind", count: graveyard.length },
+  { id: "graveyard", label: "What I watch for", count: graveyard.length },
 ] as const;
 type TabId = (typeof tabs)[number]["id"];
 
@@ -107,15 +107,15 @@ export function Thinking() {
 
         <div id="panel-graveyard" role="tabpanel" aria-labelledby="tab-graveyard" hidden={tab !== "graveyard"} tabIndex={0} className="pt-4">
           <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">
-            Product lessons from the graveyard: tempting beliefs the work taught me to distrust. No invented post-mortems: each lesson traces back to documented work.
+            Tempting beliefs I watch for today, each paired with the product lesson and the work it comes from.
           </p>
           <ol className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
             {graveyard.map((g, i) => (
               <li key={g.belief} className="fade-up flex flex-col justify-between gap-6 bg-panel p-6 sm:p-8" style={{ animationDelay: `${i * 40}ms` }}>
                 <div>
-                  <p className="font-mono text-[11px] tracking-wide text-subtle uppercase">Buried belief</p>
+                  <p className="font-mono text-[11px] tracking-wide text-subtle uppercase">Tempting belief</p>
                   <p className="mt-2 font-serif text-2xl leading-snug text-muted line-through decoration-line-strong decoration-1">{g.belief}</p>
-                  <p className="mt-5 font-mono text-[11px] tracking-wide text-accent uppercase">What replaced it</p>
+                  <p className="mt-5 font-mono text-[11px] tracking-wide text-accent uppercase">Product lesson</p>
                   <p className="mt-2 text-base leading-7 text-ink">{g.lesson}</p>
                 </div>
                 <Link href={g.evidence.href} className="group inline-flex items-center gap-2 self-start text-xs text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
@@ -132,7 +132,7 @@ export function Thinking() {
         >
           <span>
             <span className="block font-mono text-[11px] tracking-wide text-accent uppercase">See it applied · illustrative</span>
-            <span className="mt-2 block font-serif text-2xl text-ink">Explore the product decision behind the onboarding redesign.</span>
+            <span className="mt-2 block font-serif text-2xl text-ink">Explore how I reason about the onboarding levers.</span>
             <span className="mt-1 block text-sm text-muted">Pull the levers, read the hypothesis, see the decision. An interactive illustration of reasoning, not historical performance.</span>
           </span>
           <span className="inline-flex shrink-0 items-center gap-2 text-sm text-ink">Open the simulator <Arrow /></span>

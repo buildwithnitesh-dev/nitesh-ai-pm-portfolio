@@ -63,6 +63,7 @@ function DecisionRow({ d, defaultOpen }: { d: Decision; defaultOpen: boolean }) 
         </span>
         <span className="flex items-start justify-between gap-4">
           <span className="grid gap-3">
+            {d.result ? <span className="block text-xs leading-5 text-muted">{d.result}</span> : null}
             {d.outcomes.map((o) => (
               <span key={o.label} className="block">
                 <span className="flex items-center gap-2 text-xl font-semibold tracking-tight text-ink tabular-nums"><EvidenceMark kind="verified" />{o.value}</span>
@@ -129,7 +130,7 @@ function SignalLoop({ loop }: { loop: NonNullable<Decision["loop"]> }) {
         ))}
       </ol>
       <figcaption className="mt-4 border-t border-line pt-3 text-xs leading-5 text-muted">
-        Timing is part of the design: alerts respect a teacher’s schedule, and unread alerts are handled rather than piling up.
+        Timing is part of the design: alerts respect a teacher’s schedule, and unread alerts have their own handling. What triggers an alert is not described here.
       </figcaption>
     </figure>
   );

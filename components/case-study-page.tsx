@@ -31,7 +31,7 @@ export function AdaptiveAssignmentCaseStudy() {
             <JourneyMap
               title="The practice journey, as the learner experiences it"
               steps={c.journey}
-              caption="Friction points mark where a fixed sequence most often lost learners: the first questions that felt out of reach, and the stretch where learners either stalled or coasted."
+              caption="Friction points mark where a fixed sequence is most likely to lose learners: the first questions that feel out of reach, and the stretch where learners either stall or coast."
             />
           ),
           "Root cause": <FitBand />,
@@ -205,7 +205,7 @@ function Mechanism() {
   );
 }
 
-/** One verified number, shown as a range because that is how it was reported, plus the metric hierarchy behind it. */
+/** The documented result, shown as a range because that is how it was reported, beside how I would frame the metrics (labelled as reasoning). */
 function OutcomeTile() {
   const max = 30;
   return (
@@ -221,21 +221,28 @@ function OutcomeTile() {
           </div>
           <div aria-hidden className="mt-2 flex justify-between font-mono text-[10px] tabular-nums text-subtle"><span>0%</span><span>10%</span><span>20%</span><span>30%</span></div>
         </div>
+        <p className="mt-5 text-sm text-ink">Practice drop-offs also reduced.</p>
         <div className="mt-5"><EvidenceTag kind="verified" /></div>
       </div>
       <div className="bg-panel p-6">
-        <p className="text-xs tracking-[0.16em] text-muted uppercase">Metric hierarchy</p>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p className="text-xs tracking-[0.16em] text-muted uppercase">How I would frame the metrics</p>
+          <EvidenceTag kind="reasoning" />
+        </div>
         <ol className="mt-4 grid gap-4 text-sm">
           <li className="grid grid-cols-[5.5rem_1fr] gap-3">
             <span className="font-mono text-xs text-accent uppercase">Primary</span>
             <span className="text-ink">Assignment completion</span>
           </li>
           <li className="grid grid-cols-[5.5rem_1fr] gap-3">
+            <span className="font-mono text-xs text-muted uppercase">Second</span>
+            <span className="text-ink">Practice drop-off</span>
+          </li>
+          <li className="grid grid-cols-[5.5rem_1fr] gap-3">
             <span className="font-mono text-xs text-muted uppercase">Explains</span>
-            <span className="text-muted">Progression through the assignment · how each learner was performing</span>
+            <span className="text-muted">Progression through the assignment · how each learner is performing</span>
           </li>
         </ol>
-        <p className="mt-4 grid grid-cols-[5.5rem_1fr] gap-3 text-sm"><span className="font-mono text-xs text-muted uppercase">Also</span><span className="text-ink">Practice drop-offs reduced</span></p>
         <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">One outcome decides success. Supporting signals explain why it moved, so the team learns something instead of just celebrating.</p>
       </div>
     </div>
