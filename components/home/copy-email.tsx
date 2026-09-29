@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 
 export function CopyEmail({ email }: { email: string }) {
+  // On narrow phones the address may need two lines; prefer breaking right after the "@".
+  const at = email.indexOf("@");
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
 
   useEffect(() => {
@@ -22,7 +24,9 @@ export function CopyEmail({ email }: { email: string }) {
 
   return (
     <div className="flex items-center justify-between gap-3 rounded-full border border-line-strong bg-background py-1.5 pr-1.5 pl-5">
-      <span className="truncate font-mono text-sm text-ink">{email}</span>
+      <span className="min-w-0 font-mono text-sm text-ink [overflow-wrap:anywhere]">
+        {at > 0 ? <>{email.slice(0, at + 1)}<wbr />{email.slice(at + 1)}</> : email}
+      </span>
       <button
         type="button"
         onClick={copy}
