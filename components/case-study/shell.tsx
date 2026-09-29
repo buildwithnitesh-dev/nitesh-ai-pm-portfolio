@@ -102,7 +102,7 @@ function MyRole({ company }: { company: string }) {
   const r = career.find((c) => c.company === company);
   if (!r) return null;
   const lists = r.owned || r.decided
-    ? ([["What I owned", r.owned], ["What I decided independently", r.decided]] as const)
+    ? ([["What I owned", r.owned], ["Decisions I owned", r.decided]] as const)
     : ([[`My scope at ${r.company}`, r.highlights]] as const);
   return (
     <div className="mt-10 border-t border-line pt-8">
