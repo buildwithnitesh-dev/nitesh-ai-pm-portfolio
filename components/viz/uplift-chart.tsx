@@ -116,7 +116,7 @@ export function UpliftChart() {
               <p className="mt-3 text-sm leading-6 text-muted">{selected.detail}</p>
               <p className="mt-4 inline-flex items-center gap-2 text-xs text-muted">
                 <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
-                Verified · {selected.precision === "Range" ? "reported as a range" : "reported as an approximation"}
+                Documented · {selected.precision === "Range" ? "reported as a range" : "reported as an approximation"}
               </p>
             </>
           ) : (

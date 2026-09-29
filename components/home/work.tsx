@@ -14,7 +14,7 @@ export function Work() {
           index="02"
           eyebrow="Selected work"
           title="Proof through product decisions."
-          description="Two professional case studies and one independent AI prototype, each told as a decision: what we saw, what we chose, what it cost and what happened. Verified results are marked apart from product reasoning, so you always know which is which."
+          description="Two professional case studies and one independent AI prototype, each told as a decision: what we saw, what we chose, what it cost and what happened. Documented results are marked apart from product reasoning, so you always know which is which."
         />
         <div className="mt-10">
           <EvidenceLegend />

@@ -7,7 +7,7 @@
 export type EvidenceKind = "verified" | "reasoning" | "illustrative" | "prototype";
 
 export const evidence: Record<EvidenceKind, { label: string; hint: string }> = {
-  verified: { label: "Verified outcome", hint: "Result from professional work" },
+  verified: { label: "Documented outcome", hint: "Result from professional work" },
   reasoning: { label: "Product reasoning", hint: "How I framed and decided" },
   illustrative: { label: "Illustrative model", hint: "Explains logic, not real data" },
   prototype: { label: "Independent prototype", hint: "Self-built; no real-user results" },
