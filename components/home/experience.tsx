@@ -1,11 +1,12 @@
 import { Container } from "@/components/container";
 import { SectionHeading } from "@/components/ui";
-import { career, careerArc } from "@/content/portfolio";
+import { career, careerArc, decisions } from "@/content/portfolio";
 
 /**
  * The verified career timeline on the existing rail. The arc strip above it
  * makes the progression readable in one glance: engineering → program and
  * release management → product management → senior product management.
+ * Each role links to its entries in the decision log, where they exist.
  */
 export function Experience() {
   return (
@@ -80,6 +81,15 @@ export function Experience() {
                       </li>
                     ))}
                   </ul>
+
+                  {r.documented ? (
+                    <p className="mt-5 max-w-3xl text-xs leading-6 text-muted">
+                      <span className="mr-2 font-mono text-[11px] tracking-[0.14em] text-subtle uppercase">Product documentation</span>
+                      {r.documented.join(" · ")}
+                    </p>
+                  ) : null}
+
+                  <RoleDecisions company={r.company} />
                 </div>
               </li>
             );
@@ -87,5 +97,18 @@ export function Experience() {
         </ol>
       </Container>
     </section>
+  );
+}
+
+function RoleDecisions({ company }: { company: string }) {
+  const ds = decisions.filter((d) => d.company === company);
+  if (!ds.length) return null;
+  return (
+    <p className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-2 text-sm">
+      <span className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">In the decision log</span>
+      {ds.map((d) => (
+        <a key={d.id} href={`#decision-${d.id}`} className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">{d.short}</a>
+      ))}
+    </p>
   );
 }

@@ -60,11 +60,12 @@ export function GamingCaseStudyPage() {
 const measure = "Day-7 retention, with funnel progression and segment behavior to explain the movement";
 
 const visuals = {
+  Context: <Reframe />,
   Diagnosis: (
     <JourneyMap
       title="The first-session journey, as a sequence of user decisions"
       steps={onboardingFunnelRedesign.journey}
-      caption="Each stage is framed by the question a new player is implicitly asking. The redesign concentrated on the stages before the first meaningful action — where value had to be felt before it could be retained."
+      caption="Each stage carries the question a new player is implicitly asking. Most players who left never reached the second session, so the redesign concentrated on everything before it."
     />
   ),
   Experimentation: (
@@ -91,3 +92,49 @@ const visuals = {
     </div>
   ),
 };
+
+/** The reframe the case turns on: the same number, read two ways, leads to two different roadmaps. */
+function Reframe() {
+  const readings = [
+    {
+      label: "Read as a retention problem",
+      where: "Players drift away over the first week",
+      levers: "Reminders, rewards, re-engagement campaigns",
+    },
+    {
+      label: "Read as an activation problem",
+      where: "Most players who leave never start a second session",
+      levers: "Time to value, the first meaningful action, the first 60 seconds",
+      chosen: true,
+    },
+  ];
+  return (
+    <figure aria-label="Two readings of the same retention number" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p aria-hidden className="text-sm font-medium text-ink">Same 12%, two readings</p>
+        <EvidenceTag kind="reasoning" />
+      </div>
+      <ol className="mt-6 grid gap-3 md:grid-cols-2">
+        {readings.map((r) => (
+          <li key={r.label} className={`rounded-lg border p-5 ${r.chosen ? "border-accent bg-accent-soft/60" : "border-line bg-background"}`}>
+            <p className={`text-sm font-medium ${r.chosen ? "text-accent" : "text-ink"}`}>{r.label}</p>
+            <dl className="mt-3 grid gap-3 text-sm">
+              <div>
+                <dt className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">Where the loss is</dt>
+                <dd className="mt-1 leading-6 text-ink/85">{r.where}</dd>
+              </div>
+              <div>
+                <dt className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">What you build</dt>
+                <dd className="mt-1 leading-6 text-ink/85">{r.levers}</dd>
+              </div>
+            </dl>
+            {r.chosen ? <p className="mt-4 inline-flex items-center gap-1.5 text-[11px] text-accent"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />What the funnel showed</p> : null}
+          </li>
+        ))}
+      </ol>
+      <figcaption className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">
+        The documented finding is that most onboarding drop-off happened before a player’s second session. The contrast in levers is product reasoning.
+      </figcaption>
+    </figure>
+  );
+}

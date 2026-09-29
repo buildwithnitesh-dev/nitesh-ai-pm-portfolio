@@ -10,7 +10,7 @@ const pct = (v: number) => `${(v / MAX) * 100}%`;
 
 /**
  * Reported improvements on one shared % axis.
- * Ranges are drawn as ranges and single approximations as points — the chart
+ * Ranges are drawn as ranges and single approximations as points: the chart
  * never shows more precision than the source claims.
  */
 export function UpliftChart() {
@@ -52,7 +52,7 @@ export function UpliftChart() {
             </span>
           </figcaption>
 
-          <ul className="mt-5 grid gap-1" aria-label="Improvement by outcome — select a row for context">
+          <ul className="mt-5 grid gap-1" aria-label="Improvement by outcome. Select a row for context.">
             {charted.map((m, i) => {
               const c = m.chart!;
               const isPoint = c.low === c.high;
@@ -101,7 +101,7 @@ export function UpliftChart() {
           </div>
           {charted.length === 0 ? (
             <p className="mt-4 rounded-md border border-dashed border-line-strong p-4 text-sm text-muted">
-              No percentage uplift in this area — see the table below for how it was measured.
+              No percentage uplift in this area. See the table below for how it was reported.
             </p>
           ) : null}
         </figure>
@@ -126,7 +126,7 @@ export function UpliftChart() {
       </div>
 
       <p className="mt-6 max-w-2xl text-xs leading-5 text-muted">
-        Day-7 retention (percentage points) and GMV growth (a weekly rate) use different units, so they are shown separately rather than forced onto this axis.
+        Day-7 retention (percentage points), GMV growth (a weekly rate) and the 48% retention level use different units, so they sit in the table rather than on this axis.
       </p>
 
       {/* Table view: the accessible, complete twin of the chart. */}
@@ -135,7 +135,7 @@ export function UpliftChart() {
           <span>View all {listed.length} {area === "All" ? "" : `${area.toLowerCase()} `}outcomes as a table</span>
           <span aria-hidden className="text-muted transition-transform duration-200 group-open:rotate-45">+</span>
         </summary>
-        <div className="overflow-x-auto pb-2">
+        <div tabIndex={0} role="region" aria-label="All outcomes, scrollable table" className="overflow-x-auto pb-2">
           <table className="w-full min-w-[36rem] text-left text-sm">
             <thead className="text-xs tracking-[0.12em] text-muted uppercase">
               <tr className="border-b border-line">

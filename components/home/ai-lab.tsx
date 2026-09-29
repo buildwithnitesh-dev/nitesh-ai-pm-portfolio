@@ -16,8 +16,8 @@ export function AiLab() {
               tone="dark"
               index="05"
               eyebrow="AI product lab"
-              title="I treat AI as a product system — not a feature checkbox."
-              description="This loop is the product. The model is one step inside it; evaluation and human control are what make it shippable."
+              title="AI is one step in a product loop. The loop is what I design."
+              description="The model is one step inside it. The product work is everything around the model: where rules are enough, how confidence is shown, what happens when it’s wrong, and who can overrule it."
             />
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="/work/ai-learner-diagnostic" className={`group ${button.onDark}`}>View the AI prototype <Arrow /></Link>
@@ -28,14 +28,14 @@ export function AiLab() {
               <div className="bg-ink-raised p-5">
                 <dt className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-panel/70 uppercase"><EvidenceMark kind="verified" tone="dark" />Professional · Edfora</dt>
                 <dd className="mt-2 text-sm leading-6 text-panel/85">
-                  The Adaptive Assignment Engine used an LLM API to adjust question difficulty from student performance history.{" "}
+                  The Adaptive Assignment Engine matched learner ability against question parameters, with an LLM API adjusting difficulty from performance history.{" "}
                   <Link href="/work/adaptive-assignment-engine" className="text-panel underline decoration-white/30 underline-offset-4 hover:decoration-accent-soft">Case 01</Link>
                 </dd>
               </div>
               <div className="bg-ink-raised p-5">
                 <dt className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-panel/70 uppercase"><EvidenceMark kind="prototype" tone="dark" />Independent · portfolio project</dt>
                 <dd className="mt-2 text-sm leading-6 text-panel/85">
-                  The AI Learner Diagnostic: a self-built prototype of this loop — no real users, no production results.
+                  The AI Learner Diagnostic: a self-built prototype of this loop. No real users, no production results.
                 </dd>
               </div>
             </dl>

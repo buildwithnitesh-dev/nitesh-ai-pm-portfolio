@@ -15,7 +15,7 @@ const tabs = [
 type TabId = (typeof tabs)[number]["id"];
 
 /**
- * How I think, in three views behind tabs — progressive disclosure keeps the
+ * How I think, in three views behind tabs: progressive disclosure keeps the
  * homepage short while every principle still links to where it was earned.
  */
 export function Thinking() {
@@ -86,7 +86,7 @@ export function Thinking() {
         </div>
 
         <div id="panel-avoid" role="tabpanel" aria-labelledby="tab-avoid" hidden={tab !== "avoid"} tabIndex={0} className="pt-4">
-          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">Patterns I deliberately design against — and what I do instead. Lessons, not critiques of anyone else’s product.</p>
+          <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">Patterns I design against, and what I do instead. Lessons from my own work, not critiques of anyone else’s product.</p>
           <ul className="mt-6 divide-y divide-line border-y border-line">
             {antiPatterns.map((a, i) => (
               <li key={a.avoid} className="fade-up grid gap-3 py-6 md:grid-cols-[1fr_1.3fr_auto] md:items-baseline md:gap-10" style={{ animationDelay: `${i * 40}ms` }}>
@@ -107,7 +107,7 @@ export function Thinking() {
 
         <div id="panel-graveyard" role="tabpanel" aria-labelledby="tab-graveyard" hidden={tab !== "graveyard"} tabIndex={0} className="pt-4">
           <p className="mt-6 max-w-2xl text-sm leading-6 text-muted">
-            Product lessons from the graveyard: tempting beliefs the work taught me to distrust. No invented post-mortems — each lesson traces back to documented work.
+            Product lessons from the graveyard: tempting beliefs the work taught me to distrust. No invented post-mortems: each lesson traces back to documented work.
           </p>
           <ol className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
             {graveyard.map((g, i) => (
@@ -133,7 +133,7 @@ export function Thinking() {
           <span>
             <span className="block font-mono text-[11px] tracking-wide text-accent uppercase">See it applied · illustrative</span>
             <span className="mt-2 block font-serif text-2xl text-ink">Explore the product decision behind the onboarding redesign.</span>
-            <span className="mt-1 block text-sm text-muted">Pull the levers, read the hypothesis, see the decision. An interactive illustration of reasoning — not historical performance.</span>
+            <span className="mt-1 block text-sm text-muted">Pull the levers, read the hypothesis, see the decision. An interactive illustration of reasoning, not historical performance.</span>
           </span>
           <span className="inline-flex shrink-0 items-center gap-2 text-sm text-ink">Open the simulator <Arrow /></span>
         </Link>

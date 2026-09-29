@@ -97,7 +97,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
   );
 }
 
-/** Verified scope from the career timeline — ownership shown, not claimed by title. */
+/** Verified scope from the career timeline: ownership shown, not claimed by title. */
 function MyRole({ company }: { company: string }) {
   const r = career.find((c) => c.company === company);
   if (!r) return null;

@@ -25,21 +25,22 @@ export function AdaptiveAssignmentCaseStudy() {
     >
       <ChapterList
         chapters={c.chapters}
-        measure="Assignment completion (primary) · progression and engagement signals (to explain why it moved)"
+        measure="Assignment completion (primary), with practice drop-off as the second signal"
         after={{
           Users: (
             <JourneyMap
-              title="The assignment journey, as the learner experiences it"
+              title="The practice journey, as the learner experiences it"
               steps={c.journey}
-              caption="Friction points mark where a fixed sequence most often lost learners: tasks that felt too hard, too repetitive, or poorly timed."
+              caption="Friction points mark where a fixed sequence most often lost learners: the first questions that felt out of reach, and the stretch where learners either stalled or coasted."
             />
           ),
           "Root cause": <FitBand />,
-          Strategy: <Layers />,
+          Options: <Options />,
+          Mechanism: <Mechanism />,
           Solution: <DecisionTree />,
           Measurement: <OutcomeTile />,
           "Trade-offs": <Tensions />,
-          Learning: <PullQuote>Optimize the journey, not just the feature.</PullQuote>,
+          Learning: <PullQuote>When completion drops, check the fit before adding content.</PullQuote>,
         }}
       />
     </CaseStudyShell>
@@ -75,50 +76,136 @@ function FitBand() {
   );
 }
 
-/**
- * The three-layer strategy as a flow. Layer 1 splits into the signal and the
- * difficulty call, because that is where the documented LLM API sat.
- */
-function Layers() {
-  const steps = [
-    { name: "Learner signal", note: "What does behavior say about readiness right now?" },
-    { name: "Difficulty / need", note: "An LLM API adjusted question difficulty from student performance history.", fact: true },
-    { name: "Assignment", note: "Which task moves this learner forward?" },
-    { name: "Feedback", note: "Did it work — and what should change next time?" },
-  ];
-  const groups = [
-    { label: "Layer 1 · learner state", span: "sm:col-span-2" },
-    { label: "Layer 2 · decision", span: "" },
-    { label: "Layer 3 · progression", span: "" },
+/** The realistic options, laid out as product reasoning; the documented direction is marked. */
+function Options() {
+  const options = [
+    {
+      name: "Let learners choose their difficulty",
+      works: "Simple to build, and gives learners control.",
+      fails: "The learners who most need an easier path are the least able to judge it, and it adds a decision before they start.",
+    },
+    {
+      name: "Move learners between bands with rules",
+      works: "Easy to build and easy to explain to teachers.",
+      fails: "Treats every question as equally informative, so a lucky guess counts the same as real mastery.",
+    },
+    {
+      name: "Estimate ability and match calibrated questions",
+      works: "Weighs each answer by how much it actually reveals, and discounts guesses.",
+      fails: "Needs calibrated question parameters, and is harder to explain than a sequence.",
+      chosen: true,
+    },
   ];
   return (
-    <figure aria-label="The adaptive loop: learner signal, difficulty, assignment, feedback" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
-      <ol className="relative grid gap-5 sm:grid-cols-4 sm:gap-4">
-        {/* Hairline through the nodes (wide screens) or down the left (phones). */}
-        <span aria-hidden className="absolute top-2 bottom-2 left-[5px] w-px bg-line-strong sm:top-[5px] sm:right-[12.5%] sm:bottom-auto sm:left-[12.5%] sm:h-px sm:w-auto" />
-        {steps.map((st) => (
-          <li key={st.name} className="relative pl-6 sm:pl-0 sm:text-center">
-            <span aria-hidden className={`absolute top-0.5 left-0 block h-[11px] w-[11px] rounded-full sm:relative sm:top-0 sm:mx-auto ${st.fact ? "bg-accent ring-4 ring-accent-soft" : "border border-line-strong bg-panel"}`} />
-            <p className="font-mono text-[11px] tracking-[0.14em] text-ink uppercase sm:mt-3">{st.name}</p>
-            <p className="mt-1.5 text-sm leading-6 text-muted">{st.note}</p>
-            {st.fact ? <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-accent"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />Documented at Edfora</p> : null}
+    <figure aria-label="Three options for fixing difficulty fit" className="rounded-xl border border-line bg-panel">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4 sm:px-7">
+        <p aria-hidden className="text-sm font-medium text-ink">Options, and how each one fails</p>
+        <EvidenceTag kind="reasoning" />
+      </div>
+      <ol className="divide-y divide-line">
+        {options.map((o, i) => (
+          <li key={o.name} className={`grid gap-3 px-5 py-5 sm:px-7 md:grid-cols-[14rem_1fr_1fr] md:gap-8 ${o.chosen ? "bg-accent-soft/50" : ""}`}>
+            <div>
+              <p className="font-mono text-[11px] text-subtle">{String.fromCharCode(65 + i)}</p>
+              <p className="mt-1 font-serif text-xl leading-snug text-ink">{o.name}</p>
+              {o.chosen ? <p className="mt-2 inline-flex items-center gap-1.5 text-[11px] text-accent"><span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />Direction taken</p> : null}
+            </div>
+            <div>
+              <p className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">Works because</p>
+              <p className="mt-1 text-sm leading-6 text-ink/85">{o.works}</p>
+            </div>
+            <div>
+              <p className={`font-mono text-[11px] tracking-[0.14em] uppercase ${o.chosen ? "text-accent" : "text-muted"}`}>{o.chosen ? "Costs" : "Fails because"}</p>
+              <p className="mt-1 text-sm leading-6 text-ink/85">{o.fails}</p>
+            </div>
           </li>
         ))}
       </ol>
-      <div aria-hidden className="mt-6 hidden grid-cols-4 gap-4 sm:grid">
-        {groups.map((g) => (
-          <p key={g.label} className={`border-t border-accent/40 pt-2 text-center font-mono text-[10px] tracking-[0.12em] text-muted uppercase ${g.span}`}>{g.label}</p>
-        ))}
+    </figure>
+  );
+}
+
+/**
+ * The mechanism in one picture: a learner's ability estimate (with its
+ * uncertainty) on a difficulty scale, and candidate questions described by
+ * difficulty, discrimination and guessing. Positions are illustrative.
+ */
+function Mechanism() {
+  const ability = { at: 48, low: 38, high: 58 };
+  const questions = [
+    { id: "Q1", at: 14, disc: "Low", guess: "Low", verdict: "Too easy, and tells us little" },
+    { id: "Q2", at: 44, disc: "High", guess: "High", verdict: "Right level, but a correct answer could be a guess" },
+    { id: "Q3", at: 54, disc: "High", guess: "Low", verdict: "Served next", chosen: true },
+    { id: "Q4", at: 86, disc: "High", guess: "Low", verdict: "Too hard for now" },
+  ];
+  return (
+    <figure aria-labelledby="mechanism-title" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p id="mechanism-title" className="text-sm font-medium text-ink">Matching a question to a learner</p>
+        <EvidenceTag kind="illustrative" />
       </div>
+
+      {/* The scale: ability band and candidate questions on one difficulty axis. */}
+      <div aria-hidden className="relative mt-10 mb-2 h-16">
+        <span className="absolute inset-x-0 top-8 h-px bg-line-strong" />
+        <span className="absolute top-5 h-6 rounded-full bg-accent-soft" style={{ left: `${ability.low}%`, width: `${ability.high - ability.low}%` }} />
+        <span className="absolute top-3 h-10 w-[2px] -translate-x-1/2 bg-accent" style={{ left: `${ability.at}%` }} />
+        <span className="absolute -top-5 -translate-x-1/2 font-mono text-[10px] tracking-wide whitespace-nowrap text-accent uppercase" style={{ left: `${ability.at}%` }}>Learner ability</span>
+        {questions.map((q) => (
+          <span key={q.id} className="absolute top-8 -translate-x-1/2 -translate-y-1/2" style={{ left: `${q.at}%` }}>
+            <span className={`flex h-7 w-7 items-center justify-center rounded-md border font-mono text-[10px] ${q.chosen ? "border-accent bg-accent text-panel" : "border-line-strong bg-panel text-muted"}`}>{q.id}</span>
+          </span>
+        ))}
+        <span className="absolute top-14 left-0 font-mono text-[10px] text-subtle">easier</span>
+        <span className="absolute top-14 right-0 font-mono text-[10px] text-subtle">harder</span>
+      </div>
+
+      <table className="mt-6 w-full text-left text-sm">
+        <caption className="sr-only">Candidate questions for a learner whose estimated ability sits in the middle of the scale, with the uncertainty band shown around it</caption>
+        <thead className="text-[11px] tracking-[0.12em] text-muted uppercase">
+          <tr className="border-b border-line">
+            <th scope="col" className="py-2 pr-3 font-medium">Question</th>
+            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Discrimination</th>
+            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Guessing</th>
+            <th scope="col" className="py-2 font-medium">Verdict</th>
+          </tr>
+        </thead>
+        <tbody>
+          {questions.map((q) => (
+            <tr key={q.id} className="border-b border-line/70 align-top last:border-0">
+              <th scope="row" className={`py-2.5 pr-3 font-mono text-xs font-normal ${q.chosen ? "text-accent" : "text-ink"}`}>{q.id}</th>
+              <td className="hidden py-2.5 pr-3 text-muted sm:table-cell">{q.disc}</td>
+              <td className="hidden py-2.5 pr-3 text-muted sm:table-cell">{q.guess}</td>
+              <td className={`py-2.5 leading-6 ${q.chosen ? "font-medium text-accent" : "text-ink/85"}`}>
+                {q.verdict}
+                <span className="block text-xs text-muted sm:hidden">Discrimination {q.disc.toLowerCase()} · guessing {q.guess.toLowerCase()}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <dl className="mt-6 grid gap-4 border-t border-line pt-5 text-sm sm:grid-cols-3">
+        {[
+          ["Difficulty", "Where the question sits on the same scale as the learner."],
+          ["Discrimination", "How sharply it separates learners just above its level from those just below."],
+          ["Guessing", "How likely a correct answer is to be luck. A higher chance makes a right answer weaker evidence."],
+        ].map(([k, v]) => (
+          <div key={k}>
+            <dt className="font-mono text-[11px] tracking-[0.14em] text-ink uppercase">{k}</dt>
+            <dd className="mt-1 leading-6 text-muted">{v}</dd>
+          </div>
+        ))}
+      </dl>
       <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
         <span aria-hidden className="text-accent">↺</span>
-        Feedback becomes the next learner signal. Layers follow the case: learner state, next-best assignment decision, feedback and progression. Exact signals and thresholds are confidential.
+        After each answer the ability estimate moves and its band narrows, which changes the next choice. Positions are illustrative; real parameters, thresholds and selection rules are not shown.
       </figcaption>
     </figure>
   );
 }
 
-/** One verified number, shown as a range because that is how it was reported — plus the metric hierarchy behind it. */
+/** One verified number, shown as a range because that is how it was reported, plus the metric hierarchy behind it. */
 function OutcomeTile() {
   const max = 30;
   return (
@@ -145,11 +232,11 @@ function OutcomeTile() {
           </li>
           <li className="grid grid-cols-[5.5rem_1fr] gap-3">
             <span className="font-mono text-xs text-muted uppercase">Explains</span>
-            <span className="text-muted">Progression through the journey · engagement with assignments · behavioral patterns</span>
+            <span className="text-muted">Progression through the assignment · how each learner was performing</span>
           </li>
         </ol>
         <p className="mt-4 grid grid-cols-[5.5rem_1fr] gap-3 text-sm"><span className="font-mono text-xs text-muted uppercase">Also</span><span className="text-ink">Practice drop-offs reduced</span></p>
-        <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">One outcome decides success; supporting signals explain why it moved, so the team learns rather than just celebrates.</p>
+        <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">One outcome decides success. Supporting signals explain why it moved, so the team learns something instead of just celebrating.</p>
       </div>
     </div>
   );
@@ -177,7 +264,7 @@ function Tensions() {
           </li>
         ))}
       </ul>
-      <p className="mt-4 text-xs leading-5 text-muted">The rule of thumb: personalize only where it materially improves the job-to-be-done; elsewhere, a stable default wins.</p>
+      <p className="mt-4 text-xs leading-5 text-muted">The rule of thumb: personalize only where it clearly improves the job. Everywhere else, a stable default wins.</p>
     </div>
   );
 }

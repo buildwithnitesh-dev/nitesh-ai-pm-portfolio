@@ -4,7 +4,7 @@ import { useId, useState } from "react";
 import { EvidenceTag } from "@/components/ui";
 
 /*
- * An illustrative reasoning model — deliberately qualitative. It encodes how I
+ * An illustrative reasoning model, deliberately qualitative. It encodes how I
  * weigh onboarding levers, not historical data, so it never outputs a number.
  */
 
@@ -61,10 +61,10 @@ function reason(s: State) {
     : { name: "No bottleneck left", move: "confirm the lift lasts before scaling further" };
 
   const durability =
-    s.intervention === "incentives" ? "Fragile — the lift may fade when incentives stop, and cost rises."
-    : s.intervention === "value" ? "Durable — the reason to return is built into the journey."
-    : dir >= 2 ? "Plausible — but nothing yet gives players a reason to come back."
-    : "Weak — there is no reason to return yet.";
+    s.intervention === "incentives" ? "Fragile. The lift may fade when incentives stop, and cost rises."
+    : s.intervention === "value" ? "Durable. The reason to return is built into the journey."
+    : dir >= 2 ? "Plausible, but nothing yet gives players a reason to come back."
+    : "Weak. There is no reason to return yet.";
 
   const read = { low: "Directional only", medium: "Credible for the tested segment", high: "Strong enough to scale" }[s.confidence];
 
@@ -123,7 +123,7 @@ export function DecisionSimulator() {
             </button>
           </div>
           <p className="mt-3 text-xs leading-5 text-muted">
-            “Documented strategy” sets the levers the case study describes — reduce friction before adding incentives, clarify the first-session path. The result shown is still illustrative.
+            “Documented strategy” sets the levers the case study describes: reduce friction before adding incentives, and clarify the first-session path. The result shown is still illustrative.
           </p>
         </div>
 
@@ -134,12 +134,12 @@ export function DecisionSimulator() {
               New players lose momentum before they reach the first meaningful action.
             </Step>
             <Step n={2} title="Lever">
-              <span className="font-medium text-ink">{r.lever.name}</span> — {r.lever.move}.
+              <span className="font-medium text-ink">{r.lever.name}</span>: {r.lever.move}.
             </Step>
             <Step n={3} title="Hypothesis">
               {r.lever.name === "No bottleneck left"
-                ? "If the journey stays as is, the lift should persist past the first week — confirmed against a holdout, by segment."
-                : `If we ${r.lever.move}, then more new players should reach the first meaningful action and return in their first week — read by Day-7 retention, by segment.`}
+                ? "If the journey stays as is, the lift should persist past the first week, confirmed against a holdout and read by segment."
+                : `If we ${r.lever.move}, then more new players should reach the first meaningful action and return in their first week, read by Day-7 retention and by segment.`}
             </Step>
             <Step n={4} title="Expected direction">
               <DirectionScale dir={r.dir} />
@@ -157,7 +157,7 @@ export function DecisionSimulator() {
       </div>
 
       <figcaption className="border-t border-line bg-background px-5 py-4 text-xs leading-5 text-muted sm:px-7">
-        <span className="font-medium text-ink">Illustrative model — not historical performance.</span>{" "}
+        <span className="font-medium text-ink">Illustrative model, not historical performance.</span>{" "}
         Historical outcomes shown elsewhere in this portfolio are documented results. This simulator is only an interactive illustration of how I reason about product levers; it has no data behind it and produces no numbers.
       </figcaption>
     </figure>
@@ -200,7 +200,7 @@ function Step({ n, title, children, last }: { n: number; title: string; children
   );
 }
 
-/** A qualitative, ordered scale — four states, no values, no axis. */
+/** A qualitative, ordered scale: four states, no values, no axis. */
 function DirectionScale({ dir }: { dir: number }) {
   return (
     <div>

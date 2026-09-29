@@ -4,30 +4,30 @@ import Link from "next/link";
 import { useId, useState } from "react";
 import { Container } from "@/components/container";
 import { SectionHeading } from "@/components/ui";
-import { capabilities, caseStudies, metrics, type Capability, type CapabilityId, type CaseSlug } from "@/content/portfolio";
+import { capabilities, caseStudies, decisions, metrics, type Capability, type CapabilityId, type CaseSlug } from "@/content/portfolio";
 
 /* ── Layout (percent coordinates inside the map) ─────────────────────────── */
 
 const capPos: Record<CapabilityId, { x: number; y: number }> = {
-  "ai-product": { x: 50, y: 9 },
+  "ai-data": { x: 50, y: 9 },
   personalization: { x: 29, y: 31 },
   "consumer-ux": { x: 71, y: 31 },
   growth: { x: 11, y: 55 },
   "product-analytics": { x: 36, y: 55 },
   experimentation: { x: 64, y: 55 },
-  gamification: { x: 89, y: 55 },
+  monetization: { x: 89, y: 55 },
 };
 
-type EvidenceId = CaseSlug | "outcomes";
+type EvidenceId = CaseSlug | "decisions";
 const evidencePos: Record<EvidenceId, { x: number; y: number }> = {
   "adaptive-assignment-engine": { x: 13, y: 89 },
   "onboarding-funnel-redesign": { x: 38, y: 89 },
   "ai-learner-diagnostic": { x: 63, y: 89 },
-  outcomes: { x: 88, y: 89 },
+  decisions: { x: 88, y: 89 },
 };
 
 const byId = Object.fromEntries(capabilities.map((c) => [c.id, c])) as Record<CapabilityId, Capability>;
-const evidenceOf = (c: Capability): EvidenceId[] => [...c.cases.map((k) => k.slug), ...(c.metrics.length ? (["outcomes"] as const) : [])];
+const evidenceOf = (c: Capability): EvidenceId[] => [...c.cases.map((k) => k.slug), ...(c.decisions.length ? (["decisions"] as const) : [])];
 const capsFor = (e: EvidenceId) => capabilities.filter((c) => evidenceOf(c).includes(e)).map((c) => c.id);
 const neighbours = (id: CapabilityId) => [...byId[id].buildsOn, ...capabilities.filter((c) => c.buildsOn.includes(id)).map((c) => c.id)];
 
@@ -39,7 +39,7 @@ const curve = (a: { x: number; y: number }, b: { x: number; y: number }) => {
 /**
  * Demonstrated capabilities as a map: capability → evidence → case study.
  * Hover or focus previews connections; click pins a capability and opens its
- * evidence. Nothing here is self-rated — every edge ends at something on this site.
+ * evidence. Nothing here is self-rated: every edge ends at something on this site.
  */
 export function CapabilityMap() {
   const [selected, setSelected] = useState<CapabilityId | null>(null);
@@ -68,8 +68,8 @@ export function CapabilityMap() {
             tone="dark"
             index="03"
             eyebrow="Product capability map"
-            title="Demonstrated capabilities — each one traceable to evidence."
-            description="Not a self-rated skill list. Every capability connects to a case study or a documented outcome on this site; follow a line to check it."
+            title="Demonstrated capabilities, each one traceable to evidence."
+            description="Not a self-rated skill list. Every capability connects to a case study or a logged decision on this site, and each of those carries its outcome. Follow a line to check it."
           />
           <p className="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-white/15 px-3 py-1.5 font-mono text-[11px] tracking-wide text-panel/80 lg:self-auto">
             <span className="text-cap-structure">Capability</span> → <span className="text-cap-evidence">Evidence</span> → Case study
@@ -170,7 +170,7 @@ export function CapabilityMap() {
                   return (
                     <li key={ev} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${p.x}%`, top: `${p.y}%` }}>
                       <Link
-                        href={cs ? cs.href : "/#metrics"}
+                        href={cs ? cs.href : "/#decisions"}
                         onMouseEnter={() => setHover({ kind: "ev", id: ev })}
                         onFocus={() => setHover({ kind: "ev", id: ev })}
                         onBlur={() => setHover(null)}
@@ -180,8 +180,8 @@ export function CapabilityMap() {
                             : "border-white/15 bg-ink-raised text-panel/75 hover:border-white/40 hover:text-panel"
                         }`}
                       >
-                        <span aria-hidden className={`font-mono text-[10px] ${lit ? "text-cap-evidence" : "text-panel/60"}`}>{cs ? `Case ${cs.index}` : "Impact ↗"}</span>
-                        {cs ? cs.short : "Documented outcomes"}
+                        <span aria-hidden className={`font-mono text-[10px] ${lit ? "text-cap-evidence" : "text-panel/60"}`}>{cs ? `Case ${cs.index}` : "Log ↑"}</span>
+                        {cs ? cs.short : `${decisions.length} decisions`}
                       </Link>
                     </li>
                   );
@@ -232,7 +232,7 @@ function Overview({ onPick }: { onPick: (id: CapabilityId) => void }) {
       <dl className="mt-6 grid grid-cols-3 gap-3 border-y border-white/10 py-4 text-center">
         <div><dt className="text-[11px] text-panel/60">Capabilities</dt><dd className="mt-1 text-xl font-semibold">{capabilities.length}</dd></div>
         <div><dt className="text-[11px] text-panel/60">Case studies</dt><dd className="mt-1 text-xl font-semibold">{caseStudies.length}</dd></div>
-        <div><dt className="text-[11px] text-panel/60">Outcomes</dt><dd className="mt-1 text-xl font-semibold">{metrics.length}</dd></div>
+        <div><dt className="text-[11px] text-panel/60">Decisions</dt><dd className="mt-1 text-xl font-semibold">{decisions.length}</dd></div>
       </dl>
       <ul className="mt-5 grid gap-1">
         {capabilities.map((c) => (
@@ -251,7 +251,7 @@ function Overview({ onPick }: { onPick: (id: CapabilityId) => void }) {
 function evidenceSummary(c: Capability) {
   const parts = [];
   if (c.cases.length) parts.push(`${c.cases.length} case${c.cases.length > 1 ? "s" : ""}`);
-  if (c.metrics.length) parts.push(`${c.metrics.length} outcome${c.metrics.length > 1 ? "s" : ""}`);
+  if (c.decisions.length) parts.push(`${c.decisions.length} decision${c.decisions.length > 1 ? "s" : ""}`);
   return parts.join(" · ");
 }
 
@@ -282,9 +282,10 @@ function ClaimRail() {
   );
 }
 
-/** Capability → what I practice → evidence → relevant case studies. */
+/** Capability → what I practice → evidence → relevant case studies and decisions. */
 function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: CapabilityId) => void }) {
   const ms = c.metrics.map((id) => metrics.find((m) => m.id === id)!).filter(Boolean);
+  const ds = c.decisions.map((id) => decisions.find((d) => d.id === id)!).filter(Boolean);
   const related = [...c.buildsOn, ...capabilities.filter((x) => x.buildsOn.includes(c.id)).map((x) => x.id)];
   return (
     <div className="fade-up relative pl-6">
@@ -308,6 +309,12 @@ function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: Capabili
             </li>
           );
         })}
+        {ds.map((d) => (
+          <li key={d.id} className="border-l border-white/15 pl-3">
+            <span className="text-panel">{d.title}</span>
+            <span className="ml-2 text-[11px] text-panel/60">Decision · {d.company}</span>
+          </li>
+        ))}
         {ms.map((m) => (
           <li key={m.id} className="border-l border-white/15 pl-3">
             <span className="font-semibold text-panel">{m.value}</span> <span className="text-panel/85">{m.label}</span>
@@ -322,26 +329,29 @@ function CapabilityDetail({ c, onPick }: { c: Capability; onPick?: (id: Capabili
         ) : null}
       </ul>
 
-      {c.cases.length ? (
-        <>
-          <p className="relative mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase"><RailDot tone="case" />03 · Case study</p>
-          <ul className="mt-3 flex flex-wrap gap-2">
-            {c.cases.map((k) => {
-              const cs = caseStudies.find((x) => x.slug === k.slug)!;
-              return (
-                <li key={k.slug}>
-                  <Link href={cs.href} className="group inline-flex items-center gap-2 rounded-full border border-cap-evidence/40 px-3 py-1.5 text-xs text-panel transition-colors hover:border-cap-evidence hover:bg-cap-evidence/10">
-                    <span className="font-mono text-cap-evidence">{cs.index}</span>{cs.short}
-                    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </>
-      ) : (
-        <p className="mt-6 text-xs leading-5 text-panel/70">No dedicated case study yet — the evidence is the documented outcome above.</p>
-      )}
+      <p className="relative mt-6 font-mono text-[11px] tracking-[0.16em] text-panel/60 uppercase"><RailDot tone="case" />03 · Read it</p>
+      <ul className="mt-3 flex flex-wrap gap-2">
+        {c.cases.map((k) => {
+          const cs = caseStudies.find((x) => x.slug === k.slug)!;
+          return (
+            <li key={k.slug}>
+              <Link href={cs.href} className="group inline-flex items-center gap-2 rounded-full border border-cap-evidence/40 px-3 py-1.5 text-xs text-panel transition-colors hover:border-cap-evidence hover:bg-cap-evidence/10">
+                <span className="font-mono text-cap-evidence">{cs.index}</span>{cs.short}
+                <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+              </Link>
+            </li>
+          );
+        })}
+        {ds.map((d) => (
+          <li key={d.id}>
+            <Link href={`/#decision-${d.id}`} className="group inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1.5 text-xs text-panel transition-colors hover:border-cap-evidence hover:bg-cap-evidence/10">
+              <span className="font-mono text-panel/60">Log</span>{d.short}
+              <span aria-hidden className="transition-transform group-hover:translate-x-0.5">↑</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      {c.cases.length ? null : <p className="mt-3 text-xs leading-5 text-panel/70">No dedicated case study. The evidence is in the decision log, with its outcomes.</p>}
 
       {onPick && related.length ? (
         <p className="mt-6 text-xs text-panel/70">

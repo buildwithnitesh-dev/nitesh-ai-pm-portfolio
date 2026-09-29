@@ -1,35 +1,35 @@
 /**
  * How I think about products. Every item is derived from work already shown on
- * this site and links to where it is evidenced — no invented stories, quotes,
- * failures, or numbers.
+ * this site and links to where it is evidenced: no invented stories, quotes,
+ * failures or numbers.
  */
 
 export type EvidenceLink = { label: string; href: string };
 
 export const principles: readonly { title: string; body: string; evidence: EvidenceLink }[] = [
   {
-    title: "Start with the user problem, not the feature.",
-    body: "Assignment completion wasn’t a content problem — learners had the material and still dropped. The fix was the journey, not another feature.",
+    title: "Find the behavior under the metric.",
+    body: "Low completion looked like a content problem. It was a fit problem: the same sequence was too hard for some learners and too easy for others, and both showed up as an unfinished assignment.",
     evidence: { label: "Adaptive Assignment Engine · Problem", href: "/work/adaptive-assignment-engine#problem" },
   },
   {
-    title: "Make the next action easier to understand.",
-    body: "In onboarding, the value sat in the first few sessions. The work was making the first meaningful action obvious and reachable before asking for anything else.",
+    title: "Check where the drop actually happens.",
+    body: "A 12% Day-7 retention reads like a retention problem. Most of the loss was before the second session, which made it an activation problem with a very different fix.",
     evidence: { label: "Onboarding Funnel Redesign · Diagnosis", href: "/work/onboarding-funnel-redesign#diagnosis" },
   },
   {
-    title: "Measure behavior, not activity.",
-    body: "One outcome decides success — assignment completion, Day-7 retention. Supporting signals exist to explain why it moved, not to decorate a dashboard.",
+    title: "One outcome decides. The rest explain.",
+    body: "Completion, Day-7 retention, spend with retention held. Supporting signals are there to explain why the number moved, not to fill a dashboard.",
     evidence: { label: "Adaptive Assignment Engine · Outcome", href: "/work/adaptive-assignment-engine#outcome" },
   },
   {
-    title: "Experiment before scaling.",
-    body: "Funnel analysis, segmentation, and A/B tests turn opinions into evidence — and a segment-level read tells you why a change worked, not just that it did.",
-    evidence: { label: "Onboarding Funnel Redesign · Experimentation", href: "/work/onboarding-funnel-redesign#experimentation" },
+    title: "Get the signal to the person who can act, while it still matters.",
+    body: "Retention data that reached faculty monthly described students who had already gone. The fix was timing and routing, not more data.",
+    evidence: { label: "Decision log · Faculty signals", href: "/#decision-faculty-signals" },
   },
   {
-    title: "Use AI where it creates a real product advantage.",
-    body: "Diagnosis and recommendation are judgment-heavy tasks — that is where an AI layer earns its place. It still has to beat a credible non-AI baseline to ship.",
+    title: "Rules first. A model where it earns its place.",
+    body: "Anything that must be consistent, auditable or cheap stays deterministic. The model gets the judgment-heavy steps, and still has to beat a credible non-AI baseline to ship.",
     evidence: { label: "AI Learner Diagnostic · Why AI", href: "/work/ai-learner-diagnostic#why-ai" },
   },
   {
@@ -42,60 +42,60 @@ export const principles: readonly { title: string; body: string; evidence: Evide
 export const antiPatterns: readonly { avoid: string; instead: string; evidence: EvidenceLink }[] = [
   {
     avoid: "Shipping AI because AI is fashionable",
-    instead: "Name the decision that should change, and the non-AI baseline the AI experience must beat.",
+    instead: "Name the decision that should change, and the non-AI baseline the AI experience has to beat.",
     evidence: { label: "Launch criteria", href: "/work/ai-learner-diagnostic#launch" },
   },
   {
     avoid: "Optimizing vanity metrics",
-    instead: "Pick one outcome tied to user value; treat activity metrics as diagnosis, not success.",
+    instead: "Pick one outcome tied to user value, and treat activity metrics as diagnosis rather than success.",
     evidence: { label: "Metric hierarchy", href: "/work/adaptive-assignment-engine#outcome" },
   },
   {
     avoid: "Adding complexity that doesn’t improve the journey",
-    instead: "Personalize only where it materially improves the job-to-be-done; keep a stable default elsewhere.",
+    instead: "Personalize only where it clearly improves the job, and keep a stable default everywhere else.",
     evidence: { label: "Trade-offs", href: "/work/adaptive-assignment-engine#reflection" },
   },
   {
     avoid: "Treating experimentation as a checkbox",
-    instead: "Write the hypothesis and decision rule before the test, and read results by segment.",
-    evidence: { label: "Experiment loop", href: "/work/onboarding-funnel-redesign#experimentation" },
+    instead: "Write the hypothesis and the decision rule before the test, and read the result by segment.",
+    evidence: { label: "Experimentation", href: "/work/onboarding-funnel-redesign#experimentation" },
   },
   {
     avoid: "Hiding uncertainty in AI experiences",
-    instead: "Show evidence and calibrated confidence, with a defined fallback when signals are ambiguous.",
-    evidence: { label: "Guardrails", href: "/work/ai-learner-diagnostic#guardrails" },
+    instead: "Show evidence and honest confidence, with a defined fallback when signals are ambiguous.",
+    evidence: { label: "Failure modes", href: "/work/ai-learner-diagnostic#failure-modes" },
   },
   {
-    avoid: "Building features without a clear hypothesis",
-    instead: "“If we…, then…, measured by…” comes before anything enters the roadmap.",
-    evidence: { label: "Hypothesis", href: "/work/adaptive-assignment-engine#decision" },
+    avoid: "Paying for retention before earning it",
+    instead: "Fix the first session before adding incentives, and target the incentives you keep by expected return.",
+    evidence: { label: "Decision log · Bonus allocation", href: "/#decision-bonus-roi" },
   },
 ];
 
 /**
  * Tempting beliefs the work taught me to distrust. Framed as lessons, not as
- * post-mortems of specific launches — nothing here describes an event that
+ * post-mortems of specific launches: nothing here describes an event that
  * isn’t documented elsewhere on the site.
  */
 export const graveyard: readonly { belief: string; lesson: string; evidence: EvidenceLink }[] = [
   {
-    belief: "More personalization is always better.",
-    lesson: "Past a point, adaptation adds unpredictability. The strongest personalization is often invisible — and a stable default is often the better product.",
-    evidence: { label: "Adaptive Assignment Engine", href: "/work/adaptive-assignment-engine#reflection" },
+    belief: "A test that doesn’t win was wasted.",
+    lesson: "Of 20+ A/B tests run end to end at Baazi Games, a fair number came back inconclusive or negative. Those results changed how later tests were scoped, which is most of what a testing program is for.",
+    evidence: { label: "Experience · Baazi Games", href: "/#experience" },
   },
   {
-    belief: "Retention is fixed with retention features.",
-    lesson: "Retention is won upstream: in time-to-value and in how obvious the first meaningful action is.",
-    evidence: { label: "Onboarding Funnel Redesign", href: "/work/onboarding-funnel-redesign#reflection" },
+    belief: "More engagement mechanics means more engagement.",
+    lesson: "Teachers called early quiz prototypes “too game-y”. In a classroom product, the people who decide whether students use it are part of the engagement loop, so credibility is a constraint, not a nice-to-have.",
+    evidence: { label: "Decision log · Gamification", href: "/#decision-gamification" },
   },
   {
     belief: "Incentives are the fastest retention lever.",
-    lesson: "Reduce friction before adding incentives, and target the incentives you keep. At Witzeal, rebuilding bonus allocation around expected ROI per user segment reduced bonus spend by ~20% while retention held steady.",
-    evidence: { label: "Documented outcome", href: "/#metrics" },
+    lesson: "At Witzeal, bonus allocation rebuilt around expected ROI per segment cut bonus spend by ~20% while retention held. Retention holding after the cut suggests flat incentives had been paying for some retention that would have happened anyway.",
+    evidence: { label: "Decision log · Bonus allocation", href: "/#decision-bonus-roi" },
   },
   {
-    belief: "A convincing AI demo means a good AI product.",
-    lesson: "Demos hide failure modes. Representative evaluation data, rubrics, and a launch gate decide whether it ships.",
-    evidence: { label: "AI Learner Diagnostic", href: "/work/ai-learner-diagnostic#evaluation" },
+    belief: "More personalization is always better.",
+    lesson: "Past a point, adaptation adds unpredictability. The strongest personalization is usually invisible, and a stable default is often the better product.",
+    evidence: { label: "Adaptive Assignment Engine", href: "/work/adaptive-assignment-engine#reflection" },
   },
 ];

@@ -48,7 +48,7 @@ function diagnose(answers: string[]) {
     return { level: "Targeted support", confidence: "Medium" as Confidence, gaps, next: "Targeted practice on the two consistent signals, then a re-check before widening the plan." };
   }
   return {
-    level: "Hold — gather more evidence",
+    level: "Hold: gather more evidence",
     confidence: "Low" as Confidence,
     gaps: ["Needs more evidence across core skills", "Confidence signal needs another observation"],
     next: "Collect another small evidence set before changing the learner's path.",
@@ -58,7 +58,7 @@ function diagnose(answers: string[]) {
 /**
  * The prototype is framed as a product surface, not a quiz: the output shows
  * its evidence, states its confidence honestly, degrades to "ask a human" when
- * evidence is thin, and lets the educator override — the AI UX principles in practice.
+ * evidence is thin, and lets the educator override: the AI UX principles in practice.
  */
 export function DiagnosticDemo() {
   const [phase, setPhase] = useState<"intro" | "question" | "result">("intro");
@@ -172,7 +172,7 @@ export function DiagnosticDemo() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <section aria-label="Why this diagnosis" className="rounded-lg border border-line bg-background p-5">
-                <p className="text-xs tracking-[0.16em] text-muted uppercase">Why — the evidence used</p>
+                <p className="text-xs tracking-[0.16em] text-muted uppercase">Why: the evidence used</p>
                 <ul className="mt-3 grid gap-3">
                   {questions.map((q, i) => {
                     const ok = aligned(answers[i] ?? "");
@@ -182,7 +182,7 @@ export function DiagnosticDemo() {
                         <span aria-hidden className={ok ? "text-accent" : "text-subtle"}>{ok ? "●" : "○"}</span>
                         <span>
                           <span className="text-ink">{q.skill}:</span> <span className="text-muted">{label}</span>
-                          <span className="mt-0.5 block text-xs text-subtle">{ok ? "Consistent with the signal" : "Conflicts with the signal — weakens confidence"}</span>
+                          <span className="mt-0.5 block text-xs text-subtle">{ok ? "Consistent with the signal" : "Conflicts with the signal, so confidence drops"}</span>
                         </span>
                       </li>
                     );
@@ -192,7 +192,7 @@ export function DiagnosticDemo() {
               <div className="grid gap-4">
                 <section aria-label="Detected gaps" className="rounded-lg border border-line bg-background p-5">
                   <p className="text-xs tracking-[0.16em] text-muted uppercase">Detected gaps</p>
-                  <ul className="mt-3 grid gap-1.5 text-sm leading-6 text-ink">{result.gaps.map((g) => <li key={g}>— {g}</li>)}</ul>
+                  <ul className="mt-3 grid gap-1.5 text-sm leading-6 text-ink">{result.gaps.map((g) => <li key={g}>· {g}</li>)}</ul>
                 </section>
                 <section aria-label="Next-best action" className="rounded-lg border border-accent/30 bg-accent-soft/60 p-5">
                   <p className="text-xs tracking-[0.16em] text-accent uppercase">Next-best action</p>
@@ -205,8 +205,8 @@ export function DiagnosticDemo() {
             <div className="flex flex-col gap-4 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between">
               <div aria-live="polite" className="text-sm text-muted">
                 {review === "pending" ? "Educator review: accept the plan or override it." : null}
-                {review === "accepted" ? <span className="text-ink">✓ Plan accepted — the learner receives the next step (demo).</span> : null}
-                {review === "overridden" ? <span className="text-ink">↺ Override logged — it becomes an evaluation signal for the next model iteration.</span> : null}
+                {review === "accepted" ? <span className="text-ink">✓ Plan accepted. The learner receives the next step (demo).</span> : null}
+                {review === "overridden" ? <span className="text-ink">↺ Override logged. It becomes an evaluation case for the next iteration.</span> : null}
               </div>
               <div className="flex flex-wrap gap-2">
                 {review === "pending" ? (

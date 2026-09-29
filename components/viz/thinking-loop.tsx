@@ -7,8 +7,8 @@ const steps = ["User signal", "Problem", "Hypothesis", "Product", "Experiment", 
  */
 export function ThinkingLoop() {
   return (
-    <figure aria-label="How I work: user signal, problem, hypothesis, product, experiment, impact — then learn and repeat" className="mt-6">
-      {/* Phones: one wrapped line — a diagram this small would not be legible. */}
+    <figure aria-label="How I work: user signal, problem, hypothesis, product, experiment, impact, then learn and repeat" className="mt-6">
+      {/* Phones: one wrapped line, because a diagram this small would not be legible. */}
       <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[11px] tracking-wide text-muted uppercase sm:hidden">
         {steps.map((s, i) => (
           <li key={s} className="flex items-center gap-2">

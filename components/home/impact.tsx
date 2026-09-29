@@ -13,7 +13,7 @@ export function Impact() {
             id="metrics-title"
             index="01"
             eyebrow="Verified impact"
-            title="Results from the work — not projections."
+            title="Results from shipped work, not projections."
             description="Selected outcomes from professional product work, charted with exactly the precision available: ranges stay ranges, approximations stay approximate."
           />
           <EvidenceTag kind="verified" />
@@ -33,7 +33,7 @@ export function Impact() {
               <p className="text-xs tracking-[0.16em] text-muted uppercase">Scale</p>
               <p className="mt-3 text-6xl font-semibold tracking-tight text-ink">100K+</p>
               <p className="mt-2 text-sm text-ink">Learners reached</p>
-              <p className="mt-1 text-sm leading-6 text-muted">Across Edfora’s broader learning and engagement work — not a single feature.</p>
+              <p className="mt-1 text-sm leading-6 text-muted">Across Edfora’s learning and engagement products, not a single feature.</p>
             </div>
             <div className="border-t border-line pt-5">
               <p className="text-xs tracking-[0.16em] text-muted uppercase">Growth</p>

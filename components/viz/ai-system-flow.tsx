@@ -1,7 +1,7 @@
 /**
  * Conceptual AI product architecture, annotated with what actually exists where.
  * Professional cells come only from the documented Edfora work; everything else
- * is marked as the independent prototype or left empty — no implied shipping.
+ * is marked as the independent prototype or left empty, so nothing implies shipping.
  */
 
 type Cell = { text: string; kind: "shipped" | "prototype" | "designed" | "none" };
@@ -14,23 +14,23 @@ const nodes: { name: string; edfora: Cell; prototype: Cell }[] = [
   },
   {
     name: "Diagnostic engine",
-    edfora: { text: "Not part of documented experience", kind: "none" },
+    edfora: { text: "Learner ability estimate from performance", kind: "shipped" },
     prototype: { text: "Skill-gap diagnosis with an evidence trace", kind: "prototype" },
   },
   {
     name: "LLM / rules",
-    edfora: { text: "LLM API", kind: "shipped" },
-    prototype: { text: "Deterministic rules — no model", kind: "prototype" },
+    edfora: { text: "Question parameters, plus an LLM API", kind: "shipped" },
+    prototype: { text: "Deterministic rules, no model", kind: "prototype" },
   },
   {
     name: "Recommendation",
-    edfora: { text: "Adjusted question difficulty", kind: "shipped" },
+    edfora: { text: "Next question matched to the learner", kind: "shipped" },
     prototype: { text: "Next-best action, stated confidence, educator override", kind: "prototype" },
   },
   {
     name: "Evaluation",
     edfora: { text: "Not part of documented experience", kind: "none" },
-    prototype: { text: "Rubric designed — not yet run", kind: "designed" },
+    prototype: { text: "Rubric designed, not yet run", kind: "designed" },
   },
 ];
 
@@ -54,7 +54,7 @@ export function AiSystemFlow() {
   return (
     <figure aria-labelledby="ai-flow-title" className="rounded-2xl border border-white/10 bg-ink-raised p-6 sm:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <p id="ai-flow-title" className="font-serif text-2xl">A conceptual AI product system — and what exists where</p>
+        <p id="ai-flow-title" className="font-serif text-2xl">A conceptual AI product system, and what exists where</p>
         <ul aria-label="Legend" className="flex flex-wrap gap-x-5 gap-y-1 text-xs text-panel/70">
           <li className="flex items-center gap-2"><Mark kind="shipped" />Professional · Edfora</li>
           <li className="flex items-center gap-2"><Mark kind="prototype" />Independent prototype</li>
@@ -108,7 +108,7 @@ export function AiSystemFlow() {
       </ol>
 
       <figcaption className="mt-6 border-t border-white/10 pt-4 text-xs leading-5 text-panel/70">
-        Conceptual architecture, not a description of one shipped system. At Edfora, the documented AI work is an LLM API that adjusted question difficulty from student performance history; other stages there are not described here. The independent prototype runs the full loop with deterministic rules and has no real users.
+        Conceptual architecture, not a description of one shipped system. At Edfora, the documented work is the Adaptive Assignment Engine: learner ability matched against question difficulty, discrimination and guessing, with an LLM API adjusting difficulty from performance history. Evaluation there is not described here. The independent prototype runs the full loop with deterministic rules and has no real users.
       </figcaption>
     </figure>
   );

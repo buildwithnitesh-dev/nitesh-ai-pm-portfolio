@@ -9,7 +9,7 @@ export type EvidenceKind = "verified" | "reasoning" | "illustrative" | "prototyp
 export const evidence: Record<EvidenceKind, { label: string; hint: string }> = {
   verified: { label: "Verified outcome", hint: "Result from professional work" },
   reasoning: { label: "Product reasoning", hint: "How I framed and decided" },
-  illustrative: { label: "Illustrative model", hint: "Explains logic — not real data" },
+  illustrative: { label: "Illustrative model", hint: "Explains logic, not real data" },
   prototype: { label: "Independent prototype", hint: "Self-built; no real-user results" },
 };
 
@@ -77,7 +77,7 @@ export const button = {
   onDark: `${buttonBase} border border-white/20 text-panel hover:border-white/40 hover:bg-white/10`,
 };
 
-/** Arrow that nudges forward when its parent `group` is hovered or focused — signals "this goes somewhere". */
+/** Arrow that nudges forward when its parent `group` is hovered or focused, signalling "this goes somewhere". */
 export function Arrow({ className = "" }: { className?: string }) {
   return <span aria-hidden className={`inline-block transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1 ${className}`}>→</span>;
 }
