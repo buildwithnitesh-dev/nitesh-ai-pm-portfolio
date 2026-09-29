@@ -14,12 +14,12 @@ const nodes: { name: string; edfora: Cell; prototype: Cell }[] = [
   },
   {
     name: "Diagnostic engine",
-    edfora: { text: "Learner ability estimate from performance", kind: "shipped" },
+    edfora: { text: "Learner ability (θ) per concept, from performance", kind: "shipped" },
     prototype: { text: "Skill-gap diagnosis with an evidence trace", kind: "prototype" },
   },
   {
-    name: "LLM / rules",
-    edfora: { text: "Question parameters, plus an LLM API", kind: "shipped" },
+    name: "Model / rules",
+    edfora: { text: "3PL IRT: P(θ) from difficulty, discrimination and guessing", kind: "shipped" },
     prototype: { text: "Deterministic rules, no model", kind: "prototype" },
   },
   {
@@ -108,7 +108,7 @@ export function AiSystemFlow() {
       </ol>
 
       <figcaption className="mt-6 border-t border-white/10 pt-4 text-xs leading-5 text-panel/70">
-        Conceptual architecture, not a description of one shipped system. At Edfora, the documented work is the Adaptive Assignment Engine: learner ability matched against question difficulty, discrimination and guessing, with an LLM API adjusting difficulty from performance history. Evaluation there is not described here. The independent prototype runs the full loop with deterministic rules and has no real users.
+        Conceptual architecture, not a description of one shipped system. At Edfora, the documented work is the Adaptive Assignment Engine: 3PL Item Response Theory-based adaptive practice, where learner ability (θ) is matched against question difficulty, discrimination and guessing, and updated after each response. Evaluation there is not described here. The independent prototype runs the full loop with deterministic rules and has no real users.
       </figcaption>
     </figure>
   );

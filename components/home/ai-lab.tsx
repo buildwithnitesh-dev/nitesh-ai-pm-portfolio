@@ -28,7 +28,7 @@ export function AiLab() {
               <div className="bg-ink-raised p-5">
                 <dt className="flex items-center gap-2 text-[11px] tracking-[0.14em] text-panel/70 uppercase"><EvidenceMark kind="verified" tone="dark" />Professional · Edfora</dt>
                 <dd className="mt-2 text-sm leading-6 text-panel/85">
-                  The Adaptive Assignment Engine matched learner ability against question parameters, with an LLM API adjusting difficulty from performance history.{" "}
+                  The Adaptive Assignment Engine used 3PL Item Response Theory: each learner’s ability (θ) estimated per concept, and the next question chosen by its probability of a correct answer, P(θ).{" "}
                   <Link href="/work/adaptive-assignment-engine" className="text-panel underline decoration-white/30 underline-offset-4 hover:decoration-accent-soft">Case 01</Link>
                 </dd>
               </div>

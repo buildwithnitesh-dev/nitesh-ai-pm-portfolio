@@ -5,7 +5,7 @@ A recruiter-first Next.js portfolio for Product Manager and Senior Product Manag
 ## Included
 - Editorial homepage ordered proof first: impact → work → capability map → product thinking → AI lab → experience → contact
 - Three case studies, each told in its own shape:
-  - **Adaptive Assignment Engine** (Edfora): the mechanism (learner ability vs. question difficulty, discrimination and guessing), the options and how each fails, an interactive decision trace, and the documented outcome
+  - **Adaptive Assignment Engine** (Edfora): the 3PL IRT mechanism (learner ability θ vs. question difficulty, discrimination and guessing), the documented practice flow and edge cases, the options and how each fails, an interactive decision trace, and the documented outcome
   - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, the documented before → after onboarding changes, an illustrative decision simulator, the 30/70 controlled rollout, and the documented control vs. treatment result
   - **AI Learner Diagnostic** (independent prototype): rules vs. model split, failure modes and fallbacks, evaluation rubric, guardrails, launch gate, and a playable deterministic demo
 - Decision log under the case studies: six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`)

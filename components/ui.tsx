@@ -27,12 +27,13 @@ export function EvidenceMark({ kind, tone = "light", className = "" }: { kind: E
   );
 }
 
-export function EvidenceTag({ kind, tone = "light" }: { kind: EvidenceKind; tone?: "light" | "dark" }) {
+/** `label` overrides the default wording, e.g. "Documented" for a documented fact that is not itself a result. */
+export function EvidenceTag({ kind, tone = "light", label }: { kind: EvidenceKind; tone?: "light" | "dark"; label?: string }) {
   const text = tone === "dark" ? "text-panel/80 border-white/15" : "text-muted border-line bg-panel";
   return (
     <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs ${text}`}>
       <EvidenceMark kind={kind} tone={tone} />
-      {evidence[kind].label}
+      {label ?? evidence[kind].label}
     </span>
   );
 }
