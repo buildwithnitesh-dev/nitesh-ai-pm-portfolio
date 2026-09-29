@@ -47,13 +47,13 @@ function inQuiet(L: Layout, px: number, py: number) {
 
 function buildLayout(wrapper: HTMLElement, w: number, h: number): Layout {
   const n = w >= 1024 ? 32 : w >= 640 ? 22 : 14;
-  // Quiet zones: the Hero's text and cards, relative to the canvas, padded a little.
+  // Quiet zones: the Hero's text and cards, relative to the canvas, padded a little (more below text).
   const box = wrapper.getBoundingClientRect();
   const els = wrapper.parentElement ? Array.from(wrapper.parentElement.querySelectorAll<HTMLElement>("[data-network-quiet]")) : [];
   const quiet = new Float32Array(els.length * 4);
   els.forEach((el, i) => {
-    const r = el.getBoundingClientRect(); const pad = 20;
-    quiet.set([r.left - box.left - pad, r.top - box.top - pad, r.right - box.left + pad, r.bottom - box.top + pad], i * 4);
+    const r = el.getBoundingClientRect(); const pad = 20, padBottom = 32;
+    quiet.set([r.left - box.left - pad, r.top - box.top - pad, r.right - box.left + pad, r.bottom - box.top + padBottom], i * 4);
   });
   const L: Layout = {
     w, h, n, x: new Float32Array(n), y: new Float32Array(n), z: new Float32Array(n), phase: new Float32Array(n),
@@ -127,6 +127,8 @@ export function ProductIntelligenceNetwork() {
     let L: Layout | null = null;
     let disposed = false;
     let dpr = 1, raf = 0, visible = true, lastT = 0;
+    // Static (one frame, no loop) under reduced motion, and on phones, where the network is too faint to earn a loop.
+    const isStill = () => reduceMq.matches || (L !== null && L.w < 640);
     // Per-frame positions, reused (no allocation in the loop).
     let px = new Float32Array(0), py = new Float32Array(0);
     const pointer = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false };
@@ -144,6 +146,7 @@ export function ProductIntelligenceNetwork() {
       L = buildLayout(wrapper, w, h);
       px = new Float32Array(L.n); py = new Float32Array(L.n);
       draw(lastT || 0);
+      start(); // no-op when already running or static; resumes the loop when a phone-width window grows
     };
 
     const quietFactor = (x: number, y: number) => (L && inQuiet(L, x, y) ? QUIET_ALPHA : 1);
@@ -151,7 +154,7 @@ export function ProductIntelligenceNetwork() {
     function draw(t: number) {
       if (!L || !ctx) return;
       const { w, h, n } = L;
-      const still = reduceMq.matches;
+      const still = isStill();
       const mobile = w < 640, tablet = w < 1024;
       const amp = still ? 0 : mobile ? 2 : tablet ? 3 : 5; // drift amplitude in px
       const base = mobile ? 0.55 : tablet ? 0.75 : 1; // overall intensity by viewport
@@ -266,9 +269,9 @@ export function ProductIntelligenceNetwork() {
     // Motion this slow reads the same at ~30fps, so every other display frame is skipped.
     const frame = (t: number) => {
       if (t - lastT >= 30) { lastT = t; draw(t); }
-      raf = visible && !reduceMq.matches && !document.hidden ? requestAnimationFrame(frame) : 0;
+      raf = visible && !isStill() && !document.hidden ? requestAnimationFrame(frame) : 0;
     };
-    const start = () => { if (!raf && visible && !reduceMq.matches && !document.hidden) raf = requestAnimationFrame(frame); };
+    const start = () => { if (!raf && visible && !isStill() && !document.hidden) raf = requestAnimationFrame(frame); };
     const stop = () => { cancelAnimationFrame(raf); raf = 0; };
 
     const onPointer = (ev: PointerEvent) => {
