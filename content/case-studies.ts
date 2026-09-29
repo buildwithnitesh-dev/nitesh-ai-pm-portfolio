@@ -240,7 +240,7 @@ export const onboardingFunnelRedesign = {
           title: "Fix the first 60 seconds before paying for the next seven days.",
           reasoning: true,
           body: [
-            "When most of the loss sits before the first game, there are two broad ways to respond: bring players back later with reminders and rewards, or get them into a game before they leave.",
+            "When most new users were not reaching a first game on D0, there were two broad ways to respond: bring players back later with reminders and rewards, or get them into a game before they leave.",
             "Every change here does the second. Even the free games are aimed at getting a new player to try the product, not at rewarding them for coming back.",
           ],
         },
@@ -275,7 +275,7 @@ export const onboardingFunnelRedesign = {
           title: "Day-7 retention: 12.2% in control, 25.4% with the redesign.",
           body: [
             "Day-7 retention was 12.2% in the control group and 25.4% in the treatment group, an increase of 13.2 percentage points.",
-            "The improvement carried beyond Day 7 into the first month (M0). Exact later-period figures aren’t available, so none are shown here.",
+            "Positive movement continued beyond Day 7 into the first month (M0), although exact later-period figures aren’t available, so none are shown here.",
           ],
         },
       ],
