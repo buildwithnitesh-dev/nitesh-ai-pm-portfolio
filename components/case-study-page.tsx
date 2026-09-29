@@ -37,6 +37,7 @@ export function AdaptiveAssignmentCaseStudy() {
           "Root cause": <FitBand />,
           Options: <Options />,
           Mechanism: <Mechanism />,
+          "Practice loop": <PracticeLoop />,
           Solution: <DecisionTree />,
           Measurement: <OutcomeTile />,
           "Trade-offs": <Tensions />,
@@ -141,7 +142,7 @@ function Mechanism() {
   return (
     <figure aria-labelledby="mechanism-title" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p id="mechanism-title" className="text-sm font-medium text-ink">Matching a question to a learner</p>
+        <p id="mechanism-title" className="text-sm font-medium text-ink">Matching a question to a learner with 3PL IRT</p>
         <EvidenceTag kind="illustrative" />
       </div>
 
@@ -150,7 +151,7 @@ function Mechanism() {
         <span className="absolute inset-x-0 top-8 h-px bg-line-strong" />
         <span className="absolute top-5 h-6 rounded-full bg-accent-soft" style={{ left: `${ability.low}%`, width: `${ability.high - ability.low}%` }} />
         <span className="absolute top-3 h-10 w-[2px] -translate-x-1/2 bg-accent" style={{ left: `${ability.at}%` }} />
-        <span className="absolute -top-5 -translate-x-1/2 font-mono text-[10px] tracking-wide whitespace-nowrap text-accent uppercase" style={{ left: `${ability.at}%` }}>Learner ability</span>
+        <span className="absolute -top-5 -translate-x-1/2 font-mono text-[10px] tracking-wide whitespace-nowrap text-accent uppercase" style={{ left: `${ability.at}%` }}>Learner ability (θ)</span>
         {questions.map((q) => (
           <span key={q.id} className="absolute top-8 -translate-x-1/2 -translate-y-1/2" style={{ left: `${q.at}%` }}>
             <span className={`flex h-7 w-7 items-center justify-center rounded-md border font-mono text-[10px] ${q.chosen ? "border-accent bg-accent text-panel" : "border-line-strong bg-panel text-muted"}`}>{q.id}</span>
@@ -165,8 +166,8 @@ function Mechanism() {
         <thead className="text-[11px] tracking-[0.12em] text-muted uppercase">
           <tr className="border-b border-line">
             <th scope="col" className="py-2 pr-3 font-medium">Question</th>
-            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Discrimination</th>
-            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Guessing</th>
+            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Discrimination (a)</th>
+            <th scope="col" className="hidden py-2 pr-3 font-medium sm:table-cell">Guessing (c)</th>
             <th scope="col" className="py-2 font-medium">Verdict</th>
           </tr>
         </thead>
@@ -187,9 +188,9 @@ function Mechanism() {
 
       <dl className="mt-6 grid gap-4 border-t border-line pt-5 text-sm sm:grid-cols-3">
         {[
-          ["Difficulty", "Where the question sits on the same scale as the learner."],
-          ["Discrimination", "How sharply it separates learners just above its level from those just below."],
-          ["Guessing", "How likely a correct answer is to be luck. A higher chance makes a right answer weaker evidence."],
+          ["Difficulty (b)", "Where the question sits on the same scale as the learner."],
+          ["Discrimination (a)", "How sharply it separates learners just above its level from those just below."],
+          ["Guessing (c)", "How likely a correct answer is to be luck. A higher chance makes a right answer weaker evidence."],
         ].map(([k, v]) => (
           <div key={k}>
             <dt className="font-mono text-[11px] tracking-[0.14em] text-ink uppercase">{k}</dt>
@@ -199,7 +200,7 @@ function Mechanism() {
       </dl>
       <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
         <span aria-hidden className="text-accent">↺</span>
-        After each answer the ability estimate moves and its band narrows, which changes the next choice. Positions are illustrative; real parameters, thresholds and selection rules are not shown.
+        After each answer θ is updated, which changes the next choice. Positions are illustrative; real parameters, thresholds and selection rules are not shown.
       </figcaption>
     </figure>
   );
@@ -273,5 +274,39 @@ function Tensions() {
       </ul>
       <p className="mt-4 text-xs leading-5 text-muted">The rule of thumb: personalize only where it clearly improves the job. Everywhere else, a stable default wins.</p>
     </div>
+  );
+}
+
+/** The adaptive practice flow as documented in the PRD: steps only, no thresholds or implementation. */
+function PracticeLoop() {
+  const steps = [
+    "Initialize",
+    "Calculate ability (θ)",
+    "Select a concept",
+    "Assign a question by P(θ)",
+    "Evaluate the response",
+    "Update ability (θ)",
+    "Adjust difficulty",
+    "Repeat, or end the session",
+  ];
+  return (
+    <figure aria-label="The adaptive practice flow documented in the PRD" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p aria-hidden className="text-sm font-medium text-ink">Adaptive practice flow</p>
+        <EvidenceTag kind="verified" label="Documented" />
+      </div>
+      <ol className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li key={s} className="flex items-start gap-3 rounded-lg border border-line bg-background px-4 py-3 text-sm leading-5 text-ink">
+            <span className="mt-px font-mono text-[11px] text-accent">{String(i + 1).padStart(2, "0")}</span>
+            {s}
+          </li>
+        ))}
+      </ol>
+      <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
+        <span aria-hidden className="text-accent">↺</span>
+        After each response θ is updated: a correct answer leads to a more challenging question, an incorrect one to an easier one. The loop repeats until the session ends.
+      </figcaption>
+    </figure>
   );
 }

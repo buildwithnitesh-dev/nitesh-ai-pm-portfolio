@@ -19,13 +19,13 @@ export const adaptiveAssignmentEngine = {
   role: "Senior Product Manager · Edfora · 2023–2026",
   outcome: "Approximately 18–25% improvement in assignment completion",
   scale: "Edfora’s learning and engagement products reached 100K+ learners overall; that figure is not specific to this engine",
-  focus: ["Personalization", "Learning systems", "AI & data"],
+  focus: ["Personalization", "Learning systems", "3PL IRT"],
   confidentiality:
     "This case study covers product reasoning and outcomes. Proprietary implementation details, internal data and confidential employer information are left out.",
   tldr: {
     problem: "Low assignment completion was a key driver of learners dropping off. A fixed practice sequence gave every learner the same next question: too hard for some, too easy for others.",
-    approach: "Estimate each learner’s ability and match it against each question’s difficulty, discrimination and guessing parameters, with an LLM API adjusting difficulty from the learner’s performance history.",
-    outcome: "Assignment completion improved by roughly 18–25%, and fewer students dropped off mid-practice.",
+    approach: "Adaptive practice built on a 3PL Item Response Theory (IRT) model: estimate each learner’s ability (θ) per concept from historical performance, select questions by their probability of a correct answer, P(θ), from each question’s difficulty, discrimination and guessing parameters, and update θ after every response.",
+    outcome: "Assignment completion improved by roughly 18–25% across live learning cohorts, and fewer students dropped off mid-practice.",
   } satisfies Tldr,
   journey: [
     { step: "Receive", note: "An assignment arrives" },
@@ -45,7 +45,7 @@ export const adaptiveAssignmentEngine = {
           title: "Learners had the material and still stopped.",
           body: [
             "Low assignment completion was a key driver of learners dropping off, including partway through practice.",
-            "Treating that as a content problem points to better questions and more explanations. The sharper question is fit: every learner got the same practice sequence, and one sequence cannot be the right difficulty for learners at different levels.",
+            "Treating that as a content problem points to better questions and more explanations. The sharper question is fit: every learner got the same fixed practice sequence, which didn’t adapt to what each learner had mastered, and one sequence cannot be the right difficulty for learners at different levels.",
           ],
         },
         {
@@ -80,7 +80,7 @@ export const adaptiveAssignmentEngine = {
           eyebrow: "Options",
           title: "Three ways to fix difficulty fit, and how each one fails.",
           body: [
-            "Laid out as product reasoning, the realistic options were: let learners pick their own difficulty, move them between difficulty bands with simple rules, or estimate each learner’s ability and match questions to it. The direction taken was the third.",
+            "Laid out as product reasoning, the realistic options were: let learners pick their own difficulty, move them between difficulty bands with simple rules, or estimate each learner’s ability and match questions to it with a 3PL IRT model. The direction taken was the third.",
           ],
         },
         {
@@ -89,6 +89,14 @@ export const adaptiveAssignmentEngine = {
           body: [
             "If each learner gets questions matched to their current ability instead of a fixed sequence, then fewer learners will hit a wall or coast, and more will finish the assignment.",
             "How I would frame the measurement: completion as the primary outcome, and practice drop-off as the second signal, because the change targets the moment a learner gives up.",
+          ],
+        },
+        {
+          eyebrow: "My role",
+          title: "Senior PM, Core Practice & Learning Experience",
+          body: [
+            "The team was one PM (me), one APM, one product designer, 5–7 engineers and 2–3 academic leads.",
+            "I owned the product strategy, the roadmap and prioritization, the learner and problem analysis, the PRD and the adaptive product logic, and post-launch tracking. I worked with engineering on the implementation, with product design on the experience, and with the academic leads on the learning requirements.",
           ],
         },
       ],
@@ -101,9 +109,23 @@ export const adaptiveAssignmentEngine = {
           eyebrow: "Mechanism",
           title: "Learner ability on one side, question parameters on the other.",
           body: [
-            "The engine keeps an estimate of each learner’s ability, updated from their performance. Every question carries three parameters: how difficult it is, how well it separates stronger learners from weaker ones (discrimination), and how likely a correct answer is to be a guess.",
-            "Those parameters are what make the matching trustworthy. A question almost everyone gets right says little about a learner, so it should barely move the estimate. A correct answer on an easy-to-guess question is weaker evidence than one on a question that is hard to guess, so one lucky answer doesn’t push a struggling learner up too fast.",
-            "An LLM API was used to adjust question difficulty from each student’s performance history. How that and the ability model were wired together is not covered here.",
+            "The system is built on a 3-parameter logistic (3PL) Item Response Theory model. It estimates each learner’s ability (θ) for each concept from their historical performance, and every question carries three parameters: difficulty (b), discrimination (a) and the probability of a correct guess (c).",
+            "For the relevant questions it calculates P(θ), the probability that this learner answers correctly, and selects questions targeted around the learner’s current ability. After each response θ is updated: a correct answer leads to a more challenging next question, an incorrect one to an easier one. When several candidates are comparable, higher discrimination can be used to prioritize.",
+            "The inputs were raw student data, the 3PL parameters for each question, and Content IDs. The PRD includes implementation examples for concept-wise θ calculation and for assigning the next question and updating θ.",
+          ],
+        },
+        {
+          eyebrow: "Practice loop",
+          title: "One adaptive practice loop, as the PRD defines it",
+          body: [
+            "The system supports concept selection as well as the practice loop itself. The flow runs from initialization to the end of a session:",
+          ],
+        },
+        {
+          eyebrow: "Edge cases",
+          title: "The edge cases the PRD defines",
+          body: [
+            "The PRD documents the edge cases the logic has to handle: estimating ability before a learner has any history, questions missing 3PL parameters, and several questions sharing the same median P(θ).",
           ],
         },
         {
@@ -125,7 +147,7 @@ export const adaptiveAssignmentEngine = {
           eyebrow: "Measurement",
           title: "Completion up by roughly 18–25%.",
           body: [
-            "Assignment completion improved by roughly 18–25%, and fewer students dropped off mid-practice. The result was reported as a range, so it is shown as a range here.",
+            "Assignment completion improved by roughly 18–25% across live learning cohorts, and fewer students dropped off mid-practice. The result was reported as a range, so it is shown as a range here.",
           ],
         },
       ],

@@ -121,7 +121,7 @@ export function DecisionTree() {
         <p key={current.id} className="fade-up text-sm leading-6 text-ink">{current.why}</p>
       </div>
       <figcaption className="mt-5 text-xs leading-5 text-muted">
-        Illustrative model of the three-layer logic: learner state, next decision, feedback. In production, the engine matched learner ability against question parameters and used an LLM API to adjust difficulty from performance history. Exact signals, thresholds and implementation details are left out.
+        Illustrative model of the three-layer logic: learner state, next decision, feedback. In production, the engine used a 3PL IRT model: it estimated learner ability (θ), selected questions by P(θ) from their difficulty, discrimination and guessing parameters, and updated θ after each response. Exact signals, thresholds and implementation details are left out.
       </figcaption>
     </figure>
   );
