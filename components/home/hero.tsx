@@ -5,7 +5,7 @@ import { BeforeAfter } from "@/components/viz/before-after";
 import { ResumeCta } from "@/components/resume-cta";
 import { ProductIntelligenceNetwork } from "@/components/home/product-intelligence-network";
 import { ThinkingLoop } from "@/components/viz/thinking-loop";
-import { contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
+import { about, contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
   return (
@@ -96,6 +96,20 @@ function GlanceCard() {
         <div className="px-6 py-4">
           <dt className="text-xs text-muted">Learners reached · Edfora</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">100K+</dd>
+        </div>
+      </dl>
+
+      {/* Scan layer for recruiters: where the work was, then résumé tools as quiet keywords. */}
+      <dl className="grid gap-3 border-t border-line px-6 py-4 text-xs leading-5">
+        <div className="grid gap-0.5 min-[400px]:grid-cols-[4rem_1fr] min-[400px]:gap-3">
+          <dt className="text-muted">Domains</dt>
+          <dd className="text-ink">{about.facts.find(([k]) => k === "Domains")?.[1]}</dd>
+        </div>
+        <div className="grid gap-0.5 min-[400px]:grid-cols-[4rem_1fr] min-[400px]:gap-3">
+          <dt className="text-muted">Tools</dt>
+          <dd className="text-muted">
+            {profile.tools.map((t, i) => <span key={t}>{i > 0 ? " · " : ""}<span className="whitespace-nowrap">{t}</span></span>)}
+          </dd>
         </div>
       </dl>
 

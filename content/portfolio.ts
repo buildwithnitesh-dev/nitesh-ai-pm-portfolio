@@ -8,6 +8,11 @@ export const profile = {
     "Product Strategy", "Growth", "Personalization", "Experimentation", "Product Analytics",
     "Consumer UX", "Retention", "Monetization", "AI and Data Products",
   ] as const,
+  /** Exactly the tools listed on the résumé, for keyword scanning. */
+  tools: [
+    "Mixpanel", "CleverTap", "GA4", "Firebase", "Jira", "Figma",
+    "Postman", "Notion", "Miro", "OpenAI API", "Prompt engineering",
+  ] as const,
 };
 
 export const seo = {
