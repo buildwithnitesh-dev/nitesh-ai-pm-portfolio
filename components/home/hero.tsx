@@ -3,14 +3,17 @@ import { Container } from "@/components/container";
 import { Arrow, EvidenceMark, button } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
 import { ResumeCta } from "@/components/resume-cta";
+import { ProductIntelligenceNetwork } from "@/components/home/product-intelligence-network";
 import { ThinkingLoop } from "@/components/viz/thinking-loop";
 import { contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="border-b border-line">
+    // `relative isolate`: the decorative network sits behind the Hero content and is clipped to the Hero.
+    <section aria-labelledby="hero-title" className="relative isolate border-b border-line">
+      <ProductIntelligenceNetwork />
       <Container className="grid gap-14 pt-11.5 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-16">
-        <div>
+        <div data-network-quiet>
           <p className="text-xs font-medium tracking-[0.22em] text-accent uppercase">{hero.eyebrow}</p>
           <h1 id="hero-title" className="mt-5 max-w-4xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-[4.9rem]">
             {hero.headline}
@@ -27,14 +30,14 @@ export function Hero() {
             </a>
           </p>
         </div>
-        <div>
+        <div data-network-quiet>
           <GlanceCard />
           <ThinkingLoop />
         </div>
       </Container>
 
       <Container className="pb-6 lg:pb-8">
-        <nav aria-label="Choose your reading depth">
+        <nav aria-label="Choose your reading depth" data-network-quiet>
           <p className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Short on time? Choose your depth</p>
           <ol className="mt-4 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
             {readingPaths.map((p, i) => (
