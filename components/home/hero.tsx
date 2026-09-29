@@ -92,10 +92,11 @@ function GlanceCard() {
         </div>
       </div>
 
-      <dl className="grid grid-cols-2 border-t border-line">
-        <div className="border-r border-line px-6 py-3">
+      {/* Stacked below 400px so each value stays on one line; side by side above. */}
+      <dl className="grid border-t border-line min-[400px]:grid-cols-2">
+        <div className="border-b border-line px-6 py-3 min-[400px]:border-r min-[400px]:border-b-0">
           <dt className="text-xs text-muted">Assignment completion · Edfora</dt>
-          <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">+18–25%</dd>
+          <dd className="mt-1 text-2xl font-semibold tracking-tight whitespace-nowrap text-ink">18% → 45%</dd>
         </div>
         <div className="px-6 py-3">
           <dt className="text-xs text-muted">Learners reached · Edfora</dt>

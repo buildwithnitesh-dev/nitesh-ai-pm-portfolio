@@ -9,7 +9,7 @@ export const contentType = "image/png";
 export default function Image() {
   const stats = [
     ["12% → 25%", "Day-7 retention · Witzeal"],
-    ["+18–25%", "Assignment completion · Edfora"],
+    ["18% → 45%", "Assignment completion · Edfora"],
     ["100K+", "Learners reached · Edfora"],
   ];
   return new ImageResponse(

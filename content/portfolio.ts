@@ -78,7 +78,7 @@ export type Metric = {
 
 export const metrics: readonly Metric[] = [
   { id: "learners", value: "100K+", label: "Learners reached", detail: "Reach of Edfora’s learning and engagement products overall, not of a single feature.", areas: ["Learning"], precision: "Approximate" },
-  { id: "completion", value: "18–25%", label: "Assignment completion uplift", detail: "Adaptive Assignment Engine at Edfora, across live learning cohorts. Practice drop-offs also reduced.", areas: ["Learning"], precision: "Range", chart: { low: 18, high: 25, direction: "up" } },
+  { id: "completion", value: "18% → 45%", label: "Assignment completion", detail: "Adaptive Assignment Engine at Edfora, across live learning cohorts: +27 percentage points. Practice drop-offs also reduced. A change in level rather than an uplift, so it is not plotted.", areas: ["Learning"], precision: "Exact" },
   { id: "d7", value: "12% → 25%", label: "Day-7 retention", detail: "Redesign of the first 60 seconds of onboarding at Witzeal Technologies.", areas: ["Retention"], precision: "Exact" },
   { id: "dau", value: "12–15%", label: "DAU growth", detail: "Quiz and gamification layer at Edfora, after DAU had been flat for two months.", areas: ["Engagement"], precision: "Range", chart: { low: 12, high: 15, direction: "up" } },
   { id: "session", value: "~15%", label: "Average session time", detail: "Quiz and gamification layer at Edfora.", areas: ["Engagement"], precision: "Approximate", chart: { low: 15, high: 15, direction: "up" } },
@@ -98,10 +98,10 @@ export const caseStudies = [
     domain: "EdTech · Edfora · Senior Product Manager",
     title: "Adaptive Assignment Engine",
     summary:
-      "A fixed practice sequence gave every learner the same next question, so some stalled and others coasted. A 3PL IRT-based engine matched difficulty to each learner instead. Assignment completion rose by roughly 18–25%, and fewer students dropped off mid-practice.",
+      "A fixed practice sequence gave every learner the same next question, so some stalled and others coasted. A 3PL IRT-based engine matched difficulty to each learner instead. Assignment completion rose from 18% to 45%, and fewer students dropped off mid-practice.",
     href: "/work/adaptive-assignment-engine",
     tags: ["Personalization", "Learning systems", "3PL IRT"],
-    outcome: "18–25% completion uplift",
+    outcome: "Assignment completion: 18% → 45%",
     evidence: "verified",
     inside: ["How the matching works", "Options and trade-offs", "Interactive decision trace"],
     readTime: "7 min",
@@ -439,7 +439,7 @@ export const career: readonly Role[] = [
       "Product Planning", "Stakeholder Platform", "VOD Analytics", "Author Platform", "Content Improvement",
     ],
     highlights: [
-      "3PL IRT-based Adaptive Assignment Engine matched question difficulty to each learner’s ability: assignment completion up ~18–25%, practice drop-offs reduced",
+      "3PL IRT-based Adaptive Assignment Engine matched question difficulty to each learner’s ability: assignment completion from 18% to 45%, practice drop-offs reduced",
       "Quiz and gamification layer, shaped by teachers who found early prototypes “too game-y”: DAU up ~12–15%, average session time up ~15%",
       "Replaced a monthly spreadsheet pull with real-time engagement dashboards for faculty: student retention up ~8–12%",
       "Regular interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, reaching 100K+ learners",

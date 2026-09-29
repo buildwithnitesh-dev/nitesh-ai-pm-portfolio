@@ -15,7 +15,7 @@ const pct = (v: number) => `${(v / MAX) * 100}%`;
  */
 export function UpliftChart() {
   const [area, setArea] = useState<MetricArea | "All">("All");
-  const [focus, setFocus] = useState<string>("completion");
+  const [focus, setFocus] = useState<string>("dau");
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, 0.2);
 
@@ -126,7 +126,7 @@ export function UpliftChart() {
       </div>
 
       <p className="mt-6 max-w-2xl text-xs leading-5 text-muted">
-        Day-7 retention (percentage points), GMV growth (a weekly rate) and the 48% retention level use different units, so they sit in the table rather than on this axis.
+        Assignment completion and Day-7 retention (changes in level, in percentage points), GMV growth (a weekly rate) and the 48% retention level use different units, so they sit in the table rather than on this axis.
       </p>
 
       {/* Table view: the accessible, complete twin of the chart. */}
