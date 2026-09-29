@@ -66,52 +66,48 @@ export function Hero() {
 function GlanceCard() {
   return (
     <aside aria-label="At a glance" className="rounded-2xl border border-line bg-panel shadow-[0_1px_0_rgba(17,17,16,0.04),0_24px_60px_-28px_rgba(17,17,16,0.18)]">
-      <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-4">
-        <div>
-          <p className="text-sm font-medium text-ink">{profile.name}</p>
-          <p className="text-xs text-muted">Senior PM · {profile.experience}</p>
+      <div className="border-b border-line px-6 py-4">
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium text-ink">{profile.name}</p>
+            <p className="text-xs text-muted">Senior PM · {profile.experience}</p>
+          </div>
+          <a href="#contact" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs whitespace-nowrap text-accent transition-colors hover:bg-accent-tint">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
+            Open to roles
+          </a>
         </div>
-        <a href="#contact" className="inline-flex shrink-0 items-center gap-2 rounded-full bg-accent-soft px-3 py-1 text-xs whitespace-nowrap text-accent transition-colors hover:bg-accent-tint">
-          <span aria-hidden className="h-2 w-2 rounded-full bg-accent" />
-          Open to roles
-        </a>
+        {/* Full width under the role line, so it wraps across the card rather than beside the pill. */}
+        <p className="mt-1.5 text-xs leading-5 text-ink">{about.facts.find(([k]) => k === "Domains")?.[1]}</p>
       </div>
 
-      <div className="px-6 py-5">
+      <div className="px-6 py-4">
         <div className="flex items-baseline justify-between gap-3">
           <p className="text-xs text-muted">{retentionHeadline.label}</p>
           <p className="flex items-center gap-1.5 text-[11px] text-muted"><EvidenceMark kind="verified" /> Documented</p>
         </div>
         <p className="mt-1 text-4xl font-semibold tracking-tight text-ink">12% → 25%</p>
-        <div className="mt-4">
+        <div className="mt-3">
           <BeforeAfter compact before={retentionHeadline.before} after={retentionHeadline.after} caption={retentionHeadline.context} />
         </div>
       </div>
 
       <dl className="grid grid-cols-2 border-t border-line">
-        <div className="border-r border-line px-6 py-4">
+        <div className="border-r border-line px-6 py-3">
           <dt className="text-xs text-muted">Assignment completion · Edfora</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">+18–25%</dd>
         </div>
-        <div className="px-6 py-4">
+        <div className="px-6 py-3">
           <dt className="text-xs text-muted">Learners reached · Edfora</dt>
           <dd className="mt-1 text-2xl font-semibold tracking-tight text-ink">100K+</dd>
         </div>
       </dl>
 
-      {/* Scan layer for recruiters: where the work was, then résumé tools as quiet keywords. */}
-      <dl className="grid gap-3 border-t border-line px-6 py-4 text-xs leading-5">
-        <div className="grid gap-0.5 min-[400px]:grid-cols-[4rem_1fr] min-[400px]:gap-3">
-          <dt className="text-muted">Domains</dt>
-          <dd className="text-ink">{about.facts.find(([k]) => k === "Domains")?.[1]}</dd>
-        </div>
-        <div className="grid gap-0.5 min-[400px]:grid-cols-[4rem_1fr] min-[400px]:gap-3">
-          <dt className="text-muted">Tools</dt>
-          <dd className="text-muted">
-            {profile.tools.map((t, i) => <span key={t}>{i > 0 ? " · " : ""}<span className="whitespace-nowrap">{t}</span></span>)}
-          </dd>
-        </div>
-      </dl>
+      {/* Résumé tools as one quiet keyword line; the label sits inline so the list wraps at full width. */}
+      <p className="border-t border-line px-6 py-2.5 text-[11px] leading-5 text-muted">
+        <span className="mr-2 font-mono tracking-[0.14em] text-subtle uppercase">Tools</span>
+        {profile.tools.map((t, i) => <span key={t}><span className="whitespace-nowrap">{t}</span>{i < profile.tools.length - 1 ? "\u00a0· " : ""}</span>)}
+      </p>
 
       <div className="flex items-center justify-between gap-4 rounded-b-2xl border-t border-line bg-background/60 px-6 py-3 text-xs text-muted">
         <span className="truncate">{contact.email}</span>
