@@ -159,17 +159,17 @@ export const adaptiveAssignmentEngine = {
 export const onboardingFunnelRedesign = {
   slug: "onboarding-funnel-redesign",
   title: "Onboarding Funnel Redesign",
-  subtitle: "Most players who left were gone before their second session. After the first 60 seconds were redesigned, Day-7 retention went from 12% to 25%.",
+  subtitle: "Only about a third of new players reached a game on their first day. In a controlled rollout, Day-7 retention was 25.4% with a redesigned first 60 seconds, against 12.2% for the existing experience.",
   type: "Witzeal Technologies · Real-money gaming · Professional experience",
   role: "Product Manager · Witzeal Technologies · 2022–2023",
-  outcome: "12% → 25% Day-7 retention",
+  outcome: "12.2% → 25.4% Day-7 retention",
   focus: ["Growth", "Activation", "Experimentation"],
   confidentiality:
-    "Documented: the drop-off finding, the first-60-seconds redesign and the Day-7 result. The redesign’s specific changes and how it was tested are not documented here, so wherever this case describes approach or validation, it is labelled as product reasoning. Proprietary details and internal data are left out.",
+    "Documented: the first-day gameplay gap, the OTP and API diagnosis, the onboarding changes, the 30% control / 70% treatment rollout over three weeks, and the Day-7 result. Wherever this case describes reasoning rather than record, it is labelled as product reasoning. Implementation details, internal data and proprietary information are left out.",
   tldr: {
-    problem: "Day-7 retention was 12%, and most of the drop-off happened before a player’s second session. Read that way, it is an activation problem more than a retention one.",
-    approach: "Redesigned the first 60 seconds of the experience, upstream of the second session where most players were being lost.",
-    outcome: "Day-7 retention improved from 12% to 25%.",
+    problem: "Only about 35% of new users played a game on their first day (D0); about 65% never did. The onboarding journey was lengthy, and OTP friction was an important part of why.",
+    approach: "Simplified signup and login, fetched the email ID automatically, added OTP auto-read, gave new users their first 3 games free and added a live gameplay tutorial. Tested against a 30% control over three weeks.",
+    outcome: "Day-7 retention was 25.4% with the redesign against 12.2% in control: +13.2 percentage points, across about 50K users.",
   } satisfies Tldr,
   journey: [
     { step: "Entry", note: "Is this for me?" },
@@ -179,104 +179,125 @@ export const onboardingFunnelRedesign = {
     { step: "Second session", note: "Where most leavers never arrived" },
     { step: "Day 7", note: "Retention measured here" },
   ],
+  /** The documented onboarding, before and after. Steps only; no screens or implementation detail. */
+  flow: {
+    before: ["Lengthy signup and login", "OTP friction", "Delayed first gameplay"],
+    beforeResult: "About 35% of new users reached gameplay on D0",
+    after: ["Simplified signup and login", "Email ID fetched automatically", "OTP auto-read", "First 3 games free", "Live gameplay tutorial"],
+    afterResult: "The aim: first gameplay, faster",
+  },
+  experiment: { control: 30, treatment: 70, weeks: 3, users: "~50K" },
   chapters: [
     {
       id: "problem",
-      label: "Problem",
+      label: "What we saw",
       sections: [
         {
           eyebrow: "Context",
-          title: "Most players who left never came back for a second session.",
+          title: "Most new players never reached a game on day one.",
           body: [
-            "Day-7 retention was 12%. Read quickly, that is a retention problem, and it points toward reminders, rewards and re-engagement campaigns.",
-            "Tracing where players actually dropped showed that most of the loss happened before a player’s second session. That points to an activation problem more than a retention one: the first session has to give a new player a reason to come back.",
+            "About 65% of new users did not play a game on their first day (D0). Only about 35% reached gameplay at all, and Day-7 retention was around 12%.",
+            "Read quickly, a 12% Day-7 number is a retention problem, and it points toward reminders, rewards and re-engagement campaigns. Where the loss sat said something else: about two in three new users hadn’t played a single game by the end of their first day. That is an activation problem, and it needs a different fix.",
           ],
         },
       ],
     },
     {
       id: "diagnosis",
-      label: "Diagnosis",
+      label: "What was causing friction",
       sections: [
         {
           eyebrow: "Diagnosis",
-          title: "Treat the first session as a chain of decisions.",
-          reasoning: true,
+          title: "A long way to the first game, with OTP in the way.",
           body: [
-            "One useful way to read onboarding is as the decisions a new player makes rather than a set of screens: entry, setup, first meaningful action, end of the first session, second session.",
-            "The documented finding is where the loss sat: before the second session. Everything upstream of that point is where a redesign has to earn its keep.",
+            "The existing onboarding journey was lengthy, and OTP friction was an important part of the problem.",
+            "I analyzed it at both the product and the technical level: the funnel and dashboards in CleverTap, and the OTP API’s success and failure rates and OTP delivery time.",
           ],
         },
       ],
     },
     {
       id: "decision",
-      label: "Decision",
+      label: "What I changed",
       sections: [
+        {
+          eyebrow: "Changes",
+          title: "Five changes, all aimed at the first game.",
+          body: [
+            "The redesign simplified signup and login, fetched the user’s email ID automatically and added OTP auto-read. New users got their first 3 games free, and a live gameplay tutorial was added.",
+            "The objective behind all five was the same: less friction, and a faster route to first gameplay.",
+          ],
+        },
+        {
+          eyebrow: "Hypothesis",
+          title: "Get new players into a game faster, and more of them come back.",
+          body: [
+            "If new users reach their first game faster, with less signup and OTP friction on the way, then more of them will play on day one and still be around on day seven.",
+          ],
+        },
         {
           eyebrow: "Strategy",
           title: "Fix the first 60 seconds before paying for the next seven days.",
           reasoning: true,
           body: [
-            "When most of the loss sits before the second session, there are two broad ways to respond: bring players back with incentives and reminders, or make the first session worth coming back to.",
-            "Incentives treat the symptom at a cost, and a lift they buy tends to last only as long as the spend. The documented change was a redesign of the first 60 seconds of the experience.",
+            "When most of the loss sits before the first game, there are two broad ways to respond: bring players back later with reminders and rewards, or get them into a game before they leave.",
+            "Every change here does the second. Even the free games are aimed at getting a new player to try the product, not at rewarding them for coming back.",
           ],
         },
         {
-          eyebrow: "Hypothesis",
-          title: "A first session worth finishing should bring players back.",
+          eyebrow: "My role",
+          title: "Strategy, analysis and the technical diagnosis",
           body: [
-            "If the first session makes the first meaningful action easier to reach and removes avoidable friction, then more players will come back after it and still be around on day seven.",
+            "I owned the product strategy, the funnel analysis and the CleverTap analytics and dashboards, and did the product and technical diagnosis of the OTP and API friction. I then worked through the issues we had identified with the relevant teams.",
           ],
         },
       ],
     },
     {
       id: "experimentation",
-      label: "Validation",
+      label: "How we tested it",
       sections: [
         {
-          eyebrow: "Proposed validation",
-          title: "How I would validate a change like this",
-          reasoning: true,
+          eyebrow: "Controlled rollout",
+          title: "30% kept the old onboarding. 70% got the new one.",
           body: [
-            "How the redesign was tested isn’t documented, so this is the approach I would use rather than a record of what happened: ship the change against a holdout, read Day-7 retention alongside return for a second session, and read the result by segment.",
-            "A lift that comes from one type of player calls for a different decision than a lift across the board.",
+            "The redesign shipped as a controlled rollout. A 30% control group continued with the existing onboarding, and a 70% treatment group received the redesigned one. The experiment ran for three weeks and involved about 50,000 users.",
           ],
         },
       ],
     },
     {
       id: "outcome",
-      label: "Outcome",
+      label: "What happened",
       sections: [
         {
           eyebrow: "Outcome",
-          title: "Day-7 retention went from 12% to 25%.",
+          title: "Day-7 retention: 12.2% in control, 25.4% with the redesign.",
           body: [
-            "After the redesign, Day-7 retention went from 12% to 25%.",
+            "Day-7 retention was 12.2% in the control group and 25.4% in the treatment group, an increase of 13.2 percentage points.",
+            "The improvement carried beyond Day 7 into the first month (M0). Exact later-period figures aren’t available, so none are shown here.",
           ],
         },
       ],
     },
     {
       id: "reflection",
-      label: "Reflection",
+      label: "What I learned",
       sections: [
         {
           eyebrow: "Learning",
           title: "Retention is won before the retention metric.",
           body: [
-            "The lesson I take from it: retention work often starts upstream of anything labelled retention, in the first session.",
+            "The lesson I take from it: retention work often starts upstream of anything labelled retention, in the first session, and sometimes in something as unglamorous as OTP verification.",
             "It connects to the bonus decision at Witzeal: before paying players to stay, check whether the product has given them a reason to.",
           ],
         },
         {
           eyebrow: "Next question",
-          title: "What a win like this doesn’t tell you yet",
+          title: "What a result like this doesn’t tell you yet",
           reasoning: true,
           body: [
-            "A Day-7 lift can sit on top of a weaker Day-30. The question after a result like this is whether the players it kept go on to behave like players who stayed on their own, or whether the product only delayed the drop.",
+            "The five changes shipped together, so the experiment measures the redesign as a whole. The next question is which of them did the most work, because that decides what to protect and what to simplify.",
           ],
         },
       ],

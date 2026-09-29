@@ -19,7 +19,8 @@ export function BeforeAfter({
     { label: beforeLabel, value: before, color: "bg-data-before" },
     { label: afterLabel, value: after, color: "bg-data-after" },
   ];
-  const delta = after - before;
+  // Rounded so decimal inputs (12.2 → 25.4) read as 13.2, not 13.199999999999998.
+  const delta = Math.round((after - before) * 10) / 10;
   const labelCol = compact ? "grid-cols-[3.5rem_1fr]" : "grid-cols-[5.5rem_1fr]";
 
   return (
