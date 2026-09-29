@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceLegend, EvidenceTag, SectionHeading } from "@/components/ui";
 import { CaseThumb } from "@/components/viz/case-thumb";
+import { Decisions } from "@/components/home/decisions";
 import { caseStudies } from "@/content/portfolio";
 
 export function Work() {
@@ -13,7 +14,7 @@ export function Work() {
           index="02"
           eyebrow="Selected work"
           title="Proof through product decisions."
-          description="A mix of professional outcomes and an independent AI product build. Each case study separates verified results from product reasoning — and tells you which is which."
+          description="Two professional case studies and one independent AI prototype, each told as a decision: what we saw, what we chose, what it cost and what happened. Verified results are marked apart from product reasoning, so you always know which is which."
         />
         <div className="mt-10">
           <EvidenceLegend />
@@ -65,6 +66,8 @@ export function Work() {
             </li>
           ))}
         </ol>
+
+        <Decisions />
       </Container>
     </section>
   );

@@ -11,37 +11,37 @@ const scenarios: { id: ScenarioId; label: string; state: string; decision: strin
     label: "Struggling",
     state: "below",
     decision: "support",
-    why: "Repeated misses and heavy hint use suggest the task is above current readiness. Pushing ahead risks frustration and drop-off, so the system adds support before raising difficulty.",
+    why: "Repeated misses on questions near their level suggest the estimate should come down. Pushing ahead risks frustration and drop-off, so the next question is a smaller step.",
   },
   {
     id: "on-track",
     label: "On track",
     state: "at",
     decision: "hold",
-    why: "Steady completion at the expected pace. Adapting here would add unpredictability without adding value — the stable default is the better product decision.",
+    why: "Answers are landing where the estimate expects. Changing course here would add unpredictability without adding value, so the stable default is the better product decision.",
   },
   {
     id: "ready",
     label: "Ahead",
     state: "above",
     decision: "stretch",
-    why: "Fast, accurate completion without hints suggests more of the same has low learning value. A harder task keeps the next step meaningful.",
+    why: "Correct answers on questions that are hard to guess suggest the learner is ahead of the estimate. More of the same has little learning value, so the next question is harder.",
   },
 ];
 
 const stages = [
-  { title: "Learner signal", layer: "Input", nodes: [{ id: "signal", label: "Attempts, hints, time on task", always: true }] },
-  { title: "Readiness", layer: "Layer 1 · state", nodes: [
-    { id: "below", label: "Below readiness" },
-    { id: "at", label: "At readiness" },
-    { id: "above", label: "Above readiness" },
+  { title: "Learner signal", layer: "Input", nodes: [{ id: "signal", label: "Answers and performance history", always: true }] },
+  { title: "Ability estimate", layer: "Layer 1 · state", nodes: [
+    { id: "below", label: "Below the current level" },
+    { id: "at", label: "At the current level" },
+    { id: "above", label: "Above the current level" },
   ] },
-  { title: "Next-best assignment", layer: "Layer 2 · decision", nodes: [
-    { id: "support", label: "Support — worked example, smaller step" },
-    { id: "hold", label: "Hold — continue planned sequence" },
-    { id: "stretch", label: "Stretch — introduce a harder task" },
+  { title: "Next question", layer: "Layer 2 · decision", nodes: [
+    { id: "support", label: "Step down: an easier question" },
+    { id: "hold", label: "Hold: stay at this level" },
+    { id: "stretch", label: "Stretch: a harder question" },
   ] },
-  { title: "Feedback", layer: "Layer 3 · feedback", nodes: [{ id: "recheck", label: "Re-check progress → feeds next decision", always: true }] },
+  { title: "Feedback", layer: "Layer 3 · feedback", nodes: [{ id: "recheck", label: "Update the estimate → next decision", always: true }] },
 ];
 
 /**
@@ -121,7 +121,7 @@ export function DecisionTree() {
         <p key={current.id} className="fade-up text-sm leading-6 text-ink">{current.why}</p>
       </div>
       <figcaption className="mt-5 text-xs leading-5 text-muted">
-        Illustrative model of the three-layer logic — learner state, next-best decision, feedback. In production, the engine used an LLM API to adjust question difficulty from student performance history; exact signals, thresholds, and implementation details are confidential and omitted.
+        Illustrative model of the three-layer logic: learner state, next decision, feedback. In production, the engine matched learner ability against question parameters and used an LLM API to adjust difficulty from performance history. Exact signals, thresholds and implementation details are left out.
       </figcaption>
     </figure>
   );

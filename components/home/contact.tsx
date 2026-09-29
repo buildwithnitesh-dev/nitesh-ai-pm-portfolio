@@ -23,7 +23,7 @@ export function Contact() {
             </dl>
           </div>
           <div className="grid gap-3">
-            {/* Many recruiters paste an address into an ATS rather than open a mail client — so both are first-class. */}
+            {/* Many recruiters paste an address into an ATS rather than open a mail client, so both are first-class. */}
             <CopyEmail email={contact.email} />
             <div className="grid gap-3 sm:grid-cols-2">
               <a href={`mailto:${contact.email}`} className={button.primary}>Email Nitesh</a>

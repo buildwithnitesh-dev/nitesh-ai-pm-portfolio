@@ -31,7 +31,7 @@ export function CopyEmail({ email }: { email: string }) {
         {state === "copied" ? "Copied ✓" : state === "failed" ? "Select to copy" : "Copy"}
       </button>
       <span role="status" className="sr-only">
-        {state === "copied" ? "Email address copied to clipboard" : state === "failed" ? "Copy failed — select the address to copy it" : ""}
+        {state === "copied" ? "Email address copied to clipboard" : state === "failed" ? "Copy failed. Select the address to copy it." : ""}
       </span>
     </div>
   );
