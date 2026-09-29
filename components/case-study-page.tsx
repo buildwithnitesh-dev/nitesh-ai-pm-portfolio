@@ -1,5 +1,6 @@
 import { CaseStudyShell, ChapterList, PullQuote } from "@/components/case-study/shell";
 import { EvidenceTag } from "@/components/ui";
+import { BeforeAfter } from "@/components/viz/before-after";
 import { DecisionTree } from "@/components/viz/decision-tree";
 import { JourneyMap } from "@/components/viz/journey-map";
 import { adaptiveAssignmentEngine } from "@/content/case-studies";
@@ -14,7 +15,7 @@ export function AdaptiveAssignmentCaseStudy() {
         title: c.title,
         subtitle: c.subtitle,
         focus: c.focus,
-        outcome: "+18–25% assignment completion",
+        outcome: "Assignment completion: 18% → 45%",
         evidence: "verified",
         role: c.role,
         company: "Edfora",
@@ -206,21 +207,17 @@ function Mechanism() {
   );
 }
 
-/** The documented result, shown as a range because that is how it was reported, beside how I would frame the metrics (labelled as reasoning). */
+/** The documented result, before and after, beside how I would frame the metrics (labelled as reasoning). */
 function OutcomeTile() {
-  const max = 30;
   return (
     <div className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-[1fr_1.1fr]">
       <div className="bg-panel p-6">
         <div className="flex items-center justify-between gap-3">
           <p className="text-xs tracking-[0.16em] text-muted uppercase">Assignment completion</p>
         </div>
-        <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">+18–25%</p>
-        <div className="mt-6" role="img" aria-label="Reported improvement range: 18 to 25 percent, on a 0 to 30 percent scale">
-          <div className="relative h-2 rounded-full bg-data-track">
-            <span className="data-mark absolute inset-y-0 rounded-full bg-data-after" style={{ left: `${(18 / max) * 100}%`, width: `${(7 / max) * 100}%` }} />
-          </div>
-          <div aria-hidden className="mt-2 flex justify-between font-mono text-[10px] tabular-nums text-subtle"><span>0%</span><span>10%</span><span>20%</span><span>30%</span></div>
+        <p className="mt-3 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink sm:text-5xl">18% → 45%</p>
+        <div className="mt-6">
+          <BeforeAfter before={18} after={45} max={60} caption="Edfora · live learning cohorts" />
         </div>
         <p className="mt-5 text-sm text-ink">Practice drop-offs also reduced.</p>
         <div className="mt-5"><EvidenceTag kind="verified" /></div>

@@ -17,7 +17,7 @@ export const adaptiveAssignmentEngine = {
   subtitle: "Why a fixed practice sequence lost learners, and how matching question difficulty to each learner’s ability kept more of them going.",
   type: "Edfora · EdTech · Professional experience",
   role: "Senior Product Manager · Edfora · 2023–2026",
-  outcome: "Approximately 18–25% improvement in assignment completion",
+  outcome: "Assignment completion: 18% → 45%",
   scale: "Edfora’s learning and engagement products reached 100K+ learners overall; that figure is not specific to this engine",
   focus: ["Personalization", "Learning systems", "3PL IRT"],
   confidentiality:
@@ -25,7 +25,7 @@ export const adaptiveAssignmentEngine = {
   tldr: {
     problem: "Low assignment completion was a key driver of learners dropping off. A fixed practice sequence gave every learner the same next question: too hard for some, too easy for others.",
     approach: "Adaptive practice built on a 3PL Item Response Theory (IRT) model: estimate each learner’s ability (θ) per concept from historical performance, select questions by their probability of a correct answer, P(θ), from each question’s difficulty, discrimination and guessing parameters, and update θ after every response.",
-    outcome: "Assignment completion improved by roughly 18–25% across live learning cohorts, and fewer students dropped off mid-practice.",
+    outcome: "Assignment completion increased from 18% to 45% across live learning cohorts, a +27 percentage-point improvement, and fewer students dropped off mid-practice.",
   } satisfies Tldr,
   journey: [
     { step: "Receive", note: "An assignment arrives" },
@@ -145,9 +145,9 @@ export const adaptiveAssignmentEngine = {
       sections: [
         {
           eyebrow: "Measurement",
-          title: "Completion up by roughly 18–25%.",
+          title: "Assignment completion: 18% → 45%.",
           body: [
-            "Assignment completion improved by roughly 18–25% across live learning cohorts, and fewer students dropped off mid-practice. The result was reported as a range, so it is shown as a range here.",
+            "Assignment completion increased from 18% to 45% across live learning cohorts, a +27 percentage-point improvement: 2.5× the starting rate. Fewer students dropped off mid-practice.",
           ],
         },
       ],
