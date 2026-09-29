@@ -6,7 +6,8 @@
  * labelled on the page.
  */
 
-export type Section = { eyebrow: string; title: string; body: readonly string[] };
+/** `reasoning` marks a section as product reasoning rather than documented history; it is labelled on the page. */
+export type Section = { eyebrow: string; title: string; body: readonly string[]; reasoning?: boolean };
 export type Chapter = { id: string; label: string; sections: readonly Section[] };
 export type Tldr = { problem: string; approach: string; outcome: string };
 
@@ -43,8 +44,8 @@ export const adaptiveAssignmentEngine = {
           eyebrow: "Context",
           title: "Learners had the material and still stopped.",
           body: [
-            "Low assignment completion was one of the main reasons learners dropped off. The questions were there and learners could reach them. They started, and then they stopped partway through practice.",
-            "Treating that as a content problem would have meant better questions and more explanations. The sharper question was about fit. Every learner got the same sequence, and one sequence cannot be the right difficulty for learners at different levels.",
+            "Low assignment completion was a key driver of learners dropping off, including partway through practice.",
+            "Treating that as a content problem points to better questions and more explanations. The sharper question is fit: every learner got the same practice sequence, and one sequence cannot be the right difficulty for learners at different levels.",
           ],
         },
         {
@@ -63,9 +64,10 @@ export const adaptiveAssignmentEngine = {
         {
           eyebrow: "Root cause",
           title: "One sequence fails in two directions.",
+          reasoning: true,
           body: [
             "Learners who are behind meet questions they can’t answer, get frustrated and leave. Learners who are ahead meet questions they already know and stop getting anything out of them.",
-            "Both look identical in the data: an assignment that doesn’t get finished. That is why completion alone could not say what to build. It had to be read against how each learner was performing.",
+            "Both look identical in completion data: an assignment that doesn’t get finished. That is why completion alone doesn’t say what to build; it needs to be read against how each learner is performing.",
           ],
         },
       ],
@@ -86,7 +88,7 @@ export const adaptiveAssignmentEngine = {
           title: "Match the question to the learner, not the learner to the sequence.",
           body: [
             "If each learner gets questions matched to their current ability instead of a fixed sequence, then fewer learners will hit a wall or coast, and more will finish the assignment.",
-            "Completion was the primary outcome. Practice drop-off was the second signal, because the change targeted the moment a learner gives up.",
+            "How I would frame the measurement: completion as the primary outcome, and practice drop-off as the second signal, because the change targets the moment a learner gives up.",
           ],
         },
       ],
@@ -106,10 +108,11 @@ export const adaptiveAssignmentEngine = {
         },
         {
           eyebrow: "Solution",
-          title: "What changed for the learner",
+          title: "What adaptation means for the learner",
+          reasoning: true,
           body: [
-            "Nothing announced itself. The next question was simply closer to the edge of what the learner could do: a smaller step when they were struggling, a harder one when they were coasting.",
-            "That restraint was deliberate. Adaptation should reduce friction without making learners wonder why their path changed.",
+            "Matching difficulty to ability puts the next question closer to the edge of what the learner can do: a smaller step when they are struggling, a harder one when they are coasting.",
+            "My view is that adaptation should reduce friction without making learners wonder why their path changed.",
           ],
         },
       ],
@@ -134,6 +137,7 @@ export const adaptiveAssignmentEngine = {
         {
           eyebrow: "Trade-offs",
           title: "What ability-based matching costs",
+          reasoning: true,
           body: [
             "It is harder to explain than a fixed sequence. A teacher can read a sequence; an ability estimate has to be trusted or explained. It also depends on well-calibrated questions, and a new learner starts with little history, so their first few questions carry the most uncertainty.",
             "The judgment call is not how much to personalize. It is where personalization clearly improves the job, and where a stable, predictable default is the better product.",
@@ -144,7 +148,7 @@ export const adaptiveAssignmentEngine = {
           title: "The product lesson",
           body: [
             "The best personalization is usually invisible. The learner gets a next step that fits, and the system absorbs the complexity.",
-            "It also left me with a habit: when completion drops, check the fit before adding more content or more features.",
+            "The lesson I take from it: when completion drops, check the fit before adding more content or more features.",
           ],
         },
       ],
@@ -155,16 +159,16 @@ export const adaptiveAssignmentEngine = {
 export const onboardingFunnelRedesign = {
   slug: "onboarding-funnel-redesign",
   title: "Onboarding Funnel Redesign",
-  subtitle: "Most players who left were gone before their second session. Rebuilding the first 60 seconds took Day-7 retention from 12% to 25%.",
+  subtitle: "Most players who left were gone before their second session. After the first 60 seconds were redesigned, Day-7 retention went from 12% to 25%.",
   type: "Witzeal Technologies · Real-money gaming · Professional experience",
   role: "Product Manager · Witzeal Technologies · 2022–2023",
   outcome: "12% → 25% Day-7 retention",
   focus: ["Growth", "Activation", "Experimentation"],
   confidentiality:
-    "This case study covers product reasoning and the documented outcome. Proprietary implementation details, internal data and confidential employer information are left out.",
+    "Documented: the drop-off finding, the first-60-seconds redesign and the Day-7 result. The redesign’s specific changes and how it was tested are not documented here, so wherever this case describes approach or validation, it is labelled as product reasoning. Proprietary details and internal data are left out.",
   tldr: {
-    problem: "Day-7 retention was 12%, and most of the drop-off happened before a player’s second session. It looked like a retention problem. It was an activation problem.",
-    approach: "Redesigned the first 60 seconds as a chain of decisions: less effort before the first moment of value, a clearer path to the first meaningful action, and changes tested and read by segment.",
+    problem: "Day-7 retention was 12%, and most of the drop-off happened before a player’s second session. Read that way, it is an activation problem more than a retention one.",
+    approach: "Redesigned the first 60 seconds of the experience, upstream of the second session where most players were being lost.",
     outcome: "Day-7 retention improved from 12% to 25%.",
   } satisfies Tldr,
   journey: [
@@ -185,7 +189,7 @@ export const onboardingFunnelRedesign = {
           title: "Most players who left never came back for a second session.",
           body: [
             "Day-7 retention was 12%. Read quickly, that is a retention problem, and it points toward reminders, rewards and re-engagement campaigns.",
-            "Tracing where players actually dropped told a different story. Most of the loss happened before a player’s second session. That made it an activation problem: whatever happened in the first session decided most of what happened in the first week.",
+            "Tracing where players actually dropped showed that most of the loss happened before a player’s second session. That points to an activation problem more than a retention one: the first session has to give a new player a reason to come back.",
           ],
         },
       ],
@@ -197,8 +201,10 @@ export const onboardingFunnelRedesign = {
         {
           eyebrow: "Diagnosis",
           title: "Treat the first session as a chain of decisions.",
+          reasoning: true,
           body: [
-            "I mapped onboarding as the decisions a new player makes rather than a set of screens: entry, setup, first meaningful action, end of the first session, second session. Funnel analysis and segmentation showed where momentum was being lost, and it was concentrated early.",
+            "One useful way to read onboarding is as the decisions a new player makes rather than a set of screens: entry, setup, first meaningful action, end of the first session, second session.",
+            "The documented finding is where the loss sat: before the second session. Everything upstream of that point is where a redesign has to earn its keep.",
           ],
         },
       ],
@@ -210,9 +216,10 @@ export const onboardingFunnelRedesign = {
         {
           eyebrow: "Strategy",
           title: "Fix the first 60 seconds before paying for the next seven days.",
+          reasoning: true,
           body: [
-            "There were two broad directions. One was to bring players back: more incentives, more reminders. The other was to make the first session worth coming back to.",
-            "Incentives would have treated the symptom at a cost, and the lift would last only as long as the spend. The redesign went after the first 60 seconds instead: less effort before the first moment of value, and a clearer path to the first meaningful action.",
+            "When most of the loss sits before the second session, there are two broad ways to respond: bring players back with incentives and reminders, or make the first session worth coming back to.",
+            "Incentives treat the symptom at a cost, and a lift they buy tends to last only as long as the spend. The documented change was a redesign of the first 60 seconds of the experience.",
           ],
         },
         {
@@ -226,13 +233,15 @@ export const onboardingFunnelRedesign = {
     },
     {
       id: "experimentation",
-      label: "Experimentation",
+      label: "Validation",
       sections: [
         {
-          eyebrow: "Experimentation",
-          title: "Read the result by segment, not just in total.",
+          eyebrow: "Proposed validation",
+          title: "How I would validate a change like this",
+          reasoning: true,
           body: [
-            "Changes were tested rather than argued. Funnel analysis, segmentation and A/B tests were used together, and results were read by segment. A lift that comes from one type of player calls for a different decision than a lift across the board.",
+            "How the redesign was tested isn’t documented, so this is the approach I would use rather than a record of what happened: ship the change against a holdout, read Day-7 retention alongside return for a second session, and read the result by segment.",
+            "A lift that comes from one type of player calls for a different decision than a lift across the board.",
           ],
         },
       ],
@@ -245,7 +254,7 @@ export const onboardingFunnelRedesign = {
           eyebrow: "Outcome",
           title: "Day-7 retention went from 12% to 25%.",
           body: [
-            "Day-7 retention roughly doubled, from 12% to 25%. Proprietary experiment details and internal data are left out.",
+            "After the redesign, Day-7 retention went from 12% to 25%.",
           ],
         },
       ],
@@ -258,13 +267,14 @@ export const onboardingFunnelRedesign = {
           eyebrow: "Learning",
           title: "Retention is won before the retention metric.",
           body: [
-            "The work that moved retention happened upstream of anything labelled retention: time to value, and how obvious the first meaningful action was.",
-            "The same logic came up again at Witzeal with bonuses. Before paying players to stay, check whether the product has given them a reason to.",
+            "The lesson I take from it: retention work often starts upstream of anything labelled retention, in the first session.",
+            "It connects to the bonus decision at Witzeal: before paying players to stay, check whether the product has given them a reason to.",
           ],
         },
         {
           eyebrow: "Next question",
           title: "What a win like this doesn’t tell you yet",
+          reasoning: true,
           body: [
             "A Day-7 lift can sit on top of a weaker Day-30. The question after a result like this is whether the players it kept go on to behave like players who stayed on their own, or whether the product only delayed the drop.",
           ],

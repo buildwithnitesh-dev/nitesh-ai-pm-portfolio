@@ -97,7 +97,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
   );
 }
 
-/** Verified scope from the career timeline: ownership shown, not claimed by title. */
+/** Documented scope from the career timeline: ownership shown, not claimed by title. */
 function MyRole({ company }: { company: string }) {
   const r = career.find((c) => c.company === company);
   if (!r) return null;
@@ -140,10 +140,15 @@ export function Chapter({ id, index, label, children }: { id: string; index: num
   );
 }
 
-export function Prose({ eyebrow, title, body }: { eyebrow?: string; title: string; body: readonly string[] }) {
+export function Prose({ eyebrow, title, body, reasoning }: { eyebrow?: string; title: string; body: readonly string[]; reasoning?: boolean }) {
   return (
     <div>
-      {eyebrow ? <p className="text-xs font-medium tracking-[0.18em] text-accent uppercase">{eyebrow}</p> : null}
+      {eyebrow || reasoning ? (
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {eyebrow ? <p className="text-xs font-medium tracking-[0.18em] text-accent uppercase">{eyebrow}</p> : <span />}
+          {reasoning ? <EvidenceTag kind="reasoning" /> : null}
+        </div>
+      ) : null}
       <h3 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-[2.1rem]">{title}</h3>
       <div className="mt-5 grid gap-4">
         {body.map((p) => <p key={p} className="text-base leading-8 text-muted sm:text-[17px]">{p}</p>)}
@@ -226,7 +231,7 @@ export function ChapterList({
                   {s.body.slice(1).map((p) => <p key={p} className="mt-5 text-base leading-8 text-muted sm:text-[17px]">{p}</p>)}
                 </div>
               ) : (
-                <Prose eyebrow={s.eyebrow} title={s.title} body={s.body} />
+                <Prose eyebrow={s.eyebrow} title={s.title} body={s.body} reasoning={s.reasoning} />
               )}
               {after[s.eyebrow] ?? null}
             </div>

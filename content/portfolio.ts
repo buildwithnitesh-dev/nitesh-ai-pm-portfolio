@@ -2,7 +2,7 @@ export const profile = {
   name: "Nitesh Tiwari",
   firstName: "Nitesh",
   role: "Senior Product Manager",
-  experience: "10+ years",
+  experience: "~7 yrs product · 10+ yrs technology",
   domains: ["EdTech", "Gaming", "Consumer Technology"] as const,
   strengths: [
     "Product Strategy", "Growth", "Personalization", "Experimentation", "Product Analytics",
@@ -13,7 +13,7 @@ export const profile = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager, Growth, Consumer, AI & Data`,
   description:
-    "Senior Product Manager with 10+ years across EdTech, gaming and consumer technology. Case studies on adaptive learning, onboarding and retention, experimentation and AI product design, each with its documented outcome.",
+    "Product Manager with about 7 years in product management and 10+ years across technology, most recently Senior Product Manager at Edfora. Case studies on adaptive learning, onboarding and retention, and AI product design, each with its documented outcome.",
 };
 
 /** Ordered to match the page: proof first, then how I think, then biography. */
@@ -31,7 +31,7 @@ export const hero = {
   eyebrow: "Senior Product Manager  ·  Growth, Consumer, AI & Data",
   headline: "I build products that earn the next session.",
   lede:
-    "10+ years across EdTech, gaming and consumer tech. The core of the work is growth, personalization and experimentation: adaptive learning at Edfora, onboarding and monetization in real-money gaming. I started as an Android developer, so I scope with engineering, not around it.",
+    "About 7 years in product management and 10+ years across technology, consumer products and enterprise software. I work across growth, personalization, experimentation and AI-enabled products, most recently in EdTech at Edfora and before that in real-money gaming. I started as an Android developer, so I scope with engineering, not around it.",
   primaryCta: { href: "#work", label: "See the case studies" },
   secondaryCta: { href: "#contact", label: "Talk about a product problem" },
 };
@@ -49,10 +49,10 @@ export const about = {
   body:
     "A lot of my work has started with a number that stopped moving: flat DAU, inconsistent monetization, retention data that arrived a month late. The job is to find the behavior underneath it, choose the one change worth making, and measure it so the team learns something even when the result is flat.",
   facts: [
-    ["Experience", "10+ years in technology · product management since 2019"],
-    ["Domains", "EdTech · Real-money gaming · Consumer technology"],
+    ["Experience", "About 7 years in product management (since 2019) · 10+ years in technology"],
+    ["Domains", "EdTech · Real-money gaming · Consumer and enterprise software"],
     ["Scale", "100K+ learners reached at Edfora"],
-    ["Looking for", "Senior or Principal PM roles in Growth, Consumer, and AI & Data products"],
+    ["Looking for", "Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products"],
     ["Location", "Delhi NCR, and Mumbai where relevant"],
   ],
 };
@@ -108,9 +108,9 @@ export const caseStudies = [
     domain: "Gaming · Witzeal Technologies · Product Manager",
     title: "Onboarding Funnel Redesign",
     summary:
-      "Most new players who left were gone before their second session. The redesign rebuilt the first 60 seconds around reaching the first meaningful action sooner, and Day-7 retention went from 12% to 25%.",
+      "Most new players who left were gone before their second session. After the first 60 seconds of the experience were redesigned, Day-7 retention went from 12% to 25%.",
     href: "/work/onboarding-funnel-redesign",
-    tags: ["Growth", "Activation", "Experimentation"],
+    tags: ["Growth", "Activation", "Retention"],
     outcome: "12% → 25% Day-7 retention",
     evidence: "verified",
     inside: ["Where the drop-off really was", "Interactive decision simulator", "Before and after"],
@@ -181,9 +181,9 @@ export const decisions: readonly Decision[] = [
     outcomes: [{ value: "8–12%", label: "student retention, after real-time dashboards" }],
     note: "The retention result belongs to the dashboards. myAdvisor is shown as product design from the documentation, and no outcome is claimed for it.",
     loop: [
-      { stage: "Signal", text: "Engagement drops in a module" },
-      { stage: "Decision", text: "High or medium priority, raised at module level" },
-      { stage: "Action", text: "Deep link to that module, delivered when the teacher can act" },
+      { stage: "Signal", text: "A module-level alert, marked high or medium priority" },
+      { stage: "Decision", text: "The teacher triages it in context, with history and filters by module and date" },
+      { stage: "Action", text: "A deep link opens the part of the product where they can act, timed around their schedule" },
     ],
   },
   {
@@ -195,12 +195,12 @@ export const decisions: readonly Decision[] = [
     title: "Make practice more engaging without making it look like a game.",
     tension: "Student engagement vs. teacher credibility",
     signal:
-      "DAU had been flat for two straight months. A quiz and gamification layer was the obvious lever. It was also an obvious risk: teachers who saw early prototypes called them “too game-y”.",
+      "DAU had plateaued for two straight months. The response was a quiz and gamification layer, and the risk showed up early: teachers flagged the early prototypes as “too game-y”.",
     decision: [
-      "Build quizzes and game mechanics into the learning experience, and treat the teachers’ reaction as a design constraint rather than a sign-off step. The work with design was about keeping the mechanics from feeling gimmicky to the people who decide whether students use the product in class.",
+      "Keep the quiz and gamification layer, and work with design to keep the mechanics from feeling gimmicky to teachers.",
     ],
     tradeoff:
-      "The most attention-grabbing mechanics were the ones most likely to lose teachers. In a classroom product, teacher trust is part of the engagement loop, so some engagement potential was given up to keep the product credible.",
+      "The most attention-grabbing mechanics are often the ones most likely to lose teachers. In a classroom product, teacher trust is part of the engagement loop, so it can be worth trading some raw engagement for credibility.",
     outcomes: [
       { value: "12–15%", label: "DAU growth" },
       { value: "~15%", label: "longer average sessions" },
@@ -215,12 +215,12 @@ export const decisions: readonly Decision[] = [
     title: "Stop paying the same bonus to every player.",
     tension: "Incentive cost vs. retention risk",
     signal:
-      "Reward costs were eating into margin without a clear retention payoff. Bonuses were handed out in flat tiers, whether or not a given player needed one to stay.",
+      "Reward costs were eating into margin without a clear retention payoff. Bonuses were allocated in flat tiers.",
     decision: [
       "Rebuild allocation logic around the expected ROI of a reward for each user segment, instead of flat bonus tiers.",
     ],
     tradeoff:
-      "Cutting incentives in a real-money gaming product can quietly hurt retention, and that was the main risk going in. So the change was judged on two numbers, not one: spend had to fall and retention had to hold.",
+      "Cutting incentives in a real-money gaming product can quietly hurt retention, and that was the main risk going in. The change only reads as a win because both numbers moved the right way: spend fell and retention held.",
     outcomes: [
       { value: "~20%", label: "less bonus and discount spend" },
       { value: "Held", label: "retention, the main risk going in" },
@@ -235,12 +235,12 @@ export const decisions: readonly Decision[] = [
     title: "Replace one-off monetization bets with a testing roadmap.",
     tension: "Speed per idea vs. knowing what worked",
     signal:
-      "Monetization results were inconsistent from one change to the next. The diagnosis was not a shortage of ideas. There was no structured way to test them.",
+      "Monetization results were inconsistent from one change to the next, and the diagnosis was a lack of structured testing.",
     decision: [
       "Build an experimentation roadmap across pricing and reward loops, with each change written as a hypothesis and run as an A/B test.",
     ],
     tradeoff:
-      "Testing is slower per idea than shipping on conviction. The return is that every result, including the flat ones, narrows the next bet, and the team stops relitigating what worked.",
+      "Testing is slower per idea than shipping on conviction. The return is that every result, including the flat ones, narrows the next bet.",
     outcomes: [{ value: "~10%", label: "week-over-week GMV growth through continuous testing" }],
   },
   {
@@ -251,12 +251,12 @@ export const decisions: readonly Decision[] = [
     area: "Personalization",
     title: "Stop designing one journey for every kind of player.",
     tension: "One journey to maintain vs. several that fit",
-    signal: "A single default journey was underperforming across player segments that behaved very differently.",
+    signal: "A single default journey was underperforming across different player segments.",
     decision: [
       "Use behavioral clustering to find the segments that actually behaved differently, then redesign the journey for each of them.",
     ],
     tradeoff:
-      "Every extra journey is something more to build, test and maintain. Segmentation only pays when the segments are few and clearly different in behavior, not just in demographics.",
+      "Every extra journey is something more to build, test and maintain. Segmentation pays off when the segments are few and clearly different in behavior.",
     outcomes: [
       { value: "~35%", label: "longer sessions" },
       { value: "~25%", label: "higher retention" },
@@ -271,17 +271,15 @@ export const decisions: readonly Decision[] = [
     title: "Ship one app with three roles, not three apps.",
     tension: "Tailored apps vs. what a small team can sustain",
     signal:
-      "The platform connected three kinds of users in the handmade industry: makers, buyers and designers. The alternative on the table was a separate app for each.",
+      "The platform connected three kinds of users in the handmade industry: makers, buyers and designers. The alternative was separate apps for each role.",
     decision: [
       "As the sole Android developer, I proposed a single app where people choose their role, then built it from scratch. Requirements came out of discussions with the CEO and CTO, and the UX was worked through with the designer before implementation.",
     ],
     tradeoff:
       "One app means more role logic inside the product and slightly less tailoring per role. Against that: a small team, limited time and budget, one codebase to maintain, one app to run and market instead of three, and a lower technology bill.",
-    outcomes: [
-      { value: "400+", label: "maker shops created" },
-      { value: "100+", label: "designers on the platform" },
-    ],
-    note: "This was an engineering role, not a product role. The product contribution came from working directly with the founders on what to build.",
+    outcomes: [],
+    result: "Platform context: 400+ maker shops and 100+ designers",
+    note: "This was an Android Developer role, not a product management role; the product contribution came from working directly with the CEO and CTO on what to build. The 400+ maker shops and 100+ designers describe the platform’s scale. They are not claimed as a result of the one-app decision.",
   },
 ];
 
@@ -319,8 +317,8 @@ export const capabilities: readonly Capability[] = [
     practice: "Name the decision a model or data product should change, use rules where rules are enough, and design evaluation, confidence and human override in before scale.",
     buildsOn: ["personalization", "consumer-ux"],
     cases: [
-      { slug: "ai-learner-diagnostic", role: "primary", note: "Rules vs. model split, failure modes, evaluation rubric and educator override. An independent prototype." },
-      { slug: "adaptive-assignment-engine", role: "supporting", note: "Professional: learner ability matched against question parameters, with an LLM API adjusting difficulty from performance history (Edfora)." },
+      { slug: "adaptive-assignment-engine", role: "primary", note: "Professional (Edfora): learner ability estimated and matched against question difficulty, discrimination and guessing, with an LLM API adjusting difficulty from performance history." },
+      { slug: "ai-learner-diagnostic", role: "supporting", note: "Independent prototype, not shipped: rules vs. model split, failure modes, evaluation rubric and educator override." },
     ],
     decisions: ["faculty-signals"],
     metrics: [],
@@ -343,7 +341,7 @@ export const capabilities: readonly Capability[] = [
     practice: "Design each step around the question the user is silently asking, so the next action is obvious.",
     buildsOn: ["experimentation", "monetization"],
     cases: [
-      { slug: "onboarding-funnel-redesign", role: "primary", note: "First 60 seconds rebuilt around the first meaningful action." },
+      { slug: "onboarding-funnel-redesign", role: "primary", note: "First 60 seconds redesigned after drop-off was traced to before the second session." },
       { slug: "adaptive-assignment-engine", role: "supporting", note: "Adaptation that changes the path without confusing the learner." },
       { slug: "ai-learner-diagnostic", role: "supporting", note: "UX for uncertainty: evidence, confidence, override." },
     ],
@@ -366,7 +364,7 @@ export const capabilities: readonly Capability[] = [
     practice: "Tie journeys and funnels to a small set of metrics that reflect real user value, and get them to the people who can act while it still matters.",
     buildsOn: [],
     cases: [
-      { slug: "onboarding-funnel-redesign", role: "supporting", note: "Funnel analysis and segmentation to find where momentum was lost." },
+      { slug: "onboarding-funnel-redesign", role: "supporting", note: "Drop-off traced to before the second session." },
       { slug: "adaptive-assignment-engine", role: "supporting", note: "One primary outcome, with supporting signals to explain movement." },
     ],
     decisions: ["faculty-signals", "segmented-journeys"],
@@ -377,7 +375,7 @@ export const capabilities: readonly Capability[] = [
     title: "Experimentation",
     practice: "Turn product opinions into hypotheses, tests and decision rules, and treat a flat result as information, not failure.",
     buildsOn: [],
-    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "Changes read by segment to explain why retention moved." }],
+    cases: [],
     decisions: ["experimentation-roadmap"],
     metrics: ["gmv"],
     context: "Ran 20+ A/B tests end to end at Baazi Games. A fair number came back inconclusive or negative, which changed how later tests were scoped.",
@@ -409,7 +407,7 @@ export type Role = {
   highlights: readonly string[];
 };
 
-/** Verified career timeline, most recent first. */
+/** Documented career timeline, most recent first. */
 export const career: readonly Role[] = [
   {
     company: "Edfora",
@@ -526,10 +524,10 @@ export const aiLoop = [
 ] as const;
 
 export const contact = {
-  eyebrow: "Open to Senior and Principal PM roles",
+  eyebrow: "Open to Product Manager and Senior Product Manager roles",
   title: "Have a product problem worth solving?",
   body:
-    "I’m looking for Senior and Principal Product Manager roles in Growth, Consumer and AI & Data products, in Delhi NCR and, where it makes sense, Mumbai. If user behavior and business outcomes have to move together on your problem, I’d like to hear about it.",
+    "I’m open to Product Manager and Senior Product Manager roles in Growth, Consumer and AI & Data products, in Delhi NCR and, where it makes sense, Mumbai. If user behavior and business outcomes have to move together on your problem, I’d like to hear about it.",
   email: "buildwithnitesh@gmail.com",
   linkedin: "https://www.linkedin.com/in/buildwithnitesh/",
   /** The résumé PDF, served from /public. */

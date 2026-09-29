@@ -18,7 +18,7 @@ export default function Image() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 24, color: "#0f766e", letterSpacing: 4, textTransform: "uppercase" }}>Senior Product Manager · Growth, Consumer, AI & Data</div>
           <div style={{ marginTop: 28, fontSize: 76, lineHeight: 1.05, letterSpacing: -2, maxWidth: 980 }}>{hero.headline}</div>
-          <div style={{ marginTop: 24, fontSize: 30, color: "#5f5b54" }}>{`${profile.name} · 10+ years across EdTech, gaming and consumer tech`}</div>
+          <div style={{ marginTop: 24, fontSize: 30, color: "#5f5b54" }}>{`${profile.name} · ~7 years in product · 10+ years in technology`}</div>
         </div>
         <div style={{ display: "flex", borderTop: "2px solid #111111", paddingTop: 28 }}>
           {stats.map(([v, l]) => (

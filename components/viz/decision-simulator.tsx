@@ -39,7 +39,7 @@ type State = {
 };
 
 const problemState: State = { friction: "high", activation: "unclear", intervention: "none", confidence: "medium" };
-/** The documented strategy: reduce friction before adding incentives; a clearer first-session path. */
+/** The approach the case study reasons through: reduce friction before adding incentives; a clearer first-session path. */
 const documentedLevers: Omit<State, "confidence"> = { friction: "low", activation: "clear", intervention: "value" };
 
 const directions = ["Likely decline", "Roughly flat", "Modest lift", "Meaningful lift"] as const;
@@ -119,11 +119,11 @@ export function DecisionSimulator() {
               onClick={() => setS((p) => ({ ...p, ...documentedLevers }))}
               className="h-9 rounded-full border border-line-strong px-4 text-xs text-ink transition-colors hover:border-ink aria-pressed:border-accent aria-pressed:bg-accent-soft aria-pressed:text-accent"
             >
-              Apply the documented strategy
+              Apply the approach described
             </button>
           </div>
           <p className="mt-3 text-xs leading-5 text-muted">
-            “Documented strategy” sets the levers the case study describes: reduce friction before adding incentives, and clarify the first-session path. The result shown is still illustrative.
+            “Apply the approach described” sets the levers to the reasoning in this case study: reduce friction before adding incentives, and clarify the first-session path. It is not a record of what shipped, and the result shown is illustrative.
           </p>
         </div>
 
