@@ -40,7 +40,7 @@ export const hero = {
 export const readingPaths = [
   { time: "30 sec", title: "The outcomes", body: "Documented results, shown with the precision they were reported in.", href: "#metrics" },
   { time: "5 min", title: "Three case studies", body: "Each told as a decision: what we saw, what we chose, what it cost.", href: "#work" },
-  { time: "10 min", title: "One decision, in depth", body: "Why a fixed practice sequence lost learners, and how the engine matched difficulty instead.", href: "/work/adaptive-assignment-engine" },
+  { time: "7 min", title: "One decision, in depth", body: "Why a fixed practice sequence lost learners, and how the engine matched difficulty instead.", href: "/work/adaptive-assignment-engine" },
 ] as const;
 
 export const about = {
