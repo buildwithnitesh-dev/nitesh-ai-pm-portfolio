@@ -4,7 +4,7 @@ import { caseMetadata } from "@/content/case-metadata";
 
 export const metadata: Metadata = caseMetadata(
   "onboarding-funnel-redesign",
-  "Case study: tracing onboarding drop-off to before the second session at Witzeal, redesigning the first 60 seconds, and lifting Day-7 retention from 12% to 25%.",
+  "Case study: why only about 35% of new players at Witzeal reached a game on day one, what changed in the first 60 seconds, and a controlled rollout where Day-7 retention was 25.4% against 12.2%.",
 );
 
 export default function Page() {

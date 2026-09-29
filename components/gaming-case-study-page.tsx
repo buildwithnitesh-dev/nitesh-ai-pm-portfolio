@@ -1,17 +1,9 @@
 import { CaseStudyShell, Chapter, ChapterList, Prose } from "@/components/case-study/shell";
-import { EvidenceTag } from "@/components/ui";
+import { EvidenceMark, EvidenceTag } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
 import { DecisionSimulator } from "@/components/viz/decision-simulator";
 import { JourneyMap } from "@/components/viz/journey-map";
-import { LoopDiagram } from "@/components/viz/loop-diagram";
 import { onboardingFunnelRedesign } from "@/content/case-studies";
-
-const experimentLoop = [
-  ["Hypothesis", "A clearer first-session path should improve early retention."],
-  ["A/B test", "Ship the change to a test group; keep a control."],
-  ["Segment", "Split results by user behavior to see who moved and why."],
-  ["Learn", "Keep what explains the lift; feed the rest into the next test."],
-] as const;
 
 export function GamingCaseStudyPage() {
   const c = onboardingFunnelRedesign;
@@ -57,7 +49,7 @@ export function GamingCaseStudyPage() {
   );
 }
 
-const measure = "Day-7 retention, with funnel progression and segment behavior to explain the movement";
+const measure = "Day-7 retention, treatment against a control on the existing onboarding";
 
 const visuals = {
   Context: <Reframe />,
@@ -65,33 +57,87 @@ const visuals = {
     <JourneyMap
       title="The first-session journey, as a sequence of user decisions"
       steps={onboardingFunnelRedesign.journey}
-      caption="Each stage carries the question a new player is implicitly asking. The documented finding is that most players who left never reached the second session; the documented redesign, the first 60 seconds, sits before it."
+      caption="Each stage carries the question a new player is implicitly asking. Documented: the journey to the first game was lengthy, OTP friction was an important part of it, and only about 35% of new users reached gameplay on D0."
     />
   ),
-  "Proposed validation": (
-    <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-ink">Proposed validation loop</p>
-        <EvidenceTag kind="reasoning" />
-      </div>
-      <div className="mt-6">
-        <LoopDiagram steps={experimentLoop} label="Proposed validation loop: hypothesis, A/B test, segment, learn" />
-      </div>
-    </div>
-  ),
+  Changes: <OnboardingFlow />,
+  "Controlled rollout": <Rollout />,
   Outcome: (
     <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-ink">Day-7 retention</p>
+        <p className="text-sm font-medium text-ink">Day-7 retention, control vs. treatment</p>
         <EvidenceTag kind="verified" />
       </div>
-      <p className="mt-3 text-5xl font-semibold tracking-tight text-ink">12% → 25%</p>
+      <p className="mt-3 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink sm:text-5xl">12.2% → 25.4%</p>
       <div className="mt-8">
-        <BeforeAfter before={12} after={25} beforeLabel="Before" afterLabel="After redesign" caption="Witzeal · first-60-seconds onboarding redesign" />
+        <BeforeAfter before={12.2} after={25.4} beforeLabel="Control" afterLabel="Treatment" caption="Witzeal · 3-week controlled rollout · ~50K users" />
       </div>
     </div>
   ),
 };
+
+/** The documented onboarding, before and after: steps only, no screens. */
+function OnboardingFlow() {
+  const f = onboardingFunnelRedesign.flow;
+  const columns = [
+    { label: "Before", steps: f.before, result: f.beforeResult, tone: "border-line bg-background", accent: false },
+    { label: "After", steps: f.after, result: f.afterResult, tone: "border-accent bg-accent-soft/60", accent: true },
+  ];
+  return (
+    <figure aria-label="Onboarding before and after the redesign" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p aria-hidden className="text-sm font-medium text-ink">The path to a first game, before and after</p>
+        <DocumentedTag />
+      </div>
+      <div className="mt-6 grid gap-3 md:grid-cols-2">
+        {columns.map((c) => (
+          <div key={c.label} className={`rounded-lg border p-5 ${c.tone}`}>
+            <p className={`font-mono text-[11px] tracking-[0.14em] uppercase ${c.accent ? "text-accent" : "text-muted"}`}>{c.label}</p>
+            <ol className="mt-4 grid gap-2.5 text-sm">
+              {c.steps.map((s) => (
+                <li key={s} className="flex items-start gap-3 leading-6 text-ink">
+                  <span aria-hidden className={`mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full ${c.accent ? "bg-accent" : "bg-line-strong"}`} />
+                  {s}
+                </li>
+              ))}
+            </ol>
+            <p className={`mt-4 border-t pt-3 text-sm font-medium leading-6 ${c.accent ? "border-accent/30 text-accent" : "border-line text-ink"}`}>
+              <span aria-hidden className="mr-1.5">→</span>{c.result}
+            </p>
+          </div>
+        ))}
+      </div>
+      <figcaption className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">
+        The changes from the Witzeal redesign, listed as steps. Screens and implementation details are left out.
+      </figcaption>
+    </figure>
+  );
+}
+
+/** The documented experiment design: who saw what, for how long, at what scale. */
+function Rollout() {
+  const e = onboardingFunnelRedesign.experiment;
+  return (
+    <figure aria-label={`Controlled rollout: ${e.control}% control, ${e.treatment}% treatment, ${e.weeks} weeks, ${e.users} users`} className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p aria-hidden className="text-sm font-medium text-ink">Controlled rollout</p>
+        <DocumentedTag />
+      </div>
+      <div aria-hidden className="mt-6 flex h-3 overflow-hidden rounded-full">
+        <span className="bg-data-before" style={{ width: `${e.control}%` }} />
+        <span className="bg-data-after" style={{ width: `${e.treatment}%` }} />
+      </div>
+      <div aria-hidden className="mt-3 grid gap-1 text-sm sm:flex sm:justify-between sm:gap-4">
+        <p><span className="font-semibold text-ink">{e.control}% control</span> <span className="text-muted">· existing onboarding</span></p>
+        <p className="sm:text-right"><span className="font-semibold text-ink">{e.treatment}% treatment</span> <span className="text-muted">· redesigned onboarding</span></p>
+      </div>
+      <dl aria-hidden className="mt-5 flex flex-wrap gap-x-8 gap-y-2 border-t border-line pt-4 text-sm">
+        <div className="flex items-baseline gap-2"><dt className="text-muted">Duration</dt><dd className="font-semibold text-ink">{e.weeks} weeks</dd></div>
+        <div className="flex items-baseline gap-2"><dt className="text-muted">Users</dt><dd className="font-semibold text-ink">{e.users}</dd></div>
+      </dl>
+    </figure>
+  );
+}
 
 /** The reframe the case turns on: the same number, read two ways, leads to two different roadmaps. */
 function Reframe() {
@@ -103,7 +149,7 @@ function Reframe() {
     },
     {
       label: "Read as an activation problem",
-      where: "Most players who leave never start a second session",
+      where: "About 65% of new users never play a game on day one",
       levers: "Time to value, the first meaningful action, the first 60 seconds",
       chosen: true,
     },
@@ -133,8 +179,18 @@ function Reframe() {
         ))}
       </ol>
       <figcaption className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">
-        The documented finding is that most onboarding drop-off happened before a player’s second session. The contrast in levers is product reasoning.
+        Documented: only about 35% of new users reached gameplay on D0. The contrast in levers is product reasoning.
       </figcaption>
     </figure>
+  );
+}
+
+/** Same mark as a documented outcome, for documented facts that are not themselves results. */
+function DocumentedTag() {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-line bg-panel px-3 py-1 text-xs text-muted">
+      <EvidenceMark kind="verified" />
+      Documented
+    </span>
   );
 }
