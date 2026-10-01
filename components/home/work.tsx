@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceLegend, EvidenceTag, SectionHeading } from "@/components/ui";
 import { CaseThumb } from "@/components/viz/case-thumb";
-import { Decisions } from "@/components/home/decisions";
 import { caseStudies } from "@/content/portfolio";
 
 export function Work() {
@@ -68,7 +67,6 @@ export function Work() {
           ))}
         </ol>
 
-        <Decisions />
       </Container>
     </section>
   );

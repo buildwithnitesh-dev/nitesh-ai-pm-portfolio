@@ -37,7 +37,7 @@ export function Thinking() {
       <Container>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-start lg:gap-20">
           <div>
-            <Eyebrow><span className="mr-3 text-subtle">04</span>Product thinking</Eyebrow>
+            <Eyebrow><span className="mr-3 text-subtle">05</span>Product thinking</Eyebrow>
             <h2 id="thinking-title" className="mt-3 font-serif text-4xl leading-[1.06] tracking-tight text-ink sm:text-5xl">How I think about products.</h2>
           </div>
           <p className="max-w-xl text-base leading-8 text-muted sm:text-lg">{about.body}</p>

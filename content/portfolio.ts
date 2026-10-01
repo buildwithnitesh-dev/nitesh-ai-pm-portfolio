@@ -21,14 +21,14 @@ export const seo = {
     "Product Manager with about 7 years in product management and 10+ years across technology, most recently Senior Product Manager at Edfora. Case studies on adaptive learning, onboarding and retention, and AI product design, each with its documented outcome.",
 };
 
-/** Ordered to match the page: proof first, then how I think, then biography. */
+/** Ordered to match the page: proof first, then experience, then how I think. */
 export const nav = [
   { href: "/#metrics", id: "metrics", label: "Impact" },
   { href: "/#work", id: "work", label: "Work" },
+  { href: "/#experience", id: "experience", label: "Experience" },
   { href: "/#expertise", id: "expertise", label: "Capabilities" },
   { href: "/#about", id: "about", label: "Thinking" },
   { href: "/#ai", id: "ai", label: "AI Lab" },
-  { href: "/#experience", id: "experience", label: "Experience" },
   { href: "/#contact", id: "contact", label: "Contact" },
 ] as const;
 

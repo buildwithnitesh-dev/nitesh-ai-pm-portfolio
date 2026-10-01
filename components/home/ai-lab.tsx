@@ -14,7 +14,7 @@ export function AiLab() {
             <SectionHeading
               id="ai-title"
               tone="dark"
-              index="05"
+              index="06"
               eyebrow="AI product lab"
               title="AI is one step in a product loop. The loop is what I design."
               description="The model is one step inside it. The product work is everything around the model: where rules are enough, how confidence is shown, what happens when it’s wrong, and who can overrule it."

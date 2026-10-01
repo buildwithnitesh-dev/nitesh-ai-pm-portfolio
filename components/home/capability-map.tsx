@@ -66,7 +66,7 @@ export function CapabilityMap() {
           <SectionHeading
             id="capabilities-title"
             tone="dark"
-            index="03"
+            index="04"
             eyebrow="Product capability map"
             title="Demonstrated capabilities, each one traceable to evidence."
             description="Not a self-rated skill list. Every capability connects to a case study or a logged decision on this site, and each of those carries its outcome. Follow a line to check it."
