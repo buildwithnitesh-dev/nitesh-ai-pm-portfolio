@@ -12,7 +12,7 @@ A recruiter-first Next.js portfolio positioned as **Senior Product Manager | Con
 - How I work: six principles, each linked to its evidence; a decision log of six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`); and a capability index pointing at the case study or decision that shows each one
 - Evidence labels on every claim: documented outcome, product reasoning, illustrative model, independent prototype
 - Charts built only from documented figures, each with a table view
-- Direct résumé PDF download, email (with copy) and LinkedIn
+- Direct Resume PDF download, email (with copy) and LinkedIn
 - Accessible, responsive navigation with section tracking; reduced-motion support
 - SEO: title template, per-page canonical and Open Graph metadata, generated share image, sitemap, robots, Person structured data, and `/llms.txt`
 
@@ -38,4 +38,4 @@ npm run lint
 npm run build
 ```
 
-All professional metrics come only from the résumé and source material supplied for the portfolio. The AI Learner Diagnostic is an independent prototype and makes no real-user or production-result claims.
+All professional metrics come only from the Resume and source material supplied for the portfolio. The AI Learner Diagnostic is an independent prototype and makes no real-user or production-result claims.
