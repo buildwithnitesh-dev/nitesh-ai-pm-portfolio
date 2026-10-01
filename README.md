@@ -3,14 +3,12 @@
 A recruiter-first Next.js portfolio for Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products. It presents about 7 years in product management (since 2019) within 10+ years in technology.
 
 ## Included
-- Editorial homepage ordered proof first: impact → work → experience → decision log → capability map → product thinking → AI lab → contact
+- Editorial homepage ordered proof first: impact → work → experience → how I work (principles, decision log, capabilities) → AI lab → contact
 - Three case studies, each told in its own shape:
   - **Adaptive Assignment Engine** (Edfora): the 3PL IRT mechanism (learner ability θ vs. question difficulty, discrimination and guessing), the documented practice flow and edge cases, the options and how each fails, an interactive decision trace, and the documented outcome
   - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, the documented before → after onboarding changes, an illustrative decision simulator, the 30/70 controlled rollout, and the documented control vs. treatment result
   - **AI Learner Diagnostic** (independent prototype): rules vs. model split, failure modes and fallbacks, evaluation rubric, guardrails, launch gate, and a playable deterministic demo
-- Decision log under the case studies: six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`)
-- Product Capability Map: capability → evidence → case study or decision; every edge ends at something on the site
-- Product thinking: principles, anti-patterns and "what I watch for" lessons, each linked to its evidence
+- How I work: six principles, each linked to its evidence; a decision log of six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`); and a capability index pointing at the case study or decision that shows each one
 - Evidence labels on every claim: documented outcome, product reasoning, illustrative model, independent prototype
 - Charts built only from documented figures, each with a table view
 - Direct résumé PDF download, email (with copy) and LinkedIn

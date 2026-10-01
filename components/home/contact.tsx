@@ -10,7 +10,7 @@ export function Contact() {
       <Container>
         <div className="grid gap-12 rounded-2xl border border-line bg-panel px-6 py-10 sm:px-12 sm:py-10 lg:grid-cols-[1.3fr_1fr] lg:items-end lg:px-16">
           <div className="min-w-0">
-            <Eyebrow><span className="mr-3 text-subtle">07</span>{contact.eyebrow}</Eyebrow>
+            <Eyebrow><span className="mr-3 text-subtle">06</span>{contact.eyebrow}</Eyebrow>
             <h2 id="contact-title" className="mt-4 max-w-3xl font-serif text-4xl leading-tight text-ink sm:text-5xl">{contact.title}</h2>
             <p className="mt-6 max-w-2xl text-base leading-8 text-pretty text-muted">{contact.body}</p>
             <dl className="mt-8 grid max-w-2xl border-t border-line text-sm">
