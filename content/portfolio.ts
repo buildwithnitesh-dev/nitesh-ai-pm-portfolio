@@ -37,8 +37,7 @@ export const hero = {
   headline: "I build products that earn the next session.",
   lede:
     "About 7 years in product management and 10+ years across technology, consumer products and enterprise software. I work across growth, personalization, experimentation and AI-enabled products, most recently in EdTech at Edfora and before that in real-money gaming. I started as an Android developer, so I scope with engineering, not around it.",
-  primaryCta: { href: "#work", label: "See the case studies" },
-  secondaryCta: { href: "#contact", label: "Talk about a product problem" },
+  primaryCta: { href: "#work", label: "View my work" },
 };
 
 /** Lets a time-boxed reader choose how deep to go instead of scrolling blind. */
@@ -530,7 +529,7 @@ export const aiLoop = [
 
 export const contact = {
   eyebrow: "Open to Product Manager and Senior Product Manager roles",
-  title: "Have a product problem worth solving?",
+  title: "Hiring for a product role? Let’s talk.",
   body:
     "I’m open to Product Manager and Senior Product Manager roles in Growth, Consumer and AI & Data products, in Delhi NCR and, where it makes sense, Mumbai. If user behavior and business outcomes have to move together on your problem, I’d like to hear about it.",
   email: "buildwithnitesh@gmail.com",

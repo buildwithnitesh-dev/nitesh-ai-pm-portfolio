@@ -21,10 +21,9 @@ export function Hero() {
           <p className="mt-7 max-w-2xl text-base leading-8 text-muted sm:text-lg">{hero.lede}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a href={hero.primaryCta.href} className={`group ${button.primary}`}>{hero.primaryCta.label} <Arrow /></a>
-            <a href={hero.secondaryCta.href} className={button.secondary}>{hero.secondaryCta.label}</a>
+            <ResumeCta className={button.secondary} />
           </div>
           <p className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
-            <ResumeCta className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent" />
             <a href={contact.linkedin} target="_blank" rel="noreferrer" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
               LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
             </a>
