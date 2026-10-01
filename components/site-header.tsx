@@ -58,7 +58,7 @@ export function SiteHeader() {
             })}
           </nav>
           {/* Recruiters come for the résumé: it is the one filled action in the header. */}
-          <ResumeCta label="Résumé" className="inline-flex gap-1 rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent" />
+          <ResumeCta label="Resume" className="inline-flex gap-1 rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent" />
         </div>
         <button
           ref={toggleRef}
@@ -96,7 +96,7 @@ export function SiteHeader() {
               ))}
             </ol>
           </nav>
-          <ResumeCta label="Résumé" onClick={() => setOpen(false)} className="mt-3 flex h-12 items-center justify-center gap-1 rounded-full bg-ink text-sm text-panel" />
+          <ResumeCta label="Resume" onClick={() => setOpen(false)} className="mt-3 flex h-12 items-center justify-center gap-1 rounded-full bg-ink text-sm text-panel" />
         </Container>
       </div>
     </header>
