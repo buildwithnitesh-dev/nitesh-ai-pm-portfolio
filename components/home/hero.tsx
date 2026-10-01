@@ -13,7 +13,12 @@ export function Hero() {
       <ProductIntelligenceNetwork />
       <Container className="grid gap-14 pt-11.5 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-16 lg:pb-16">
         <div data-network-quiet>
-          <p className="text-xs font-medium tracking-[0.22em] text-accent uppercase">{hero.eyebrow}</p>
+          {/* Each term stays whole; lines break only after a separator. */}
+          <p className="text-xs font-medium tracking-[0.22em] text-accent uppercase">
+            {hero.eyebrow.split("  ·  ").map((t, i, all) => (
+              <span key={t}><span className="whitespace-nowrap">{t}{i < all.length - 1 ? "\u00a0·" : ""}</span>{i < all.length - 1 ? " " : ""}</span>
+            ))}
+          </p>
           <h1 id="hero-title" className="mt-5 max-w-4xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-[4.9rem]">
             {hero.headline}
           </h1>

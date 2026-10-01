@@ -4,9 +4,10 @@ export const profile = {
   role: "Senior Product Manager",
   experience: "~7 yrs product · 10+ yrs technology",
   domains: ["EdTech", "Gaming", "Consumer Technology"] as const,
+  /** Ordered by positioning: growth first, AI last. */
   strengths: [
-    "Product Strategy", "Growth", "Personalization", "Experimentation", "Product Analytics",
-    "Consumer UX", "Retention", "Monetization", "AI and Data Products",
+    "Growth", "Monetization", "Personalization", "Product Strategy", "Experimentation",
+    "Consumer Products", "AI Products", "Retention", "Product Analytics",
   ] as const,
   /** Exactly the tools listed on the résumé, for keyword scanning. */
   tools: [
@@ -16,9 +17,9 @@ export const profile = {
 };
 
 export const seo = {
-  title: `${profile.name} · Senior Product Manager, Growth, Consumer, AI & Data`,
+  title: `${profile.name} · Senior Product Manager | Consumer Products, Growth, Monetization & AI`,
   description:
-    "Product Manager with about 7 years in product management and 10+ years across technology, most recently Senior Product Manager at Edfora. Case studies on adaptive learning, onboarding and retention, and AI product design, each with its documented outcome.",
+    "Senior Product Manager for consumer products, growth, monetization and AI, with about 7 years in product management and 10+ years across technology, most recently at Edfora. Case studies on adaptive learning and on onboarding and retention, each with its documented outcome, plus an independent AI product prototype.",
 };
 
 /** Ordered to match the page: proof first, then experience, then how I work. */
@@ -32,7 +33,7 @@ export const nav = [
 ] as const;
 
 export const hero = {
-  eyebrow: "Senior Product Manager  ·  Growth, Consumer, AI & Data",
+  eyebrow: "Senior Product Manager  ·  Consumer Products  ·  Growth  ·  Monetization  ·  AI",
   headline: "I build products that earn the next session.",
   lede:
     "About 7 years in product management, 10+ in technology: growth, personalization, experimentation and AI-enabled products at Edfora (EdTech) and in real-money gaming. Started as an Android developer.",
@@ -48,7 +49,7 @@ export const about = {
     ["Experience", "About 7 years in product management (since 2019) · 10+ years in technology"],
     ["Domains", "EdTech · Real-money gaming · Consumer and enterprise software"],
     ["Scale", "100K+ learners reached at Edfora"],
-    ["Looking for", "Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products"],
+    ["Looking for", "Product Manager and Senior Product Manager roles, especially in growth, consumer products, monetization and AI"],
     ["Location", "Delhi NCR, and Mumbai where relevant"],
   ],
 };
@@ -308,16 +309,23 @@ export type Capability = {
  */
 export const capabilities: readonly Capability[] = [
   {
-    id: "ai-data",
-    title: "AI & Data Products",
-    practice: "Name the decision a model or data product should change, use rules where rules are enough, and design evaluation, confidence and human override in before scale.",
-    buildsOn: ["personalization", "consumer-ux"],
-    cases: [
-      { slug: "adaptive-assignment-engine", role: "primary", note: "Professional (Edfora): 3PL IRT-based adaptive practice; learner ability (θ) estimated per concept and matched against question difficulty, discrimination and guessing." },
-      { slug: "ai-learner-diagnostic", role: "supporting", note: "Independent prototype, not shipped: rules vs. model split, failure modes, evaluation rubric and educator override." },
-    ],
-    decisions: ["faculty-signals"],
-    metrics: [],
+    id: "growth",
+    title: "Growth",
+    practice: "Treat activation, habit and retention as one connected loop, and find where it actually breaks before adding incentives.",
+    buildsOn: [],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "About 65% of new users did not play a game on D0; first 60 seconds redesigned (Witzeal)." }],
+    decisions: ["segmented-journeys", "bonus-roi"],
+    metrics: ["d7", "lifecycle"],
+    context: "Lifecycle messaging across push, in-app and email moved from one blast to segmented cohorts (Witzeal).",
+  },
+  {
+    id: "monetization",
+    title: "Monetization",
+    practice: "Spend on incentives where they change behavior, test pricing and rewards as hypotheses, and hold retention as the guardrail.",
+    buildsOn: [],
+    cases: [],
+    decisions: ["bonus-roi", "experimentation-roadmap"],
+    metrics: ["gmv", "bonus"],
   },
   {
     id: "personalization",
@@ -332,8 +340,18 @@ export const capabilities: readonly Capability[] = [
     metrics: ["completion"],
   },
   {
+    id: "experimentation",
+    title: "Experimentation",
+    practice: "Turn product opinions into hypotheses, tests and decision rules, and treat a flat result as information, not failure.",
+    buildsOn: [],
+    cases: [],
+    decisions: ["experimentation-roadmap"],
+    metrics: ["gmv"],
+    context: "Ran 20+ A/B tests end to end at Baazi Games. A fair number came back inconclusive or negative, which changed how later tests were scoped.",
+  },
+  {
     id: "consumer-ux",
-    title: "Consumer UX",
+    title: "Consumer Products",
     practice: "Design each step around the question the user is silently asking, so the next action is obvious.",
     buildsOn: ["experimentation", "monetization"],
     cases: [
@@ -345,14 +363,16 @@ export const capabilities: readonly Capability[] = [
     metrics: ["dau", "session"],
   },
   {
-    id: "growth",
-    title: "Growth",
-    practice: "Treat activation, habit and retention as one connected loop, and find where it actually breaks before adding incentives.",
-    buildsOn: [],
-    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "About 65% of new users did not play a game on D0; first 60 seconds redesigned (Witzeal)." }],
-    decisions: ["segmented-journeys", "bonus-roi"],
-    metrics: ["d7", "lifecycle"],
-    context: "Lifecycle messaging across push, in-app and email moved from one blast to segmented cohorts (Witzeal).",
+    id: "ai-data",
+    title: "AI & Data Products",
+    practice: "Name the decision a model or data product should change, use rules where rules are enough, and design evaluation, confidence and human override in before scale.",
+    buildsOn: ["personalization", "consumer-ux"],
+    cases: [
+      { slug: "adaptive-assignment-engine", role: "primary", note: "Professional (Edfora): 3PL IRT-based adaptive practice; learner ability (θ) estimated per concept and matched against question difficulty, discrimination and guessing." },
+      { slug: "ai-learner-diagnostic", role: "supporting", note: "Independent prototype, not shipped: rules vs. model split, failure modes, evaluation rubric and educator override." },
+    ],
+    decisions: ["faculty-signals"],
+    metrics: [],
   },
   {
     id: "product-analytics",
@@ -365,25 +385,6 @@ export const capabilities: readonly Capability[] = [
     ],
     decisions: ["faculty-signals", "segmented-journeys"],
     metrics: ["student-retention"],
-  },
-  {
-    id: "experimentation",
-    title: "Experimentation",
-    practice: "Turn product opinions into hypotheses, tests and decision rules, and treat a flat result as information, not failure.",
-    buildsOn: [],
-    cases: [],
-    decisions: ["experimentation-roadmap"],
-    metrics: ["gmv"],
-    context: "Ran 20+ A/B tests end to end at Baazi Games. A fair number came back inconclusive or negative, which changed how later tests were scoped.",
-  },
-  {
-    id: "monetization",
-    title: "Monetization",
-    practice: "Spend on incentives where they change behavior, test pricing and rewards as hypotheses, and hold retention as the guardrail.",
-    buildsOn: [],
-    cases: [],
-    decisions: ["bonus-roi", "experimentation-roadmap"],
-    metrics: ["gmv", "bonus"],
   },
 ];
 
@@ -523,7 +524,7 @@ export const contact = {
   eyebrow: "Open to Product Manager and Senior Product Manager roles",
   title: "Hiring for a product role? Let’s talk.",
   body:
-    "I’m open to Product Manager and Senior Product Manager roles in Growth, Consumer and AI & Data products, in Delhi NCR and, where it makes sense, Mumbai. If user behavior and business outcomes have to move together on your problem, I’d like to hear about it.",
+    "I’m open to Product Manager and Senior Product Manager roles, especially in growth, consumer products, monetization and AI, in Delhi NCR and, where it makes sense, Mumbai. If user behavior and business outcomes have to move together on your problem, I’d like to hear about it.",
   email: "buildwithnitesh@gmail.com",
   linkedin: "https://www.linkedin.com/in/buildwithnitesh/",
   /** The résumé PDF, served from /public. */
@@ -532,5 +533,5 @@ export const contact = {
 
 export const footer = {
   credit: "Nitesh Tiwari",
-  line: "Senior Product Manager  ·  Growth, Consumer, AI & Data products",
+  line: "Senior Product Manager  ·  Consumer Products  ·  Growth  ·  Monetization  ·  AI",
 };
