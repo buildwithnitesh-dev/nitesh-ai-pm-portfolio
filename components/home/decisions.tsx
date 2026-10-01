@@ -32,7 +32,7 @@ export function Decisions() {
           <h3 id="decisions-title" className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-[2.4rem]">Six more decisions, in brief.</h3>
         </div>
         <p className="max-w-xl text-base leading-7 text-muted">
-          Smaller than a case study, same shape: the signal, the call, what it cost, and what happened. Across Edfora, Witzeal, Baazi Games and, before product management, Direct Create.
+          The signal, the call, what it cost, and what happened. Trade-offs are product reasoning; marked outcomes are documented.
         </p>
       </div>
 
@@ -87,10 +87,19 @@ function DecisionRow({ d }: { d: Decision }) {
             <Block term="Decision">
               {d.decision.map((p) => <p key={p}>{p}</p>)}
             </Block>
-            <Block term="Trade-off" reasoning>
+            <Block term="Trade-off">
               <p>{d.tradeoff}</p>
             </Block>
           </dl>
+          {d.details ? (
+            <dl className="grid gap-6 border-t border-line pt-6 sm:grid-cols-2 sm:gap-10">
+              {d.details.map((x) => (
+                <Block key={x.term} term={x.term}>
+                  <ul className="grid gap-1">{x.items.map((it) => <li key={it}>{it}</li>)}</ul>
+                </Block>
+              ))}
+            </dl>
+          ) : null}
           {d.loop ? <SignalLoop loop={d.loop} /> : null}
           {d.note ? <p className="border-t border-line pt-4 text-xs leading-5 text-muted">{d.note}</p> : null}
         </div>
@@ -99,13 +108,10 @@ function DecisionRow({ d }: { d: Decision }) {
   );
 }
 
-function Block({ term, reasoning, children }: { term: string; reasoning?: boolean; children: React.ReactNode }) {
+function Block({ term, children }: { term: string; children: React.ReactNode }) {
   return (
     <div>
-      <dt className="flex items-center gap-2 font-mono text-[11px] tracking-[0.14em] text-accent uppercase">
-        {term}
-        {reasoning ? <span className="flex items-center gap-1.5 font-sans text-[11px] tracking-normal text-muted normal-case"><EvidenceMark kind="reasoning" />Product reasoning</span> : null}
-      </dt>
+      <dt className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">{term}</dt>
       <dd className="mt-3 grid gap-3 text-sm leading-7 text-ink/85">{children}</dd>
     </div>
   );

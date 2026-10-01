@@ -17,7 +17,7 @@ export function AiLab() {
               index="05"
               eyebrow="AI product lab"
               title="AI is one step in a product loop. The loop is what I design."
-              description="The model is one step inside it. The product work is everything around the model: where rules are enough, how confidence is shown, what happens when it’s wrong, and who can overrule it."
+              description="The product work is everything around the model: where rules are enough, how confidence is shown, what happens when it’s wrong, and who can overrule it."
             />
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link href="/work/ai-learner-diagnostic" className={`group ${button.onDark}`}>View the AI prototype <Arrow /></Link>

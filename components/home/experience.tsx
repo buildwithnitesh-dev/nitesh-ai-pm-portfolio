@@ -1,6 +1,6 @@
 import { Container } from "@/components/container";
 import { SectionHeading } from "@/components/ui";
-import { career, careerArc, decisions } from "@/content/portfolio";
+import { baazi, career, careerArc, decisions } from "@/content/portfolio";
 
 /**
  * The verified career timeline on the existing rail. The arc strip above it
@@ -61,25 +61,11 @@ export function Experience() {
                     <p className="text-xs text-muted">{r.location}</p>
                     <p className="mt-2 max-w-2xl text-sm leading-7 text-muted sm:text-base">{r.summary}</p>
 
-                    {r.owned || r.decided ? (
-                      <div className="mt-5 grid max-w-3xl gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
-                        {r.owned ? (
-                          <div className="bg-panel p-4">
-                            <p className="text-[11px] tracking-[0.14em] text-muted uppercase">What I owned</p>
-                            <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
-                              {r.owned.map((o) => <li key={o}>{o}</li>)}
-                            </ul>
-                          </div>
-                        ) : null}
-                        {r.decided ? (
-                          <div className="bg-panel p-4">
-                            <p className="text-[11px] tracking-[0.14em] text-muted uppercase">Decisions I owned</p>
-                            <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
-                              {r.decided.map((d) => <li key={d}>{d}</li>)}
-                            </ul>
-                          </div>
-                        ) : null}
-                      </div>
+                    {r.owned ? (
+                      <p className="mt-4 max-w-3xl text-sm leading-6 text-ink">
+                        <span className="mr-2 font-mono text-[11px] tracking-[0.14em] text-subtle uppercase">Owned</span>
+                        {r.owned.join(" · ")}
+                      </p>
                     ) : null}
 
                     <ul className="mt-5 grid max-w-3xl gap-2">
@@ -90,13 +76,6 @@ export function Experience() {
                         </li>
                       ))}
                     </ul>
-
-                    {r.documented ? (
-                      <p className="mt-5 max-w-3xl text-xs leading-6 text-muted">
-                        <span className="mr-2 font-mono text-[11px] tracking-[0.14em] text-subtle uppercase">Product documentation</span>
-                        {r.documented.join(" · ")}
-                      </p>
-                    ) : null}
 
                     <RoleDecisions company={r.company} />
                   </div>
@@ -112,10 +91,15 @@ export function Experience() {
 
 function RoleDecisions({ company }: { company: string }) {
   const ds = decisions.filter((d) => d.company === company);
-  if (!ds.length) return null;
+  const stories = company === baazi.company ? baazi.stories : [];
+  if (!ds.length && !stories.length) return null;
   return (
     <p className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-2 text-sm">
-      <span className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">In the decision log</span>
+      {stories.length ? <span className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">In selected work</span> : null}
+      {stories.map((st) => (
+        <a key={st.id} href={`#story-${st.id}`} className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">{st.product}</a>
+      ))}
+      {ds.length ? <span className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">In the decision log</span> : null}
       {ds.map((d) => (
         <a key={d.id} href={`#decision-${d.id}`} className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">{d.short}</a>
       ))}

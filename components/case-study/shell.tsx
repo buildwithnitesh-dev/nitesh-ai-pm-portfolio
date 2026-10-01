@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceTag, type EvidenceKind } from "@/components/ui";
-import { career, caseStudies, type CaseSlug } from "@/content/portfolio";
+import { caseStudies, type CaseSlug } from "@/content/portfolio";
 import type { Chapter as ChapterData, Tldr } from "@/content/case-studies";
 import { Toc, type TocItem } from "./toc";
 
@@ -16,8 +16,6 @@ type Meta = {
   note?: string;
   /** Title · company · years, for professional work. */
   role?: string;
-  /** Company in the career timeline whose verified scope backs the "My role" block. */
-  company?: string;
 };
 
 /**
@@ -83,7 +81,6 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
               </li>
             ))}
           </ol>
-          {meta.company ? <MyRole company={meta.company} /> : null}
         </Container>
       </section>
 
@@ -94,36 +91,6 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
 
       <NextCase slug={meta.slug} />
     </main>
-  );
-}
-
-/** Documented scope from the career timeline: ownership shown, not claimed by title. */
-function MyRole({ company }: { company: string }) {
-  const r = career.find((c) => c.company === company);
-  if (!r) return null;
-  const lists = r.owned || r.decided
-    ? ([["What I owned", r.owned], ["Decisions I owned", r.decided]] as const)
-    : ([[`My scope at ${r.company}`, r.highlights]] as const);
-  return (
-    <div className="mt-10 border-t border-line pt-8">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <h2 className="font-serif text-2xl text-ink">My role</h2>
-        <p className="text-sm text-muted">{r.title} · {r.company} · {r.period}</p>
-      </div>
-      {r.owned ? <p className="mt-3 max-w-3xl text-sm leading-7 text-ink/85">{r.summary}</p> : null}
-      <div className={`mt-5 grid gap-px overflow-hidden rounded-xl border border-line bg-line ${lists.length > 1 ? "md:grid-cols-2" : ""}`}>
-        {lists.map(([label, items]) => (
-          items ? (
-            <div key={label} className="bg-background p-5">
-              <p className="text-[11px] tracking-[0.14em] text-muted uppercase">{label}</p>
-              <ul className="mt-2 grid gap-1.5 text-sm leading-6 text-ink">
-                {items.map((x) => <li key={x}>{x}</li>)}
-              </ul>
-            </div>
-          ) : null
-        ))}
-      </div>
-    </div>
   );
 }
 

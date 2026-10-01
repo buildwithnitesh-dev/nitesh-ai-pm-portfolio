@@ -1,20 +1,10 @@
-import { CaseStudyShell, Chapter, ChapterList, Prose } from "@/components/case-study/shell";
+import { CaseStudyShell, ChapterList } from "@/components/case-study/shell";
 import { EvidenceMark, EvidenceTag } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
-import { DecisionSimulator } from "@/components/viz/decision-simulator";
-import { JourneyMap } from "@/components/viz/journey-map";
 import { onboardingFunnelRedesign } from "@/content/case-studies";
 
 export function GamingCaseStudyPage() {
   const c = onboardingFunnelRedesign;
-  // The simulator is its own chapter, placed right after the documented decision
-  // and before the documented outcome, so the two are never read as one thing.
-  const split = c.chapters.findIndex((ch) => ch.id === "decision") + 1;
-  const toc = [
-    ...c.chapters.slice(0, split).map(({ id, label }) => ({ id, label })),
-    { id: "simulator", label: "Explore the reasoning" },
-    ...c.chapters.slice(split).map(({ id, label }) => ({ id, label })),
-  ];
   return (
     <CaseStudyShell
       meta={{
@@ -26,91 +16,91 @@ export function GamingCaseStudyPage() {
         outcome: c.outcome,
         evidence: "verified",
         role: c.role,
-        company: "Witzeal Technologies",
         note: c.confidentiality,
       }}
       tldr={c.tldr}
-      toc={toc}
+      toc={c.chapters.map(({ id, label }) => ({ id, label }))}
     >
-      <ChapterList chapters={c.chapters.slice(0, split)} measure={measure} after={visuals} />
-      <Chapter id="simulator" index={split + 1} label="Explore the reasoning">
-        <Prose
-          eyebrow="Illustrative simulator"
-          title="Explore the reasoning behind the levers."
-          body={[
-            "Change the levers and watch the reasoning update: which lever is the bottleneck, what the hypothesis becomes, which direction behavior should move, and what I would decide.",
-            "This is how I reason about onboarding levers, made interactive. It is not a replay of the historical result, and it does not produce numbers.",
-          ]}
-        />
-        <DecisionSimulator />
-      </Chapter>
-      <ChapterList chapters={c.chapters.slice(split)} measure={measure} after={visuals} start={split + 2} />
+      <ChapterList
+        chapters={c.chapters}
+        measure="D0 gameplay and Day-7 retention, treatment against a control on the existing onboarding"
+        after={{
+          Signal: <Reframe />,
+          Changes: <Changes />,
+          Economics: <Economics />,
+          "Controlled rollout": <Rollout />,
+          Outcome: <Outcome />,
+        }}
+      />
     </CaseStudyShell>
   );
 }
 
-const measure = "Day-7 retention, treatment against a control on the existing onboarding";
-
-const visuals = {
-  Context: <Reframe />,
-  Diagnosis: (
-    <JourneyMap
-      title="The first-session journey, as a sequence of user decisions"
-      steps={onboardingFunnelRedesign.journey}
-      caption="Each stage carries the question a new player is implicitly asking. Documented: the journey to the first game was lengthy, OTP friction was an important part of it, and only about 35% of new users reached gameplay on D0."
-    />
-  ),
-  Changes: <OnboardingFlow />,
-  "Controlled rollout": <Rollout />,
-  Outcome: (
-    <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-ink">Day-7 retention, control vs. treatment</p>
-        <EvidenceTag kind="verified" />
-      </div>
-      <p className="mt-3 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink sm:text-5xl">12.2% → 25.4%</p>
-      <div className="mt-8">
-        <BeforeAfter before={12.2} after={25.4} beforeLabel="Control" afterLabel="Treatment" caption="Witzeal · 3-week controlled rollout · ~50K users" />
-      </div>
-    </div>
-  ),
-};
-
-/** The documented onboarding, before and after: steps only, no screens. */
-function OnboardingFlow() {
-  const f = onboardingFunnelRedesign.flow;
-  const columns = [
-    { label: "Before", steps: f.before, result: f.beforeResult, tone: "border-line bg-background", accent: false },
-    { label: "After", steps: f.after, result: f.afterResult, tone: "border-accent bg-accent-soft/60", accent: true },
-  ];
+/** The five documented changes, and the first-day result they were aimed at. */
+function Changes() {
   return (
-    <figure aria-label="Onboarding before and after the redesign" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+    <figure aria-label="The five onboarding changes" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p aria-hidden className="text-sm font-medium text-ink">The path to a first game, before and after</p>
+        <p aria-hidden className="text-sm font-medium text-ink">The path to a first game</p>
         <DocumentedTag />
       </div>
-      <div className="mt-6 grid gap-3 md:grid-cols-2">
-        {columns.map((c) => (
-          <div key={c.label} className={`rounded-lg border p-5 ${c.tone}`}>
-            <p className={`font-mono text-[11px] tracking-[0.14em] uppercase ${c.accent ? "text-accent" : "text-muted"}`}>{c.label}</p>
-            <ol className="mt-4 grid gap-2.5 text-sm">
-              {c.steps.map((s) => (
-                <li key={s} className="flex items-start gap-3 leading-6 text-ink">
-                  <span aria-hidden className={`mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full ${c.accent ? "bg-accent" : "bg-line-strong"}`} />
-                  {s}
-                </li>
-              ))}
-            </ol>
-            <p className={`mt-4 border-t pt-3 text-sm font-medium leading-6 ${c.accent ? "border-accent/30 text-accent" : "border-line text-ink"}`}>
-              <span aria-hidden className="mr-1.5">→</span>{c.result}
-            </p>
+      <ol className="mt-5 grid gap-2 sm:grid-cols-2">
+        {onboardingFunnelRedesign.changes.map((x, i) => (
+          <li key={x} className="flex items-baseline gap-3 rounded-lg border border-line bg-background px-4 py-3 text-sm text-ink">
+            <span className="font-mono text-[11px] text-accent">{String(i + 1).padStart(2, "0")}</span>{x}
+          </li>
+        ))}
+      </ol>
+    </figure>
+  );
+}
+
+/** The free-game economics: a bounded bonus set against the first-deposit threshold. */
+function Economics() {
+  return (
+    <figure aria-label="Free-game economics" className="rounded-xl border border-line bg-panel">
+      <dl className="grid gap-px overflow-hidden rounded-xl bg-line sm:grid-cols-3">
+        {onboardingFunnelRedesign.economics.map((e) => (
+          <div key={e.label} className="bg-panel p-5 sm:p-6">
+            <dt className="sr-only">{e.label}</dt>
+            <dd className="text-3xl font-semibold tracking-tight text-ink">{e.value}</dd>
+            <dd className="mt-1 text-sm leading-6 text-ink">{e.label}</dd>
+            {e.detail ? <dd className="text-xs leading-5 text-muted">{e.detail}</dd> : null}
           </div>
         ))}
-      </div>
-      <figcaption className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">
-        The changes from the Witzeal redesign, listed as steps. Screens and implementation details are left out.
+      </dl>
+      <figcaption className="border-t border-line px-5 py-3 text-xs leading-5 text-muted sm:px-6">
+        No deposit-conversion result is claimed; the retention result belongs to the redesign as a whole.
       </figcaption>
     </figure>
+  );
+}
+
+/** Both documented results side by side, then the Day-7 comparison against control. */
+function Outcome() {
+  const results = [
+    { label: "D0 gameplay", value: "12% → 33%", note: "New users who played a game on day one" },
+    { label: "Day-7 retention", value: "12.2% → 25.4%", note: "Control vs. treatment, +13.2 pts" },
+  ];
+  return (
+    <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm font-medium text-ink">What changed</p>
+        <EvidenceTag kind="verified" />
+      </div>
+      <dl className="mt-5 grid gap-6 sm:grid-cols-2">
+        {results.map((r) => (
+          <div key={r.label}>
+            <dt className="text-xs tracking-[0.16em] text-muted uppercase">{r.label}</dt>
+            <dd className="mt-2 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink">{r.value}</dd>
+            <dd className="mt-1 text-sm text-muted">{r.note}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className="mt-8 border-t border-line pt-6">
+        <BeforeAfter before={12.2} after={25.4} beforeLabel="Control" afterLabel="Treatment" caption="Day-7 retention · Witzeal · 3-week controlled rollout · ~50K users" />
+      </div>
+    </div>
   );
 }
 
@@ -149,7 +139,7 @@ function Reframe() {
     },
     {
       label: "Read as an activation problem",
-      where: "About 65% of new users never play a game on day one",
+      where: "Only 12% of new users play a game on day one",
       levers: "Time to value, the first meaningful action, the first 60 seconds",
       chosen: true,
     },
@@ -157,7 +147,7 @@ function Reframe() {
   return (
     <figure aria-label="Two readings of the same retention number" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p aria-hidden className="text-sm font-medium text-ink">Same 12%, two readings</p>
+        <p aria-hidden className="text-sm font-medium text-ink">One number, two readings</p>
         <EvidenceTag kind="reasoning" />
       </div>
       <ol className="mt-6 grid gap-3 md:grid-cols-2">
@@ -179,7 +169,7 @@ function Reframe() {
         ))}
       </ol>
       <figcaption className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">
-        Documented: only about 35% of new users reached gameplay on D0. The contrast in levers is product reasoning.
+        Documented: ~12% Day-7 retention, and 12% of new users playing a game on D0. The contrast in levers is product reasoning.
       </figcaption>
     </figure>
   );

@@ -4,10 +4,11 @@ A recruiter-first Next.js portfolio positioned as **Senior Product Manager | Con
 
 ## Included
 - Editorial homepage ordered proof first: impact → work → experience → how I work (principles, decision log, capabilities) → AI lab → contact
-- Three case studies, each told in its own shape:
-  - **Adaptive Assignment Engine** (Edfora): the 3PL IRT mechanism (learner ability θ vs. question difficulty, discrimination and guessing), the documented practice flow and edge cases, the options and how each fails, an interactive decision trace, and the documented outcome
-  - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, the documented before → after onboarding changes, an illustrative decision simulator, the 30/70 controlled rollout, and the documented control vs. treatment result
-  - **AI Learner Diagnostic** (independent prototype): rules vs. model split, failure modes and fallbacks, evaluation rubric, guardrails, launch gate, and a playable deterministic demo
+- Selected work led by growth, plus the AI prototype in the AI lab:
+  - **Onboarding Funnel Redesign** (Witzeal, case 01): the activation-vs-retention reframe, the five changes and free-game economics, the 30/70 controlled rollout, and the D0 and Day-7 results
+  - **Adaptive Assignment Engine** (Edfora, case 02): the options and how each fails, the 3PL IRT mechanism explained once, and the 2-year before vs. after result
+  - **Baazi Games** (03, in brief): the PokerBaazi matchmaking decision and the FanBlaze live-score sunset
+  - **AI Learner Diagnostic** (independent prototype, linked from the AI lab): rules vs. model split, failure modes and fallbacks, evaluation rubric, guardrails, launch gate, and a playable deterministic demo
 - How I work: six principles, each linked to its evidence; a decision log of six smaller decisions (signal, decision, trade-off, outcome) with progressive disclosure and deep links (`/#decision-<id>`); and a capability index pointing at the case study or decision that shows each one
 - Evidence labels on every claim: documented outcome, product reasoning, illustrative model, independent prototype
 - Charts built only from documented figures, each with a table view

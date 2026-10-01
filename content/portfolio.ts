@@ -19,7 +19,7 @@ export const profile = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager | Consumer Products, Growth, Monetization & AI`,
   description:
-    "Senior Product Manager for consumer products, growth, monetization and AI, with about 7 years in product management and 10+ years across technology, most recently at Edfora. Case studies on adaptive learning and on onboarding and retention, each with its documented outcome, plus an independent AI product prototype.",
+    "Senior Product Manager for consumer products, growth, monetization and AI, with about 7 years in product management and 10+ years across technology, most recently at Edfora. Case studies on onboarding and retention, adaptive learning and real-money gaming decisions, each with its documented outcome, plus an independent AI product prototype.",
 };
 
 /** Ordered to match the page: proof first, then experience, then how I work. */
@@ -36,7 +36,7 @@ export const hero = {
   eyebrow: "Senior Product Manager  ·  Consumer Products  ·  Growth  ·  Monetization  ·  AI",
   headline: "I build products that earn the next session.",
   lede:
-    "About 7 years in product management, 10+ in technology: growth, personalization, experimentation and AI-enabled products at Edfora (EdTech) and in real-money gaming. Started as an Android developer.",
+    "I find where users drop before they reach value, and fix the product before spending more to bring them back. About 7 years in product management, across EdTech and real-money gaming.",
   primaryCta: { href: "#work", label: "View my work" },
 };
 
@@ -70,51 +70,53 @@ export type Metric = {
 
 export const metrics: readonly Metric[] = [
   { id: "learners", value: "100K+", label: "Learners reached", detail: "Reach of Edfora’s learning and engagement products overall, not of a single feature.", areas: ["Learning"], precision: "Approximate" },
-  { id: "completion", value: "18% → 45%", label: "Assignment completion", detail: "Adaptive Assignment Engine at Edfora, across live learning cohorts: +27 percentage points. Practice drop-offs also reduced. A change in level rather than an uplift, so it is not plotted.", areas: ["Learning"], precision: "Exact" },
-  { id: "d7", value: "12.2% → 25.4%", label: "Day-7 retention", detail: "Redesign of the first 60 seconds of onboarding at Witzeal Technologies.", areas: ["Retention"], precision: "Exact" },
+  { id: "completion", value: "18% → 45%", label: "Assignment completion", detail: "Edfora, 2-year academic-cycle dataset: 18% under the static learning path, 45% after the adaptive system was introduced (+27 percentage points). Not attributed to the adaptive system alone. A change in level, so it is not plotted.", areas: ["Learning"], precision: "Exact" },
+  { id: "d7", value: "12.2% → 25.4%", label: "Day-7 retention", detail: "Witzeal onboarding redesign: control vs. treatment in a 3-week controlled rollout, ~50K users.", areas: ["Retention"], precision: "Exact" },
+  { id: "d0", value: "12% → 33%", label: "D0 gameplay", detail: "Share of new users who played a game on their first day, before and after the Witzeal onboarding redesign. A change in level, so it is not plotted.", areas: ["Engagement"], precision: "Exact" },
   { id: "dau", value: "12–15%", label: "DAU growth", detail: "Quiz and gamification layer at Edfora, after DAU had been flat for two months.", areas: ["Engagement"], precision: "Range", chart: { low: 12, high: 15, direction: "up" } },
   { id: "session", value: "~15%", label: "Average session time", detail: "Quiz and gamification layer at Edfora.", areas: ["Engagement"], precision: "Approximate", chart: { low: 15, high: 15, direction: "up" } },
   { id: "student-retention", value: "8–12%", label: "Student retention", detail: "Real-time engagement dashboards for faculty at Edfora, replacing a monthly spreadsheet pull.", areas: ["Retention", "Learning"], precision: "Range", chart: { low: 8, high: 12, direction: "up" } },
-  { id: "gmv", value: "~10% WoW", label: "GMV growth", detail: "Experimentation roadmap across pricing and reward loops at Witzeal Technologies. A weekly rate, so it is not plotted against one-time uplifts.", areas: ["Monetization"], precision: "Approximate" },
-  { id: "bonus", value: "~20%", label: "Bonus spend reduction", detail: "Bonus allocation rebuilt around expected ROI per user segment at Witzeal Technologies. Retention held steady.", areas: ["Monetization", "Retention"], precision: "Approximate", chart: { low: 20, high: 20, direction: "down" } },
+  { id: "gmv", value: "~10% WoW", label: "GMV growth", detail: "Witzeal Technologies: a ~10% week-over-week GMV growth trajectory sustained over 11 months, alongside an experimentation roadmap across pricing and reward loops. Not attributed to testing alone. A weekly rate, so it is not plotted.", areas: ["Monetization"], precision: "Approximate" },
+  { id: "bonus", value: "~20%", label: "Bonus spend reduction", detail: "Witzeal Technologies: bonus allocation moved from flat tiers to expected ROI per player segment. Retention held steady.", areas: ["Monetization", "Retention"], precision: "Approximate", chart: { low: 20, high: 20, direction: "down" } },
   { id: "lifecycle", value: "48%", label: "Long-term retention, stabilized", detail: "Lifecycle messaging moved from one blast to segmented cohorts at Witzeal Technologies. A retention level rather than an uplift, so it is not plotted.", areas: ["Retention"], precision: "Exact" },
 ];
 
 export const retentionHeadline = { before: 12.2, after: 25.4, label: "Day-7 retention", context: "Witzeal · first-60-seconds onboarding redesign" };
 
+/** Ordered by strength of the growth story. The AI prototype has a page but is shown in the AI Lab, not Selected Work. */
 export const caseStudies = [
   {
     index: "01",
-    slug: "adaptive-assignment-engine",
-    short: "Adaptive Assignments",
-    domain: "EdTech · Edfora · Senior Product Manager",
-    title: "Adaptive Assignment Engine",
-    summary:
-      "A fixed practice sequence gave every learner the same next question, so some stalled and others coasted. A 3PL IRT-based engine matched difficulty to each learner instead. Assignment completion rose from 18% to 45%, and fewer students dropped off mid-practice.",
-    href: "/work/adaptive-assignment-engine",
-    tags: ["Personalization", "Learning systems", "3PL IRT"],
-    outcome: "Assignment completion: 18% → 45%",
-    evidence: "verified",
-    inside: ["How the matching works", "Options and trade-offs", "Interactive decision trace"],
-    readTime: "7 min",
-  },
-  {
-    index: "02",
     slug: "onboarding-funnel-redesign",
     short: "Onboarding Funnel",
     domain: "Gaming · Witzeal Technologies · Product Manager",
     title: "Onboarding Funnel Redesign",
     summary:
-      "About 65% of new users did not play a game on their first day (D0). In a controlled rollout of a redesigned first 60 seconds, Day-7 retention was 25.4% against 12.2% for the existing onboarding.",
+      "Only 12% of new users played a game on their first day, and Day-7 retention was ~12%. A redesigned first session, tested against a 30% control, lifted D0 gameplay to 33% and Day-7 retention to 25.4%.",
     href: "/work/onboarding-funnel-redesign",
-    tags: ["Growth", "Activation", "Retention"],
+    tags: ["Growth", "Activation", "Experimentation"],
     outcome: "12.2% → 25.4% Day-7 retention",
     evidence: "verified",
-    inside: ["Where the drop-off really was", "Interactive decision simulator", "Before and after"],
-    readTime: "6 min",
+    inside: ["Activation, not retention", "₹15 bonus, ₹20 first deposit", "30/70 controlled rollout"],
+    readTime: "3 min",
   },
   {
-    index: "03",
+    index: "02",
+    slug: "adaptive-assignment-engine",
+    short: "Adaptive Assignments",
+    domain: "EdTech · Edfora · Senior Product Manager",
+    title: "Adaptive Assignment Engine",
+    summary:
+      "A fixed practice sequence gave every learner the same next question. A 3PL IRT-based engine matched difficulty to each learner instead. Across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after the adaptive system.",
+    href: "/work/adaptive-assignment-engine",
+    tags: ["Personalization", "3PL IRT", "Learning"],
+    outcome: "Assignment completion: 18% → 45%",
+    evidence: "verified",
+    inside: ["Three options, one chosen", "How the matching works", "2-year before vs. after"],
+    readTime: "3 min",
+  },
+  {
+    index: "Prototype",
     slug: "ai-learner-diagnostic",
     short: "AI Diagnostic",
     domain: "AI Product · Independent prototype",
@@ -131,6 +133,61 @@ export const caseStudies = [
 ] as const;
 
 export type CaseSlug = (typeof caseStudies)[number]["slug"];
+
+/**
+ * Two Baazi Games decisions told in brief inside Selected Work: one call that
+ * worked and one feature that was sunset. Facts as supplied by Nitesh; no
+ * numbers beyond those stated.
+ */
+export type Story = {
+  id: string;
+  product: string;
+  area: string;
+  title: string;
+  steps: readonly { term: string; text: string }[];
+  outcomes: readonly { value: string; label: string }[];
+  results?: readonly string[];
+  learning?: string;
+};
+
+export const baazi = {
+  company: "Baazi Games",
+  role: "Product Manager",
+  period: "2019–2022",
+  stories: [
+    {
+      id: "pokerbaazi-matchmaking",
+      product: "PokerBaazi",
+      area: "Real-money poker",
+      title: "Match new players to tables they can survive.",
+      steps: [
+        { term: "Problem", text: "Optimize for D7 liquidity and player survival, not only D0 ARPPU or raw server latency." },
+        { term: "Decision", text: "Contextual matchmaking on historical wallet size and skill band, so new players see fewer inappropriate high-stakes tables." },
+        { term: "Trade-off", text: "Client-side polling only for active seat counts; static table metadata served from edge CDN cache." },
+      ],
+      outcomes: [{ value: "<60 ms", label: "peak server latency" }],
+      results: ["Lower D1 bankruptcy rate for new users", "Net revenue kept growing alongside higher D30 retention"],
+    },
+    {
+      id: "fanblaze-live-scores",
+      product: "FanBlaze",
+      area: "Fantasy sports · a feature sunset",
+      title: "Sunset live scores. Build for pre-match intent.",
+      steps: [
+        { term: "Hypothesis", text: "In-app live football scores would cut context switching and lift live engagement and contest joins." },
+        { term: "Built", text: "A live score and play-by-play ticker, contest and match-lobby integration, match-event pushes." },
+        { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
+        { term: "Decision", text: "Sunset it, and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
+      ],
+      outcomes: [
+        { value: "<6%", label: "of match-day users used it" },
+        { value: "~2 min", label: "longer sessions" },
+      ],
+      results: ["No meaningful uplift in mid-match contest joins, lineup changes or re-deposits"],
+      learning: "Users came for fantasy execution, not passive score consumption.",
+    },
+  ] satisfies Story[],
+};
 
 /**
  * Smaller product decisions, told in the same shape as the case studies but
@@ -151,14 +208,41 @@ export type Decision = {
   decision: readonly string[];
   tradeoff: string;
   outcomes: readonly { value: string; label: string }[];
-  /** Plain-language outcome when there is no metric. */
+  /** Plain-language context beside the outcomes, or instead of them when there is no metric. */
   result?: string;
   note?: string;
   /** Optional signal → decision → action loop, drawn as a small diagram. */
   loop?: readonly { stage: string; text: string }[];
+  /** Optional compact detail, e.g. segments and mechanics. */
+  details?: readonly { term: string; items: readonly string[] }[];
 };
 
 export const decisions: readonly Decision[] = [
+  {
+    id: "bonus-roi",
+    short: "Bonus allocation",
+    company: "Witzeal Technologies",
+    role: "Product Manager",
+    area: "Monetization",
+    title: "Stop paying the same bonus to every player.",
+    tension: "Incentive cost vs. retention risk",
+    signal:
+      "Reward costs were eating into margin without a clear retention payoff. Bonuses were allocated in flat tiers.",
+    decision: [
+      "Replace flat bonus tiers with expected ROI per segment, optimizing for incremental NGR (net gaming revenue) per rupee of bonus spend.",
+    ],
+    tradeoff:
+      "Cutting incentives in a real-money gaming product can quietly hurt retention, and that was the main risk going in. The change only reads as a win because both numbers moved the right way: spend fell and retention held.",
+    outcomes: [
+      { value: "~20%", label: "less bonus and discount spend" },
+      { value: "Held", label: "retention, the main risk going in" },
+    ],
+    details: [
+      { term: "Segments", items: ["New / onboarding", "High-value / core LTV drivers", "Low-value / recreational", "Dormant / at-risk"] },
+      { term: "Mechanics", items: ["High-value: targeted loss-protection and liquidity-matched bonuses", "Low-value / at-risk: friction-reduction top-ups tied to deposit triggers"] },
+    ],
+    result: "Goal: maximize incremental NGR per rupee of bonus spend",
+  },
   {
     id: "faculty-signals",
     short: "Faculty signals",
@@ -204,26 +288,6 @@ export const decisions: readonly Decision[] = [
     ],
   },
   {
-    id: "bonus-roi",
-    short: "Bonus allocation",
-    company: "Witzeal Technologies",
-    role: "Product Manager",
-    area: "Monetization",
-    title: "Stop paying the same bonus to every player.",
-    tension: "Incentive cost vs. retention risk",
-    signal:
-      "Reward costs were eating into margin without a clear retention payoff. Bonuses were allocated in flat tiers.",
-    decision: [
-      "Rebuild allocation logic around the expected ROI of a reward for each user segment, instead of flat bonus tiers.",
-    ],
-    tradeoff:
-      "Cutting incentives in a real-money gaming product can quietly hurt retention, and that was the main risk going in. The change only reads as a win because both numbers moved the right way: spend fell and retention held.",
-    outcomes: [
-      { value: "~20%", label: "less bonus and discount spend" },
-      { value: "Held", label: "retention, the main risk going in" },
-    ],
-  },
-  {
     id: "experimentation-roadmap",
     short: "Testing roadmap",
     company: "Witzeal Technologies",
@@ -238,7 +302,8 @@ export const decisions: readonly Decision[] = [
     ],
     tradeoff:
       "Testing is slower per idea than shipping on conviction. The return is that every result, including the flat ones, narrows the next bet.",
-    outcomes: [{ value: "~10%", label: "week-over-week GMV growth through continuous testing" }],
+    outcomes: [{ value: "~10% WoW", label: "GMV growth trajectory, sustained over 11 months" }],
+    note: "Supporting context: the GMV trajectory spans the period the roadmap ran in. It is not attributed to testing alone, and no starting GMV is shown.",
   },
   {
     id: "segmented-journeys",
@@ -313,7 +378,7 @@ export const capabilities: readonly Capability[] = [
     title: "Growth",
     practice: "Treat activation, habit and retention as one connected loop, and find where it actually breaks before adding incentives.",
     buildsOn: [],
-    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "About 65% of new users did not play a game on D0; first 60 seconds redesigned (Witzeal)." }],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "Only 12% of new users played a game on D0; after the redesign, 33% did (Witzeal)." }],
     decisions: ["segmented-journeys", "bonus-roi"],
     metrics: ["d7", "lifecycle"],
     context: "Lifecycle messaging across push, in-app and email moved from one blast to segmented cohorts (Witzeal).",
@@ -355,7 +420,7 @@ export const capabilities: readonly Capability[] = [
     practice: "Design each step around the question the user is silently asking, so the next action is obvious.",
     buildsOn: ["experimentation", "monetization"],
     cases: [
-      { slug: "onboarding-funnel-redesign", role: "primary", note: "First 60 seconds redesigned after finding that about 65% of new users did not play a game on D0." },
+      { slug: "onboarding-funnel-redesign", role: "primary", note: "First session redesigned after finding that only 12% of new users played a game on D0." },
       { slug: "adaptive-assignment-engine", role: "supporting", note: "Adaptation that changes the path without confusing the learner." },
       { slug: "ai-learner-diagnostic", role: "supporting", note: "UX for uncertainty: evidence, confidence, override." },
     ],
@@ -396,11 +461,8 @@ export type Role = {
   /** The stage of the career this role represents. */
   phase: "Engineering foundation" | "Program & release management" | "Product management" | "Senior product management";
   summary: string;
-  /** For the product roles I owned end to end: scope and independent decisions. */
+  /** For the product roles I owned end to end: the scope, in one line. */
   owned?: readonly string[];
-  decided?: readonly string[];
-  /** Product areas covered by documentation, where that is on record. */
-  documented?: readonly string[];
   highlights: readonly string[];
 };
 
@@ -419,19 +481,8 @@ export const career: readonly Role[] = [
       "Sprint planning",
       "Post-launch analytics: retention, DAU, feature adoption",
     ],
-    decided: [
-      "Daily sprint prioritization and feature scoping",
-      "UI/UX interaction flows",
-      "A/B experiment design",
-      "Core engineering trade-offs",
-      "Breaking business goals into epics, user stories and release milestones",
-    ],
-    documented: [
-      "Adaptive", "Alerts and Escalation", "Gamification", "Quiz", "Analytics", "Research",
-      "Product Planning", "Stakeholder Platform", "VOD Analytics", "Author Platform", "Content Improvement",
-    ],
     highlights: [
-      "3PL IRT-based Adaptive Assignment Engine matched question difficulty to each learner’s ability: assignment completion from 18% to 45%, practice drop-offs reduced",
+      "3PL IRT-based Adaptive Assignment Engine matched question difficulty to each learner’s ability. Across a 2-year academic-cycle dataset, assignment completion was 18% on the static path and 45% after it was introduced",
       "Quiz and gamification layer, shaped by teachers who found early prototypes “too game-y”: DAU up ~12–15%, average session time up ~15%",
       "Replaced a monthly spreadsheet pull with real-time engagement dashboards for faculty: student retention up ~8–12%",
       "Regular interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, reaching 100K+ learners",
@@ -445,9 +496,9 @@ export const career: readonly Role[] = [
     phase: "Product management",
     summary: "Growth, onboarding, monetization and lifecycle for a real-money gaming platform.",
     highlights: [
-      "Found that about 65% of new users did not play a game on D0 and redesigned the first 60 seconds: Day-7 retention from 12.2% to 25.4% in a controlled rollout",
-      "Built an experimentation roadmap across pricing and reward loops: GMV growth reached ~10% week over week",
-      "Rebuilt bonus allocation around expected ROI per user segment: bonus and discount spend down ~20%, with retention holding steady",
+      "Found that only 12% of new users played a game on D0 and redesigned the first session: D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4% in a controlled rollout",
+      "Built an experimentation roadmap across pricing and reward loops, during an 11-month ~10% week-over-week GMV growth trajectory",
+      "Moved bonus allocation from flat tiers to expected ROI per player segment: bonus and discount spend down ~20%, with retention holding steady",
       "Moved lifecycle messaging (push, in-app and email) from a single blast to segmented cohorts: long-term retention stabilized at 48%",
     ],
   },

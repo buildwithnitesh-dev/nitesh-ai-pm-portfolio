@@ -126,7 +126,7 @@ export function UpliftChart() {
       </div>
 
       <p className="mt-6 max-w-2xl text-xs leading-5 text-muted">
-        Assignment completion and Day-7 retention (changes in level, in percentage points), GMV growth (a weekly rate) and the 48% retention level use different units, so they sit in the table rather than on this axis.
+        Assignment completion, D0 gameplay and Day-7 retention (changes in level, in percentage points), GMV growth (a weekly rate) and the 48% retention level use different units, so they sit in the table rather than on this axis.
       </p>
 
       {/* Table view: the accessible, complete twin of the chart. */}

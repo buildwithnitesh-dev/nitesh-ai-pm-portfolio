@@ -1,8 +1,6 @@
-import { CaseStudyShell, ChapterList, PullQuote } from "@/components/case-study/shell";
+import { CaseStudyShell, ChapterList } from "@/components/case-study/shell";
 import { EvidenceTag } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
-import { DecisionTree } from "@/components/viz/decision-tree";
-import { JourneyMap } from "@/components/viz/journey-map";
 import { adaptiveAssignmentEngine } from "@/content/case-studies";
 
 export function AdaptiveAssignmentCaseStudy() {
@@ -15,10 +13,9 @@ export function AdaptiveAssignmentCaseStudy() {
         title: c.title,
         subtitle: c.subtitle,
         focus: c.focus,
-        outcome: "Assignment completion: 18% → 45%",
+        outcome: c.outcome,
         evidence: "verified",
         role: c.role,
-        company: "Edfora",
         note: `${c.scale}. ${c.confidentiality}`,
       }}
       tldr={c.tldr}
@@ -28,21 +25,10 @@ export function AdaptiveAssignmentCaseStudy() {
         chapters={c.chapters}
         measure="Assignment completion (primary), with practice drop-off as the second signal"
         after={{
-          Users: (
-            <JourneyMap
-              title="The practice journey, as the learner experiences it"
-              steps={c.journey}
-              caption="Friction points mark where a fixed sequence is most likely to lose learners: the first questions that feel out of reach, and the stretch where learners either stall or coast."
-            />
-          ),
-          "Root cause": <FitBand />,
+          Problem: <FitBand />,
           Options: <Options />,
           Mechanism: <Mechanism />,
-          "Practice loop": <PracticeLoop />,
-          Solution: <DecisionTree />,
-          Measurement: <OutcomeTile />,
-          "Trade-offs": <Tensions />,
-          Learning: <PullQuote>When completion drops, check the fit before adding content.</PullQuote>,
+          Outcome: <OutcomeTile />,
         }}
       />
     </CaseStudyShell>
@@ -187,18 +173,6 @@ function Mechanism() {
         </tbody>
       </table>
 
-      <dl className="mt-6 grid gap-4 border-t border-line pt-5 text-sm sm:grid-cols-3">
-        {[
-          ["Difficulty (b)", "Where the question sits on the same scale as the learner."],
-          ["Discrimination (a)", "How sharply it separates learners just above its level from those just below."],
-          ["Guessing (c)", "How likely a correct answer is to be luck. A higher chance makes a right answer weaker evidence."],
-        ].map(([k, v]) => (
-          <div key={k}>
-            <dt className="font-mono text-[11px] tracking-[0.14em] text-ink uppercase">{k}</dt>
-            <dd className="mt-1 leading-6 text-muted">{v}</dd>
-          </div>
-        ))}
-      </dl>
       <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
         <span aria-hidden className="text-accent">↺</span>
         After each answer θ is updated, which changes the next choice. Positions are illustrative; real parameters, thresholds and selection rules are not shown.
@@ -207,103 +181,19 @@ function Mechanism() {
   );
 }
 
-/** The documented result, before and after, beside how I would frame the metrics (labelled as reasoning). */
+/** The documented result, before and after, with its measurement window. */
 function OutcomeTile() {
   return (
-    <div className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-[1fr_1.1fr]">
-      <div className="bg-panel p-6">
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-xs tracking-[0.16em] text-muted uppercase">Assignment completion</p>
-        </div>
-        <p className="mt-3 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink sm:text-5xl">18% → 45%</p>
-        <div className="mt-6">
-          <BeforeAfter before={18} after={45} max={60} caption="Edfora · live learning cohorts" />
-        </div>
-        <p className="mt-5 text-sm text-ink">Practice drop-offs also reduced.</p>
-        <div className="mt-5"><EvidenceTag kind="verified" /></div>
-      </div>
-      <div className="bg-panel p-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p className="text-xs tracking-[0.16em] text-muted uppercase">How I would frame the metrics</p>
-          <EvidenceTag kind="reasoning" />
-        </div>
-        <ol className="mt-4 grid gap-4 text-sm">
-          <li className="grid grid-cols-[5.5rem_1fr] gap-3">
-            <span className="font-mono text-xs text-accent uppercase">Primary</span>
-            <span className="text-ink">Assignment completion</span>
-          </li>
-          <li className="grid grid-cols-[5.5rem_1fr] gap-3">
-            <span className="font-mono text-xs text-muted uppercase">Second</span>
-            <span className="text-ink">Practice drop-off</span>
-          </li>
-          <li className="grid grid-cols-[5.5rem_1fr] gap-3">
-            <span className="font-mono text-xs text-muted uppercase">Explains</span>
-            <span className="text-muted">Progression through the assignment · how each learner is performing</span>
-          </li>
-        </ol>
-        <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-muted">One outcome decides success. Supporting signals explain why it moved, so the team learns something instead of just celebrating.</p>
-      </div>
-    </div>
-  );
-}
-
-function Tensions() {
-  const pairs = [
-    ["Relevance", "Consistency"],
-    ["Adaptation", "Learner control"],
-    ["Personalization", "Explainability"],
-    ["Sophistication", "Operational simplicity"],
-  ];
-  return (
-    <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
+    <div className="rounded-xl border border-line bg-panel p-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm font-medium text-ink">Tensions the design had to hold</p>
-        <EvidenceTag kind="reasoning" />
+        <p className="text-xs tracking-[0.16em] text-muted uppercase">Assignment completion</p>
+        <EvidenceTag kind="verified" />
       </div>
-      <ul className="mt-5 divide-y divide-line">
-        {pairs.map(([a, b]) => (
-          <li key={a} className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 py-3 text-sm">
-            <span className="text-ink">{a}</span>
-            <span className="text-lg text-subtle"><span aria-hidden>↔</span><span className="sr-only">versus</span></span>
-            <span className="text-right text-ink">{b}</span>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-4 text-xs leading-5 text-muted">The rule of thumb: personalize only where it clearly improves the job. Everywhere else, a stable default wins.</p>
+      <p className="mt-3 text-4xl font-semibold tracking-tight whitespace-nowrap text-ink sm:text-5xl">18% → 45%</p>
+      <div className="mt-6">
+        <BeforeAfter before={18} after={45} max={60} beforeLabel="Static" afterLabel="Adaptive" caption="Edfora · 2-year academic-cycle dataset · before vs. after" />
+      </div>
+      <p className="mt-5 text-sm text-ink">Practice drop-offs also reduced.</p>
     </div>
-  );
-}
-
-/** The adaptive practice flow as documented in the PRD: steps only, no thresholds or implementation. */
-function PracticeLoop() {
-  const steps = [
-    "Initialize",
-    "Calculate ability (θ)",
-    "Select a concept",
-    "Assign a question by P(θ)",
-    "Evaluate the response",
-    "Update ability (θ)",
-    "Adjust difficulty",
-    "Repeat, or end the session",
-  ];
-  return (
-    <figure aria-label="The adaptive practice flow documented in the PRD" className="rounded-xl border border-line bg-panel p-5 sm:p-7">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p aria-hidden className="text-sm font-medium text-ink">Adaptive practice flow</p>
-        <EvidenceTag kind="verified" label="Documented" />
-      </div>
-      <ol className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-        {steps.map((s, i) => (
-          <li key={s} className="flex items-start gap-3 rounded-lg border border-line bg-background px-4 py-3 text-sm leading-5 text-ink">
-            <span className="mt-px font-mono text-[11px] text-accent">{String(i + 1).padStart(2, "0")}</span>
-            {s}
-          </li>
-        ))}
-      </ol>
-      <figcaption className="mt-5 flex items-start gap-2 border-t border-line pt-4 text-xs leading-5 text-muted">
-        <span aria-hidden className="text-accent">↺</span>
-        After each response θ is updated: a correct answer leads to a more challenging question, an incorrect one to an easier one. The loop repeats until the session ends.
-      </figcaption>
-    </figure>
   );
 }

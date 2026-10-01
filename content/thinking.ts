@@ -14,8 +14,8 @@ export const principles: readonly { title: string; body: string; evidence: Evide
   },
   {
     title: "Check where the drop actually happens.",
-    body: "About 65% of new users did not play a game on D0, which points to an activation problem with a very different fix.",
-    evidence: { label: "Onboarding Funnel Redesign · Diagnosis", href: "/work/onboarding-funnel-redesign#diagnosis" },
+    body: "Only 12% of new users played a game on D0: an activation problem, with a very different fix from retention.",
+    evidence: { label: "Onboarding Funnel Redesign · Problem", href: "/work/onboarding-funnel-redesign#problem" },
   },
   {
     title: "One outcome decides. The rest explain.",
