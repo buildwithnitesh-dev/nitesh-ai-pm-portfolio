@@ -3,7 +3,7 @@
 A recruiter-first Next.js portfolio for Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products. It presents about 7 years in product management (since 2019) within 10+ years in technology.
 
 ## Included
-- Editorial homepage ordered proof first: impact → work → capability map → product thinking → AI lab → experience → contact
+- Editorial homepage ordered proof first: impact → work → experience → decision log → capability map → product thinking → AI lab → contact
 - Three case studies, each told in its own shape:
   - **Adaptive Assignment Engine** (Edfora): the 3PL IRT mechanism (learner ability θ vs. question difficulty, discrimination and guessing), the documented practice flow and edge cases, the options and how each fails, an interactive decision trace, and the documented outcome
   - **Onboarding Funnel Redesign** (Witzeal): the retention-vs-activation reframe, the first-session journey, the documented before → after onboarding changes, an illustrative decision simulator, the 30/70 controlled rollout, and the documented control vs. treatment result

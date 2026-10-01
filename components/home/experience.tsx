@@ -6,7 +6,8 @@ import { career, careerArc, decisions } from "@/content/portfolio";
  * The verified career timeline on the existing rail. The arc strip above it
  * makes the progression readable in one glance: engineering → program and
  * release management → product management → senior product management.
- * Each role links to its entries in the decision log, where they exist.
+ * Each role is a compact row (company, title, dates) that opens to its
+ * details, and links to its entries in the decision log, where they exist.
  */
 export function Experience() {
   return (
@@ -14,7 +15,7 @@ export function Experience() {
       <Container>
         <SectionHeading
           id="experience-title"
-          index="06"
+          index="03"
           eyebrow="Experience"
           title="From Android engineering to senior product management."
           description="Built software first, then ran releases, then owned products. Each step shows up in how I scope, prioritize, and make trade-offs with engineering."
@@ -32,65 +33,74 @@ export function Experience() {
           ))}
         </ol>
 
-        <ol className="relative mt-14 ml-1.5 border-l border-line-strong">
+        {/* Compact by default: company, title and dates scan in one pass; each role opens to its details. The latest role starts open. */}
+        <ol className="relative mt-12 ml-1.5 border-l border-line-strong">
           {career.map((r, i) => {
             const latest = i === 0;
             return (
-              <li key={r.company} className="relative grid gap-3 pb-12 pl-8 last:pb-0 sm:grid-cols-[11rem_1fr] sm:gap-10 sm:pl-10">
+              <li key={r.company} className="relative pb-6 pl-8 last:pb-0 sm:pl-10">
                 <span
                   aria-hidden
-                  className={`absolute top-1 -left-[7px] h-3.5 w-3.5 rounded-full border-2 ${latest ? "border-accent bg-accent ring-4 ring-accent-soft" : "border-line-strong bg-background"}`}
+                  className={`absolute top-1.5 -left-[7px] h-3.5 w-3.5 rounded-full border-2 ${latest ? "border-accent bg-accent ring-4 ring-accent-soft" : "border-line-strong bg-background"}`}
                 />
-                <div className="text-sm">
-                  <p className="font-mono text-xs text-ink">{r.period}</p>
-                  <p className="mt-1 text-xs text-muted">{r.location}</p>
-                  <p className="mt-2 text-[11px] tracking-[0.14em] text-accent uppercase">{r.phase}</p>
-                </div>
-                <div>
-                  <h3 className="font-serif text-2xl leading-snug text-ink">
-                    {r.title} <span className="text-muted">· {r.company}</span>
-                  </h3>
-                  <p className="mt-2 max-w-2xl text-sm leading-7 text-muted sm:text-base">{r.summary}</p>
+                <details open={latest} className="group">
+                  <summary className="grid cursor-pointer list-none gap-x-10 gap-y-1 sm:grid-cols-[11rem_1fr] [&::-webkit-details-marker]:hidden">
+                    <span className="block text-sm">
+                      <span className="block font-mono text-xs text-ink">{r.period}</span>
+                      <span className="mt-1 block text-[11px] tracking-[0.14em] text-accent uppercase">{r.phase}</span>
+                    </span>
+                    <span className="flex items-start justify-between gap-4">
+                      <h3 className="font-serif text-2xl leading-snug text-ink transition-colors group-hover:text-accent">
+                        {r.company} <span className="text-muted">· {r.title}</span>
+                      </h3>
+                      <span aria-hidden className="mt-1 text-lg text-muted transition-transform duration-200 group-open:rotate-45">+</span>
+                    </span>
+                  </summary>
 
-                  {r.owned || r.decided ? (
-                    <div className="mt-5 grid max-w-3xl gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
-                      {r.owned ? (
-                        <div className="bg-panel p-4">
-                          <p className="text-[11px] tracking-[0.14em] text-muted uppercase">What I owned</p>
-                          <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
-                            {r.owned.map((o) => <li key={o}>{o}</li>)}
-                          </ul>
-                        </div>
-                      ) : null}
-                      {r.decided ? (
-                        <div className="bg-panel p-4">
-                          <p className="text-[11px] tracking-[0.14em] text-muted uppercase">Decisions I owned</p>
-                          <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
-                            {r.decided.map((d) => <li key={d}>{d}</li>)}
-                          </ul>
-                        </div>
-                      ) : null}
-                    </div>
-                  ) : null}
+                  <div className="pt-3 pb-4 sm:ml-[13.5rem]">
+                    <p className="text-xs text-muted">{r.location}</p>
+                    <p className="mt-2 max-w-2xl text-sm leading-7 text-muted sm:text-base">{r.summary}</p>
 
-                  <ul className="mt-5 grid max-w-3xl gap-2">
-                    {r.highlights.map((h) => (
-                      <li key={h} className="grid grid-cols-[1rem_1fr] text-sm leading-6 text-muted sm:text-[15px]">
-                        <span aria-hidden className="mt-2.5 h-1 w-1 rounded-full bg-subtle" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                    {r.owned || r.decided ? (
+                      <div className="mt-5 grid max-w-3xl gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2">
+                        {r.owned ? (
+                          <div className="bg-panel p-4">
+                            <p className="text-[11px] tracking-[0.14em] text-muted uppercase">What I owned</p>
+                            <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
+                              {r.owned.map((o) => <li key={o}>{o}</li>)}
+                            </ul>
+                          </div>
+                        ) : null}
+                        {r.decided ? (
+                          <div className="bg-panel p-4">
+                            <p className="text-[11px] tracking-[0.14em] text-muted uppercase">Decisions I owned</p>
+                            <ul className="mt-2 grid gap-1 text-sm leading-6 text-ink">
+                              {r.decided.map((d) => <li key={d}>{d}</li>)}
+                            </ul>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
 
-                  {r.documented ? (
-                    <p className="mt-5 max-w-3xl text-xs leading-6 text-muted">
-                      <span className="mr-2 font-mono text-[11px] tracking-[0.14em] text-subtle uppercase">Product documentation</span>
-                      {r.documented.join(" · ")}
-                    </p>
-                  ) : null}
+                    <ul className="mt-5 grid max-w-3xl gap-2">
+                      {r.highlights.map((h) => (
+                        <li key={h} className="grid grid-cols-[1rem_1fr] text-sm leading-6 text-muted sm:text-[15px]">
+                          <span aria-hidden className="mt-2.5 h-1 w-1 rounded-full bg-subtle" />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
 
-                  <RoleDecisions company={r.company} />
-                </div>
+                    {r.documented ? (
+                      <p className="mt-5 max-w-3xl text-xs leading-6 text-muted">
+                        <span className="mr-2 font-mono text-[11px] tracking-[0.14em] text-subtle uppercase">Product documentation</span>
+                        {r.documented.join(" · ")}
+                      </p>
+                    ) : null}
+
+                    <RoleDecisions company={r.company} />
+                  </div>
+                </details>
               </li>
             );
           })}
