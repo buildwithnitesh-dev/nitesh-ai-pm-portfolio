@@ -79,7 +79,7 @@ export type Metric = {
 export const metrics: readonly Metric[] = [
   { id: "learners", value: "100K+", label: "Learners reached", detail: "Reach of Edfora’s learning and engagement products overall, not of a single feature.", areas: ["Learning"], precision: "Approximate" },
   { id: "completion", value: "18% → 45%", label: "Assignment completion", detail: "Adaptive Assignment Engine at Edfora, across live learning cohorts: +27 percentage points. Practice drop-offs also reduced. A change in level rather than an uplift, so it is not plotted.", areas: ["Learning"], precision: "Exact" },
-  { id: "d7", value: "12% → 25%", label: "Day-7 retention", detail: "Redesign of the first 60 seconds of onboarding at Witzeal Technologies.", areas: ["Retention"], precision: "Exact" },
+  { id: "d7", value: "12.2% → 25.4%", label: "Day-7 retention", detail: "Redesign of the first 60 seconds of onboarding at Witzeal Technologies.", areas: ["Retention"], precision: "Exact" },
   { id: "dau", value: "12–15%", label: "DAU growth", detail: "Quiz and gamification layer at Edfora, after DAU had been flat for two months.", areas: ["Engagement"], precision: "Range", chart: { low: 12, high: 15, direction: "up" } },
   { id: "session", value: "~15%", label: "Average session time", detail: "Quiz and gamification layer at Edfora.", areas: ["Engagement"], precision: "Approximate", chart: { low: 15, high: 15, direction: "up" } },
   { id: "student-retention", value: "8–12%", label: "Student retention", detail: "Real-time engagement dashboards for faculty at Edfora, replacing a monthly spreadsheet pull.", areas: ["Retention", "Learning"], precision: "Range", chart: { low: 8, high: 12, direction: "up" } },
@@ -88,7 +88,7 @@ export const metrics: readonly Metric[] = [
   { id: "lifecycle", value: "48%", label: "Long-term retention, stabilized", detail: "Lifecycle messaging moved from one blast to segmented cohorts at Witzeal Technologies. A retention level rather than an uplift, so it is not plotted.", areas: ["Retention"], precision: "Exact" },
 ];
 
-export const retentionHeadline = { before: 12, after: 25, label: "Day-7 retention", context: "Witzeal · first-60-seconds onboarding redesign" };
+export const retentionHeadline = { before: 12.2, after: 25.4, label: "Day-7 retention", context: "Witzeal · first-60-seconds onboarding redesign" };
 
 export const caseStudies = [
   {
@@ -113,10 +113,10 @@ export const caseStudies = [
     domain: "Gaming · Witzeal Technologies · Product Manager",
     title: "Onboarding Funnel Redesign",
     summary:
-      "Most new players who left were gone before their second session. After the first 60 seconds of the experience were redesigned, Day-7 retention went from 12% to 25%.",
+      "About 65% of new users did not play a game on their first day (D0). In a controlled rollout of a redesigned first 60 seconds, Day-7 retention was 25.4% against 12.2% for the existing onboarding.",
     href: "/work/onboarding-funnel-redesign",
     tags: ["Growth", "Activation", "Retention"],
-    outcome: "12% → 25% Day-7 retention",
+    outcome: "12.2% → 25.4% Day-7 retention",
     evidence: "verified",
     inside: ["Where the drop-off really was", "Interactive decision simulator", "Before and after"],
     readTime: "6 min",
@@ -346,7 +346,7 @@ export const capabilities: readonly Capability[] = [
     practice: "Design each step around the question the user is silently asking, so the next action is obvious.",
     buildsOn: ["experimentation", "monetization"],
     cases: [
-      { slug: "onboarding-funnel-redesign", role: "primary", note: "First 60 seconds redesigned after drop-off was traced to before the second session." },
+      { slug: "onboarding-funnel-redesign", role: "primary", note: "First 60 seconds redesigned after finding that about 65% of new users did not play a game on D0." },
       { slug: "adaptive-assignment-engine", role: "supporting", note: "Adaptation that changes the path without confusing the learner." },
       { slug: "ai-learner-diagnostic", role: "supporting", note: "UX for uncertainty: evidence, confidence, override." },
     ],
@@ -358,7 +358,7 @@ export const capabilities: readonly Capability[] = [
     title: "Growth",
     practice: "Treat activation, habit and retention as one connected loop, and find where it actually breaks before adding incentives.",
     buildsOn: [],
-    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "Drop-off traced to before the second session; first 60 seconds redesigned (Witzeal)." }],
+    cases: [{ slug: "onboarding-funnel-redesign", role: "primary", note: "About 65% of new users did not play a game on D0; first 60 seconds redesigned (Witzeal)." }],
     decisions: ["segmented-journeys", "bonus-roi"],
     metrics: ["d7", "lifecycle"],
     context: "Lifecycle messaging across push, in-app and email moved from one blast to segmented cohorts (Witzeal).",
@@ -369,7 +369,7 @@ export const capabilities: readonly Capability[] = [
     practice: "Tie journeys and funnels to a small set of metrics that reflect real user value, and get them to the people who can act while it still matters.",
     buildsOn: [],
     cases: [
-      { slug: "onboarding-funnel-redesign", role: "supporting", note: "Drop-off traced to before the second session." },
+      { slug: "onboarding-funnel-redesign", role: "supporting", note: "Found that about 65% of new users did not play a game on D0." },
       { slug: "adaptive-assignment-engine", role: "supporting", note: "One primary outcome, with supporting signals to explain movement." },
     ],
     decisions: ["faculty-signals", "segmented-journeys"],
@@ -435,7 +435,7 @@ export const career: readonly Role[] = [
       "Breaking business goals into epics, user stories and release milestones",
     ],
     documented: [
-      "Adaptive", "AI Chatbot", "Alerts and Escalation", "Gamification", "Quiz", "Analytics", "Research",
+      "Adaptive", "Alerts and Escalation", "Gamification", "Quiz", "Analytics", "Research",
       "Product Planning", "Stakeholder Platform", "VOD Analytics", "Author Platform", "Content Improvement",
     ],
     highlights: [
@@ -453,7 +453,7 @@ export const career: readonly Role[] = [
     phase: "Product management",
     summary: "Growth, onboarding, monetization and lifecycle for a real-money gaming platform.",
     highlights: [
-      "Traced most onboarding drop-off to before a player’s second session and redesigned the first 60 seconds: Day-7 retention from 12% to 25%",
+      "Found that about 65% of new users did not play a game on D0 and redesigned the first 60 seconds: Day-7 retention from 12.2% to 25.4% in a controlled rollout",
       "Built an experimentation roadmap across pricing and reward loops: GMV growth reached ~10% week over week",
       "Rebuilt bonus allocation around expected ROI per user segment: bonus and discount spend down ~20%, with retention holding steady",
       "Moved lifecycle messaging (push, in-app and email) from a single blast to segmented cohorts: long-term retention stabilized at 48%",

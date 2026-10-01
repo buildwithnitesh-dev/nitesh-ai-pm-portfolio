@@ -86,9 +86,9 @@ function GlanceCard() {
           <p className="text-xs text-muted">{retentionHeadline.label}</p>
           <p className="flex items-center gap-1.5 text-[11px] text-muted"><EvidenceMark kind="verified" /> Documented</p>
         </div>
-        <p className="mt-1 text-4xl font-semibold tracking-tight text-ink">12% → 25%</p>
+        <p className="mt-1 text-3xl font-semibold tracking-tight whitespace-nowrap text-ink min-[360px]:text-4xl">12.2% → 25.4%</p>
         <div className="mt-3">
-          <BeforeAfter compact before={retentionHeadline.before} after={retentionHeadline.after} caption={retentionHeadline.context} />
+          <BeforeAfter compact beforeLabel="Control" afterLabel="Redesign" before={retentionHeadline.before} after={retentionHeadline.after} caption={retentionHeadline.context} />
         </div>
       </div>
 

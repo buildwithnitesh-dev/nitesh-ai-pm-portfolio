@@ -14,7 +14,7 @@ export const principles: readonly { title: string; body: string; evidence: Evide
   },
   {
     title: "Check where the drop actually happens.",
-    body: "A 12% Day-7 retention reads like a retention problem. Most of the loss was before the second session, which points to an activation problem with a very different fix.",
+    body: "A 12% Day-7 retention reads like a retention problem. About 65% of new users did not play a game on D0, which points to an activation problem with a very different fix.",
     evidence: { label: "Onboarding Funnel Redesign · Diagnosis", href: "/work/onboarding-funnel-redesign#diagnosis" },
   },
   {

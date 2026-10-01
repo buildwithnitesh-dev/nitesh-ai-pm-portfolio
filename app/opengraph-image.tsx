@@ -8,7 +8,7 @@ export const contentType = "image/png";
 /** The share card: who, the headline, and three verified outcomes. Colors are the site's tokens. */
 export default function Image() {
   const stats = [
-    ["12% → 25%", "Day-7 retention · Witzeal"],
+    ["12.2% → 25.4%", "Day-7 retention · Witzeal"],
     ["18% → 45%", "Assignment completion · Edfora"],
     ["100K+", "Learners reached · Edfora"],
   ];
