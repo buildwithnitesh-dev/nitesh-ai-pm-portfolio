@@ -1,9 +1,8 @@
 /**
- * Case-study content. The two professional cases share a loose spine
- * (problem, diagnosis, decision, outcome, reflection) so a reader who has seen
- * one knows how to scan the next, but each is told in the shape its story
- * needs. Anything that is product reasoning rather than a documented fact is
- * labelled on the page.
+ * Case-study content. The two professional cases share one compact spine
+ * (problem, decision, test or mechanism, outcome, learning) so a reader who
+ * has seen one knows how to scan the next. Anything that is product
+ * reasoning rather than a documented fact is labelled on the page.
  */
 
 /** `reasoning` marks a section as product reasoning rather than documented history; it is labelled on the page. */
@@ -14,60 +13,29 @@ export type Tldr = { problem: string; approach: string; outcome: string };
 export const adaptiveAssignmentEngine = {
   slug: "adaptive-assignment-engine",
   title: "Adaptive Assignment Engine",
-  subtitle: "Why a fixed practice sequence lost learners, and how matching question difficulty to each learner’s ability kept more of them going.",
+  subtitle: "Why a fixed practice sequence lost learners, and what changed when question difficulty was matched to each learner’s ability.",
   type: "Edfora · EdTech · Professional experience",
   role: "Senior Product Manager · Edfora · 2023–2026",
   outcome: "Assignment completion: 18% → 45%",
   scale: "Edfora’s learning and engagement products reached 100K+ learners overall; that figure is not specific to this engine",
-  focus: ["Personalization", "Learning systems", "3PL IRT"],
+  focus: ["Personalization", "3PL IRT", "Learning"],
   confidentiality:
     "This case study covers product reasoning and outcomes. Proprietary implementation details, internal data and confidential employer information are left out.",
   tldr: {
-    problem: "Low assignment completion was a key driver of learners dropping off. A fixed practice sequence gave every learner the same next question: too hard for some, too easy for others.",
-    approach: "Adaptive practice built on a 3PL Item Response Theory (IRT) model: estimate each learner’s ability (θ) per concept from historical performance, select questions by their probability of a correct answer, P(θ), from each question’s difficulty, discrimination and guessing parameters, and update θ after every response.",
-    outcome: "Assignment completion increased from 18% to 45% across live learning cohorts, a +27 percentage-point improvement, and fewer students dropped off mid-practice.",
+    problem: "A fixed practice sequence gave every learner the same next question: too hard for some, too easy for others. Assignment completion was 18%.",
+    approach: "Three options weighed: learner choice, rule-based difficulty bands, or ability estimation. Chosen: a 3PL IRT-based engine that estimates each learner’s ability (θ) and selects question difficulty to match.",
+    outcome: "Across a 2-year academic-cycle dataset: 18% completion under the static path, 45% after the adaptive system was introduced (+27 pts).",
   } satisfies Tldr,
-  journey: [
-    { step: "Receive", note: "An assignment arrives" },
-    { step: "Start", note: "Is it worth starting now?" },
-    { step: "Early questions", note: "Can I do this?", friction: true },
-    { step: "Work through it", note: "Where learners stall or coast", friction: true },
-    { step: "Complete", note: "Primary outcome" },
-    { step: "Next assignment", note: "Is the next step worth it?" },
-  ],
   chapters: [
     {
       id: "problem",
       label: "Problem",
       sections: [
         {
-          eyebrow: "Context",
+          eyebrow: "Problem",
           title: "Learners had the material and still stopped.",
           body: [
-            "Low assignment completion was a key driver of learners dropping off, including partway through practice.",
-            "Treating that as a content problem points to better questions and more explanations. The sharper question is fit: every learner got the same fixed practice sequence, which didn’t adapt to what each learner had mastered, and one sequence cannot be the right difficulty for learners at different levels.",
-          ],
-        },
-        {
-          eyebrow: "Users",
-          title: "The journey, as the learner lives it",
-          body: [
-            "The question that mattered was not whether a learner started an assignment. It was whether each next question kept them moving or gave them a reason to stop.",
-          ],
-        },
-      ],
-    },
-    {
-      id: "diagnosis",
-      label: "Diagnosis",
-      sections: [
-        {
-          eyebrow: "Root cause",
-          title: "One sequence fails in two directions.",
-          reasoning: true,
-          body: [
-            "Learners who are behind meet questions they can’t answer, get frustrated and leave. Learners who are ahead meet questions they already know and stop getting anything out of them.",
-            "Both look identical in completion data: an assignment that doesn’t get finished. That is why completion alone doesn’t say what to build; it needs to be read against how each learner is performing.",
+            "Low assignment completion was a key driver of learners dropping off. Every learner got the same fixed sequence, and one sequence can’t be the right difficulty for learners at different levels. A fit problem, not a content problem.",
           ],
         },
       ],
@@ -78,63 +46,36 @@ export const adaptiveAssignmentEngine = {
       sections: [
         {
           eyebrow: "Options",
-          title: "Three ways to fix difficulty fit, and how each one fails.",
+          title: "Three ways to fix difficulty fit.",
           body: [
-            "Laid out as product reasoning, the realistic options were: let learners pick their own difficulty, move them between difficulty bands with simple rules, or estimate each learner’s ability and match questions to it with a 3PL IRT model. The direction taken was the third.",
+            "Let learners choose, move them between difficulty bands with rules, or estimate each learner’s ability and match questions to it. The third was chosen.",
           ],
         },
         {
           eyebrow: "Hypothesis",
           title: "Match the question to the learner, not the learner to the sequence.",
           body: [
-            "If each learner gets questions matched to their current ability instead of a fixed sequence, then fewer learners will hit a wall or coast, and more will finish the assignment.",
-            "How I would frame the measurement: completion as the primary outcome, and practice drop-off as the second signal, because the change targets the moment a learner gives up.",
+            "If each learner gets questions matched to their current ability instead of a fixed sequence, then fewer will hit a wall or coast, and more will finish the assignment.",
           ],
         },
         {
           eyebrow: "My role",
           title: "Senior PM, Core Practice & Learning Experience",
           body: [
-            "The team was one PM (me), one APM, one product designer, 5–7 engineers and 2–3 academic leads.",
-            "I owned the product strategy, the roadmap and prioritization, the learner and problem analysis, the PRD and the adaptive product logic, and post-launch tracking. I worked with engineering on the implementation, with product design on the experience, and with the academic leads on the learning requirements.",
+            "One PM (me), one APM, one product designer, 5–7 engineers and 2–3 academic leads. I owned the strategy, roadmap, problem analysis, PRD and adaptive product logic, and post-launch tracking.",
           ],
         },
       ],
     },
     {
       id: "solution",
-      label: "Solution",
+      label: "How it works",
       sections: [
         {
           eyebrow: "Mechanism",
-          title: "Learner ability on one side, question parameters on the other.",
+          title: "3PL IRT: learner ability on one side, question parameters on the other.",
           body: [
-            "The system is built on a 3-parameter logistic (3PL) Item Response Theory model. It estimates each learner’s ability (θ) for each concept from their historical performance, and every question carries three parameters: difficulty (b), discrimination (a) and the probability of a correct guess (c).",
-            "For the relevant questions it calculates P(θ), the probability that this learner answers correctly, and selects questions targeted around the learner’s current ability. After each response θ is updated: a correct answer leads to a more challenging next question, an incorrect one to an easier one. When several candidates are comparable, higher discrimination can be used to prioritize.",
-            "The inputs were raw student data, the 3PL parameters for each question, and Content IDs. The PRD includes implementation examples for concept-wise θ calculation and for assigning the next question and updating θ.",
-          ],
-        },
-        {
-          eyebrow: "Practice loop",
-          title: "One adaptive practice loop, as the PRD defines it",
-          body: [
-            "The system supports concept selection as well as the practice loop itself. The flow runs from initialization to the end of a session:",
-          ],
-        },
-        {
-          eyebrow: "Edge cases",
-          title: "The edge cases the PRD defines",
-          body: [
-            "The PRD documents the edge cases the logic has to handle: estimating ability before a learner has any history, questions missing 3PL parameters, and several questions sharing the same median P(θ).",
-          ],
-        },
-        {
-          eyebrow: "Solution",
-          title: "What adaptation means for the learner",
-          reasoning: true,
-          body: [
-            "Matching difficulty to ability puts the next question closer to the edge of what the learner can do: a smaller step when they are struggling, a harder one when they are coasting.",
-            "My view is that adaptation should reduce friction without making learners wonder why their path changed.",
+            "The engine estimates each learner’s ability (θ) per concept from their performance history. Every question carries a difficulty, discrimination and guessing parameter. The engine selects questions targeted at the learner’s current ability, then updates θ after each response.",
           ],
         },
       ],
@@ -144,33 +85,32 @@ export const adaptiveAssignmentEngine = {
       label: "Outcome",
       sections: [
         {
-          eyebrow: "Measurement",
+          eyebrow: "Outcome",
           title: "Assignment completion: 18% → 45%.",
           body: [
-            "Assignment completion increased from 18% to 45% across live learning cohorts, a +27 percentage-point improvement: 2.5× the starting rate. Fewer students dropped off mid-practice.",
+            "Across a 2-year academic-cycle dataset, assignment completion was 18% under the static learning path and 45% after the adaptive system was introduced: +27 percentage points.",
+            "Concurrent product changes in that period aren’t on record, so the increase isn’t attributed to the adaptive system alone.",
           ],
         },
       ],
     },
     {
       id: "reflection",
-      label: "Reflection",
+      label: "Learning",
       sections: [
         {
-          eyebrow: "Trade-offs",
-          title: "What ability-based matching costs",
+          eyebrow: "Trade-off",
+          title: "What ability-based matching costs.",
           reasoning: true,
           body: [
-            "It is harder to explain than a fixed sequence. A teacher can read a sequence; an ability estimate has to be trusted or explained. It also depends on well-calibrated questions, and a new learner starts with little history, so their first few questions carry the most uncertainty.",
-            "The judgment call is not how much to personalize. It is where personalization clearly improves the job, and where a stable, predictable default is the better product.",
+            "It is harder to explain than a fixed sequence, it depends on well-calibrated questions, and a new learner’s first questions carry the most uncertainty.",
           ],
         },
         {
           eyebrow: "Learning",
-          title: "The product lesson",
+          title: "When completion drops, check the fit before adding content.",
           body: [
-            "The best personalization is usually invisible. The learner gets a next step that fits, and the system absorbs the complexity.",
-            "The lesson I take from it: when completion drops, check the fit before adding more content or more features.",
+            "Personalize only where it clearly improves the job. Everywhere else, a stable default wins.",
           ],
         },
       ],
@@ -181,145 +121,101 @@ export const adaptiveAssignmentEngine = {
 export const onboardingFunnelRedesign = {
   slug: "onboarding-funnel-redesign",
   title: "Onboarding Funnel Redesign",
-  subtitle: "Only about a third of new players reached a game on their first day. In a controlled rollout, Day-7 retention was 25.4% with a redesigned first 60 seconds, against 12.2% for the existing experience.",
+  subtitle: "Only 12% of new players reached a game on day one. A redesigned first session, tested against a 30% control, took Day-7 retention from 12.2% to 25.4%.",
   type: "Witzeal Technologies · Real-money gaming · Professional experience",
   role: "Product Manager · Witzeal Technologies · 2022–2023",
   outcome: "12.2% → 25.4% Day-7 retention",
   focus: ["Growth", "Activation", "Experimentation"],
   confidentiality:
-    "Documented: the first-day gameplay gap, the OTP and API diagnosis, the onboarding changes, the 30% control / 70% treatment rollout over three weeks, and the Day-7 result. Wherever this case describes reasoning rather than record, it is labelled as product reasoning. Implementation details, internal data and proprietary information are left out.",
+    "Documented: the D0 and Day-7 baselines, the funnel and OTP/API diagnosis, the five changes and their economics, the 30% control / 70% treatment rollout, and the D0 and Day-7 results. Product reasoning is labelled. Implementation details and internal data are left out.",
   tldr: {
-    problem: "Only about 35% of new users played a game on their first day (D0); about 65% never did. The onboarding journey was lengthy, and OTP friction was an important part of why.",
-    approach: "Simplified signup and login, fetched the email ID automatically, added OTP auto-read, gave new users their first 3 games free and added a live gameplay tutorial. Tested against a 30% control over three weeks.",
-    outcome: "Day-7 retention was 25.4% with the redesign against 12.2% in control: +13.2 percentage points, across about 50K users.",
+    problem: "Day-7 retention was ~12%, and only 12% of new users played a game on D0. An activation problem, not just a retention one.",
+    approach: "Five changes to reach the first game faster, including OTP auto-read and 3 free games. Tested 30% control vs. 70% treatment for three weeks, ~50K users.",
+    outcome: "D0 gameplay 12% → 33%. Day-7 retention 12.2% → 25.4%, +13.2 percentage points.",
   } satisfies Tldr,
-  journey: [
-    { step: "Entry", note: "Is this for me?" },
-    { step: "Setup", note: "How much effort before any value?", friction: true },
-    { step: "First meaningful action", note: "Did I get anything out of it?", friction: true },
-    { step: "End of session one", note: "Is there a reason to come back?", friction: true },
-    { step: "Second session", note: "Where most leavers never arrived" },
-    { step: "Day 7", note: "Retention measured here" },
+  changes: ["Simplified signup and login", "Email ID fetched automatically", "OTP auto-read", "First 3 games free", "Live gameplay tutorial"],
+  /** The free-game economics: a bounded bridge toward first deposit. */
+  economics: [
+    { value: "₹15", label: "onboarding bonus per user", detail: "₹5 free entry × first 3 games" },
+    { value: "₹20", label: "minimum first deposit" },
+    { value: "5+", label: "game plays: the early-engagement goal" },
   ],
-  /** The documented onboarding, before and after. Steps only; no screens or implementation detail. */
-  flow: {
-    before: ["Lengthy signup and login", "OTP friction", "Delayed first gameplay"],
-    beforeResult: "About 35% of new users reached gameplay on D0",
-    after: ["Simplified signup and login", "Email ID fetched automatically", "OTP auto-read", "First 3 games free", "Live gameplay tutorial"],
-    afterResult: "The aim: first gameplay, faster",
-  },
   experiment: { control: 30, treatment: 70, weeks: 3, users: "~50K" },
   chapters: [
     {
       id: "problem",
-      label: "What we saw",
+      label: "Problem",
       sections: [
         {
-          eyebrow: "Context",
-          title: "Most new players never reached a game on day one.",
+          eyebrow: "Signal",
+          title: "Only 12% of new users played a game on day one.",
           body: [
-            "About 65% of new users did not play a game on their first day (D0). Only about 35% reached gameplay at all, and Day-7 retention was around 12%.",
-            "Read quickly, a 12% Day-7 number is a retention problem, and it points toward reminders, rewards and re-engagement campaigns. Where the loss sat said something else: about two in three new users hadn’t played a single game by the end of their first day. That is an activation problem, and it needs a different fix.",
-          ],
-        },
-      ],
-    },
-    {
-      id: "diagnosis",
-      label: "What was causing friction",
-      sections: [
-        {
-          eyebrow: "Diagnosis",
-          title: "A long way to the first game, with OTP in the way.",
-          body: [
-            "The existing onboarding journey was lengthy, and OTP friction was an important part of the problem.",
-            "I analyzed it at both the product and the technical level: the funnel and dashboards in CleverTap, and the OTP API’s success and failure rates and OTP delivery time.",
+            "Day-7 retention was about 12%. I traced it through the onboarding funnel and the OTP API’s success and failure rates and delivery time. The loss sat before the first game, so this was an activation problem, not simply a retention one.",
           ],
         },
       ],
     },
     {
       id: "decision",
-      label: "What I changed",
+      label: "Decision",
       sections: [
         {
           eyebrow: "Changes",
           title: "Five changes, all aimed at the first game.",
           body: [
-            "The redesign simplified signup and login, fetched the user’s email ID automatically and added OTP auto-read. New users got their first 3 games free, and a live gameplay tutorial was added.",
-            "The objective behind all five was the same: less friction, and a faster route to first gameplay.",
+            "Fix the first session before paying to bring players back. I owned the strategy, the funnel analysis and CleverTap dashboards, and the product and technical diagnosis of the OTP and API friction.",
           ],
         },
         {
           eyebrow: "Hypothesis",
           title: "Get new players into a game faster, and more of them come back.",
           body: [
-            "If new users reach their first game faster, with less signup and OTP friction on the way, then more of them will play on day one and still be around on day seven.",
+            "If new users reach their first game faster, with less signup and OTP friction, then more of them will play on D0 and still be around on Day 7.",
           ],
         },
         {
-          eyebrow: "Strategy",
-          title: "Fix the first 60 seconds before paying for the next seven days.",
-          reasoning: true,
+          eyebrow: "Economics",
+          title: "Free games as a bridge to first deposit, not an open-ended discount.",
           body: [
-            "When most new users were not reaching a first game on D0, there were two broad ways to respond: bring players back later with reminders and rewards, or get them into a game before they leave.",
-            "Every change here does the second. Even the free games are aimed at getting a new player to try the product, not at rewarding them for coming back.",
-          ],
-        },
-        {
-          eyebrow: "My role",
-          title: "Strategy, analysis and the technical diagnosis",
-          body: [
-            "I owned the product strategy, the funnel analysis and the CleverTap analytics and dashboards, and did the product and technical diagnosis of the OTP and API friction. I then worked through the issues we had identified with the relevant teams.",
+            "The goal was to extend early engagement toward Day 7 and drive at least 5 game plays.",
           ],
         },
       ],
     },
     {
       id: "experimentation",
-      label: "How we tested it",
+      label: "Test",
       sections: [
         {
           eyebrow: "Controlled rollout",
           title: "30% kept the old onboarding. 70% got the new one.",
-          body: [
-            "The redesign shipped as a controlled rollout. A 30% control group continued with the existing onboarding, and a 70% treatment group received the redesigned one. The experiment ran for three weeks and involved about 50,000 users.",
-          ],
+          body: ["Three weeks, about 50,000 users."],
         },
       ],
     },
     {
       id: "outcome",
-      label: "What happened",
+      label: "Outcome",
       sections: [
         {
           eyebrow: "Outcome",
-          title: "Day-7 retention: 12.2% in control, 25.4% with the redesign.",
+          title: "More new players reached a game, and more were still playing on Day 7.",
           body: [
-            "Day-7 retention was 12.2% in the control group and 25.4% in the treatment group, an increase of 13.2 percentage points.",
-            "Positive movement continued beyond Day 7 into the first month (M0), although exact later-period figures aren’t available, so none are shown here.",
+            "The positive direction continued into the first month (M0); later figures aren’t available, so none are shown.",
           ],
         },
       ],
     },
     {
       id: "reflection",
-      label: "What I learned",
+      label: "Learning",
       sections: [
         {
           eyebrow: "Learning",
           title: "Retention is won before the retention metric.",
           body: [
-            "The lesson I take from it: retention work often starts upstream of anything labelled retention, in the first session, and sometimes in something as unglamorous as OTP verification.",
-            "It connects to the bonus decision at Witzeal: before paying players to stay, check whether the product has given them a reason to.",
-          ],
-        },
-        {
-          eyebrow: "Next question",
-          title: "What a result like this doesn’t tell you yet",
-          reasoning: true,
-          body: [
-            "The five changes shipped together, so the experiment measures the redesign as a whole. The next question is which of them did the most work, because that decides what to protect and what to simplify.",
+            "Retention work often starts upstream of anything labelled retention: in the first session, and sometimes in OTP verification.",
+            "All five changes shipped together, so the contribution of each can’t be isolated.",
           ],
         },
       ],

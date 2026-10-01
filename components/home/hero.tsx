@@ -3,7 +3,6 @@ import { Arrow, EvidenceMark, button } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
 import { ResumeCta } from "@/components/resume-cta";
 import { ProductIntelligenceNetwork } from "@/components/home/product-intelligence-network";
-import { ThinkingLoop } from "@/components/viz/thinking-loop";
 import { about, contact, hero, profile, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
@@ -35,7 +34,6 @@ export function Hero() {
         </div>
         <div data-network-quiet>
           <GlanceCard />
-          <ThinkingLoop />
         </div>
       </Container>
     </section>

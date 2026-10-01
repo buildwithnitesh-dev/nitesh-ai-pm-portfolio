@@ -38,7 +38,7 @@ export function Impact() {
             <div className="border-t border-line pt-5">
               <p className="text-xs tracking-[0.16em] text-muted uppercase">Growth</p>
               <p className="mt-2 text-3xl font-semibold tracking-tight text-ink">~10% <span className="text-base font-normal text-muted">week over week</span></p>
-              <p className="mt-1 text-sm leading-6 text-muted">GMV growth at Witzeal, from an experimentation roadmap of hypothesis-led A/B tests across pricing and reward loops.</p>
+              <p className="mt-1 text-sm leading-6 text-muted">GMV growth trajectory at Witzeal, sustained over 11 months. Not attributed to any single change.</p>
             </div>
           </div>
         </div>
