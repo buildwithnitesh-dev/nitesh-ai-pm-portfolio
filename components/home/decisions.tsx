@@ -7,8 +7,8 @@ import { decisions, type Decision } from "@/content/portfolio";
 /**
  * Smaller product decisions under the case studies: an editorial list, not
  * more cards. Each row shows the call and its result; opening it shows the
- * signal, the decision and the trade-off. The first row starts open so a
- * skimming reader sees what the depth looks like.
+ * signal, the decision and the trade-off. Rows start collapsed so the
+ * section scans fast; deep links open the row they point at.
  */
 export function Decisions() {
   // Deep links (/#decision-…) from the map and Thinking open the row they point at.
@@ -37,9 +37,9 @@ export function Decisions() {
       </div>
 
       <ol className="mt-10 border-t border-ink">
-        {decisions.map((d, i) => (
+        {decisions.map((d) => (
           <li key={d.id} id={`decision-${d.id}`} className="scroll-mt-24 border-b border-line">
-            <DecisionRow d={d} defaultOpen={i === 0} />
+            <DecisionRow d={d} />
           </li>
         ))}
       </ol>
@@ -47,13 +47,15 @@ export function Decisions() {
   );
 }
 
-function DecisionRow({ d, defaultOpen }: { d: Decision; defaultOpen: boolean }) {
+function DecisionRow({ d }: { d: Decision }) {
   return (
-    <details open={defaultOpen} className="group">
+    <details className="group">
       <summary className="grid cursor-pointer list-none gap-x-10 gap-y-4 py-7 md:grid-cols-[10rem_minmax(0,1fr)_15rem] [&::-webkit-details-marker]:hidden">
+        {/* Phones: company and area share a line, and outcomes sit side by side, so collapsed rows stay short. */}
         <span className="block text-xs leading-5">
-          <span className="block text-ink">{d.company}</span>
-          <span className="block text-muted">{d.area}</span>
+          <span className="text-ink md:block">{d.company}</span>
+          <span aria-hidden className="text-muted md:hidden"> · </span>
+          <span className="text-muted md:block">{d.area}</span>
         </span>
         <span className="block">
           <h4 className="font-serif text-2xl leading-snug text-ink transition-colors group-hover:text-accent sm:text-[1.7rem]">{d.title}</h4>
@@ -62,8 +64,8 @@ function DecisionRow({ d, defaultOpen }: { d: Decision; defaultOpen: boolean }) 
           </span>
         </span>
         <span className="flex items-start justify-between gap-4">
-          <span className="grid gap-3">
-            {d.result ? <span className="block text-xs leading-5 text-muted">{d.result}</span> : null}
+          <span className="grid grid-cols-2 gap-3 md:grid-cols-1">
+            {d.result ? <span className="col-span-2 block text-xs leading-5 text-muted md:col-span-1">{d.result}</span> : null}
             {d.outcomes.map((o) => (
               <span key={o.label} className="block">
                 <span className="flex items-center gap-2 text-xl font-semibold tracking-tight text-ink tabular-nums"><EvidenceMark kind="verified" />{o.value}</span>
