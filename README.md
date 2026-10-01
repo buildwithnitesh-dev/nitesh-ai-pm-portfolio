@@ -1,6 +1,6 @@
 # Nitesh Tiwari · Senior Product Manager portfolio
 
-A recruiter-first Next.js portfolio for Product Manager and Senior Product Manager roles in Growth, Consumer, and AI & Data products. It presents about 7 years in product management (since 2019) within 10+ years in technology.
+A recruiter-first Next.js portfolio positioned as **Senior Product Manager | Consumer Products, Growth, Monetization & AI**, for Product Manager and Senior Product Manager roles (growth first). It presents about 7 years in product management (since 2019) within 10+ years in technology.
 
 ## Included
 - Editorial homepage ordered proof first: impact → work → experience → how I work (principles, decision log, capabilities) → AI lab → contact

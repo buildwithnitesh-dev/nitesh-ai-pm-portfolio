@@ -16,7 +16,7 @@ export default function Image() {
     (
       <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#f5f1e8", color: "#111111", padding: "64px 72px" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 24, color: "#0f766e", letterSpacing: 4, textTransform: "uppercase" }}>Senior Product Manager · Growth, Consumer, AI & Data</div>
+          <div style={{ fontSize: 24, color: "#0f766e", letterSpacing: 4, textTransform: "uppercase" }}>Senior Product Manager · Consumer Products · Growth · Monetization · AI</div>
           <div style={{ marginTop: 28, fontSize: 76, lineHeight: 1.05, letterSpacing: -2, maxWidth: 980 }}>{hero.headline}</div>
           <div style={{ marginTop: 24, fontSize: 30, color: "#5f5b54" }}>{`${profile.name} · ~7 years in product · 10+ years in technology`}</div>
         </div>
