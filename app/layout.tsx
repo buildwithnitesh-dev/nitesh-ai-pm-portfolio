@@ -15,8 +15,8 @@ export const metadata: Metadata = {
   title: { default: seo.title, template: `%s · ${profile.name}` },
   description: seo.description,
   authors: [{ name: profile.name, url: contact.linkedin }],
-  openGraph: { title: seo.title, description: seo.description, type: "profile", locale: "en_US", url: "/", siteName: profile.name },
-  twitter: { card: "summary_large_image", title: seo.title, description: seo.description },
+  openGraph: { title: seo.share.title, description: seo.share.description, type: "profile", locale: "en_US", url: "/", siteName: profile.name },
+  twitter: { card: "summary_large_image", title: seo.share.title, description: seo.share.description },
   robots: { index: true, follow: true },
 };
 
