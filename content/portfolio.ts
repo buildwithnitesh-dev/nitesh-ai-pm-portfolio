@@ -35,16 +35,9 @@ export const hero = {
   eyebrow: "Senior Product Manager  ·  Growth, Consumer, AI & Data",
   headline: "I build products that earn the next session.",
   lede:
-    "About 7 years in product management and 10+ years across technology, consumer products and enterprise software. I work across growth, personalization, experimentation and AI-enabled products, most recently in EdTech at Edfora and before that in real-money gaming. I started as an Android developer, so I scope with engineering, not around it.",
+    "About 7 years in product management, 10+ in technology: growth, personalization, experimentation and AI-enabled products at Edfora (EdTech) and in real-money gaming. Started as an Android developer.",
   primaryCta: { href: "#work", label: "View my work" },
 };
-
-/** Lets a time-boxed reader choose how deep to go instead of scrolling blind. */
-export const readingPaths = [
-  { time: "30 sec", title: "The outcomes", body: "Documented results, shown with the precision they were reported in.", href: "#metrics" },
-  { time: "5 min", title: "Three case studies", body: "Each told as a decision: what we saw, what we chose, what it cost.", href: "#work" },
-  { time: "7 min", title: "One decision, in depth", body: "Why a fixed practice sequence lost learners, and how the engine matched difficulty instead.", href: "/work/adaptive-assignment-engine" },
-] as const;
 
 export const about = {
   eyebrow: "About",

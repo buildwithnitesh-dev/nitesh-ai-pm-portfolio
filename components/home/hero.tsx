@@ -1,18 +1,17 @@
-import Link from "next/link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceMark, button } from "@/components/ui";
 import { BeforeAfter } from "@/components/viz/before-after";
 import { ResumeCta } from "@/components/resume-cta";
 import { ProductIntelligenceNetwork } from "@/components/home/product-intelligence-network";
 import { ThinkingLoop } from "@/components/viz/thinking-loop";
-import { about, contact, hero, profile, readingPaths, retentionHeadline } from "@/content/portfolio";
+import { about, contact, hero, profile, retentionHeadline } from "@/content/portfolio";
 
 export function Hero() {
   return (
     // `relative isolate`: the decorative network sits behind the Hero content and is clipped to the Hero.
     <section aria-labelledby="hero-title" className="relative isolate border-b border-line">
       <ProductIntelligenceNetwork />
-      <Container className="grid gap-14 pt-11.5 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-16">
+      <Container className="grid gap-14 pt-11.5 pb-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] lg:items-center lg:gap-16 lg:pt-16 lg:pb-16">
         <div data-network-quiet>
           <p className="text-xs font-medium tracking-[0.22em] text-accent uppercase">{hero.eyebrow}</p>
           <h1 id="hero-title" className="mt-5 max-w-4xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-[4.9rem]">
@@ -33,29 +32,6 @@ export function Hero() {
           <GlanceCard />
           <ThinkingLoop />
         </div>
-      </Container>
-
-      <Container className="pb-6 lg:pb-8">
-        <nav aria-label="Choose your reading depth" data-network-quiet>
-          <p className="text-xs font-medium tracking-[0.16em] text-muted uppercase">Short on time? Choose your depth</p>
-          <ol className="mt-4 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-3">
-            {readingPaths.map((p, i) => (
-              <li key={p.title} className="bg-background">
-                <Link href={p.href} className="group flex h-full items-start gap-4 p-5 transition-colors hover:bg-panel sm:p-6">
-                  <span className="mt-0.5 w-14 shrink-0 font-mono text-xs text-accent">{p.time}</span>
-                  <span className="flex-1">
-                    <span className="flex items-baseline justify-between gap-3 text-sm font-medium text-ink">
-                      {p.title}
-                      <Arrow className="text-muted group-hover:text-accent" />
-                    </span>
-                    <span className="mt-1 block text-sm leading-6 text-muted">{p.body}</span>
-                  </span>
-                  <span className="sr-only">Path {i + 1} of {readingPaths.length}</span>
-                </Link>
-              </li>
-            ))}
-          </ol>
-        </nav>
       </Container>
     </section>
   );
