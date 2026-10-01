@@ -20,6 +20,12 @@ export const seo = {
   title: `${profile.name} · Senior Product Manager | Consumer Products, Growth, Monetization & AI`,
   description:
     "Senior Product Manager for consumer products, growth, monetization and AI, with about 7 years in product management and 10+ years across technology, most recently at Edfora. Case studies on onboarding and retention, adaptive learning and real-money gaming decisions, each with its documented outcome, plus an independent AI product prototype.",
+  /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
+  share: {
+    title: "Nitesh Tiwari — Senior Product Manager | Consumer, Growth & AI",
+    description: "7 years in Product · 10+ years in Technology · Building products that drive retention, revenue & engagement.",
+    imageAlt: "Nitesh Tiwari, Senior Product Manager: Consumer Products, Growth, Monetization and AI. Day-7 retention 12.2% to 25.4%, assignment completion 18% to 45%, 100K+ learners.",
+  },
 };
 
 /** Ordered to match the page: proof first, then experience, then how I work. */
