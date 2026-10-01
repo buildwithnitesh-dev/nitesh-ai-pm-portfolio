@@ -37,18 +37,18 @@ function Branching() {
 }
 
 function Bars() {
-  // Real values: 12% → 25% Day-7 retention, 0–30% scale.
+  // Real values: 12.2% (control) → 25.4% (treatment) Day-7 retention, 0–30% scale.
   const base = 150;
   const h = (v: number) => (v / 30) * 110;
   return (
     <svg viewBox="0 0 240 180" className="absolute inset-0 h-full w-full">
-      <path d={column(70, base, h(12))} className="fill-data-before" />
-      <path d={column(134, base, h(25))} className="fill-data-after/70 transition-colors duration-300 group-hover:fill-data-after group-focus-within:fill-data-after" />
-      <text x="88" y={base - h(12) - 8} textAnchor="middle" className="fill-ink text-[11px] font-semibold">12%</text>
-      <text x="152" y={base - h(25) - 8} textAnchor="middle" className="fill-ink text-[11px] font-semibold">25%</text>
+      <path d={column(70, base, h(12.2))} className="fill-data-before" />
+      <path d={column(134, base, h(25.4))} className="fill-data-after/70 transition-colors duration-300 group-hover:fill-data-after group-focus-within:fill-data-after" />
+      <text x="88" y={base - h(12.2) - 8} textAnchor="middle" className="fill-ink text-[11px] font-semibold">12.2%</text>
+      <text x="152" y={base - h(25.4) - 8} textAnchor="middle" className="fill-ink text-[11px] font-semibold">25.4%</text>
       <line x1="40" x2="200" y1={base} y2={base} className="stroke-line-strong" strokeWidth="1" />
-      <text x="88" y={base + 16} textAnchor="middle" className="fill-subtle font-mono text-[9px]">before</text>
-      <text x="152" y={base + 16} textAnchor="middle" className="fill-subtle font-mono text-[9px]">after</text>
+      <text x="88" y={base + 16} textAnchor="middle" className="fill-subtle font-mono text-[9px]">control</text>
+      <text x="152" y={base + 16} textAnchor="middle" className="fill-subtle font-mono text-[9px]">treatment</text>
     </svg>
   );
 }
