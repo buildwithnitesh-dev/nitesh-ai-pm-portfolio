@@ -37,12 +37,12 @@ export const contact = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager · Growth, Consumer & AI`,
   description:
-    "Senior Product Manager (Growth × Consumer × AI) with ~7 years in product management and 10+ years in technology. Day-7 retention 12.2% → 25.4% in a controlled rollout, adaptive learning at Edfora, 20+ A/B experiments, and an independent AI product prototype.",
+    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% in a controlled rollout, 20+ A/B experiments, adaptive learning at Edfora, and an independent AI prototype.",
   /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
   share: {
-    title: "Nitesh Tiwari — Senior Product Manager | Consumer, Growth & AI",
-    description: "7 years in Product · 10+ years in Technology · Building products that drive retention, revenue & engagement.",
-    imageAlt: "Nitesh Tiwari, Senior Product Manager: Consumer Products, Growth, Monetization and AI. Day-7 retention 12.2% to 25.4%, assignment completion 18% to 45%, 100K+ learners.",
+    title: "Nitesh Tiwari · Senior Product Manager · Growth × Consumer × AI",
+    description: "Retention is won before the retention metric. ~7 years in product management, 10+ in technology: find where users drop before they reach value, and fix the product first.",
+    imageAlt: "Nitesh Tiwari, Senior Product Manager, Growth × Consumer × AI. Day-7 retention 12.2% to 25.4% in a controlled rollout; assignment completion 18% to 45%, before vs. after, not attributed to one system alone; 20+ A/B experiments.",
   },
 };
 
