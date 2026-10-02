@@ -4,7 +4,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   // The AI prototype moved into the AI Lab; keep old links working.
   async redirects() {
-    return [{ source: "/work/ai-learner-diagnostic", destination: "/ai-lab/learner-diagnostic", permanent: true }];
+    return [
+      { source: "/work/ai-learner-diagnostic", destination: "/ai-lab/learner-diagnostic", permanent: true },
+      // Approach now lives on About, as "How I work".
+      { source: "/approach", destination: "/about#approach", permanent: true },
+    ];
   },
 };
 

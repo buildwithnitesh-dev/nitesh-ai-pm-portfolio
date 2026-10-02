@@ -18,7 +18,6 @@ export function SiteFooter() {
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
             <li><Link href="/" className="inline-flex min-h-6 items-center hover:text-ink">Home</Link></li>
             {nav.map((i) => <li key={i.href}><Link href={i.href} className="inline-flex min-h-6 items-center hover:text-ink">{i.label}</Link></li>)}
-            <li><Link href="/decisions" className="inline-flex min-h-6 items-center hover:text-ink">Decisions</Link></li>
             <li><a href={contact.resumeUrl} download className="inline-flex min-h-6 items-center hover:text-ink">Resume<span className="sr-only"> (PDF)</span></a></li>
           </ul>
         </nav>

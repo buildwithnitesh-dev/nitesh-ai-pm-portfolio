@@ -1,14 +1,15 @@
 import { Container } from "@/components/container";
 import { CopyEmail } from "@/components/home/copy-email";
 import { ResumeCta } from "@/components/resume-cta";
-import { Mono, SectionHeader, button } from "@/components/ui";
-import { about, arc, contact, profile, roles } from "@/content/portfolio";
+import Link from "next/link";
+import { Arrow, Mono, SectionHeader, button } from "@/components/ui";
+import { about, arc, contact, principles, profile, roles, status } from "@/content/portfolio";
 import { pageMetadata } from "@/content/meta";
 
 export const metadata = pageMetadata({
   path: "/about",
   title: "About",
-  description: "Nitesh Tiwari, Senior Product Manager: from sole Android developer to release management, gaming, growth, EdTech personalization and AI. ~7 years in product management, 10+ years in technology.",
+  description: "Nitesh Tiwari, Senior Product Manager: from sole Android developer to release management, gaming, growth, EdTech personalization and AI, and the four principles behind the work. ~7 years in product management, 10+ years in technology.",
 });
 
 export default function AboutPage() {
@@ -21,7 +22,7 @@ export default function AboutPage() {
           <aside aria-label="At a glance" className="on-dark rounded-2xl bg-dark p-6 text-panel sm:p-7">
             <p className="font-serif text-4xl leading-none">{profile.name}<span aria-hidden className="ml-2 font-sans text-2xl text-accent-soft">Δ</span></p>
             <dl className="mt-6 grid gap-4 border-t border-white/15 pt-5 text-sm leading-6">
-              {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location]] as const).map(([k, v]) => (
+              {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location], ...(status.availability ? [["Status", status.availability]] as const : [])] as const).map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3">
                   <dt><Mono className="text-accent-soft/80">{k}</Mono></dt>
                   <dd className="text-panel/90">{v}</dd>
@@ -43,6 +44,27 @@ export default function AboutPage() {
                 </div>
                 <p className="text-lg leading-8 text-ink">{p.text}</p>
                 <p className="text-sm leading-6 text-muted md:border-l md:border-line md:pl-6">{arc[i].proof}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="approach" aria-labelledby="approach-title" className="mt-20 scroll-mt-24">
+          <h2 id="approach-title" className="font-serif text-4xl text-ink">How I work</h2>
+          <p className="mt-3 max-w-2xl text-base leading-7 text-muted">Four principles, each with a place in the work where it shows.</p>
+          <ol className="mt-8 border-t border-ink">
+            {principles.map((p) => (
+              <li key={p.n} className="grid gap-5 border-b border-line py-8 lg:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+                <p className="font-mono text-2xl text-accent">{p.n}</p>
+                <div>
+                  <h3 className="font-serif text-3xl leading-tight text-ink">{p.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-muted">{p.body}</p>
+                </div>
+                <Link href={p.example.href} className="group block rounded-xl border border-line bg-panel p-5 transition-colors hover:border-ink">
+                  <Mono className="text-accent">Where it shows</Mono>
+                  <p className="mt-2 text-[15px] leading-7 text-ink">{p.example.text}</p>
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm text-ink">{p.example.label} <Arrow /></p>
+                </Link>
               </li>
             ))}
           </ol>
