@@ -19,8 +19,12 @@ export type Visual =
   | { type: "system"; steps: readonly { step: string; detail: string }[]; edge: readonly string[] }
   | { type: "experiment"; control: number; treatment: number; duration: string; users: string; measures: string }
   | { type: "deltas"; ids: readonly DeltaId[]; notes?: readonly string[] }
-  | { type: "caveat"; text: string }
-  | { type: "next"; items: readonly string[] };
+  | { type: "caveat"; text: string; also?: string }
+  | { type: "next"; items: readonly string[] }
+  | { type: "levers"; groups: readonly { lever: string; changes: readonly string[]; incentive?: boolean }[] }
+  | { type: "isolation"; factors: readonly string[]; arms: readonly { arm: string; on: readonly boolean[]; answers: string }[]; note: string }
+  | { type: "chain"; links: readonly { metric: string; measured: boolean }[]; note: string }
+  | { type: "record"; rows: readonly { term: string; text: string }[] };
 
 export type Stage = {
   id: string;
@@ -33,6 +37,8 @@ export type Stage = {
 
 export type Case = {
   slug: "onboarding-funnel-redesign" | "adaptive-assignment-engine";
+  /** Capability-first headline; company and domain sit in the metadata line. */
+  capability: string;
   company: string;
   domain: string;
   role: string;
@@ -47,19 +53,20 @@ export type Case = {
 
 export const witzeal: Case = {
   slug: "onboarding-funnel-redesign",
+  capability: "Fixing the path to first value",
   company: "Witzeal Technologies",
   domain: "Real-money gaming",
   role: "Product Manager · May 2022 – Mar 2023",
   title: "Onboarding Funnel Redesign",
   opening: "Only ~12% of new users played on day one.",
-  standfirst: "A ~12% Day-7 number looked like a retention problem. The funnel said activation. Five changes to the first session, tested against a 30% control.",
+  standfirst: "A ~12% Day-7 number looked like a retention problem. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control.",
   description: "Case study: only ~12% of new users at Witzeal played a game on day one. Diagnosed as activation, not retention; five onboarding changes tested in a 30/70 controlled rollout. D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4%.",
   headline: ["d0", "d7"],
   stages: [
     {
       id: "context", label: "Context",
       title: "Growth for a real-money gaming platform.",
-      body: ["I owned growth, onboarding, monetization and lifecycle. On this problem: the strategy, the funnel analysis and CleverTap dashboards, and the product and technical diagnosis of the OTP and API friction."],
+      body: ["I owned growth, onboarding, monetization and lifecycle. On this problem: the call to read it as activation, the funnel analysis and CleverTap dashboards, and the product and technical diagnosis of the OTP and API friction."],
       visual: { type: "facts", items: [{ term: "Company", value: "Witzeal Technologies" }, { term: "Role", value: "Product Manager" }, { term: "Period", value: "May 2022 – Mar 2023" }, { term: "Tools", value: "CleverTap funnels and dashboards" }] },
     },
     {
@@ -104,7 +111,7 @@ export const witzeal: Case = {
     {
       id: "decision", label: "Decision",
       title: "Five changes, all aimed at the first game.",
-      body: ["Fix the first session before paying to bring players back."],
+      body: ["Fix the first 60 seconds before paying to bring players back."],
       visual: {
         type: "path", title: "The path to a first game, and what changed at each step",
         steps: [
@@ -119,7 +126,7 @@ export const witzeal: Case = {
     {
       id: "tradeoff", label: "Trade-off",
       title: "Free games as a bridge to first deposit, not an open-ended discount.",
-      body: ["The goal was to extend early engagement toward Day 7 and drive at least 5 game plays.", "Shipping all five changes together was faster, at the cost of knowing which one did the work."],
+      body: ["The goal was to extend early engagement toward Day 7 and drive at least 5 game plays. The free games were bounded: three entries, then the first deposit."],
       visual: {
         type: "ledger",
         items: [
@@ -127,7 +134,7 @@ export const witzeal: Case = {
           { value: "₹20", label: "Minimum first deposit" },
           { value: "5+", label: "Game plays: the early-engagement goal" },
         ],
-        note: "No deposit-conversion result is claimed; the retention result belongs to the redesign as a whole.",
+        note: "The economics are the design; deposit conversion wasn't measured in the original analysis.",
       },
     },
     {
@@ -138,23 +145,68 @@ export const witzeal: Case = {
     {
       id: "result", label: "Result",
       title: "More new players reached a game, and more were still playing on Day 7.",
-      visual: { type: "deltas", ids: ["d0", "d7"], notes: ["Day-7: +13.2 percentage points, control vs. treatment.", "The positive direction continued into the first month (M0); later figures aren't available, so none are shown."] },
+      body: ["Day-7 retention rose 13.2 percentage points, control against treatment, and the positive direction continued into the first month (M0). Later figures aren't available, so none are shown."],
+      visual: { type: "deltas", ids: ["d7", "d0"] },
+    },
+    {
+      id: "business", label: "Business link",
+      title: "Activation was measured. The money it should lead to wasn't.",
+      body: ["In a real-money game, a retained player only pays off once they deposit. The test measured the first two links of that chain."],
+      visual: {
+        type: "chain",
+        links: [
+          { metric: "D0 gameplay", measured: true },
+          { metric: "Day-7 retention", measured: true },
+          { metric: "First deposit", measured: false },
+          { metric: "Net gaming revenue", measured: false },
+        ],
+        note: "Business outcome was not measured in the original analysis.",
+      },
+    },
+    {
+      id: "isolation", label: "Limits",
+      title: "One thing the test could not isolate.",
+      body: [
+        "The rollout shipped five changes together, and one of them was an incentive: ₹15 of free games per new user. The test shows the bundle worked. It cannot show how much of the lift came from removing friction and how much from the free games.",
+        "That distinction matters, because the argument of this work is to fix the product before paying for engagement. Shipping the bundle was the faster path to a result; the price was attribution.",
+      ],
+      visual: {
+        type: "levers",
+        groups: [
+          { lever: "Friction", changes: ["Simpler signup and login", "Email fetched automatically", "OTP auto-read"] },
+          { lever: "Incentive", changes: ["First 3 games free (₹15)"], incentive: true },
+          { lever: "Guidance", changes: ["Live gameplay tutorial"] },
+        ],
+      },
+    },
+    {
+      id: "next", label: "Isolate", reasoning: true,
+      title: "What I would isolate today.",
+      body: ["A proposed design, not a test that was run. Each arm answers one question the bundle couldn't."],
+      visual: {
+        type: "isolation",
+        factors: ["Friction fixes", "Free games", "Tutorial"],
+        arms: [
+          { arm: "Control", on: [false, false, false], answers: "The baseline, on the existing onboarding" },
+          { arm: "A", on: [true, false, false], answers: "What removing friction does on its own" },
+          { arm: "B", on: [false, true, false], answers: "What the incentive does on its own" },
+          { arm: "C", on: [true, true, false], answers: "Whether the incentive adds anything once friction is gone" },
+          { arm: "D", on: [true, true, true], answers: "The shipped bundle, as the reference" },
+        ],
+        note: "Signup, email and OTP stay one arm because they act on the same step. Every extra arm needs its own sample, which is the trade-off against the speed of shipping the bundle. If arm A holds most of the lift, the free games can shrink.",
+      },
     },
     {
       id: "learning", label: "Learning",
       title: "Retention is won before the retention metric.",
       body: ["Retention work often starts upstream of anything labelled retention: in the first session, and sometimes in OTP verification."],
     },
-    {
-      id: "next", label: "Next", reasoning: true,
-      title: "What I would do next",
-      visual: { type: "next", items: ["Isolate the five changes. Which one did the most work decides what to protect and what to simplify."] },
-    },
   ],
 };
 
 export const edfora: Case = {
   slug: "adaptive-assignment-engine",
+  capability: "Personalizing the learning path",
   company: "Edfora",
   domain: "EdTech",
   role: "Senior Product Manager · Jul 2023 – Jul 2026",
@@ -168,7 +220,10 @@ export const edfora: Case = {
     {
       id: "context", label: "Context",
       title: "Core practice for an EdTech product.",
-      body: ["I owned the strategy, roadmap and prioritization, the problem analysis, the PRD and adaptive product logic, and post-launch tracking. I worked with engineering on the build, design on the experience, and academic leads on the learning requirements."],
+      body: [
+        "I owned the roadmap and prioritization, the problem analysis, the PRD and adaptive product logic, and post-launch tracking. I worked with engineering on the build, design on the experience, and academic leads on the learning requirements.",
+        "The roadmap was RICE-based, fed by regular interviews and usability tests with students and faculty.",
+      ],
       visual: { type: "facts", items: [{ term: "Role", value: "Senior PM, Core Practice & Learning Experience" }, { term: "Team", value: "1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads" }, { term: "Period", value: "Jul 2023 – Jul 2026" }, { term: "Reach", value: "100K+ learners across Edfora's products (not this engine alone)" }] },
     },
     {
@@ -203,6 +258,18 @@ export const edfora: Case = {
       id: "decision", label: "Decision",
       title: "A 3PL Item Response Theory engine.",
       body: ["A statistical model, not an LLM: it estimates each learner's ability and selects question difficulty to match."],
+      visual: {
+        type: "record",
+        rows: [
+          { term: "Where we were", text: "18% completion on one fixed sequence for every learner" },
+          { term: "Where we aimed", text: "Each learner's next question matched to their current ability" },
+          { term: "Chose", text: "Ability estimation with calibrated questions (3PL IRT)" },
+          { term: "Didn't choose", text: "Learner-chosen difficulty; rule-based difficulty bands" },
+          { term: "Constraint", text: "Every question needs calibrated parameters" },
+          { term: "Risk", text: "Harder to explain than a sequence; a new learner's first questions are the least certain" },
+          { term: "Success measure", text: "Assignment completion, with practice drop-off as the second signal" },
+        ],
+      },
     },
     {
       id: "system", label: "System",
@@ -219,6 +286,11 @@ export const edfora: Case = {
       },
     },
     {
+      id: "cold-start", label: "Cold start", reasoning: true,
+      title: "A new learner starts with no estimate.",
+      body: ["With no history, the engine's first questions are its least informed; the ability estimate only sharpens as answers come in. That is where a fixed sequence and an adaptive one behave most alike. How the shipped engine handled cold start isn't in the record."],
+    },
+    {
       id: "rollout", label: "Rollout",
       title: "Measured as a before/after, not a controlled test.",
       body: ["Assignment completion was compared across a 2-year academic-cycle dataset: the static learning path before, the adaptive system after."],
@@ -231,7 +303,7 @@ export const edfora: Case = {
     {
       id: "attribution", label: "Attribution",
       title: "What this number can and can't prove.",
-      visual: { type: "caveat", text: "Concurrent product changes in that period aren't on record, so the increase isn't attributed to the adaptive system alone." },
+      visual: { type: "caveat", text: "Concurrent product changes in that period aren't on record, so the increase isn't attributed to the adaptive system alone.", also: "Completion was the measured outcome; learning mastery was not captured in this analysis." },
     },
     {
       id: "learning", label: "Learning",

@@ -174,8 +174,8 @@ export function StageVisual({ v }: { v: Visual }) {
     case "deltas":
       return (
         <div className="rounded-xl border border-line bg-panel p-6 sm:p-8">
-          <div className="grid gap-10">
-            {v.ids.map((id) => <Delta key={id} id={id} size="lg" />)}
+          <div className="grid gap-8 divide-y divide-line [&>*+*]:pt-8">
+            {v.ids.map((id, i) => <Delta key={id} id={id} size={i === 0 ? "lg" : "md"} explain />)}
           </div>
           {v.notes ? (
             <ul className="mt-6 grid gap-1 border-t border-line pt-4 text-sm leading-6 text-muted">
@@ -192,8 +192,96 @@ export function StageVisual({ v }: { v: Visual }) {
           <div>
             <Mono className="text-accent">Attribution note</Mono>
             <p className="mt-2 text-base leading-7 text-ink">{v.text}</p>
+            {v.also ? <p className="mt-2 text-base leading-7 text-ink">{v.also}</p> : null}
           </div>
         </aside>
+      );
+
+    case "levers":
+      return (
+        <figure>
+          <ol className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+            {v.groups.map((g) => (
+              <li key={g.lever} className={`p-5 ${g.incentive ? "bg-background" : "bg-panel"}`}>
+                <p className="font-serif text-2xl text-ink">{g.lever}</p>
+                <ul className="mt-3 grid gap-1.5 text-sm leading-6 text-ink/85">
+                  {g.changes.map((c) => <li key={c} className="flex gap-2"><span aria-hidden className={`mt-2.5 h-1 w-1 shrink-0 rounded-full ${g.incentive ? "bg-ink" : "bg-accent"}`} />{c}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ol>
+          <figcaption className="mt-3 text-xs leading-5 text-muted">The five changes, by the lever each one pulls. They shipped as one treatment.</figcaption>
+        </figure>
+      );
+
+    case "isolation":
+      return (
+        <figure className="overflow-hidden rounded-xl border border-line bg-panel">
+          {/* Phones: one card per arm. */}
+          <ol className="divide-y divide-line sm:hidden">
+            {v.arms.map((a) => (
+              <li key={a.arm} className="px-5 py-4">
+                <p className="flex items-baseline gap-3"><span className="font-serif text-xl text-ink">{a.arm}</span><span className="text-xs text-muted">{a.on.some(Boolean) ? v.factors.filter((_, i) => a.on[i]).join(" + ") : "No changes"}</span></p>
+                <p className="mt-1 text-sm leading-6 text-ink/85">{a.answers}</p>
+              </li>
+            ))}
+          </ol>
+          <div className="hidden sm:block">
+            <table className="w-full text-left text-sm">
+              <caption className="sr-only">Proposed experiment arms: which changes each arm includes, and what it answers</caption>
+              <thead>
+                <tr className="border-b border-line">
+                  <th scope="col" className="px-5 py-3 font-normal"><Mono className="text-muted">Arm</Mono></th>
+                  {v.factors.map((f) => <th key={f} scope="col" className="px-3 py-3 text-center font-normal"><Mono className="text-muted">{f}</Mono></th>)}
+                  <th scope="col" className="px-5 py-3 font-normal"><Mono className="text-muted">What it answers</Mono></th>
+                </tr>
+              </thead>
+              <tbody>
+                {v.arms.map((a) => (
+                  <tr key={a.arm} className="border-b border-line/70 last:border-0">
+                    <th scope="row" className="px-5 py-3.5 font-serif text-xl font-normal text-ink">{a.arm}</th>
+                    {a.on.map((on, i) => (
+                      <td key={v.factors[i]} className="px-3 py-3.5 text-center">
+                        {on ? <span aria-hidden className="inline-block h-2.5 w-2.5 rounded-full bg-accent" /> : <span aria-hidden className="inline-block h-px w-3 bg-line-strong align-middle" />}
+                        <span className="sr-only">{on ? "included" : "not included"}</span>
+                      </td>
+                    ))}
+                    <td className="px-5 py-3.5 leading-6 text-ink/85">{a.answers}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <figcaption className="border-t border-line px-5 py-4 text-sm leading-6 text-muted">{v.note}</figcaption>
+        </figure>
+      );
+
+    case "chain":
+      return (
+        <figure>
+          <ol className="grid gap-3 sm:grid-cols-4">
+            {v.links.map((l, i) => (
+              <li key={l.metric} className={`relative rounded-lg border p-4 ${l.measured ? "border-accent/50 bg-panel" : "border-dashed border-line-strong"}`}>
+                <Mono className={l.measured ? "text-accent" : "text-subtle"}>{l.measured ? "Measured" : "Not measured"}</Mono>
+                <p className={`mt-1.5 text-base ${l.measured ? "text-ink" : "text-muted"}`}>{l.metric}</p>
+                {i < v.links.length - 1 ? <span aria-hidden className="absolute top-1/2 -right-2.5 hidden -translate-y-1/2 text-subtle sm:block">→</span> : null}
+              </li>
+            ))}
+          </ol>
+          <figcaption className="mt-3 text-xs leading-5 text-muted">{v.note}</figcaption>
+        </figure>
+      );
+
+    case "record":
+      return (
+        <dl className="grid gap-px overflow-hidden rounded-xl border border-line bg-line">
+          {v.rows.map((r) => (
+            <div key={r.term} className="grid gap-1 bg-panel px-5 py-3.5 sm:grid-cols-[9.5rem_1fr] sm:gap-6">
+              <dt><Mono className={r.term === "Chose" ? "text-accent" : "text-muted"}>{r.term}</Mono></dt>
+              <dd className={`text-sm leading-6 ${r.term === "Chose" ? "font-medium text-ink" : "text-ink/85"}`}>{r.text}</dd>
+            </div>
+          ))}
+        </dl>
       );
 
     case "next":

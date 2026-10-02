@@ -46,11 +46,11 @@ export const seo = {
   },
 };
 
-/** Primary navigation. Resume is a separate button; email sits beside it on desktop. */
+/** Primary navigation, in the order a hiring manager asks: what he built, how he decides, AI, who he is. Resume is a separate button. */
 export const nav = [
   { href: "/work", label: "Work" },
+  { href: "/decisions", label: "Decisions" },
   { href: "/ai-lab", label: "AI Lab" },
-  { href: "/approach", label: "Approach" },
   { href: "/about", label: "About" },
 ] as const;
 
@@ -70,10 +70,12 @@ export type Delta = {
   to?: number;
   /** Axis maximum for this metric's own bar. */
   max?: number;
-  /** For decreases shown as an index (before = 100). */
-  indexed?: boolean;
-  /** How it was measured. */
+  /** How it was measured, in a few words: the basis of the comparison comes first. */
   method: string;
+  /** What the number counts, as recorded. */
+  definition: string;
+  /** The longer methodological note, shown on expansion only. */
+  detail?: string;
   /** Where it happened. */
   context: string;
   /** Attribution caveat; shown wherever the number is. */
@@ -86,29 +88,37 @@ export const deltas: Record<DeltaId, Delta> = {
   d0: {
     label: "D0 gameplay",
     before: "12%", after: "33%", from: 12, to: 33, max: 40,
-    method: "Share of new users who played on day one · before vs. after",
+    method: "New users who played a game on day one",
+    definition: "Share of new users who played a game on their first day.",
+    detail: "12% is the documented baseline before the redesign. The record lists 33% among the rollout's results but doesn't say whether it was read against the concurrent control or as the level after launch, so it is shown as a change in level, not as a test result.",
     context: "Witzeal · onboarding redesign",
     href: "/work/onboarding-funnel-redesign#result",
   },
   d7: {
     label: "Day-7 retention",
     before: "12.2%", after: "25.4%", from: 12.2, to: 25.4, max: 30,
-    method: "30/70 controlled rollout · ~50K users · 3 weeks",
+    method: "Controlled rollout · 30/70 · ~50K users · 3 weeks",
+    definition: "Definition not recorded: the original experiment record doesn't capture the denominator.",
+    detail: "Control (existing onboarding) against treatment (redesigned), concurrently. The treatment bundled five changes, one of them an incentive, so the lift belongs to the bundle. Statistical significance wasn't recorded.",
     context: "Witzeal · onboarding redesign",
     href: "/work/onboarding-funnel-redesign#result",
   },
   completion: {
     label: "Assignment completion",
     before: "18%", after: "45%", from: 18, to: 45, max: 60,
-    method: "2-year academic-cycle dataset · before vs. after",
+    method: "Before/after · 2-year academic-cycle dataset",
+    definition: "Definition not recorded: how completion was counted isn't captured in the analysis.",
+    detail: "The static learning path before, the adaptive system after; no holdout. Concurrent product changes aren't on record. Completion was the measured outcome; learning mastery was not captured in this analysis.",
     context: "Edfora · adaptive assignments",
     note: "Not attributed to the adaptive system alone",
     href: "/work/adaptive-assignment-engine#result",
   },
   bonus: {
     label: "Bonus & discount spend",
-    before: "100", after: "~20% ↓", from: 100, to: 80, max: 100, indexed: true,
-    method: "Flat tiers → expected ROI per segment · retention held",
+    after: "~20% ↓",
+    method: "Directional · flat tiers → expected ROI per segment",
+    definition: "Bonus and discount spend after allocation moved from flat tiers to expected ROI per segment.",
+    detail: "No time window or baseline is recorded. The objective was incremental NGR per rupee of bonus spend; the NGR outcome wasn't captured, so the result is reported as spend and retention.",
     context: "Witzeal · bonus allocation",
     href: "/decisions#bonus-allocation",
   },
@@ -116,6 +126,7 @@ export const deltas: Record<DeltaId, Delta> = {
     label: "A/B experiments, end to end",
     after: "20+",
     method: "Hypothesis, sample size, significance · many inconclusive",
+    definition: "A/B tests run end to end, counted.",
     context: "Baazi Games",
     href: "/decisions#experimentation",
   },
@@ -123,6 +134,7 @@ export const deltas: Record<DeltaId, Delta> = {
     label: "Learners reached",
     after: "100K+",
     method: "Across Edfora's learning and engagement products",
+    definition: "Reach of Edfora's products overall; not active users, and not one feature.",
     context: "Edfora",
     note: "Product reach overall, not one feature",
     href: "/about#edfora",
@@ -137,28 +149,43 @@ export const retentionHeadline = { before: 12.2, after: 25.4, label: "Day-7 rete
 /* -------------------------------------------------------------------------- */
 
 export const hero = {
-  identity: `${profile.role} · ${profile.positioning}`,
+  role: profile.role,
   headline: "Retention is won before the retention metric.",
+  positioning: profile.positioning,
   lede: "I find where users drop before they reach value, diagnose why, and fix the product before reaching for incentives — with an engineer's view of how it gets built.",
-  proof: ["d7", "completion", "experiments"] as const satisfies readonly DeltaId[],
+  /** The one result the hero carries; every other number has its own home further down. */
+  proof: "d7" as const satisfies DeltaId,
 };
 
-/** "What I've moved": one lever, one number, one method. */
-export const proofWall = [
-  { lever: "Activation", delta: "d0" },
-  { lever: "Retention", delta: "d7" },
-  { lever: "Monetization", delta: "bonus" },
-  { lever: "Learning", delta: "completion" },
-  { lever: "Experimentation", delta: "experiments" },
-] as const satisfies readonly { lever: string; delta: DeltaId }[];
+/** The share card keeps its three proof points (app/opengraph-image.tsx). */
+export const shareProof = ["d7", "completion", "experiments"] as const satisfies readonly DeltaId[];
+
+/**
+ * Proof beyond the three stories: one capability, one number, how it was
+ * measured. `weight: "context"` keeps a thinly documented number visible
+ * without letting it carry a headline.
+ */
+export const proofWall: readonly {
+  capability: string;
+  value: string;
+  claim: string;
+  basis: string;
+  context: string;
+  href: string;
+  weight: "headline" | "context";
+}[] = [
+  { capability: "Incentive economics", value: "~20%", claim: "less bonus and discount spend, with retention held, after moving from flat tiers to expected ROI per segment", basis: "Directional", context: "Witzeal Technologies", href: "/decisions#bonus-allocation", weight: "headline" },
+  { capability: "Experimentation", value: "20+", claim: "A/B tests run end to end, with a fair number inconclusive or negative, and those results reshaped how later tests were scoped", basis: "Count", context: "Baazi Games", href: "/decisions#experimentation", weight: "headline" },
+  { capability: "Risk", value: "~18%", claim: "lower fraud losses after a rules-based anomaly-detection layer for fraudulent transactions", basis: "Method not captured", context: "Baazi Games", href: "/about#baazi", weight: "context" },
+];
 
 /** Built → Shipped → Measured → Grew → Personalized → AI: what each phase taught, and the proof. */
 export const arc = [
   { verb: "Built", field: "Android engineering", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
   { verb: "Shipped", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Release process for a web app deployed to 150+ Fortune companies, across four distributed teams." },
-  { verb: "Measured", field: "Gaming", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "20+ A/B tests end to end; journeys by player segment: ~35% longer sessions." },
-  { verb: "Grew", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Day-7 retention 12.2% → 25.4% in a controlled rollout." },
-  { verb: "Personalized", field: "EdTech", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "A 3PL IRT adaptive engine in a product line that reached 100K+ learners." },
+  { verb: "Measured", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
+  { verb: "Grew", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
+  { verb: "Personalized", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "A 3PL IRT adaptive engine in a product line that reached 100K+ learners." },
   { verb: "AI", field: "Current direction", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
 ] as const;
 
@@ -171,29 +198,49 @@ export const flagships = [
     index: "01",
     slug: "onboarding-funnel-redesign",
     href: "/work/onboarding-funnel-redesign",
+    capability: "Activation",
+    headline: "Fixing the path to first value",
     company: "Witzeal Technologies",
     domain: "Real-money gaming",
     role: "Product Manager · 2022–2023",
     title: "Onboarding Funnel Redesign",
     opening: "Only ~12% of new users played on day one.",
-    summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first session, tested against a 30% control.",
-    deltas: ["d0", "d7"] as const satisfies readonly DeltaId[],
+    summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control, and a clear account of what the test could and couldn't isolate.",
+    delta: "d0" as DeltaId,
   },
   {
     index: "02",
     slug: "adaptive-assignment-engine",
     href: "/work/adaptive-assignment-engine",
+    capability: "Personalization",
+    headline: "Personalizing the learning path",
     company: "Edfora",
     domain: "EdTech",
     role: "Senior Product Manager · 2023–2026",
     title: "Adaptive Assignment Engine",
     opening: "Every learner was getting the same next question.",
     summary: "Three ways to fix difficulty fit, one chosen: a 3PL IRT engine that estimates each learner's ability and matches the question to it.",
-    deltas: ["completion"] as const satisfies readonly DeltaId[],
+    delta: "completion" as DeltaId,
   },
 ] as const;
 
 export type CaseSlug = (typeof flagships)[number]["slug"];
+
+/** The third homepage story: not another metric, but a decision to stop. */
+export const sunsetStory = {
+  index: "03",
+  capability: "Product judgment",
+  headline: "Sunsetting a feature on usage evidence",
+  company: "Baazi Games",
+  product: "FanBlaze",
+  domain: "Fantasy sports",
+  role: "Product Manager · 2019–2022",
+  opening: "Fewer than 6% of match-day users used live scores.",
+  summary: "Live scores were built to cut context switching and lift contest joins. Usage said fantasy intent was pre-match. The feature was sunset, and the effort moved to what users came for.",
+  href: "/decisions#fanblaze",
+  figure: { value: "<6%", label: "of active match-day users used it", basis: "Observed after launch" },
+  opportunity: "Effort moved to starting-XI notifications, injury alerts and head-to-head stats.",
+};
 
 /* -------------------------------------------------------------------------- */
 /* Decision library                                                            */
@@ -214,9 +261,9 @@ export type Decision = {
   featured?: boolean;
   /** Ordered stages; the grammar is shared across every card. */
   stages: readonly { term: string; text: string }[];
-  /** Evidence: a Delta, or plain documented results. */
+  /** Evidence: a Delta, or plain documented results, each with how it was measured where that is short. */
   delta?: DeltaId;
-  results?: readonly string[];
+  results?: readonly { text: string; basis?: string }[];
   details?: readonly { term: string; items: readonly string[] }[];
   learning?: string;
   note?: string;
@@ -238,7 +285,8 @@ export const decisions: readonly Decision[] = [
       { term: "Trade-off", text: "Cutting incentives in real-money gaming can quietly hurt retention, the main risk going in. It only reads as a win because both numbers moved the right way." },
     ],
     delta: "bonus",
-    results: ["Retention held"],
+    results: [{ text: "Retention held" }],
+    note: "The objective was incremental NGR per rupee of bonus spend. The NGR outcome wasn't captured, so the result is reported as spend and retention.",
     details: [
       { term: "Segments", items: ["New / onboarding", "High-value / core LTV drivers", "Low-value / recreational", "Dormant / at-risk"] },
       { term: "Mechanics", items: ["High-value: targeted loss-protection and liquidity-matched bonuses", "Low-value / at-risk: friction-reduction top-ups tied to deposit triggers"] },
@@ -261,7 +309,7 @@ export const decisions: readonly Decision[] = [
       { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
       { term: "Decision", text: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
     ],
-    results: ["<6% of match-day users used it", "~2 min longer sessions", "No meaningful uplift in contest joins, lineup changes or re-deposits"],
+    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }, { text: "~2 min longer sessions" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits" }],
     learning: "Users came for fantasy execution, not passive score consumption.",
   },
   {
@@ -279,7 +327,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use those results to change how later tests were scoped, instead of treating them as failures." },
     ],
     delta: "experiments",
-    results: ["Core funnel conversion up ~15% across the tests"],
+    results: [{ text: "Core funnel conversion up ~15%, combined across the tests", basis: "How results were combined isn't recorded" }],
     learning: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
   },
   {
@@ -297,7 +345,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Contextual matchmaking on historical wallet size and skill band, so new players see fewer inappropriate high-stakes tables." },
       { term: "Trade-off", text: "Client-side polling only for active seat counts; static table metadata served from edge CDN cache." },
     ],
-    results: ["Peak server latency under 60 ms", "Lower D1 bankruptcy rate for new users", "Net revenue kept growing alongside higher D30 retention"],
+    results: [{ text: "Peak server latency under 60 ms" }, { text: "Lower D1 bankruptcy rate for new users", basis: "Directional" }, { text: "Net revenue kept growing alongside higher D30 retention", basis: "Directional" }],
   },
   {
     id: "testing-roadmap",
@@ -312,8 +360,8 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "An experimentation roadmap across pricing and reward loops, each change written as a hypothesis and run as an A/B test." },
       { term: "Trade-off", text: "Testing is slower per idea than shipping on conviction. Every result, including the flat ones, narrows the next bet." },
     ],
-    results: ["GMV on a ~10% week-over-week growth trajectory, sustained over 11 months"],
-    note: "The GMV trajectory spans the period the roadmap ran in. It is not attributed to testing alone, and no starting GMV is shown.",
+    results: [{ text: "GMV on a ~10% week-over-week growth trajectory over 11 months", basis: "Directional" }],
+    note: "The trajectory spans the period the roadmap ran in. It isn't attributed to testing alone, and no starting GMV is recorded.",
   },
   {
     id: "segmented-journeys",
@@ -328,7 +376,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use behavioral clustering to find the segments that behaved differently, then redesign the journey for each." },
       { term: "Trade-off", text: "Every extra journey is more to build, test and maintain. Segmentation pays off when segments are few and clearly different." },
     ],
-    results: ["Session duration up ~35%", "Retention up ~25%"],
+    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Method not captured" }],
   },
   {
     id: "faculty-signals",
@@ -343,7 +391,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Real-time engagement dashboards, so faculty could step in while a student was still reachable." },
       { term: "Trade-off", text: "A dashboard shows everything and leaves the teacher to find the problem; the documented next layer, myAdvisor, moves to prioritized alerts timed around a teacher's schedule." },
     ],
-    results: ["Student retention up ~8–12% after real-time dashboards"],
+    results: [{ text: "Student retention up ~8–12% after real-time dashboards", basis: "Method not captured" }],
     note: "The retention result belongs to the dashboards. myAdvisor is product design from the documentation; no outcome is claimed for it.",
   },
   {
@@ -359,7 +407,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: ["DAU up ~12–15%", "Average session time up ~15%"],
+    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "Directional" }],
   },
   {
     id: "one-app",
@@ -374,7 +422,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "As the sole Android developer, proposed one app where people choose their role, then built it from scratch with the CEO and CTO." },
       { term: "Trade-off", text: "More role logic inside one product, against one codebase, one app to market and a lower technology bill for a small team." },
     ],
-    results: ["Platform context: 400+ maker shops and 100+ designers"],
+    results: [{ text: "Platform context: 400+ maker shops and 100+ designers" }],
     note: "An Android Developer role, not product management. The platform figures describe scale; they are not claimed as a result of this decision.",
   },
 ];
@@ -416,7 +464,7 @@ export const principles = [
 
 export const aiLab = {
   headline: "How I build AI products",
-  sub: "I treat AI as a product system, not a model demo.",
+  sub: "I treat AI as a product system, not a model demo. The lab shows what is built, what is designed and what hasn't been tested yet.",
   spine: ["Problem", "AI role", "System", "Evaluation", "Failure modes", "Product metric"],
   principles: [
     ["Rules first, a model where it earns it", "Much of a learning product can run on deterministic logic. A model belongs where judgment is needed and a wrong answer is recoverable."],
@@ -430,13 +478,13 @@ export const aiLab = {
       slug: "learner-diagnostic",
       href: "/ai-lab/learner-diagnostic",
       title: "AI Learner Diagnostic",
-      status: "Independent prototype · deterministic demo",
-      statusNote: "No real users, no model results. The LLM classifier and its evaluation run are the next build.",
+      status: "Independent prototype · rules-only baseline",
+      statusNote: "No real users and no model results. The baseline, the override and the evaluation harness are built; the model-based diagnosis is the next build and hasn't been tested.",
       spine: [
         { term: "Problem", text: "A teacher can't diagnose every learner's misconception by hand." },
         { term: "AI role", text: "Proposed: map a pattern of errors to a likely misconception and explain it. Scoring stays deterministic." },
         { term: "System", text: "Learner answers → rules → model → confidence → teacher override. The demo runs every step on rules." },
-        { term: "Evaluation", text: "Rubric designed before any model work: accuracy, relevance, groundedness, overconfidence, consistency, latency and cost. Not yet run." },
+        { term: "Evaluation", text: "Rubric and harness built before any model work: accuracy, groundedness, consistency, calibration, latency and cost. Not yet run." },
         { term: "Failure modes", text: "Six designed before the happy path, from overconfident diagnosis to a slow model call." },
         { term: "Product metric", text: "Agreement with the teacher's own call on the same evidence; override rate." },
       ],
@@ -466,7 +514,7 @@ export const roles: readonly Role[] = [
     title: "Senior Product Manager",
     period: "Jul 2023 – Jul 2026",
     location: "Gurugram",
-    summary: "Product strategy and roadmap for learning and engagement experiences on web and mobile, with engineering, design, content and business teams.",
+    summary: "Roadmap and prioritization for learning and engagement experiences on web and mobile, with engineering, design, content and business teams.",
     highlights: [
       "3PL IRT-based adaptive assignments: across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after (not attributed to the engine alone)",
       "Quiz and gamification layer shaped by teachers who found early prototypes “too game-y”: DAU up ~12–15%, average session time up ~15%",
@@ -528,6 +576,12 @@ export const roles: readonly Role[] = [
     ],
   },
 ];
+
+/**
+ * Current status. NEEDS_USER_INPUT: availability after the Edfora role (Jul 2026)
+ * isn't in the record. While this is null, nothing is rendered.
+ */
+export const status: { availability: string | null } = { availability: null };
 
 /** What each phase taught (About). First-person draft copy, built only from the facts above, for Nitesh to approve. */
 export const about = {

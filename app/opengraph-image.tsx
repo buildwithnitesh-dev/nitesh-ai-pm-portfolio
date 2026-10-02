@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { deltas, hero, profile, retentionHeadline, seo } from "@/content/portfolio";
+import { deltas, profile, retentionHeadline, seo, shareProof } from "@/content/portfolio";
 
 export const alt = seo.share.imageAlt;
 export const size = { width: 1200, height: 630 };
@@ -28,7 +28,7 @@ const BAR = 408;
  */
 export default function Image() {
   /** The hero's proof, in the same order, each with its caveat when it has one. */
-  const stats = hero.proof.map((id) => {
+  const stats = shareProof.map((id) => {
     const d = deltas[id];
     return { value: d.before ? `${d.before} → ${d.after}` : d.after, label: d.label, note: d.note };
   });

@@ -25,9 +25,9 @@ export function CasePage({ c }: { c: Case }) {
               <li aria-current="page" className="text-ink">{c.title}</li>
             </ol>
           </nav>
-          <p className="mt-12 font-mono text-[11px] tracking-[0.16em] text-accent uppercase">{c.company} · {c.domain} · {c.role}</p>
-          <h1 className="mt-5 max-w-5xl font-serif text-[2.9rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-6xl lg:text-7xl">{c.opening}</h1>
-          <p className="mt-3 font-mono text-xs tracking-[0.04em] text-muted">{c.title}</p>
+          <p className="mt-12 text-lg tracking-tight text-accent sm:text-xl">{c.capability}</p>
+          <h1 className="mt-4 max-w-5xl font-serif text-[2.9rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-6xl lg:text-7xl">{c.opening}</h1>
+          <p className="mt-4 text-sm text-muted">{c.title} · {c.company} · {c.domain} · {c.role}</p>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
           <div className={`mt-10 grid gap-8 rounded-2xl border border-line bg-panel p-6 sm:p-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
             {c.headline.map((id) => <Delta key={id} id={id} size="md" layout={c.headline.length > 1 ? "stack" : "row"} />)}
@@ -36,9 +36,9 @@ export function CasePage({ c }: { c: Case }) {
         </Container>
       </header>
 
-      <Container className="grid gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <Container className="grid grid-cols-[minmax(0,1fr)] gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
         <aside><StageRail items={c.stages.map(({ id, label }) => ({ id, label }))} /></aside>
-        <div className="grid max-w-3xl gap-16">
+        <div className="grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] gap-16">
           {c.stages.map((s, i) => (
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="scroll-mt-24">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
@@ -57,7 +57,8 @@ export function CasePage({ c }: { c: Case }) {
         <Container className="grid gap-10 py-16 lg:grid-cols-[1fr_auto] lg:items-end">
           <Link href={other.href} className="group block">
             <Mono className="text-accent-soft/80">Next case · {other.company}</Mono>
-            <p className="mt-3 font-serif text-4xl leading-tight transition-colors group-hover:text-accent-soft sm:text-5xl">{other.opening} <Arrow /></p>
+            <p className="mt-3 font-serif text-4xl leading-tight transition-colors group-hover:text-accent-soft sm:text-5xl">{other.headline} <Arrow /></p>
+            <p className="mt-2 text-base text-panel/70">{other.opening}</p>
           </Link>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-panel/70">
             <Link href="/decisions" className="hover:text-panel">Decisions</Link>

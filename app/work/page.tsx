@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
-import { FlagshipList } from "@/components/home/sections";
+import { WorkStories } from "@/components/home/sections";
 import { VerdictTag } from "@/components/decision-card";
 import { Arrow, Mono, MoreLink, SectionHeader } from "@/components/ui";
 import { aiLab, decisions } from "@/content/portfolio";
@@ -9,18 +9,18 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/work",
   title: "Work",
-  description: "Product work by Nitesh Tiwari, Senior Product Manager: two flagship growth and personalization case studies, a library of product decisions including a feature sunset, and an AI product lab.",
+  description: "Product work by Nitesh Tiwari, Senior Product Manager: activation and personalization case studies, a feature sunset on usage evidence, a library of product decisions, and an AI product lab.",
 });
 
 export default function WorkPage() {
   return (
     <main id="main" className="flex-1">
       <Container className="py-14 lg:py-20">
-        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Two flagship cases in depth, then the smaller calls in one grammar, then the AI Lab." />
+        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Two flagship cases and a sunset in depth, then the smaller calls in one grammar, then the AI Lab." />
 
         <section aria-labelledby="flagships" className="mt-16">
-          <h2 id="flagships" className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Flagship cases</h2>
-          <FlagshipList headingLevel="h3" />
+          <h2 id="flagships" className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Three stories</h2>
+          <WorkStories headingLevel="h3" />
         </section>
 
         <section aria-labelledby="library" className="mt-20">

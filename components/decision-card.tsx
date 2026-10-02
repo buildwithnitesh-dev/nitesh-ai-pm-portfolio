@@ -55,11 +55,14 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
       ) : null}
 
       <div className={`border-t border-line ${compact ? "mt-auto pt-5" : "mt-6 pt-5"}`}>
-        {d.delta ? <Delta id={d.delta} size="sm" showContext={false} /> : null}
+        {d.delta ? <Delta id={d.delta} size="sm" showContext={false} explain={!compact} /> : null}
         {d.results ? (
           <ul className={`grid gap-1 text-sm leading-6 text-ink ${d.delta ? "mt-3" : ""}`}>
             {(compact ? d.results.slice(0, d.delta ? 1 : 2) : d.results).map((r) => (
-              <li key={r} className="flex gap-2"><span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent" />{r}</li>
+              <li key={r.text} className="flex gap-2">
+                <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                <span>{r.text}{r.basis ? <span className="text-muted"> · {r.basis}</span> : null}</span>
+              </li>
             ))}
           </ul>
         ) : null}

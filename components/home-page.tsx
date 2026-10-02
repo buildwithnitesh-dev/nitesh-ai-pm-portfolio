@@ -1,22 +1,20 @@
 import { Hero } from "@/components/home/hero";
-import { AboutContact, AiLabTeaser, ApproachTeaser, CareerArc, DecisionsPreview, ProofWall, SelectedWork } from "@/components/home/sections";
+import { AiLabTeaser, CareerArc, Contact, ProofWall, SelectedWork } from "@/components/home/sections";
 
 /**
- * The homepage reads at four depths: 5 seconds (hero), 30 seconds (proof and
- * career), 2 minutes (selected work and decisions), and an invitation to the
- * deep pages (AI Lab, approach, about).
+ * The homepage reads at three depths: 5 seconds (hero), 30 seconds (proof and
+ * the three stories), and the arc and AI Lab for the reader who stays. Every
+ * number has one home on this page; the deep material lives on its own pages.
  */
 export function HomePage() {
   return (
     <>
       <Hero />
       <ProofWall />
-      <CareerArc />
       <SelectedWork />
-      <DecisionsPreview />
+      <CareerArc />
       <AiLabTeaser />
-      <ApproachTeaser />
-      <AboutContact />
+      <Contact />
     </>
   );
 }
