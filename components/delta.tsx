@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { deltas, type DeltaId } from "@/content/portfolio";
 
 /**
@@ -37,7 +38,7 @@ export function Delta({
         </p>
       ) : null}
       {link ? (
-        <p className="mt-3"><a href={d.href} className={`text-xs underline underline-offset-4 ${dark ? "text-panel/80 decoration-white/30 hover:decoration-accent-soft" : "text-ink decoration-line-strong hover:decoration-accent"}`}>The story behind it<span className="sr-only">: {d.label}</span> →</a></p>
+        <p className="mt-2"><Link href={d.href} className={`inline-flex min-h-6 items-center text-xs underline underline-offset-4 ${dark ? "text-panel/80 decoration-white/30 hover:decoration-accent-soft" : "text-ink decoration-line-strong hover:decoration-accent"}`}>The story behind it<span className="sr-only">: {d.label}</span>&nbsp;→</Link></p>
       ) : null}
       </div>
     </figure>

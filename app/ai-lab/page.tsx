@@ -33,7 +33,7 @@ export default function AiLabPage() {
         <ul className="mt-6 grid gap-6">
           {aiLab.builds.map((b) => (
             <li key={b.slug}>
-              <article className="group relative rounded-2xl border border-line bg-panel p-6 transition-colors hover:border-ink sm:p-9">
+              <article className="group relative rounded-2xl border border-line bg-panel p-6 transition-colors focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-4 focus-within:ring-offset-background hover:border-ink sm:p-9">
                 <div className="flex flex-wrap items-center gap-3">
                   <EvidenceTag kind="prototype" />
                   <Mono className="text-muted">{b.status}</Mono>

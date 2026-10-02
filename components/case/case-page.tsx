@@ -20,7 +20,7 @@ export function CasePage({ c }: { c: Case }) {
         <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/work" className="hover:text-ink">← Work</Link></li>
+              <li><Link href="/work" className="inline-flex min-h-6 items-center hover:text-ink">← Work</Link></li>
               <li aria-hidden className="text-line-strong">/</li>
               <li aria-current="page" className="text-ink">{c.title}</li>
             </ol>

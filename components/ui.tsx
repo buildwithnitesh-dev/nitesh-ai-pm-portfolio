@@ -1,3 +1,4 @@
+import Link from "next/link";
 /**
  * Design-system primitives. Two typographic voices carry the system:
  * Instrument Serif for statements, Geist Mono for evidence (numbers, methods,
@@ -75,8 +76,8 @@ export function Arrow({ className = "" }: { className?: string }) {
 /** An underlined text link with an arrow, for "go deeper" paths. */
 export function MoreLink({ href, children, tone = "light" }: { href: string; children: React.ReactNode; tone?: "light" | "dark" }) {
   return (
-    <a href={href} className={`group inline-flex items-center gap-2 text-sm underline decoration-1 underline-offset-[6px] ${tone === "dark" ? "text-panel decoration-white/30 hover:decoration-accent-soft" : "text-ink decoration-line-strong hover:decoration-accent"}`}>
+    <Link href={href} className={`group inline-flex min-h-6 items-center gap-2 text-sm underline decoration-1 underline-offset-[6px] ${tone === "dark" ? "text-panel decoration-white/30 hover:decoration-accent-soft" : "text-ink decoration-line-strong hover:decoration-accent"}`}>
       {children} <Arrow />
-    </a>
+    </Link>
   );
 }

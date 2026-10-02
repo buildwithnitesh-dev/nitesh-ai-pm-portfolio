@@ -108,7 +108,7 @@ export function DecisionsPreview() {
           {featured.map((d) => (
             <li key={d.id} className="flex flex-col bg-panel p-6 sm:p-8">
               <div className="flex flex-1 flex-col"><DecisionCard d={d} variant="compact" /></div>
-              <Link href={`/decisions#${d.id}`} className="mt-5 inline-flex items-center gap-2 text-sm text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
+              <Link href={`/decisions#${d.id}`} className="mt-5 inline-flex min-h-6 items-center gap-2 text-sm text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
                 The full decision<span className="sr-only">: {d.title}</span> <span aria-hidden>→</span>
               </Link>
             </li>
@@ -134,7 +134,7 @@ export function AiLabTeaser() {
             </li>
           ))}
         </ol>
-        <article className="group relative mt-10 grid gap-6 rounded-2xl border border-white/12 bg-ink-raised p-6 sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
+        <article className="group relative mt-10 grid gap-6 rounded-2xl border border-white/12 bg-ink-raised p-6 focus-within:ring-2 focus-within:ring-accent-soft focus-within:ring-offset-4 focus-within:ring-offset-dark sm:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-12">
           <div>
             <Mono className="text-accent-soft/80">{build.status}</Mono>
             <h3 className="mt-4 font-serif text-4xl leading-tight">
@@ -172,7 +172,7 @@ export function ApproachTeaser() {
               <Mono className="text-accent">{p.n}</Mono>
               <h3 className="mt-3 font-serif text-3xl leading-tight text-ink">{p.title}</h3>
               <p className="mt-3 text-[15px] leading-7 text-muted">{p.body}</p>
-              <Link href={p.example.href} className="mt-4 inline-flex w-fit items-center gap-2 font-mono text-[11px] tracking-[0.08em] text-ink uppercase underline decoration-line-strong underline-offset-4 hover:decoration-accent">
+              <Link href={p.example.href} className="mt-4 inline-flex min-h-6 w-fit items-center gap-2 font-mono text-[11px] tracking-[0.08em] text-ink uppercase underline decoration-line-strong underline-offset-4 hover:decoration-accent">
                 {p.example.label} <span aria-hidden>→</span>
               </Link>
             </li>

@@ -61,7 +61,7 @@ export function SiteHeader() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen(!open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line transition-colors hover:border-ink lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line transition-colors hover:border-ink lg:hidden"
         >
           <span className="sr-only">{open ? "Close navigation" : "Open navigation"}</span>
           <span aria-hidden className="relative block h-3 w-4">

@@ -28,7 +28,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
         <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
           <nav aria-label="Breadcrumb" className="text-sm text-muted">
             <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/ai-lab" className="hover:text-ink">← AI Lab</Link></li>
+              <li><Link href="/ai-lab" className="inline-flex min-h-6 items-center hover:text-ink">← AI Lab</Link></li>
               <li aria-hidden className="text-line-strong">/</li>
               <li aria-current="page" className="text-ink">{meta.title}</li>
             </ol>

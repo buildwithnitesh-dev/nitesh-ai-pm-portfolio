@@ -23,7 +23,7 @@ export function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a href="#work" className={`group ${button.primary}`}>Explore the work <Arrow /></a>
             <ResumeCta label="Resume" className={button.secondary} />
-            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="text-sm text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2">
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start text-sm text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
               LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
             </a>
           </div>
