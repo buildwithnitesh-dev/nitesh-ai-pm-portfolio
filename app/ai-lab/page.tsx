@@ -1,60 +1,60 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
-import { Arrow, EvidenceTag, Mono, SectionHeader } from "@/components/ui";
+import { Arrow, Mono, SectionHeader, StatusLabel, StatusMark } from "@/components/ui";
+import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
 import { aiLab } from "@/content/portfolio";
 import { pageMetadata } from "@/content/meta";
 
 export const metadata = pageMetadata({
   path: "/ai-lab",
   title: "AI Lab",
-  description: "How Nitesh Tiwari builds AI products: every build framed as problem, AI role, system, evaluation, failure modes and product metric, with honest status. Includes the AI Learner Diagnostic prototype.",
+  description: "How Nitesh Tiwari builds AI products: a rules-first baseline, evaluation designed before model work, and an honest status on every part of the build. Includes the AI Learner Diagnostic prototype; no model has been evaluated yet.",
 });
 
+const legend: { status: BuildStatus; meaning: string }[] = [
+  { status: "Implemented", meaning: "Working code in the repository" },
+  { status: "Designed", meaning: "A written design, not yet code" },
+  { status: "Planned", meaning: "Scoped, not designed in detail" },
+  { status: "Not yet tested", meaning: "Never run against a model" },
+];
+
 export default function AiLabPage() {
+  const build = aiLab.builds[0];
   return (
     <main id="main" className="flex-1">
       <section className="on-dark border-b border-line bg-dark text-panel">
         <Container className="py-14 lg:py-20">
           <SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} tone="dark" />
-          <ol aria-label="How every AI build is framed" className="mt-10 flex flex-wrap gap-2">
-            {aiLab.spine.map((s, i) => (
-              <li key={s} className="flex items-center gap-2 font-mono text-[11px] tracking-[0.12em] text-panel/80 uppercase">
-                <span className="rounded-full border border-white/20 px-3 py-1.5">{s}</span>
-                {i < aiLab.spine.length - 1 ? <span aria-hidden className="text-panel/40">→</span> : null}
+          <ul aria-label="What each status means" className="mt-10 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
+            {legend.map((l) => (
+              <li key={l.status} className="grid gap-1">
+                <StatusLabel status={l.status} tone="dark" />
+                <p className="text-xs leading-5 text-panel/60">{l.meaning}</p>
               </li>
             ))}
-          </ol>
-          <p className="mt-8 max-w-2xl text-sm leading-6 text-panel/65">{aiLab.professional}</p>
+          </ul>
+          <p className="mt-10 max-w-2xl text-sm leading-6 text-panel/65">{aiLab.professional}</p>
         </Container>
       </section>
 
       <Container className="py-14 lg:py-20">
-        <h2 className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Builds</h2>
-        <ul className="mt-6 grid gap-6">
-          {aiLab.builds.map((b) => (
-            <li key={b.slug}>
-              <article className="group relative rounded-2xl border border-line bg-panel p-6 transition-colors focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-4 focus-within:ring-offset-background hover:border-ink sm:p-9">
-                <div className="flex flex-wrap items-center gap-3">
-                  <EvidenceTag kind="prototype" />
-                  <Mono className="text-muted">{b.status}</Mono>
-                </div>
-                <h3 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
-                  <Link href={b.href} className="stretched-link outline-none group-hover:text-accent">{b.title}</Link>
-                </h3>
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">{b.statusNote}</p>
-                <dl className="mt-8 grid gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2 lg:grid-cols-3">
-                  {b.spine.map((s) => (
-                    <div key={s.term} className="bg-background p-5">
-                      <dt><Mono className="text-accent">{s.term}</Mono></dt>
-                      <dd className="mt-2 text-sm leading-6 text-ink/85">{s.text}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <p className="mt-6 inline-flex items-center gap-2 text-sm text-ink">Open the prototype <Arrow /></p>
-              </article>
-            </li>
-          ))}
-        </ul>
+        <h2 className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Current build</h2>
+        <article className="group relative mt-6 rounded-2xl border border-line bg-panel p-6 transition-colors focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-4 focus-within:ring-offset-background hover:border-ink sm:p-9">
+          <Mono className="text-muted">{build.status}</Mono>
+          <h3 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
+            <Link href={build.href} className="stretched-link outline-none group-hover:text-accent">{build.title}</Link>
+          </h3>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-muted">{build.statusNote}</p>
+          <ul className="mt-8 grid gap-x-10 gap-y-2 sm:grid-cols-2">
+            {buildSpec.map((r) => (
+              <li key={r.part} className="flex items-center justify-between gap-4 border-b border-line py-2.5">
+                <span className={`text-sm ${r.status === "Implemented" || r.status === "Designed" ? "text-ink" : "text-muted"}`}>{r.part}</span>
+                <span className="inline-flex items-center gap-2 text-xs text-muted"><StatusMark status={r.status} />{r.status}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-8 inline-flex items-center gap-2 text-sm text-ink">Open the build <Arrow /></p>
+        </article>
 
         <section aria-labelledby="ai-principles" className="mt-20">
           <h2 id="ai-principles" className="font-serif text-4xl text-ink">What I hold every AI build to</h2>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { BuildStatus } from "@/content/ai-diagnostic";
 /**
  * Design-system primitives. Two typographic voices carry the system:
  * Instrument Serif for statements, Geist Mono for evidence (numbers, methods,
@@ -81,3 +82,34 @@ export function MoreLink({ href, children, tone = "light" }: { href: string; chi
     </Link>
   );
 }
+
+
+/**
+ * Build status, drawn so the four states never read as equivalent: a solid
+ * mark for working code, an outline for a written design, a dashed outline
+ * for plans, and a struck ring for what has never been run.
+ */
+export function StatusMark({ status, tone = "light" }: { status: BuildStatus; tone?: "light" | "dark" }) {
+  const dark = tone === "dark";
+  const base = "inline-block h-2.5 w-2.5 shrink-0 rounded-full";
+  if (status === "Implemented") return <span aria-hidden className={`${base} ${dark ? "bg-accent-soft" : "bg-accent"}`} />;
+  if (status === "Designed") return <span aria-hidden className={`${base} border-[1.5px] ${dark ? "border-accent-soft" : "border-accent"}`} />;
+  if (status === "Planned") return <span aria-hidden className={`${base} border-[1.5px] border-dashed ${dark ? "border-panel/50" : "border-subtle"}`} />;
+  return (
+    <span aria-hidden className={`${base} relative border-[1.5px] ${dark ? "border-panel/50" : "border-subtle"}`}>
+      <span className={`absolute top-1/2 left-1/2 h-[1.5px] w-[130%] -translate-x-1/2 -translate-y-1/2 -rotate-45 ${dark ? "bg-panel/50" : "bg-subtle"}`} />
+    </span>
+  );
+}
+
+export function StatusLabel({ status, tone = "light" }: { status: BuildStatus; tone?: "light" | "dark" }) {
+  const dark = tone === "dark";
+  const strong = status === "Implemented" || status === "Designed";
+  return (
+    <span className={`inline-flex items-center gap-2 text-xs whitespace-nowrap ${strong ? (dark ? "text-panel" : "text-ink") : dark ? "text-panel/60" : "text-muted"}`}>
+      <StatusMark status={status} tone={tone} />
+      {status}
+    </span>
+  );
+}
+

@@ -6,54 +6,63 @@
 
 export type Tldr = { problem: string; approach: string; outcome: string };
 
-/** The AI product loop, taken from the diagnostic's user journey. */
-export const aiLoop = [
-  ["Assess", "Collect a small, representative set of learner evidence."],
-  ["Diagnose", "Identify the skill gaps the evidence actually supports."],
-  ["Explain", "Show the learner and educator why, with evidence before the verdict."],
-  ["Recommend", "Propose a learning path the educator can accept or override."],
-  ["Practice", "Generate targeted practice for the diagnosed gap."],
-  ["Evaluate", "Score the outcome against a rubric, not a demo prompt."],
-  ["Adapt", "Feed the result back into the next decision."],
-] as const;
+/**
+ * Build status, from strongest to weakest. Only "Implemented" exists as working
+ * code; "Designed" is a written design; "Planned" is not designed in detail;
+ * "Not yet tested" names what has never been run against a model.
+ */
+export type BuildStatus = "Implemented" | "Designed" | "Planned" | "Not yet tested";
+
+/** The build spec: every part of the product, with its honest status. */
+export const buildSpec: readonly { part: string; status: BuildStatus; text: string }[] = [
+  { part: "Problem", status: "Designed", text: "A teacher can't diagnose every learner's misconception by hand, and a learner on the wrong path doesn't complain; they stop." },
+  { part: "Why AI", status: "Designed", text: "Mapping a pattern of errors to a likely misconception needs judgment across messy evidence. Scoring an answer doesn't." },
+  { part: "Baseline", status: "Implemented", text: "A deterministic, rules-only diagnostic: the interactive prototype on this page. It is the bar any model has to beat." },
+  { part: "Human override", status: "Implemented", text: "The teacher accepts or overrides every plan in the prototype. In production, each override would become an evaluation case." },
+  { part: "Output schema", status: "Implemented", text: "A typed diagnosis: likely misconception or a decision to abstain, the evidence items it rests on, a confidence, an explanation and a next step." },
+  { part: "Evaluation harness", status: "Implemented", text: "A runner that scores groundedness, consistency, calibration, accuracy, latency and token cost. It refuses to run without an API key and writes results only from real model calls." },
+  { part: "Evaluation cases", status: "Designed", text: "Synthetic cases authored for testing, not learner data. Their expected labels are drafts awaiting an educator's review." },
+  { part: "Architecture", status: "Designed", text: "Learner signals, then retrieval from a curated skill map and practice bank, then a model for diagnosis and explanation, with deterministic scoring and a teacher override." },
+  { part: "Failure taxonomy", status: "Designed", text: "Six failure modes, each with how it shows up, how it is caught and what the product does instead." },
+  { part: "Launch gate", status: "Designed", text: "Ship only if it beats the rules baseline on the rubric, with no overconfident or discouraging outputs in the failure review." },
+  { part: "Model decision", status: "Planned", text: "Not chosen. Candidates get compared on evaluation results, latency and cost, not on a demo." },
+  { part: "Context and retrieval", status: "Planned", text: "Retrieval from a curated knowledge base, with every claim traceable to learner evidence." },
+  { part: "Latency and cost budgets", status: "Planned", text: "Targets set before model selection, per learner checkpoint." },
+  { part: "Monitoring", status: "Planned", text: "Override rate and agreement with the teacher's own call, tracked per release." },
+  { part: "Model-based diagnosis", status: "Not yet tested", text: "No model has been evaluated. There are no accuracy, groundedness or calibration results." },
+];
+
+/** What the evaluation measures, and whether the harness computes it today. */
+export const evalMetrics: readonly { metric: string; how: string; status: BuildStatus }[] = [
+  { metric: "Diagnostic accuracy", how: "Agreement with the expected diagnosis, against educator-reviewed labels only", status: "Implemented" },
+  { metric: "Groundedness", how: "Every cited evidence item exists in the learner's answers", status: "Implemented" },
+  { metric: "Hallucination rate", how: "Cites a missing item, or names a gap in a skill that was never tested", status: "Implemented" },
+  { metric: "Consistency", how: "The same diagnosis across repeated runs of a case", status: "Implemented" },
+  { metric: "Calibration", how: "Stated confidence against how often it is right", status: "Implemented" },
+  { metric: "Latency and cost", how: "p50 and p95 per call; tokens recorded, priced once a budget is set", status: "Implemented" },
+  { metric: "Usefulness", how: "An educator rates the proposed next step", status: "Planned" },
+];
 
 export const aiLearnerDiagnostic = {
   slug: "ai-learner-diagnostic",
   title: "AI Learner Diagnostic",
   subtitle: "An independent prototype for diagnosing a learner’s skill gaps and proposing the next step, designed around what happens when the AI is unsure or wrong.",
   type: "Independent portfolio project",
-  status: "Independent prototype · deterministic demo, no real users or model results",
+  status: "Independent prototype · rules-only baseline, no model evaluated yet",
   focus: ["AI product", "Evaluation", "Human oversight"],
   tldr: {
     problem: "Working out what a learner is missing and what they should do next is judgment-heavy work that teachers rarely have time to do for every student.",
     approach: "Split the job between rules, a model and the teacher; designed confidence, fallbacks and override into the UX; defined the evaluation and launch gate before any model work.",
-    outcome: "A working, deterministic prototype of the product loop. No real-user adoption or model-performance results are claimed.",
+    outcome: "Built: a rules-only baseline, the teacher override, the output schema and an evaluation harness. Not yet tested: any model. No real users and no model results.",
   } satisfies Tldr,
   sections: {
-    whyAi: [
-      "Why AI",
-      "Working out what a learner is missing, and what they should do next, is judgment-heavy work. Teachers do it well and rarely have time to do it for every student. The gap is not content. It is diagnosis at scale.",
-      "It is also a problem where being wrong is costly in a quiet way. A learner sent down the wrong path doesn’t complain, they just stop. So the design question was never whether a model can do this. It was where a model should do it, and what happens when it is wrong.",
-    ],
     rules: [
       "Rules vs. model",
       "The first design decision was a split, not a model choice. Anything that has to be consistent, auditable or cheap stays deterministic. The model gets the parts that need judgment over messy evidence, and each of those parts has a defined fallback. The teacher keeps the final call.",
     ],
-    system: [
-      "System thinking",
-      "A practical architecture combines structured learner signals, retrieval from a curated knowledge base, an LLM for the judgment-heavy steps, deterministic scoring wherever possible, and a feedback and evaluation loop.",
-    ],
     failure: [
       "Failure modes",
       "Every AI feature fails. The product decision is how: what the user sees, how the failure is detected, and what the system does instead. Designing these before the happy path keeps the demo honest.",
-    ],
-    evaluation: [
-      "Evaluation",
-      "Before launch, evaluate diagnostic accuracy, recommendation relevance, groundedness, harmful or overconfident outputs, consistency, latency and cost, against a representative evaluation set rather than a few demo prompts.",
-    ],
-    guardrails: [
-      "Guardrails",
-      "Show evidence where it exists, never present uncertainty as certainty, let a person override, and define what the system does when learner signals are thin or ambiguous.",
     ],
     launch: [
       "Launch criteria",
@@ -77,20 +86,5 @@ export const aiLearnerDiagnostic = {
     { failure: "Discouraging language", looks: "“You are weak at fractions”", detect: "Tone checks in the evaluation set", fallback: "Describe the gap and the next step, never the learner" },
     { failure: "Slow or failed model call", looks: "A learner waiting at a checkpoint", detect: "Latency budget exceeded or timeout", fallback: "Serve the rule-based next step and diagnose in the background" },
     { failure: "Teacher disagrees", looks: "An override", detect: "Every override is logged", fallback: "The override wins, and becomes a new evaluation case" },
-  ],
-  system: [
-    { layer: "Inputs", items: ["Structured learner signals", "Answers, attempts, hints, time on task"] },
-    { layer: "Grounding", items: ["Retrieval from a curated knowledge base", "Skill map and practice bank"] },
-    { layer: "Reasoning", items: ["LLM proposes diagnosis and next step", "Deterministic scoring where possible"] },
-    { layer: "Experience", items: ["Evidence, confidence and explanation", "Educator accept or override"] },
-    { layer: "Learning loop", items: ["Evaluation dataset and rubric", "Overrides logged as feedback"] },
-  ],
-  evaluation: [
-    { criterion: "Diagnostic accuracy", question: "Does the diagnosis match what an expert educator would conclude from the same evidence?", risk: "Wrong path for the learner" },
-    { criterion: "Recommendation relevance", question: "Is the next step the most useful one for this gap, at this level?", risk: "Busywork and disengagement" },
-    { criterion: "Groundedness", question: "Is every claim traceable to learner evidence or curated content?", risk: "Hallucinated gaps" },
-    { criterion: "Overconfidence and harm", question: "Does it hedge when evidence is thin, and avoid discouraging language?", risk: "Loss of learner and educator trust" },
-    { criterion: "Consistency", question: "Do similar learners get similar diagnoses across runs?", risk: "Unpredictable experience" },
-    { criterion: "Latency and cost", question: "Is it fast and cheap enough to run at every checkpoint?", risk: "Unviable unit economics" },
   ],
 };
