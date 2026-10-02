@@ -15,8 +15,21 @@ export default function AboutPage() {
   return (
     <main id="main" className="flex-1">
       <Container className="py-14 lg:py-20">
-        <SectionHeader as="h1" label="About" title={about.opening} intro={about.intro} />
-        <p className="mt-6 font-mono text-xs text-ink">{profile.experience} · {profile.location}</p>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
+          <SectionHeader as="h1" label="About" title={about.opening} intro={about.intro} />
+          {/* No photo: an identity card from the canonical profile stands in, deliberately text-only. */}
+          <aside aria-label="At a glance" className="on-dark rounded-2xl bg-dark p-6 text-panel sm:p-7">
+            <p className="font-serif text-4xl leading-none">{profile.name}<span aria-hidden className="ml-2 font-sans text-2xl text-accent-soft">Δ</span></p>
+            <dl className="mt-6 grid gap-4 border-t border-white/15 pt-5 text-sm leading-6">
+              {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location]] as const).map(([k, v]) => (
+                <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3">
+                  <dt><Mono className="text-accent-soft/80">{k}</Mono></dt>
+                  <dd className="text-panel/90">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </aside>
+        </div>
 
         <section aria-labelledby="phases" className="mt-16">
           <h2 id="phases" className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">What each phase taught me</h2>
