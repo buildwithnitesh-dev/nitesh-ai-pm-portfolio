@@ -2,8 +2,7 @@ import { CaseStudyShell, Chapter, Prose, PullQuote } from "@/components/case-stu
 import { DiagnosticDemo } from "@/components/diagnostic-demo";
 import { EvidenceTag } from "@/components/ui";
 import { LoopDiagram } from "@/components/viz/loop-diagram";
-import { aiLearnerDiagnostic } from "@/content/case-studies";
-import { aiLoop } from "@/content/portfolio";
+import { aiLearnerDiagnostic, aiLoop } from "@/content/ai-diagnostic";
 
 const toc = [
   { id: "why-ai", label: "Why AI" },
@@ -22,7 +21,6 @@ export function AiLearnerDiagnosticPage() {
   return (
     <CaseStudyShell
       meta={{
-        slug: "ai-learner-diagnostic",
         type: c.type,
         title: c.title,
         subtitle: c.subtitle,
