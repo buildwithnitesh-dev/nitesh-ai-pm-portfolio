@@ -1,0 +1,203 @@
+# Evidence gap map
+
+Every important claim on the portfolio, traced to its source. Nothing here is
+new evidence: blank or unknown fields stay unknown, and anything that needs a
+fact only Nitesh has is marked **NEEDS_USER_INPUT**.
+
+**Sources**
+- **R**: résumé PDF (`public/Nitesh_Product_Manager_Resume.pdf`, frozen)
+- **M**: pre-rebuild site content on `main` at `66f8291` (`content/portfolio.ts`, `content/case-studies.ts`, `public/llms.txt`)
+- **C**: current canonical content (`content/portfolio.ts`, `content/cases.ts`, `content/ai-diagnostic.ts`)
+
+**Classes:** VERIFIED (documented fact, no comparison involved) · CONTEXTUAL (scale or setting, not an outcome) · BEFORE_AFTER · EXPERIMENTAL (concurrent control) · DIRECTIONAL (direction documented, magnitude or method thin) · UNKNOWN (method or definition absent) · NEEDS_USER_INPUT
+
+---
+
+## 1. Witzeal: Onboarding Funnel Redesign (flagship)
+
+### 1.1 Day-7 retention 12.2% → 25.4%
+| Field | Value |
+|---|---|
+| Source | M (case-studies, metrics, impact), C. R rounds it: "D7 retention went from 12% to 25%". |
+| Definition | "Day-7 retention". **Denominator not recorded** (all signups? users who played on D0? active on day 7 or by day 7?). |
+| Baseline | 12.2% (control arm) |
+| Comparison | Control 30% vs treatment 70%, concurrent |
+| Method | Controlled rollout · ~50K users · 3 weeks |
+| Attribution | Bundle of five changes, including a ₹15 free-game incentive; no single change isolated |
+| Limitation | Statistical significance not recorded. D7 maturity for late cohorts in a 3-week window not recorded. Randomization unit not recorded. |
+| Current wording | "Day-7 retention 12.2% → 25.4% · 30/70 controlled rollout · ~50K users · 3 weeks" |
+| Risk | High: the strongest number on the site has no definition; the incentive bundled in it undercuts the thesis if left unaddressed |
+| Class | **EXPERIMENTAL** (definition and significance: **NEEDS_USER_INPUT**) |
+| Treatment | Keep. Show "Definition not captured in the original experiment record" until supplied. Add the bundle/attribution limitation beside the number. Never add a significance claim. |
+
+### 1.2 D0 gameplay 12% → 33%
+| Field | Value |
+|---|---|
+| Source | M, C. Not on R. |
+| Definition | "Share of new users who played a game on their first day" (M) |
+| Baseline | 12%, the pre-redesign signal |
+| Comparison | **Sources conflict.** M's metric list says "before and after the redesign". M's case lists the D0 result among the controlled rollout's documented results, and its measurement plan reads "D0 gameplay and Day-7 retention, treatment against a control". Whether 33% was the treatment arm against a concurrent control, or a post-launch level against the pre-period, is not recorded. |
+| Method | Unknown (see above) |
+| Attribution | Same bundle as 1.1 |
+| Limitation | Comparison type unresolved |
+| Current wording | Method label: "before vs. after" (inherited from M's metric list) |
+| Risk | High: shown in the same result panel as an experiment while labelled a before/after |
+| Class | **NEEDS_USER_INPUT** (comparison type) |
+| Treatment | Label it explicitly: "Comparison type not recorded: 12% is the pre-redesign baseline; whether 33% was measured against the concurrent control isn't in the record." Show it visually separate from the controlled D7 result. |
+
+### 1.3 +13.2 percentage points
+| Source | Derived from 1.1 (25.4 − 12.2) · **Class:** EXPERIMENTAL (arithmetic) · **Treatment:** keep, as absolute points. Never convert to a relative "+108%". |
+|---|---|
+
+### 1.4 Rollout design: 30/70, ~50K users, ~3 weeks
+| Source | M (listed as documented), C · **Class:** VERIFIED · **Treatment:** keep. Randomization unit, assignment method and exposure definition: NEEDS_USER_INPUT, shown as "not recorded". |
+|---|---|
+
+### 1.5 The five changes
+Simplified signup/login · email fetched automatically · OTP auto-read · first 3 games free · live gameplay tutorial.
+| Source | M, C · **Class:** VERIFIED · **Treatment:** keep. Group them honestly in the isolation matrix: friction (signup/login, email, OTP) vs incentive (free games) vs guidance (tutorial). |
+|---|---|
+
+### 1.6 Free-game economics: ₹15 bonus (₹5 × first 3 games), ₹20 minimum first deposit, 5+ game-play goal
+| Field | Value |
+|---|---|
+| Source | M, C |
+| Class | VERIFIED (design parameters, not outcomes) |
+| Missing | Deposit conversion, NGR or cost per retained user: **not measured in the original analysis** (M says "No deposit-conversion result is claimed") |
+| Risk | High: the thesis says "fix the product before reaching for incentives" |
+| Treatment | Keep, and name the tension directly: "One thing the test could not isolate". State that the business outcome was not measured. |
+
+### 1.7 Diagnosis: loss before the first game (funnel + OTP API success/failure rates + delivery time)
+| Field | Value |
+|---|---|
+| Source | M, C. R words it differently: "Traced most onboarding drop-off to before a user's second session … redesigned the first 60 seconds". |
+| Class | VERIFIED (that the analysis was done); the step-level drop-off numbers and OTP rates are **not in any source** |
+| Treatment | Keep the qualitative diagnosis. Do not draw a funnel with numbers. Restore "first 60 seconds" (M and R both use it). |
+
+### 1.8 "Positive direction continued into M0; later figures aren't available"
+| Source | M, C · **Class:** DIRECTIONAL · **Treatment:** keep as written. |
+|---|---|
+
+### 1.9 "I owned growth, onboarding, monetization and lifecycle" / "the strategy, the funnel analysis …"
+| Source | C (from M; R: "Owned lifecycle messaging") · **Class:** CONTEXTUAL (self-reported scope) · **Risk:** "strategy" asserted without a strategic choice · **Treatment:** describe what was decided (the activation reading over the retention reading) instead of the word "strategy". |
+|---|---|
+
+### 1.10 "No user interviews behind this case"
+| Source | C · **Class:** VERIFIED (absence stated) · **Treatment:** keep. It is honest and pre-empts the question. |
+|---|---|
+
+---
+
+## 2. Edfora: Adaptive Assignment Engine (flagship)
+
+### 2.1 Assignment completion 18% → 45%
+| Field | Value |
+|---|---|
+| Source | M, C, R ("increased from 18% to 45%"; R does not carry the caveat) |
+| Definition | **Not recorded** (per assignment started? per assigned? per learner?) |
+| Baseline | 18% under the static learning path |
+| Comparison | After the adaptive system was introduced |
+| Method | 2-year academic-cycle dataset, before/after |
+| Attribution | Not attributed to the adaptive system alone: concurrent changes are not on record |
+| Limitation | No holdout. Cohort mix may differ across years. **No learning-outcome (mastery) metric.** Difficulty actually served is not recorded, so "completion rose because questions got easier" can't be ruled out. |
+| Class | **BEFORE_AFTER** (definition: NEEDS_USER_INPUT) |
+| Treatment | Keep, with the definition placeholder and the existing caveat. Add: "Completion was the measured outcome; learning mastery was not captured in this analysis." |
+
+### 2.2 "Practice drop-offs also reduced" (R: "fewer students dropped off mid-practice")
+| Class | DIRECTIONAL (no magnitude) · **Treatment:** keep as text, no visual. |
+|---|---|
+
+### 2.3 "Low assignment completion was a key driver of learner drop-off"
+| Source | R, M, C · **Class:** UNKNOWN (the analysis behind "key driver" isn't recorded) · **Treatment:** keep as the stated diagnosis, framed as the reading he made, not a proven causal link. |
+|---|---|
+
+### 2.4 Team: 1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads
+| Source | M, C · **Class:** VERIFIED · **Treatment:** keep. It is the clearest scope signal on the site. **Do not** describe the APM as a direct report (not recorded). |
+|---|---|
+
+### 2.5 3PL IRT system: θ per concept, difficulty/discrimination/guessing, update after each response; edge cases (no history, missing parameters, ties)
+| Field | Value |
+|---|---|
+| Source | M, C |
+| Class | VERIFIED (design) |
+| Missing | How the item parameters were calibrated, and on what response volume; how cold start was actually handled; teacher controls over the engine. **NEEDS_USER_INPUT.** |
+| Treatment | Show cold start as a named problem with "handling not recorded" unless supplied. Do not invent a teacher-control feature. |
+
+### 2.6 100K+ learners
+| Source | R ("reaching 100K+ users"), M, C · **Definition:** reach of Edfora's learning and engagement products overall; not active users; not engine-specific · **Class:** CONTEXTUAL · **Treatment:** keep the scope note wherever it appears. |
+|---|---|
+
+### 2.7 "Regular interviews and usability tests with students and faculty … fed a RICE-based roadmap; 5+ features shipped"
+| Field | Value |
+|---|---|
+| Source | R, M, C (About) |
+| Class | CONTEXTUAL (the practice is documented; no specific finding is) |
+| Treatment | Can be surfaced as how the Edfora roadmap was prioritized. **Not** as a user insight for the adaptive engine: no finding is recorded. |
+
+### 2.8 Edfora title: R says "Senior Product Manager | Growth & AI"; M and C say "Senior Product Manager"
+| Class | NEEDS_USER_INPUT (is "Growth & AI" part of the official title?) · **Treatment:** keep "Senior Product Manager" until confirmed. The site must not imply AI work at Edfora beyond the IRT engine, which is statistical. |
+|---|---|
+
+---
+
+## 3. Decision library and role highlights
+
+| # | Claim | Source | Definition / window / baseline / method | Attribution | Class | Treatment |
+|---|---|---|---|---|---|---|
+| 3.1 | Bonus & discount spend ~20% ↓, "retention held" | R ("Cut … 20%; retention held steady"), M, C | No window, no base, "held" undefined | Allocation change (flat tiers → expected ROI per segment) | DIRECTIONAL | Keep as text with a DIRECTIONAL tag. Remove the indexed 100→80 bar (false precision). State the objective (incremental NGR per rupee) and that **the NGR outcome was not measured in the record**. |
+| 3.2 | GMV ~10% WoW, sustained over 11 months | R ("Drove GMV growth to 10% week-over-week"), M (adds "11 months") | No base; window 11 months (M) | Not attributed to testing alone (M, C). R's "Drove" is stronger than M and C. | DIRECTIONAL | Demote from any number treatment; text only, with "no starting GMV recorded". Taken literally, 10% WoW over ~47 weeks compounds to ~88×; NEEDS_USER_INPUT (base, or whether it was a peak rate rather than a sustained average). |
+| 3.3 | 20+ A/B tests, end to end (hypothesis, sample size, significance) | R, M, C | Count | — | VERIFIED (self-reported count) | Keep. |
+| 3.4 | "Core funnel conversion up ~15% across the tests" | R ("together improved … 15%"), M, C | Aggregated across tests; method of aggregation not recorded | — | UNKNOWN | Demote to text: "reported as a combined ~15% lift; how individual test results were combined isn't recorded." |
+| 3.5 | "A fair number came back inconclusive or negative" | R, M, C | — | — | VERIFIED (qualitative) | Keep; it is a seniority signal. |
+| 3.6 | Segmented journeys: session duration ~35% ↑, retention ~25% ↑ | R, M, C | Method, window, relative vs absolute: not recorded | Behavioral clustering redesign | UNKNOWN | Text only, with "method not recorded". |
+| 3.7 | Fraud losses ~18% ↓ (rules-based anomaly detection) | R ("protecting net revenue margin"), M, C | Base, window, false-positive rate: not recorded | — | UNKNOWN | Text only. Can be used as the fraud → loss → margin chain in words (R supports the margin link qualitatively). |
+| 3.8 | Lifecycle: long-term retention "stabilized at 48%" | R, M, C | Horizon and definition: not recorded. A level, not an uplift (M). | Segmented cohorts | UNKNOWN | Text only, with "definition not recorded". |
+| 3.9 | FanBlaze: <6% of active match-day users used live scores; sessions ~2 min longer; no meaningful uplift in contest joins, lineup changes or re-deposits | M, C | Observational usage after launch | Feature-level | VERIFIED (observational) | Keep. This is the most complete evidence chain in the library. |
+| 3.10 | PokerBaazi: peak server latency <60 ms; lower D1 bankruptcy rate; net revenue kept growing alongside higher D30 retention | M, C | Latency is an operational figure. The others have no magnitude. | — | Latency VERIFIED; others DIRECTIONAL | Keep latency. Mark the others DIRECTIONAL. |
+| 3.11 | Edfora DAU ~12–15% ↑, session ~15% ↑ after a two-month plateau | R, M, C | Implied before/after; window not recorded | Quiz/gamification layer | DIRECTIONAL | Text with "before/after, window not recorded". |
+| 3.12 | Edfora student retention ~8–12% ↑ after real-time dashboards | R ("as a result"), M, C | Definition, method: not recorded | Dashboards (myAdvisor explicitly excluded) | UNKNOWN | Text only; keep the myAdvisor exclusion note. |
+| 3.13 | myAdvisor alert design (priorities, module-level, timing around the teacher's schedule) | M | Product documentation, no outcome | — | CONTEXTUAL | Can enrich D-07 as design depth; no outcome claimed. |
+| 3.14 | PwC: release process for a web app deployed to 150+ Fortune companies; 4 distributed teams; UX A/B tests lifted client engagement ~25%; introduced agile ceremonies | R, M, C | 25%: method not recorded | — | 150+ / 4 teams CONTEXTUAL; 25% UNKNOWN | Keep the scope; text-only for 25%. |
+| 3.15 | Direct Create: crash rate ~30% ↓; 4.6+ Play Store rating; 400+ maker shops, 100+ designers | R, M, C | Operational figures | Platform scale is context, not a result (C) | DIRECTIONAL / CONTEXTUAL | Keep as is. |
+
+---
+
+## 4. Identity, seniority, availability
+
+| # | Claim | Source | Class | Treatment |
+|---|---|---|---|---|
+| 4.1 | ~7 years product management, 10+ years technology | R | VERIFIED | Keep. |
+| 4.2 | "Making the prioritization call when [Engineering, Design, Analytics, Business] didn't agree on what came first" | R (summary) | CONTEXTUAL: a general statement; **no specific instance is recorded** | Do not build a stakeholder story from it. A specific story is NEEDS_USER_INPUT. |
+| 4.3 | RICE/ICE prioritization, RICE-based roadmap at Edfora | R, M, C | CONTEXTUAL | Surface as the Edfora prioritization method only. No invented roadmap items. |
+| 4.4 | SQL, event schema design, LTV:CAC, revenue forecasting, pricing strategy (R competencies) | R | UNKNOWN (no case evidence) | Do not surface as claims. |
+| 4.5 | Current status: Edfora ends Jul 2026; current availability | R | **NEEDS_USER_INPUT** | Placeholder only. Do not state "available" or "open to work" beyond the existing "Open to Senior Product Manager and Product Manager roles". |
+| 4.6 | Certifications (Jul 2026): Becoming an AI-First Product Leader; Generative AI for Product Managers; Data-Driven Product Management (LinkedIn Learning) | R | VERIFIED | Optional: list factually in About. Never present as AI experience. |
+| 4.7 | Photo | — | Absent | No photo, avatar or generated image. |
+
+---
+
+## 5. AI Learner Diagnostic
+
+| # | Claim | Source | Class | Treatment |
+|---|---|---|---|---|
+| 5.1 | Independent prototype, deterministic demo, no real users, no model results | M, C | VERIFIED | Keep, verbatim, wherever the build is shown. |
+| 5.2 | Rules/model/teacher split; six failure modes; six evaluation criteria; launch gate | M, C | VERIFIED (design artifacts) | Keep. Label each as DESIGNED. |
+| 5.3 | Model decision, prompts, RAG/context, output schema, evaluation dataset, latency and cost budgets, monitoring | — | Not built | Label PLANNED / NOT YET TESTED. Budget values: NEEDS_USER_INPUT. |
+| 5.4 | Any evaluation result | — | None exists | Never shown until a real run produces it. |
+| 5.5 | Edfora adaptive engine as "AI" | C | Correctly scoped: statistical (3PL IRT), not an LLM | Keep the existing professional-context note. |
+| 5.6 | Tools: "OpenAI API", "Prompt engineering" | R | CONTEXTUAL (listed skills, no artifact) | Do not surface as evidence. |
+
+---
+
+## 6. Summary of NEEDS_USER_INPUT
+
+1. D7 retention: denominator / definition; statistical significance (if it was computed); randomization unit.
+2. D0 gameplay: was 33% measured in the treatment arm against the concurrent control, or as a post-launch level against the pre-period?
+3. Witzeal: was deposit conversion, NGR or cost per retained user measured for the redesign? (If not, the site says "not measured".)
+4. Bonus allocation: was incremental NGR per rupee measured? What did "retention held" mean, and over what window?
+5. GMV: starting base, or confirmation that ~10% WoW was a sustained average across 11 months.
+6. Edfora: completion definition; how 3PL parameters were calibrated; how cold start was handled; any teacher-facing control.
+7. Edfora title: is "Growth & AI" part of the official title?
+8. Current availability after Jul 2026.
+9. Any specific, documentable stakeholder disagreement or prioritization decision (PM era).
+10. AI Diagnostic v2: latency and cost budget targets; who authors or validates gold labels for evaluation cases (an educator).
