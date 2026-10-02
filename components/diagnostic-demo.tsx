@@ -113,7 +113,7 @@ export function DiagnosticDemo() {
               Answer three representative learner-signal questions. The prototype turns those signals into a transparent diagnosis, states how confident it is, and hands the final call to the educator.
             </p>
             <p className="mt-4 max-w-xl text-xs leading-5 text-muted">
-              This is a deterministic product prototype, not a claim of production model performance. The production architecture below would use an LLM, retrieval, evaluation data, and human controls.
+              This is the rules-only baseline, not an LLM and not a claim of model performance. A model-based version would add retrieval and a model for diagnosis, and would have to beat this baseline on the evaluation first.
             </p>
             <button type="button" onClick={() => setPhase("question")} className="group mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm text-panel transition-colors hover:bg-accent">
               Start diagnostic <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>

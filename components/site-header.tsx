@@ -1,22 +1,18 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { nav, profile } from "@/content/portfolio";
-import { useActiveSection } from "./hooks";
+import { contact, nav, profile } from "@/content/portfolio";
 import { Container } from "./container";
 import { ResumeCta } from "./resume-cta";
 
-const sectionIds = nav.map((item) => item.id);
-
+/** Five destinations, the résumé as the one filled action, and the email in reach on desktop. */
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const isCaseStudy = pathname.startsWith("/work/");
-  // Orientation: on the homepage, the nav shows where you are in the story.
-  const active = useActiveSection(sectionIds, isHome);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const isCurrent = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     if (!open) return;
@@ -31,42 +27,41 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line/80 bg-background/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 border-b border-line/80 bg-background/92 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/#top" onClick={() => setOpen(false)} className="font-serif text-lg tracking-tight text-ink transition-colors hover:text-accent">
-          {profile.name}
+        <Link href="/" onClick={() => setOpen(false)} className="group flex items-baseline gap-2 text-ink">
+          <span className="font-serif text-xl tracking-tight transition-colors group-hover:text-accent">{profile.name}</span>
+          <span aria-hidden className="font-mono text-xs text-accent">Δ</span>
         </Link>
-        {/* Nav and CTA sit together on the right: 28px between items (px-3 + gap-1 + px-3), 34px before the CTA. */}
-        <div className="hidden items-center gap-[22px] xl:flex">
+
+        <div className="hidden items-center gap-6 lg:flex">
           <nav aria-label="Primary" className="flex items-center gap-1">
             {nav.map((item) => {
-              const current = active === item.id;
+              const current = isCurrent(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  aria-current={current ? "location" : undefined}
+                  aria-current={current ? "page" : undefined}
                   className={`relative rounded-full px-3 py-2 text-sm transition-colors ${current ? "text-ink" : "text-muted hover:text-ink"}`}
                 >
                   {item.label}
-                  <span
-                    aria-hidden
-                    className={`absolute inset-x-3 -bottom-[13px] h-[2px] origin-left bg-accent transition-transform duration-300 ${current ? "scale-x-100" : "scale-x-0"}`}
-                  />
+                  <span aria-hidden className={`absolute inset-x-3 -bottom-[13px] h-[2px] origin-left bg-accent transition-transform duration-300 ${current ? "scale-x-100" : "scale-x-0"}`} />
                 </Link>
               );
             })}
           </nav>
-          {/* Recruiters come for the résumé: it is the one filled action in the header. */}
+          <a href={`mailto:${contact.email}`} className="font-mono text-xs text-muted transition-colors hover:text-ink">{contact.email}</a>
           <ResumeCta label="Resume" className="inline-flex gap-1 rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent" />
         </div>
+
         <button
           ref={toggleRef}
           type="button"
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen(!open)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line transition-colors hover:border-ink xl:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line transition-colors hover:border-ink lg:hidden"
         >
           <span className="sr-only">{open ? "Close navigation" : "Open navigation"}</span>
           <span aria-hidden className="relative block h-3 w-4">
@@ -76,57 +71,37 @@ export function SiteHeader() {
           </span>
         </button>
       </Container>
-      {isCaseStudy ? <ReadingProgress /> : null}
-      <div id="mobile-nav" hidden={!open} className="border-t border-line bg-background xl:hidden">
+
+      {/* Reading progress on long pages: pure CSS, driven by page scroll where supported. */}
+      {pathname.startsWith("/work/") || pathname.startsWith("/ai-lab/") ? (
+        <div aria-hidden className="absolute inset-x-0 -bottom-px h-[2px]"><div className="scroll-progress h-full bg-accent" /></div>
+      ) : null}
+
+      <div id="mobile-nav" hidden={!open} className="border-t border-line bg-background lg:hidden">
         <Container className="py-4">
           <nav aria-label="Mobile">
-            <ol className="flex flex-col">
-              {nav.map((item, i) => (
+            <ul className="flex flex-col">
+              <li>
+                <Link href="/" onClick={() => setOpen(false)} aria-current={pathname === "/" ? "page" : undefined} className="block rounded-lg px-2 py-3 text-base text-ink hover:bg-panel aria-[current]:text-accent">Home</Link>
+              </li>
+              {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    aria-current={active === item.id ? "location" : undefined}
-                    className="flex items-baseline gap-4 rounded-lg px-2 py-3 text-base text-ink transition-colors hover:bg-panel aria-[current]:text-accent"
+                    aria-current={isCurrent(item.href) ? "page" : undefined}
+                    className="block rounded-lg px-2 py-3 text-base text-ink hover:bg-panel aria-[current]:text-accent"
                   >
-                    <span className="w-6 font-mono text-xs text-subtle">{String(i + 1).padStart(2, "0")}</span>
                     {item.label}
                   </Link>
                 </li>
               ))}
-            </ol>
+            </ul>
           </nav>
           <ResumeCta label="Resume" onClick={() => setOpen(false)} className="mt-3 flex h-12 items-center justify-center gap-1 rounded-full bg-ink text-sm text-panel" />
+          <a href={`mailto:${contact.email}`} className="mt-3 block text-center font-mono text-xs text-muted">{contact.email}</a>
         </Container>
       </div>
     </header>
-  );
-}
-
-/** Long case studies get a progress line so readers know how much is left. */
-function ReadingProgress() {
-  const barRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
-      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
-    };
-    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
-  return (
-    <div aria-hidden className="absolute inset-x-0 -bottom-px h-[2px]">
-      <div ref={barRef} className="h-full origin-left bg-accent" style={{ transform: "scaleX(0)" }} />
-    </div>
   );
 }

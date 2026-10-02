@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { career, contact, profile, seo } from "@/content/portfolio";
+import { contact, profile, roles, seo } from "@/content/portfolio";
 import { siteUrl } from "@/content/site";
 import "./globals.css";
 
@@ -34,7 +34,7 @@ const jsonLd = {
   knowsAbout: [...profile.strengths, "EdTech", "Gaming", "Consumer Technology"],
   alumniOf: [
     { "@type": "EducationalOrganization", name: "SHUATS, Allahabad" },
-    ...career.map((r) => ({ "@type": "Organization", name: r.company })),
+    ...roles.map((r) => ({ "@type": "Organization", name: r.company })),
   ],
 };
 

@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
-import { profile, retentionHeadline, seo } from "@/content/portfolio";
+import { deltas, profile, retentionHeadline, seo, shareProof } from "@/content/portfolio";
 
 export const alt = seo.share.imageAlt;
 export const size = { width: 1200, height: 630 };
@@ -23,15 +23,15 @@ const BAR = 408;
 
 /**
  * The share card, built to read at chat-preview size: who (name, role,
- * positioning) on the cream side, and the three documented outcomes on a dark
+ * positioning) on the cream side, and the hero's three proof points on a dark
  * proof panel, with the Day-7 result drawn to scale as control vs. redesign.
  */
 export default function Image() {
-  const stats = [
-    ["12.2% → 25.4%", "D7 retention"],
-    ["18% → 45%", "Assignment completion"],
-    ["100K+", "Learners"],
-  ];
+  /** The hero's proof, in the same order, each with its caveat when it has one. */
+  const stats = shareProof.map((id) => {
+    const d = deltas[id];
+    return { value: d.before ? `${d.before} → ${d.after}` : d.after, label: d.label, note: d.note };
+  });
   return new ImageResponse(
     (
       <div style={{ width: "100%", height: "100%", display: "flex", background: c.background, fontFamily: "Geist" }}>
@@ -39,16 +39,16 @@ export default function Image() {
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ width: 56, height: 5, background: c.accent }} />
             <div style={{ marginTop: 34, fontFamily: "Instrument Serif", fontSize: 126, lineHeight: 0.95, letterSpacing: -2.5, color: c.ink }}>{profile.name}</div>
-            <div style={{ marginTop: 26, fontSize: 44, fontWeight: 600, letterSpacing: -0.8, color: c.ink }}>Senior Product Manager</div>
-            <div style={{ marginTop: 18, fontSize: 23, color: c.accent }}>Consumer Products  •  Growth  •  Monetization  •  AI</div>
+            <div style={{ marginTop: 26, fontSize: 44, fontWeight: 600, letterSpacing: -0.8, color: c.ink }}>{profile.role}</div>
+            <div style={{ marginTop: 18, fontSize: 26, letterSpacing: 0.5, color: c.accent }}>{profile.positioning}</div>
           </div>
           <div style={{ fontSize: 22, color: c.ink }}>buildwithnitesh.com</div>
         </div>
 
         <div style={{ width: 520, display: "flex", flexDirection: "column", justifyContent: "center", background: c.dark, padding: "0 56px" }}>
           <div style={{ marginBottom: 4, fontSize: 18, letterSpacing: 4, textTransform: "uppercase", color: "rgba(251,249,244,0.55)" }}>Documented outcomes</div>
-          {stats.map(([value, label], i) => (
-            <div key={label} style={{ display: "flex", flexDirection: "column", padding: "24px 0", borderTop: i ? "1px solid rgba(251,249,244,0.14)" : "none" }}>
+          {stats.map(({ value, label, note }, i) => (
+            <div key={label} style={{ display: "flex", flexDirection: "column", padding: "22px 0", borderTop: i ? "1px solid rgba(251,249,244,0.14)" : "none" }}>
               <div style={{ fontSize: 60, fontWeight: 600, lineHeight: 1, letterSpacing: -1.8, whiteSpace: "nowrap", color: c.panel }}>{value}</div>
               {i === 0 ? (
                 <div style={{ display: "flex", flexDirection: "column", marginTop: 16 }}>
@@ -56,7 +56,8 @@ export default function Image() {
                   <div style={{ height: 8, width: BAR, marginTop: 6, borderRadius: 4, background: c.teal }} />
                 </div>
               ) : null}
-              <div style={{ marginTop: 12, fontSize: 19, letterSpacing: 3.5, textTransform: "uppercase", color: c.teal }}>{label}</div>
+              <div style={{ marginTop: 12, fontSize: 18, letterSpacing: 3, textTransform: "uppercase", color: c.teal }}>{label}</div>
+              {note ? <div style={{ marginTop: 6, fontSize: 17, color: "rgba(251,249,244,0.6)" }}>{note}</div> : null}
             </div>
           ))}
         </div>
