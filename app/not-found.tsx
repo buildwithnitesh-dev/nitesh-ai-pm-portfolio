@@ -5,7 +5,7 @@ import { flagships } from "@/content/portfolio";
 
 export const metadata = { title: "Page not found", robots: { index: false } };
 
-/** A stale or mistyped link still lands somewhere useful: the two flagship cases. */
+/** A stale or mistyped link still lands somewhere useful: the flagship cases. */
 export default function NotFound() {
   return (
     <main id="main" className="flex-1">

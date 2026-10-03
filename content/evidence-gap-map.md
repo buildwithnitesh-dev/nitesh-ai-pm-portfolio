@@ -255,3 +255,21 @@ What was actually available in this project. "PRD (text)" means the content was 
 ## 9. Edfora product hierarchy (resolved 2026-10-03)
 
 Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 2026). Products and systems worked on, as supplied: myPAT, Glorifire, Stakeholder, Glorifire Ops, Adaptive Practice / Adaptive Assignment, myAdvisor, myPlan. They appear as product context on decisions and in the Edfora role summary. No relationships between them are described beyond what was supplied (for example, the faculty dashboards in D-08 are not assigned to a product, and Adaptive Practice is not placed inside myPAT).
+
+---
+
+## 10. Finalization pass (2026-10-03)
+
+| Claim | Treatment | Why |
+|---|---|---|
+| "About 65% of new users did not play a game on D0" (production site only) | Not used anywhere in the preview. D0 is "12% of new users played a game on day one" everywhere; D7 is "12.2%". The "~12%" shorthand is gone. | Contradicts the documented 12% D0 baseline (88% did not play). No new number invented. |
+| GMV ~10% WoW over 11 months | Removed from the site (D-06 result, Witzeal role highlight). D-06 now states no outcome is attributed. | No baseline, comparison, attribution, or whether it is an average or a sustained rate. |
+| Long-term retention "stabilized at 48%" | Removed. | Horizon and definition not recorded; a level, not an uplift. |
+| Student retention +8–12% (faculty dashboards) | Removed from D-08 and the Edfora role. | No unit, comparison or method. |
+| "Practice drop-offs also reduced" | Removed. | No magnitude or method. |
+| PokerBaazi: lower D1 bankruptcy; net revenue kept growing; <60 ms latency | Removed from D-05; a note says why. | No magnitude; latency is an infrastructure figure with unrecorded ownership. |
+| PwC: "150+ Fortune companies"; client engagement ~25% | Removed; the release work is described without the ambiguous count. | Ambiguous wording; 25% has no method. |
+| "OpenAI API", "Prompt engineering" | Removed from the tool list. | No artifact behind them; no production LLM claim is made. |
+| 100K+ learners | Always "on products that reach 100K+ learners". | Product reach, not personal attribution. |
+| Doubt resolution: median TAT, D14, ~60% | Promoted to a flagship case (/work/doubt-resolution). Median always stated; D14 always "relative"; ~60% always "modeled", "not an observed budget reduction". The hybrid is attributed to "Product & growth", not to Nitesh personally. | As supplied in §8. |
+| ~20% bonus spend (retention held), ~18% fraud losses | Promoted: ~20% in the hero proof; ~18% in "Same PM. Different domains." Both keep their basis (directional / method not captured). | Business evidence, with caveats. |

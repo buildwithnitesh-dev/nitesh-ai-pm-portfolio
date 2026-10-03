@@ -9,18 +9,18 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/work",
   title: "Work",
-  description: "Product work by Nitesh Tiwari, Senior Product Manager: activation and personalization case studies, a feature sunset on usage evidence, a library of product decisions, and an AI product lab.",
+  description: "Product work by Nitesh Tiwari, Senior Product Manager: a strategic trade-off in doubt resolution, an activation fix and a personalization system as case studies, a feature sunset on usage evidence, a decision library and an AI product lab.",
 });
 
 export default function WorkPage() {
   return (
     <main id="main" className="flex-1">
       <Container className="py-14 lg:py-20">
-        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Two flagship cases and a sunset in depth, then the smaller calls in one grammar, then the AI Lab." />
+        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Three flagship cases and a sunset in depth, then the smaller calls in one grammar, then the AI Lab." />
 
         <section aria-labelledby="flagships" className="mt-16">
-          <h2 id="flagships" className="font-medium text-[13px] text-accent">Three stories</h2>
-          <WorkStories headingLevel="h3" withSummary />
+          <h2 id="flagships" className="font-medium text-[13px] text-accent">Four stories</h2>
+          <WorkStories headingLevel="h3" withSummary withSunset />
         </section>
 
         <section aria-labelledby="library" className="mt-20">

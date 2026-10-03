@@ -3,7 +3,7 @@ import { CopyEmail } from "@/components/home/copy-email";
 import { ResumeCta } from "@/components/resume-cta";
 import Link from "next/link";
 import { Arrow, Mono, SectionHeader, button } from "@/components/ui";
-import { about, arc, contact, principles, profile, roles, status } from "@/content/portfolio";
+import { about, arc, contact, principles, profile, roles, status, technical } from "@/content/portfolio";
 import { pageMetadata } from "@/content/meta";
 
 export const metadata = pageMetadata({
@@ -47,6 +47,22 @@ export default function AboutPage() {
               </li>
             ))}
           </ol>
+        </section>
+
+        <section id="technical" aria-labelledby="technical-title" className="mt-20 scroll-mt-24">
+          <h2 id="technical-title" className="font-serif text-4xl text-ink">{technical.title}</h2>
+          <blockquote className="mt-6 max-w-3xl border-l-2 border-accent pl-5">
+            <p className="font-serif text-2xl leading-snug text-ink sm:text-3xl">{technical.insight.text}</p>
+            <p className="mt-3 text-[13px] font-medium text-muted"><Link href={technical.insight.href} className="inline-flex min-h-6 items-center underline decoration-line-strong underline-offset-4 hover:text-accent hover:decoration-accent">{technical.insight.source}</Link></p>
+          </blockquote>
+          <dl className="mt-8 border-t border-ink">
+            {technical.items.map((t) => (
+              <div key={t.term} className="grid gap-1 border-b border-line py-4 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-8">
+                <dt className="text-[15px] font-bold text-ink">{t.term}</dt>
+                <dd className="max-w-3xl text-[15px] leading-7 text-ink/85">{t.text}</dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         <section id="approach" aria-labelledby="approach-title" className="mt-20 scroll-mt-24">

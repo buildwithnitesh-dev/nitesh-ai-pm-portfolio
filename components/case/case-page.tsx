@@ -14,7 +14,8 @@ import { StageVisual } from "./visuals";
  * where it says it faster, a visual.
  */
 export function CasePage({ c }: { c: Case }) {
-  const other = flagships.find((f) => f.slug !== c.slug)!;
+  const at = flagships.findIndex((f) => f.slug === c.slug);
+  const other = flagships[(at + 1) % flagships.length];
   return (
     <main id="main" className="flex-1">
       <header className="border-b border-line">

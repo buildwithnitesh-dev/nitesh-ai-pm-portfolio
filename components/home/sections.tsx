@@ -2,38 +2,59 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
-import { Trace } from "@/components/trace";
+import { Trace, type StepKind } from "@/components/trace";
 import { Arrow, MoreLink, SectionHeader, StatusLabel, button } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
-import { aiLab, arc, contact, decisions, flagships, proofWall, sunsetStory } from "@/content/portfolio";
+import { aiLab, arc, contact, decisions, domains, flagships, sunsetStory } from "@/content/portfolio";
 import { CopyEmail } from "./copy-email";
 
-/** 02 · Levers beyond the stories, each at the weight its evidence supports. */
-export function ProofWall() {
+/** 03 · The same capabilities, proved in two consumer domains. */
+export function DomainTransfer() {
   return (
-    <section id="proof" aria-labelledby="proof-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
+    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
       <Container>
-        <SectionHeader id="proof-title" index="02" label="Proof" title="Prioritization, incentives, experiments and risk." intro="Four levers I've worked beyond the stories below, each with how it was measured." />
-        <ol className="mt-12">
-          {proofWall.map((p) => {
-            const headline = p.weight === "headline";
-            return (
-              <li key={p.capability} className="grid gap-3 border-t border-line py-8 md:grid-cols-[14rem_minmax(0,1fr)_minmax(0,0.7fr)] md:items-baseline md:gap-10">
-                <p className="font-serif text-2xl text-ink">{p.capability}</p>
-                <p className="text-base leading-7 text-ink/85">
-                  {p.value ? <span className={`mr-2 font-bold tracking-[-0.03em] proportional-nums ${headline ? "text-4xl text-ink" : "text-2xl text-muted"}`}>{p.value}</span> : null}
-                  {p.claim}.
-                </p>
-                <div className="text-[13px] leading-5 text-muted">
-                  <p>{p.basis} · {p.context}</p>
-                  <p className="mt-1"><Link href={p.href} className="inline-flex min-h-6 items-center font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">The decision behind it<span className="sr-only">: {p.capability}</span>&nbsp;→</Link></p>
-                </div>
-              </li>
-            );
-          })}
+        <SectionHeader id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each with evidence from real-money gaming and from EdTech. Every line links to the story and its caveats." />
+        <table className="mt-12 hidden w-full table-fixed border-t border-ink text-left md:table">
+          <caption className="sr-only">Each capability with evidence from gaming and from EdTech</caption>
+          <colgroup><col className="w-[12rem]" /><col /><col /></colgroup>
+          <thead>
+            <tr className="border-b border-line">
+              <th scope="col" className="py-3 pr-6 text-[13px] font-medium text-muted">Capability</th>
+              <th scope="col" className="py-3 pr-8 text-[13px] font-medium text-muted">Gaming <span className="font-normal">· Witzeal, Baazi Games</span></th>
+              <th scope="col" className="py-3 text-[13px] font-medium text-muted">EdTech <span className="font-normal">· Edfora</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {domains.map((d) => (
+              <tr key={d.capability} className="border-b border-line align-baseline">
+                <th scope="row" className="py-4 pr-6 text-[17px] font-bold tracking-[-0.01em] text-ink">{d.capability}</th>
+                <td className="py-4 pr-8"><EvidenceLink {...d.gaming} /></td>
+                <td className="py-4"><EvidenceLink {...d.edtech} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <ol className="mt-10 border-t border-ink md:hidden">
+          {domains.map((d) => (
+            <li key={d.capability} className="border-b border-line py-5">
+              <p className="text-[17px] font-bold text-ink">{d.capability}</p>
+              <dl className="mt-2 grid gap-2">
+                <div><dt className="text-[13px] font-medium text-muted">Gaming</dt><dd><EvidenceLink {...d.gaming} /></dd></div>
+                <div><dt className="text-[13px] font-medium text-muted">EdTech</dt><dd><EvidenceLink {...d.edtech} /></dd></div>
+              </dl>
+            </li>
+          ))}
         </ol>
       </Container>
     </section>
+  );
+}
+
+function EvidenceLink({ text, href }: { text: string; href: string }) {
+  return (
+    <Link href={href} className="group text-[15px] leading-6 text-ink decoration-accent/40 underline-offset-4 hover:text-accent hover:underline">
+      {text}<span aria-hidden className="ml-1.5 text-subtle transition-colors group-hover:text-accent">→</span>
+    </Link>
   );
 }
 
@@ -64,13 +85,13 @@ export function CareerArc() {
   );
 }
 
-/** 03 · Three stories, each drawn as signal → decision → outcome. */
+/** 02 · Three stories, each drawn as signal → decision → outcome. */
 export function SelectedWork() {
   return (
     <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeader id="work-title" index="03" label="Selected work" title="Three stories, three capabilities." intro="How I find the problem, make the call, and say what the evidence does and doesn't prove." />
+          <SectionHeader id="work-title" index="02" label="Selected work" title="Three decisions, with the evidence behind them." intro="A strategic trade-off, an activation fix and a personalization system: how I found the problem, made the call, and what the evidence does and doesn't prove." />
           <MoreLink href="/decisions">All {decisions.length} decisions</MoreLink>
         </div>
         <WorkStories />
@@ -84,8 +105,8 @@ type Story = {
   summary: string; signal: string; decision: string; outcome: React.ReactNode;
 };
 
-/** The two flagship cases and the sunset, as editorial entries rather than cards. */
-export function WorkStories({ headingLevel = "h3", withSummary = false }: { headingLevel?: "h2" | "h3"; withSummary?: boolean }) {
+/** The flagship cases (and, on /work, the sunset), as editorial entries rather than cards. */
+export function WorkStories({ headingLevel = "h3", withSummary = false, withSunset = false }: { headingLevel?: "h2" | "h3"; withSummary?: boolean; withSunset?: boolean }) {
   const H = headingLevel;
   const s = sunsetStory;
   const stories: Story[] = [
@@ -93,8 +114,8 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
       key: c.slug, index: c.index, capability: c.capability, headline: c.headline, meta: `${c.company} · ${c.domain} · ${c.role}`, href: c.href, cta: "Read the case",
       summary: c.summary, signal: c.opening, decision: c.decision, outcome: <Delta id={c.delta} size="sm" showContext={false} />,
     })),
-    {
-      key: "fanblaze", index: s.index, capability: s.capability, headline: s.headline, meta: `${s.company} · ${s.product} · ${s.domain} · ${s.role}`, href: s.href, cta: "Read the decision",
+    ...(withSunset ? [{
+      key: "fanblaze", index: "04", capability: s.capability, headline: s.headline, meta: `${s.company} · ${s.product} · ${s.domain} · ${s.role}`, href: s.href, cta: "Read the decision",
       summary: s.summary, signal: s.opening, decision: s.decision,
       outcome: (
         <div>
@@ -103,7 +124,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
           <p className="text-[13px] leading-5 text-muted">{s.figure.basis}. {s.opportunity}</p>
         </div>
       ),
-    },
+    }] : []),
   ];
   return (
     <ol className="mt-12">
@@ -120,6 +141,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
               <p className="mt-auto inline-flex items-center gap-2 pt-6 text-[15px] font-medium text-accent">{st.cta} <Arrow /></p>
             </div>
             <Trace
+              className="md:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1.2fr)]"
               steps={[
                 { kind: "signal", content: st.signal },
                 { kind: "decision", content: st.decision },
@@ -140,8 +162,9 @@ export function AiLabTeaser() {
   return (
     <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-16 lg:py-24">
       <Container>
-        <SectionHeader id="ai-title" index="05" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} />
-        <article className="group relative mt-10 grid gap-8 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
+        <SectionHeader id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first: a deterministic baseline, an evaluation and a quality gate come before it, and sometimes the answer is not to ship it." />
+        <FieldExample className="mt-10" />
+        <article className="group relative mt-14 grid gap-8 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
           <div>
             <p className="text-[13px] font-medium text-muted">{build.status}</p>
             <h3 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
@@ -163,6 +186,21 @@ export function AiLabTeaser() {
         </article>
         <p className="mt-10"><MoreLink href="/ai-lab">Inside the AI Lab</MoreLink></p>
       </Container>
+    </section>
+  );
+}
+
+/** The real-world AI judgment call: an AI option weighed against a quality gate, and not shipped. */
+export function FieldExample({ className = "" }: { className?: string }) {
+  const f = aiLab.field;
+  return (
+    <section aria-labelledby="field-title" className={`border-t border-ink pt-8 ${className}`}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <h3 id="field-title" className="font-serif text-2xl text-ink sm:text-3xl">{f.title}</h3>
+        <p className="text-[13px] font-medium text-muted">{f.context}</p>
+      </div>
+      <Trace className="mt-7" steps={f.steps.map((x) => ({ kind: x.kind as StepKind, content: x.text }))} />
+      <p className="mt-6"><MoreLink href={f.href}>Read the case</MoreLink></p>
     </section>
   );
 }

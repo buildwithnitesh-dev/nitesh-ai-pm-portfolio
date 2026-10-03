@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
+import { FieldExample } from "@/components/home/sections";
 import { Arrow, Mono, SectionHeader, StatusLabel, StatusMark } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
 import { aiLab } from "@/content/portfolio";
@@ -8,7 +9,7 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/ai-lab",
   title: "AI Lab",
-  description: "How Nitesh Tiwari builds AI products: a deterministic rules-first baseline, evaluation designed before model work, and an honest status on every part of the build. No evaluation has been run.",
+  description: "AI product judgment from Nitesh Tiwari: problem first, model second. A real decision where an AI resolver was weighed against a 90% quality gate and not shipped, and an independent prototype with a deterministic baseline and an evaluation harness. No evaluation has been run.",
 });
 
 const legend: { status: BuildStatus; meaning: string }[] = [
@@ -38,6 +39,8 @@ export default function AiLabPage() {
       </section>
 
       <Container className="py-14 lg:py-20">
+        <h2 className="font-medium text-[13px] text-accent">In the field</h2>
+        <FieldExample className="mt-6 mb-20" />
         <h2 className="font-medium text-[13px] text-accent">Current build</h2>
         <article className="group relative mt-6 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
           <Mono className="text-muted">{build.status}</Mono>

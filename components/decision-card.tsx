@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Decision, Verdict } from "@/content/portfolio";
 import { Delta } from "./delta";
 import { StageMarker, kindOf } from "./trace";
@@ -75,6 +76,7 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
         <p className={`font-serif leading-snug text-ink ${compact ? "mt-4 text-lg" : "mt-6 border-l-2 border-accent pl-4 text-xl"}`}>&ldquo;{d.learning}&rdquo;</p>
       ) : null}
       {d.note && !compact ? <p className="mt-4 text-[13px] leading-5 text-muted">{d.note}</p> : null}
+      {d.caseHref && !compact ? <p className="mt-5"><Link href={d.caseHref} className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">Read the full case<span className="sr-only">: {d.title}</span> <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span></Link></p> : null}
     </article>
   );
 }

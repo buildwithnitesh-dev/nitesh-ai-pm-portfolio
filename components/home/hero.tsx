@@ -2,14 +2,14 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
-import { Trace } from "@/components/trace";
+import { StageMarker } from "@/components/trace";
 import { Arrow, button } from "@/components/ui";
 import { contact, hero, profile } from "@/content/portfolio";
 
 /**
- * Who, then what he believes, then one piece of evidence drawn as a decision
- * trace: the signal, the call, the measured outcome. Static and server-rendered;
- * the thesis is the largest paint.
+ * Who, what kind of PM, what he believes, then three results that prove it:
+ * activation, a strategic trade-off, incentive economics. Static and
+ * server-rendered; the thesis is the largest paint.
  */
 export function Hero() {
   const [first, ...rest] = hero.positioning.split(" × ");
@@ -38,18 +38,18 @@ export function Hero() {
           </div>
         </div>
 
-        {/* The evidence moment: where the thesis comes from. */}
-        <section aria-label="Where the thesis comes from" className="mt-14 border-t border-ink pt-8 lg:mt-20">
-          <p className="text-[15px] font-semibold text-ink">Where the thesis comes from <span className="font-normal text-muted">· Witzeal Technologies</span></p>
-          <Trace
-            className="mt-7"
-            steps={[
-              { kind: "signal", content: "Only ~12% of new users played on day one." },
-              { kind: "decision", content: "Fix the first 60 seconds before paying to bring players back." },
-              { kind: "outcome", content: <Delta id={hero.proof} size="sm" showContext={false} /> },
-            ]}
-          />
-          <p className="mt-6"><Link href="/work/onboarding-funnel-redesign" className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">Read the case <Arrow /></Link></p>
+        {/* Three results, each with how it was measured and where it happened. */}
+        <section aria-label="Proof" className="mt-14 border-t border-ink pt-8 lg:mt-20">
+          <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Three results, three kinds of judgment</p>
+          <ul className="mt-7 grid gap-10 md:grid-cols-3 md:gap-8">
+            {hero.proof.map((p) => (
+              <li key={p.id} className="flex min-w-0 flex-col">
+                <Delta id={p.id} size="sm" showContext={false} />
+                <p className="mt-1 text-[13px] leading-5 text-ink">{p.context}</p>
+                <p className="mt-auto pt-4"><Link href={p.href} className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">The decision behind it<span className="sr-only">: {p.context}</span> <Arrow /></Link></p>
+              </li>
+            ))}
+          </ul>
         </section>
       </Container>
     </section>
