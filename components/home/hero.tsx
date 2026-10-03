@@ -15,16 +15,17 @@ export function Hero() {
   const [first, ...rest] = hero.positioning.split(" × ");
   return (
     <section aria-labelledby="hero-title" className="border-b border-line">
-      <Container className="pt-12 pb-12 lg:pt-16 lg:pb-16">
-        <p className="text-lg font-extrabold tracking-[0.08em] text-ink uppercase sm:text-xl">{hero.role}</p>
-        <p className="mt-2 text-lg text-muted sm:text-xl">
+      <Container className="pt-9 pb-10 lg:pt-12 lg:pb-12">
+        <p className="text-[17px] font-extrabold tracking-[0.05em] text-ink uppercase min-[375px]:text-xl min-[375px]:tracking-[0.08em] lg:text-[22px]">{hero.role}</p>
+        <p className="mt-1.5 text-xl leading-tight text-muted min-[375px]:text-[22px] lg:text-[26px]">
           {first}
           {rest.map((r) => <span key={r}> <span className="text-accent">×</span> {r}</span>)}
         </p>
-        <h1 id="hero-title" className="mt-8 max-w-5xl font-serif text-[3rem] leading-[0.98] text-balance text-ink sm:text-7xl lg:text-[6rem]">
-          {hero.headline}
+        <h1 id="hero-title" className="mt-6 max-w-6xl font-serif text-[2.15rem] leading-[1.02] min-[375px]:text-[2.6rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem] xl:text-[4.75rem]">
+          {/* A no-break space before the last word keeps it from standing alone on a line. */}
+          {hero.headline.replace(/ (\S+)$/, "\u00a0$1")}
         </h1>
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
             <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}</p>
@@ -39,9 +40,9 @@ export function Hero() {
         </div>
 
         {/* Three results, each with how it was measured and where it happened. */}
-        <section aria-label="Proof" className="mt-12 border-t border-ink pt-7 lg:mt-14">
+        <section aria-label="Proof" className="mt-9 border-t border-ink pt-6 lg:mt-10">
           <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Three results, three kinds of judgment</p>
-          <ul className="mt-6 grid gap-9 md:grid-cols-3 md:gap-8">
+          <ul className="mt-5 grid gap-9 md:grid-cols-3 md:gap-8">
             {hero.proof.map((p) => (
               <li key={p.id} className="flex min-w-0 flex-col">
                 <Delta id={p.id} size="sm" showContext={false} />
