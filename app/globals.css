@@ -6,32 +6,29 @@
  * the evidence: outcomes, decisions, and data.
  */
 :root {
-  /* Warm editorial foundation; teal is reserved for state, connection, and highlights (~5–10%). */
-  --background: #f5f1e8;
-  --foreground: #111111;
-  --muted: #5f5b54;
-  --subtle: #6f685e; /* tertiary text: ≥ 4.5:1 on background and panel */
-  --line: #d8d2c7;
-  --line-strong: #c3bbac;
-  --panel: #fbf9f4;
-  --ink: #111111;
-  --accent: #0f766e;
-  --accent-soft: #e3efea;
-  --accent-tint: #cce3dc;
+  /* Paper, ink and one signature colour. The canvas is near-white, not cream; the
+     only colour is oxblood, kept for decisions, links, active states and the
+     result a story turns on. */
+  --background: #f9f8f6;
+  --foreground: #16171b;
+  --muted: #53555c;
+  --subtle: #66686f; /* tertiary text: ≥ 4.5:1 on background and panel */
+  --line: #e3e1dc;
+  --line-strong: #c9c6bf;
+  --panel: #ffffff;
+  --ink: #16171b;
+  --accent: #8b1a2e;
+  --accent-soft: #f6e9eb;
+  --accent-tint: #ecd2d7;
 
-  /* Dark editorial sections. */
-  --dark: #111513;
-  --ink-raised: #181d1a;
+  /* A quiet stone band for the few sections that need their own ground. */
+  --stone: #efede8;
 
-  /* Data marks: one hue, two validated shades (light end ≥ 2:1 on background and panel). */
-  --data-before: #7cb3ab;
-  --data-after: #0f766e;
-  --data-muted: #857d71;
-  --data-track: #ece6da;
-
-  /* Capability map (dark surface only): teal for structure and selection, warm sand for evidence. */
-  --cap-structure: #5eafa3;
-  --cap-evidence: #cdbb94;
+  /* Data marks: the "before" in warm grey, the "after" in oxblood. */
+  --data-before: #8f8a82;
+  --data-after: #8b1a2e;
+  --data-muted: #8f8a82;
+  --data-track: #e7e4de;
 }
 
 @theme inline {
@@ -46,17 +43,15 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-tint: var(--accent-tint);
+  --color-stone: var(--stone);
   --color-data-before: var(--data-before);
   --color-data-after: var(--data-after);
   --color-data-muted: var(--data-muted);
   --color-data-track: var(--data-track);
-  --color-dark: var(--dark);
-  --color-ink-raised: var(--ink-raised);
-  --color-cap-structure: var(--cap-structure);
-  --color-cap-evidence: var(--cap-evidence);
-  --font-sans: var(--font-geist-sans);
-  --font-serif: var(--font-instrument);
-  --font-mono: var(--font-geist-mono);
+  /* One grotesk family carries the whole system; "serif" names the display cut. */
+  --font-sans: var(--font-grotesk);
+  --font-serif: var(--font-grotesk);
+  --font-mono: var(--font-grotesk);
 }
 
 html { scroll-behavior: smooth; }
@@ -66,7 +61,12 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
 }
-::selection { background: var(--accent); color: #fbf9f4; }
+::selection { background: var(--accent); color: #ffffff; }
+
+/* Display: the same family, set heavy and tight. Weight utilities still win. */
+@layer base {
+  .font-serif { font-weight: 700; letter-spacing: -0.028em; font-variant-numeric: proportional-nums; }
+}
 
 /* One focus language everywhere: visible and offset. In the base layer so a
    component can swap it for its own indicator (e.g. a whole-card ring). */
@@ -76,7 +76,22 @@ body {
     outline-offset: 3px;
     border-radius: 2px;
   }
-  .on-dark :focus-visible { outline-color: var(--accent-soft); }
+}
+
+/*
+ * The decision trace: Signal → Decision → Outcome on one ruled line. On wide
+ * screens the rule runs through the markers; on phones it runs down the left.
+ */
+.trace { position: relative; }
+.trace::before {
+  content: "";
+  position: absolute;
+  left: 5px; top: 8px; bottom: 8px;
+  width: 1px;
+  background: var(--line-strong);
+}
+@media (min-width: 768px) {
+  .trace::before { left: 6px; right: 0; top: 6px; bottom: auto; width: auto; height: 1px; }
 }
 
 /* Whole-card links: the heading link covers the card so the card is one target. */
@@ -87,22 +102,14 @@ body {
 }
 
 /*
- * Delta: the one motion on the site. Where the browser supports scroll-driven
- * animation, the "after" bar grows from the "before" value to the "after" value
- * as it scrolls into view. Elsewhere, and with reduced motion, it simply shows
- * the final state. No JavaScript.
+ * Motion. The shift line draws once on load (below); long pages get a reading
+ * progress line driven by page scroll where the browser supports it. Both are
+ * CSS only, and reduced motion shows the final state.
  */
-@keyframes delta-grow { from { transform: scaleX(var(--delta-from, 0)); } to { transform: scaleX(1); } }
+@keyframes delta-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .scroll-progress { display: none; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .delta-after {
-      transform-origin: left center;
-      animation: delta-grow linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 40%;
-    }
-    /* Reading progress for long pages, driven by page scroll. */
     .scroll-progress {
       display: block;
       transform-origin: left center;

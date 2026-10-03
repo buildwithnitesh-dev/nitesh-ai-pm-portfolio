@@ -29,9 +29,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line/80 bg-background/92 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" onClick={() => setOpen(false)} className="group flex items-baseline gap-2 text-ink">
-          <span className="font-serif text-xl tracking-tight transition-colors group-hover:text-accent">{profile.name}</span>
-          <span aria-hidden className="font-mono text-xs text-accent">Δ</span>
+        <Link href="/" onClick={() => setOpen(false)} className="group flex min-h-11 items-center gap-2.5 text-ink">
+          <span aria-hidden className="h-2.5 w-2.5 rotate-45 bg-accent" />
+          <span className="text-[17px] font-extrabold tracking-[-0.02em] transition-colors group-hover:text-accent">{profile.name}</span>
         </Link>
 
         <div className="hidden items-center gap-6 lg:flex">
@@ -43,7 +43,7 @@ export function SiteHeader() {
                   key={item.href}
                   href={item.href}
                   aria-current={current ? "page" : undefined}
-                  className={`relative rounded-full px-3 py-2 text-sm transition-colors ${current ? "text-ink" : "text-muted hover:text-ink"}`}
+                  className={`relative rounded-md px-3 py-2 text-[15px] font-medium transition-colors ${current ? "text-ink" : "text-muted hover:text-ink"}`}
                 >
                   {item.label}
                   <span aria-hidden className={`absolute inset-x-3 -bottom-[13px] h-[2px] origin-left bg-accent transition-transform duration-300 ${current ? "scale-x-100" : "scale-x-0"}`} />
@@ -51,8 +51,8 @@ export function SiteHeader() {
               );
             })}
           </nav>
-          <a href={`mailto:${contact.email}`} className="font-mono text-xs text-muted transition-colors hover:text-ink">{contact.email}</a>
-          <ResumeCta label="Resume" className="inline-flex gap-1 rounded-full bg-ink px-4 py-2 text-sm text-panel transition-colors hover:bg-accent" />
+          <a href={`mailto:${contact.email}`} className="text-sm text-muted transition-colors hover:text-ink">{contact.email}</a>
+          <ResumeCta label="Resume" className="inline-flex gap-1 rounded-md bg-ink px-4 py-2 text-sm font-medium text-panel transition-colors hover:bg-accent" />
         </div>
 
         <button
@@ -61,7 +61,7 @@ export function SiteHeader() {
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen(!open)}
-          className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line transition-colors hover:border-ink lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-line transition-colors hover:border-ink lg:hidden"
         >
           <span className="sr-only">{open ? "Close navigation" : "Open navigation"}</span>
           <span aria-hidden className="relative block h-3 w-4">
@@ -98,8 +98,8 @@ export function SiteHeader() {
               ))}
             </ul>
           </nav>
-          <ResumeCta label="Resume" onClick={() => setOpen(false)} className="mt-3 flex h-12 items-center justify-center gap-1 rounded-full bg-ink text-sm text-panel" />
-          <a href={`mailto:${contact.email}`} className="mt-3 block text-center font-mono text-xs text-muted">{contact.email}</a>
+          <ResumeCta label="Resume" onClick={() => setOpen(false)} className="mt-3 flex h-12 items-center justify-center gap-1 rounded-md bg-ink text-sm font-medium text-panel" />
+          <a href={`mailto:${contact.email}`} className="mt-3 block text-center text-sm text-muted">{contact.email}</a>
         </Container>
       </div>
     </header>

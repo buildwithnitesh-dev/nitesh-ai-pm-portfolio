@@ -210,6 +210,8 @@ export const flagships = [
     title: "Onboarding Funnel Redesign",
     opening: "Only ~12% of new users played on day one.",
     summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control, and a clear account of what the test could and couldn't isolate.",
+    /** The decision, in a sentence already used in the case. */
+    decision: "Five changes to the first 60 seconds, tested against a 30% control.",
     delta: "d0" as DeltaId,
   },
   {
@@ -224,6 +226,7 @@ export const flagships = [
     title: "Adaptive Assignment Engine",
     opening: "Every learner was getting the same next question.",
     summary: "Three ways to fix difficulty fit, one chosen: a 3PL IRT engine that estimates each learner's ability and matches the question to it.",
+    decision: "A 3PL IRT engine that estimates each learner's ability and matches the question to it.",
     delta: "completion" as DeltaId,
   },
 ] as const;
@@ -242,6 +245,7 @@ export const sunsetStory = {
   opening: "Fewer than 6% of match-day users used live scores.",
   summary: "Live scores were built to cut context switching and lift contest joins. Usage said fantasy intent was pre-match. The feature was sunset, and the effort moved to what users came for.",
   href: "/decisions#fanblaze",
+  decision: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats.",
   figure: { value: "<6%", label: "of active match-day users used it", basis: "Observed after launch" },
   opportunity: "Effort moved to starting-XI notifications, injury alerts and head-to-head stats.",
 };

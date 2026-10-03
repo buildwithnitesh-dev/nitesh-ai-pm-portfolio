@@ -22,24 +22,24 @@ export default function AiLabPage() {
   const build = aiLab.builds[0];
   return (
     <main id="main" className="flex-1">
-      <section className="on-dark border-b border-line bg-dark text-panel">
+      <section className="border-b border-line bg-stone">
         <Container className="py-14 lg:py-20">
-          <SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} tone="dark" />
+          <SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} />
           <ul aria-label="What each status means" className="mt-10 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
             {legend.map((l) => (
               <li key={l.status} className="grid gap-1">
-                <StatusLabel status={l.status} tone="dark" />
-                <p className="text-xs leading-5 text-panel/60">{l.meaning}</p>
+                <StatusLabel status={l.status} />
+                <p className="text-[13px] leading-5 text-muted">{l.meaning}</p>
               </li>
             ))}
           </ul>
-          <p className="mt-10 max-w-2xl text-sm leading-6 text-panel/65">{aiLab.professional}</p>
+          <p className="mt-10 max-w-2xl text-[15px] leading-7 text-muted">{aiLab.professional}</p>
         </Container>
       </section>
 
       <Container className="py-14 lg:py-20">
-        <h2 className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Current build</h2>
-        <article className="group relative mt-6 rounded-2xl border border-line bg-panel p-6 transition-colors focus-within:ring-2 focus-within:ring-accent focus-within:ring-offset-4 focus-within:ring-offset-background hover:border-ink sm:p-9">
+        <h2 className="font-medium text-[13px] text-accent">Current build</h2>
+        <article className="group relative mt-6 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
           <Mono className="text-muted">{build.status}</Mono>
           <h3 className="mt-4 font-serif text-4xl leading-tight text-ink sm:text-5xl">
             <Link href={build.href} className="stretched-link outline-none group-hover:text-accent">{build.title}</Link>
@@ -49,18 +49,18 @@ export default function AiLabPage() {
             {buildSpec.map((r) => (
               <li key={r.part} className="flex items-center justify-between gap-4 border-b border-line py-2.5">
                 <span className={`text-sm ${r.status === "Implemented" || r.status === "Designed" ? "text-ink" : "text-muted"}`}>{r.part}</span>
-                <span className="inline-flex items-center gap-2 text-xs text-muted"><StatusMark status={r.status} />{r.status}</span>
+                <span className="inline-flex items-center gap-2 text-[13px] text-muted"><StatusMark status={r.status} />{r.status}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-8 inline-flex items-center gap-2 text-sm text-ink">Open the build <Arrow /></p>
+          <p className="mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Open the build <Arrow /></p>
         </article>
 
         <section aria-labelledby="ai-principles" className="mt-20">
           <h2 id="ai-principles" className="font-serif text-4xl text-ink">What I hold every AI build to</h2>
-          <ol className="mt-6 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
+          <ol className="mt-6 grid border-t border-ink md:grid-cols-2 md:gap-x-12">
             {aiLab.principles.map(([t, b], i) => (
-              <li key={t} className="bg-panel p-6 sm:p-8">
+              <li key={t} className="border-b border-line py-7">
                 <Mono className="text-accent">{String(i + 1).padStart(2, "0")}</Mono>
                 <h3 className="mt-3 font-serif text-2xl text-ink">{t}</h3>
                 <p className="mt-3 text-[15px] leading-7 text-muted">{b}</p>

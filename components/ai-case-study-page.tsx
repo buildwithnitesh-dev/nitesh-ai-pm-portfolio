@@ -32,8 +32,8 @@ export function AiLearnerDiagnosticPage() {
       <Chapter id="status" index={1} label="Build status">
         <Prose eyebrow="Where the build stands" title="Built, designed, planned, waiting on input." body={["Every part of the product, with an honest status. Only the first group is working code."]} />
         <BuildSpec />
-        <details className="group rounded-xl border border-line bg-panel">
-          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 text-sm text-ink sm:px-7">
+        <details className="group border-y border-ink">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 py-3 text-[15px] font-medium text-ink">
             Who owns each job: rules, the model or the teacher
             <span aria-hidden className="text-muted transition-transform group-open:rotate-45">+</span>
           </summary>
@@ -69,9 +69,9 @@ function BuildSpec() {
         return (
           <section key={st} aria-label={st}>
             <StatusLabel status={st} />
-            <ul className={`mt-3 grid gap-px overflow-hidden rounded-xl ${solid ? "border border-line bg-line" : "border border-dashed border-line-strong"}`}>
+            <ul className={`mt-3 grid ${solid ? "border-t border-ink" : "border-t border-dashed border-line-strong"}`}>
               {rows.map((r) => (
-                <li key={r.part} className={`grid gap-1 px-5 py-4 sm:grid-cols-[11rem_1fr] sm:gap-6 ${solid ? "bg-panel" : ""}`}>
+                <li key={r.part} className={`grid gap-1 py-4 sm:grid-cols-[11rem_1fr] sm:gap-6 ${solid ? "border-b border-line" : "border-b border-dashed border-line"}`}>
                   <p className={`text-sm font-medium ${solid ? "text-ink" : "text-muted"}`}>{r.part}</p>
                   <p className={`text-sm leading-6 ${solid ? "text-ink/85" : "text-muted"}`}>{r.text}</p>
                 </li>
@@ -91,26 +91,26 @@ function RulesSplit() {
     <div>
       <table className="hidden w-full text-left text-sm md:table">
         <caption className="sr-only">Which part of the system owns each job, and why</caption>
-        <thead className="text-xs tracking-[0.12em] text-muted uppercase">
+        <thead className="text-[13px] text-muted">
           <tr className="border-b border-line">
-            <th scope="col" className="px-7 py-3 font-medium">Job</th>
+            <th scope="col" className="py-3 pr-6 font-medium">Job</th>
             <th scope="col" className="py-3 pr-6 font-medium">Owner</th>
-            <th scope="col" className="py-3 pr-7 font-medium">Why</th>
+            <th scope="col" className="py-3 font-medium">Why</th>
           </tr>
         </thead>
         <tbody>
           {rows.map((r) => (
             <tr key={r.job} className="border-b border-line/70 align-top last:border-0">
-              <th scope="row" className="px-7 py-4 font-medium text-ink">{r.job}</th>
+              <th scope="row" className="py-4 pr-6 font-medium text-ink">{r.job}</th>
               <td className="py-4 pr-6"><Owner owner={r.owner} /></td>
-              <td className="py-4 pr-7 leading-6 text-muted">{r.why}</td>
+              <td className="py-4 leading-6 text-muted">{r.why}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <ul className="divide-y divide-line md:hidden">
         {rows.map((r) => (
-          <li key={r.job} className="px-5 py-4">
+          <li key={r.job} className="py-4">
             <div className="flex items-start justify-between gap-3">
               <p className="text-sm font-medium text-ink">{r.job}</p>
               <Owner owner={r.owner} />
@@ -119,7 +119,7 @@ function RulesSplit() {
           </li>
         ))}
       </ul>
-      <p className="border-t border-line px-5 py-4 text-xs leading-5 text-muted sm:px-7">In the prototype every row runs on deterministic rules, so the demo is reliable and inspectable. This table is the proposed production split.</p>
+      <p className="border-t border-line py-4 text-[13px] leading-5 text-muted">In the prototype every row runs on deterministic rules, so the demo is reliable and inspectable. This table is the proposed production split.</p>
     </div>
   );
 }
@@ -132,32 +132,32 @@ const ownerTone: Record<string, string> = {
 };
 
 function Owner({ owner }: { owner: string }) {
-  return <span className={`inline-flex shrink-0 rounded-full border px-2.5 py-0.5 text-xs whitespace-nowrap ${ownerTone[owner]}`}>{owner}</span>;
+  return <span className={`inline-flex shrink-0 rounded-sm border px-2 py-0.5 text-[13px] whitespace-nowrap ${ownerTone[owner]}`}>{owner}</span>;
 }
 
 /** Failure → how it shows up → how it is caught → what the product does instead. */
 function FailureTable() {
   const rows = aiLearnerDiagnostic.failures;
   return (
-    <div className="rounded-xl border border-line bg-panel">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4 sm:px-7">
+    <div className="border-t border-ink">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line py-4">
         <p className="text-sm font-medium text-ink">Failure modes, designed before the happy path</p>
         <EvidenceTag kind="reasoning" />
       </div>
       <ol className="divide-y divide-line">
         {rows.map((r, i) => (
-          <li key={r.failure} className="grid gap-3 px-5 py-5 sm:px-7 md:grid-cols-[13rem_1fr_1fr] md:gap-8">
+          <li key={r.failure} className="grid gap-3 py-5 md:grid-cols-[13rem_1fr_1fr] md:gap-8">
             <div>
-              <p className="font-mono text-[11px] text-subtle">{String(i + 1).padStart(2, "0")}</p>
+              <p className="tabular-nums text-[13px] text-subtle">{String(i + 1).padStart(2, "0")}</p>
               <p className="mt-1 font-serif text-xl leading-snug text-ink">{r.failure}</p>
-              <p className="mt-1 text-xs leading-5 text-muted">Looks like: {r.looks}</p>
+              <p className="mt-1 text-[13px] leading-5 text-muted">Looks like: {r.looks}</p>
             </div>
             <div>
-              <p className="font-mono text-[11px] tracking-[0.14em] text-muted uppercase">Caught by</p>
+              <p className="font-medium text-[13px] text-muted">Caught by</p>
               <p className="mt-1 text-sm leading-6 text-ink/85">{r.detect}</p>
             </div>
             <div>
-              <p className="font-mono text-[11px] tracking-[0.14em] text-accent uppercase">Product does instead</p>
+              <p className="font-medium text-[13px] text-accent">Product does instead</p>
               <p className="mt-1 text-sm leading-6 text-ink">{r.fallback}</p>
             </div>
           </li>
@@ -170,17 +170,17 @@ function FailureTable() {
 /** What the harness scores today, and what still needs a person. Nothing here has been run against a model. */
 function EvalMetrics() {
   return (
-    <div className="rounded-xl border border-line bg-panel">
+    <div className="border-t border-ink">
       <ul className="divide-y divide-line">
         {evalMetrics.map((m) => (
-          <li key={m.metric} className="grid gap-1 px-5 py-4 sm:grid-cols-[11rem_1fr_auto] sm:items-baseline sm:gap-6 sm:px-7">
+          <li key={m.metric} className="grid gap-1 py-4 sm:grid-cols-[11rem_1fr_auto] sm:items-baseline sm:gap-6">
             <p className="text-sm font-medium text-ink">{m.metric}</p>
             <p className="text-sm leading-6 text-muted">{m.how}</p>
-            <span className="inline-flex items-center gap-2 text-xs whitespace-nowrap text-muted"><StatusMark status={m.status} />{m.status === "Implemented" ? "Scored by the harness" : "Needs an educator"}</span>
+            <span className="inline-flex items-center gap-2 text-[13px] whitespace-nowrap text-muted"><StatusMark status={m.status} />{m.status === "Implemented" ? "Scored by the harness" : "Needs an educator"}</span>
           </li>
         ))}
       </ul>
-      <p className="border-t border-line px-5 py-4 text-xs leading-5 text-muted sm:px-7">No evaluation has been run, so there are no scores.</p>
+      <p className="border-t border-line py-4 text-[13px] leading-5 text-muted">No evaluation has been run, so there are no scores.</p>
     </div>
   );
 }

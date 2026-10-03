@@ -19,13 +19,13 @@ export default function AboutPage() {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
           <SectionHeader as="h1" label="About" title={about.opening} intro={about.intro} />
           {/* No photo: an identity card from the canonical profile stands in, deliberately text-only. */}
-          <aside aria-label="At a glance" className="on-dark rounded-2xl bg-dark p-6 text-panel sm:p-7">
-            <p className="font-serif text-4xl leading-none">{profile.name}<span aria-hidden className="ml-2 font-sans text-2xl text-accent-soft">Δ</span></p>
-            <dl className="mt-6 grid gap-4 border-t border-white/15 pt-5 text-sm leading-6">
+          <aside aria-label="At a glance" className="border-t-2 border-ink pt-5">
+            <p className="font-serif text-3xl leading-none">{profile.name}</p>
+            <dl className="mt-5 grid gap-3 text-[15px] leading-6">
               {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location], ...(status.availability ? [["Status", status.availability]] as const : [])] as const).map(([k, v]) => (
                 <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3">
-                  <dt><Mono className="text-accent-soft/80">{k}</Mono></dt>
-                  <dd className="text-panel/90">{v}</dd>
+                  <dt><Mono className="text-muted">{k}</Mono></dt>
+                  <dd className="text-ink">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -33,7 +33,7 @@ export default function AboutPage() {
         </div>
 
         <section aria-labelledby="phases" className="mt-16">
-          <h2 id="phases" className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">What each phase taught me</h2>
+          <h2 id="phases" className="font-medium text-[13px] text-accent">What each phase taught me</h2>
           <ol className="mt-6 border-t border-ink">
             {about.phases.map((p, i) => (
               <li key={p.verb} className="grid gap-3 border-b border-line py-7 md:grid-cols-[12rem_minmax(0,1fr)_minmax(0,0.8fr)] md:gap-10">
@@ -55,15 +55,15 @@ export default function AboutPage() {
           <ol className="mt-8 border-t border-ink">
             {principles.map((p) => (
               <li key={p.n} className="grid gap-5 border-b border-line py-8 lg:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
-                <p className="font-mono text-2xl text-accent">{p.n}</p>
+                <p className="tabular-nums text-2xl text-accent">{p.n}</p>
                 <div>
                   <h3 className="font-serif text-3xl leading-tight text-ink">{p.title}</h3>
                   <p className="mt-3 text-base leading-7 text-muted">{p.body}</p>
                 </div>
-                <Link href={p.example.href} className="group block rounded-xl border border-line bg-panel p-5 transition-colors hover:border-ink">
+                <Link href={p.example.href} className="group block border-l-2 border-accent pl-5 transition-colors">
                   <Mono className="text-accent">Where it shows</Mono>
                   <p className="mt-2 text-[15px] leading-7 text-ink">{p.example.text}</p>
-                  <p className="mt-3 inline-flex items-center gap-2 text-sm text-ink">{p.example.label} <Arrow /></p>
+                  <p className="mt-3 inline-flex items-center gap-2 text-sm font-medium text-accent group-hover:underline">{p.example.label} <Arrow /></p>
                 </Link>
               </li>
             ))}
@@ -77,7 +77,7 @@ export default function AboutPage() {
               <li key={r.id} id={r.id} className="grid scroll-mt-24 gap-4 border-b border-line py-8 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-10">
                 <div>
                   <Mono className="text-muted">{r.period}</Mono>
-                  <p className="mt-1 text-xs text-subtle">{r.location}</p>
+                  <p className="mt-1 text-[13px] text-subtle">{r.location}</p>
                 </div>
                 <div>
                   <h3 className="font-serif text-3xl leading-tight text-ink">{r.company} <span className="text-muted">· {r.title}</span></h3>
@@ -91,7 +91,7 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section aria-labelledby="contact" className="mt-20 grid gap-8 rounded-2xl border border-line bg-panel p-6 sm:p-10 lg:grid-cols-2 lg:items-end">
+        <section aria-labelledby="contact" className="mt-20 grid gap-8 border-t-2 border-ink pt-10 lg:grid-cols-2 lg:items-end">
           <div>
             <h2 id="contact" className="font-serif text-4xl leading-tight text-ink">Hiring for a product role? Let&apos;s talk.</h2>
             <p className="mt-3 text-sm leading-6 text-muted">Open to {contact.lookingFor}. {profile.location}.</p>

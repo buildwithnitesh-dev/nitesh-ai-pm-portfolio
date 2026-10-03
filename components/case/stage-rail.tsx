@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { StageMarker, kindOf } from "@/components/trace";
 
 export type RailItem = { id: string; label: string };
 
@@ -38,7 +39,7 @@ export function StageRail({ items, label = "Stages" }: { items: readonly RailIte
   return (
     <>
       <nav aria-label={label} className="sticky top-28 hidden lg:block">
-        <p className="font-mono text-[11px] tracking-[0.16em] text-muted uppercase">{label}</p>
+        <p className="font-medium text-[13px] text-muted">{label}</p>
         <ol className="mt-4 border-l border-line">
           {items.map((item, i) => {
             const on = item.id === active;
@@ -48,9 +49,9 @@ export function StageRail({ items, label = "Stages" }: { items: readonly RailIte
                 <a
                   href={`#${item.id}`}
                   aria-current={on ? "location" : undefined}
-                  className={`-ml-px flex items-baseline gap-3 border-l-2 py-1.5 pl-4 text-sm transition-colors ${on ? "border-accent text-ink" : done ? "border-accent/30 text-muted hover:text-ink" : "border-transparent text-subtle hover:text-ink"}`}
+                  className={`-ml-px flex items-center gap-3 border-l-2 py-1.5 pl-4 text-sm transition-colors ${on ? "border-accent font-semibold text-ink" : done ? "border-accent/30 text-muted hover:text-ink" : "border-transparent text-subtle hover:text-ink"}`}
                 >
-                  <span className="font-mono text-[10px] tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+                  <StageMarker kind={kindOf(item.label)} className={on || done ? "" : "opacity-50"} />
                   {item.label}
                 </a>
               </li>
@@ -59,16 +60,16 @@ export function StageRail({ items, label = "Stages" }: { items: readonly RailIte
         </ol>
       </nav>
 
-      <details className="group rounded-xl border border-line bg-panel lg:hidden">
-        <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 text-sm text-ink [&::-webkit-details-marker]:hidden">
+      <details className="group border-y border-ink lg:hidden">
+        <summary className="flex cursor-pointer list-none items-center justify-between py-4 text-[15px] font-medium text-ink [&::-webkit-details-marker]:hidden">
           <span>{label} <span className="text-muted">· {items.length}</span></span>
           <span aria-hidden className="text-muted transition-transform duration-200 group-open:rotate-45">+</span>
         </summary>
-        <ol className="grid grid-cols-2 border-t border-line px-2 py-2">
+        <ol className="grid grid-cols-2 border-t border-line py-2">
           {items.map((item, i) => (
             <li key={item.id}>
-              <a href={`#${item.id}`} className="flex items-baseline gap-3 rounded-md px-3 py-2.5 text-sm text-ink hover:bg-background">
-                <span className="font-mono text-[10px] text-subtle">{String(i + 1).padStart(2, "0")}</span>
+              <a href={`#${item.id}`} className="flex items-center gap-3 rounded-md px-1 py-2.5 text-sm text-ink hover:text-accent">
+                <StageMarker kind={kindOf(item.label)} />
                 {item.label}
               </a>
             </li>

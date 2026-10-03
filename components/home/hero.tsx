@@ -1,41 +1,56 @@
+import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
+import { Trace } from "@/components/trace";
 import { Arrow, button } from "@/components/ui";
 import { contact, hero, profile } from "@/content/portfolio";
 
 /**
- * 5-second scan, in reading order: the role, the thesis, the specialization,
- * then the one result the thesis comes from. Static and server-rendered: the
- * H1 is the largest paint.
+ * Who, then what he believes, then one piece of evidence drawn as a decision
+ * trace: the signal, the call, the measured outcome. Static and server-rendered;
+ * the thesis is the largest paint.
  */
 export function Hero() {
+  const [first, ...rest] = hero.positioning.split(" × ");
   return (
     <section aria-labelledby="hero-title" className="border-b border-line">
-      <Container className="grid gap-12 pt-12 pb-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16 lg:pt-20 lg:pb-20">
-        <div>
-          <p className="text-base font-semibold tracking-[0.14em] text-ink uppercase sm:text-lg">{hero.role}</p>
-          <h1 id="hero-title" className="mt-5 font-serif text-[3.1rem] leading-[1] tracking-tight text-balance text-ink sm:text-7xl lg:text-[5.4rem]">
-            {hero.headline}
-          </h1>
-          <p className="mt-6 text-lg tracking-tight text-accent sm:text-xl">{hero.positioning}</p>
-          <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8">{hero.lede}</p>
-          <p className="mt-5 font-mono text-xs tracking-[0.04em] text-ink">{profile.experience}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <Container className="pt-14 pb-14 lg:pt-24 lg:pb-20">
+        <p className="text-lg font-extrabold tracking-[0.08em] text-ink uppercase sm:text-xl">{hero.role}</p>
+        <p className="mt-2 text-lg text-muted sm:text-xl">
+          {first}
+          {rest.map((r) => <span key={r}> <span className="text-accent">×</span> {r}</span>)}
+        </p>
+        <h1 id="hero-title" className="mt-10 max-w-5xl font-serif text-[3rem] leading-[0.98] text-balance text-ink sm:text-7xl lg:text-[6rem]">
+          {hero.headline}
+        </h1>
+        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div>
+            <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
+            <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}</p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <a href="#work" className={`group ${button.primary}`}>Explore the work <Arrow /></a>
             <ResumeCta label="Resume" className={button.secondary} />
-            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start text-sm text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
               LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
             </a>
           </div>
         </div>
 
-        {/* The result the thesis comes from, on the same dark surface as the share card. */}
-        <aside aria-label="Proof" className="on-dark rounded-2xl bg-dark p-6 text-panel sm:p-8">
-          <p className="text-sm text-panel/60">Where the thesis comes from</p>
-          <div className="mt-6"><Delta id={hero.proof} size="md" tone="dark" link="/work/onboarding-funnel-redesign" /></div>
-          <p className="mt-6 border-t border-white/10 pt-5 text-sm leading-6 text-panel/75">Only ~12% of new users played on day one. Five changes to the first 60 seconds, tested against a 30% control.</p>
-        </aside>
+        {/* The evidence moment: where the thesis comes from. */}
+        <section aria-label="Where the thesis comes from" className="mt-14 border-t border-ink pt-8 lg:mt-20">
+          <p className="text-[15px] font-semibold text-ink">Where the thesis comes from <span className="font-normal text-muted">· Witzeal Technologies</span></p>
+          <Trace
+            className="mt-7"
+            steps={[
+              { kind: "signal", content: "Only ~12% of new users played on day one." },
+              { kind: "decision", content: "Fix the first 60 seconds before paying to bring players back." },
+              { kind: "outcome", content: <Delta id={hero.proof} size="sm" showContext={false} /> },
+            ]}
+          />
+          <p className="mt-6"><Link href="/work/onboarding-funnel-redesign" className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">Read the case <Arrow /></Link></p>
+        </section>
       </Container>
     </section>
   );

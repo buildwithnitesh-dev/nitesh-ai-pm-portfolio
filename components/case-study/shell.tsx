@@ -33,33 +33,33 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
               <li aria-current="page" className="text-ink">{meta.title}</li>
             </ol>
           </nav>
-          <p className="mt-12 text-xs font-medium tracking-[0.22em] text-accent uppercase">{meta.type}</p>
+          <p className="mt-12 text-[15px] font-semibold text-accent">{meta.type}</p>
           <h1 className="mt-4 max-w-5xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-7xl">{meta.title}</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-muted">{meta.subtitle}</p>
 
-          <dl className={`mt-12 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 ${meta.role ? "lg:grid-cols-[1.4fr_1fr_1fr_1fr]" : "lg:grid-cols-[1.5fr_1fr_1fr]"}`}>
-            <div className="bg-panel p-6">
-              <dt className="text-xs tracking-[0.16em] text-muted uppercase">Outcome</dt>
-              <dd className="mt-2 text-2xl leading-snug font-semibold tracking-tight text-ink">{meta.outcome}</dd>
+          <dl className={`mt-12 grid gap-x-8 border-y-2 border-ink sm:grid-cols-2 ${meta.role ? "lg:grid-cols-[1.4fr_1fr_1fr_1fr]" : "lg:grid-cols-[1.5fr_1fr_1fr]"}`}>
+            <div className="border-b border-line py-5 lg:border-0">
+              <dt className="text-[13px] font-medium text-muted">Outcome</dt>
+              <dd className="mt-2 text-2xl leading-snug font-bold tracking-[-0.02em] text-ink">{meta.outcome}</dd>
             </div>
-            <div className="bg-panel p-6">
-              <dt className="text-xs tracking-[0.16em] text-muted uppercase">Focus</dt>
+            <div className="border-b border-line py-5 lg:border-0">
+              <dt className="text-[13px] font-medium text-muted">Focus</dt>
               <dd className="mt-3 flex flex-wrap gap-2">
-                {meta.focus.map((f) => <span key={f} className="rounded-full border border-line px-3 py-1 text-xs text-ink">{f}</span>)}
+                {meta.focus.map((f) => <span key={f} className="rounded-sm bg-stone px-2.5 py-1 text-[13px] text-ink">{f}</span>)}
               </dd>
             </div>
             {meta.role ? (
-              <div className="bg-panel p-6">
-                <dt className="text-xs tracking-[0.16em] text-muted uppercase">Role</dt>
+              <div className="border-b border-line py-5 lg:border-0">
+                <dt className="text-[13px] font-medium text-muted">Role</dt>
                 <dd className="mt-2 text-sm leading-6 text-ink">{meta.role}</dd>
               </div>
             ) : null}
-            <div className={`bg-panel p-6 ${meta.role ? "" : "sm:col-span-2 lg:col-span-1"}`}>
-              <dt className="text-xs tracking-[0.16em] text-muted uppercase">Evidence</dt>
+            <div className={`py-5 ${meta.role ? "" : "sm:col-span-2 lg:col-span-1"}`}>
+              <dt className="text-[13px] font-medium text-muted">Evidence</dt>
               <dd className="mt-3"><EvidenceTag kind={meta.evidence} /></dd>
             </div>
           </dl>
-          {meta.note ? <p className="mt-5 max-w-3xl text-xs leading-6 text-muted">{meta.note}</p> : null}
+          {meta.note ? <p className="mt-5 max-w-3xl text-[13px] leading-6 text-muted">{meta.note}</p> : null}
         </Container>
       </header>
 
@@ -72,8 +72,8 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
           <ol className="mt-8 grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-line">
             {([["Problem", tldr.problem], ["Approach", tldr.approach], ["Outcome", tldr.outcome]] as const).map(([k, v], i) => (
               <li key={k} className="md:px-8 md:first:pl-0 md:last:pr-0">
-                <p className="flex items-center gap-3 text-xs tracking-[0.16em] text-muted uppercase">
-                  <span className="font-mono text-accent">{i + 1}</span>{k}
+                <p className="flex items-center gap-3 text-[13px] text-muted">
+                  <span className="tabular-nums text-accent">{i + 1}</span>{k}
                 </p>
                 <p className={`mt-3 text-base leading-7 ${k === "Outcome" ? "font-medium text-ink" : "text-ink/85"}`}>{v}</p>
               </li>
@@ -97,8 +97,8 @@ export function Chapter({ id, index, label, children }: { id: string; index: num
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24">
       <div className="flex items-baseline gap-4 border-b border-line pb-4">
-        <span className="font-mono text-xs text-accent">{String(index).padStart(2, "0")}</span>
-        <h2 id={`${id}-title`} className="text-xs font-medium tracking-[0.22em] text-muted uppercase">{label}</h2>
+        <span className="tabular-nums text-[13px] text-accent">{String(index).padStart(2, "0")}</span>
+        <h2 id={`${id}-title`} className="text-[13px] font-medium text-muted">{label}</h2>
       </div>
       <div className="mt-10 grid gap-12">{children}</div>
     </section>
@@ -110,7 +110,7 @@ export function Prose({ eyebrow, title, body, reasoning }: { eyebrow?: string; t
     <div>
       {eyebrow || reasoning ? (
         <div className="flex flex-wrap items-center justify-between gap-3">
-          {eyebrow ? <p className="text-xs font-medium tracking-[0.18em] text-accent uppercase">{eyebrow}</p> : <span />}
+          {eyebrow ? <p className="text-[13px] font-medium text-accent">{eyebrow}</p> : <span />}
           {reasoning ? <EvidenceTag kind="reasoning" /> : null}
         </div>
       ) : null}
@@ -133,15 +133,15 @@ export function PullQuote({ children }: { children: React.ReactNode }) {
 /** Where to go after the prototype: the rest of the AI Lab, or the professional work. */
 function MoreNav() {
   return (
-    <nav aria-label="More" className="on-dark border-t border-line bg-dark text-panel">
+    <nav aria-label="More" className="border-t border-ink">
       <Container className="grid gap-10 py-16 lg:grid-cols-[1fr_auto] lg:items-end">
         <Link href="/work" className="group block">
-          <p className="font-mono text-[11px] tracking-[0.14em] text-accent-soft/70 uppercase">Professional work</p>
-          <p className="mt-3 font-serif text-4xl leading-tight transition-colors group-hover:text-accent-soft sm:text-5xl">The flagship cases <Arrow /></p>
+          <p className="font-medium text-[13px] text-accent">Professional work</p>
+          <p className="mt-3 font-serif text-4xl leading-tight text-ink transition-colors group-hover:text-accent sm:text-5xl">The flagship cases <Arrow /></p>
         </Link>
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-panel/65">
-          <Link href="/ai-lab" className="hover:text-panel">AI Lab</Link>
-          <Link href="/decisions" className="hover:text-panel">Decisions</Link>
+        <div className="flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-muted">
+          <Link href="/ai-lab" className="inline-flex min-h-6 items-center hover:text-accent">AI Lab</Link>
+          <Link href="/decisions" className="inline-flex min-h-6 items-center hover:text-accent">Decisions</Link>
         </div>
       </Container>
     </nav>

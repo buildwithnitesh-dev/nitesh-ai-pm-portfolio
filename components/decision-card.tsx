@@ -1,5 +1,6 @@
 import type { Decision, Verdict } from "@/content/portfolio";
 import { Delta } from "./delta";
+import { StageMarker, kindOf } from "./trace";
 import { Mono } from "./ui";
 
 const verdictTone: Record<Verdict, string> = {
@@ -11,7 +12,7 @@ const verdictTone: Record<Verdict, string> = {
 };
 
 export function VerdictTag({ verdict }: { verdict: Verdict }) {
-  return <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[10px] tracking-[0.14em] uppercase ${verdictTone[verdict]}`}>{verdict}</span>;
+  return <span className={`inline-flex items-center rounded-sm border px-2 py-0.5 font-medium text-[13px] ${verdictTone[verdict]}`}>{verdict}</span>;
 }
 
 /**
@@ -38,8 +39,8 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
         <dl className="mt-6 grid gap-4">
           {d.stages.map((s) => (
             <div key={s.term} className="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
-              <dt><Mono className="text-accent">{s.term}</Mono></dt>
-              <dd className="text-[15px] leading-7 text-ink/85">{s.text}</dd>
+              <dt className="flex items-center gap-2.5"><StageMarker kind={kindOf(s.term)} /><Mono className={kindOf(s.term) === "decision" ? "text-accent" : "text-ink"}>{s.term}</Mono></dt>
+              <dd className={`text-[15px] leading-7 ${s.term === "Decision" ? "font-medium text-ink" : "text-ink/85"}`}>{s.text}</dd>
             </div>
           ))}
         </dl>
@@ -62,7 +63,7 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
           <ul className={`grid gap-1 text-sm leading-6 text-ink ${d.delta ? "mt-3" : ""}`}>
             {(compact ? d.results.slice(0, d.delta ? 1 : 2) : d.results).map((r) => (
               <li key={r.text} className="flex gap-2">
-                <span aria-hidden className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-accent" />
+                <span aria-hidden className="mt-[7px] h-2 w-2 shrink-0 bg-ink" />
                 <span>{r.text}{r.basis ? <span className="text-muted"> · {r.basis}</span> : null}</span>
               </li>
             ))}
@@ -73,7 +74,7 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
       {d.learning && (!compact || !d.delta) ? (
         <p className={`font-serif leading-snug text-ink ${compact ? "mt-4 text-lg" : "mt-6 border-l-2 border-accent pl-4 text-xl"}`}>&ldquo;{d.learning}&rdquo;</p>
       ) : null}
-      {d.note && !compact ? <p className="mt-4 text-xs leading-5 text-muted">{d.note}</p> : null}
+      {d.note && !compact ? <p className="mt-4 text-[13px] leading-5 text-muted">{d.note}</p> : null}
     </article>
   );
 }

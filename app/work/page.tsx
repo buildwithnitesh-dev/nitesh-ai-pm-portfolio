@@ -19,8 +19,8 @@ export default function WorkPage() {
         <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Two flagship cases and a sunset in depth, then the smaller calls in one grammar, then the AI Lab." />
 
         <section aria-labelledby="flagships" className="mt-16">
-          <h2 id="flagships" className="font-mono text-[11px] tracking-[0.16em] text-accent uppercase">Three stories</h2>
-          <WorkStories headingLevel="h3" />
+          <h2 id="flagships" className="font-medium text-[13px] text-accent">Three stories</h2>
+          <WorkStories headingLevel="h3" withSummary />
         </section>
 
         <section aria-labelledby="library" className="mt-20">
@@ -36,7 +36,7 @@ export default function WorkPage() {
                   <span><VerdictTag verdict={d.verdict} /></span>
                   <span>
                     <span className="block font-serif text-2xl leading-snug text-ink group-hover:text-accent">{d.title}</span>
-                    <span className="mt-1 block font-mono text-[11px] tracking-[0.08em] text-muted uppercase">{d.product ? `${d.company} · ${d.product}` : d.company} · {d.area}</span>
+                    <span className="mt-1 block font-medium text-[13px] text-muted">{d.product ? `${d.company} · ${d.product}` : d.company} · {d.area}</span>
                   </span>
                   <Arrow className="hidden text-muted sm:inline-block" />
                 </Link>
@@ -45,11 +45,11 @@ export default function WorkPage() {
           </ul>
         </section>
 
-        <section aria-labelledby="lab" className="mt-20 rounded-2xl bg-dark p-6 text-panel sm:p-10 on-dark">
-          <Mono className="text-accent-soft/80">AI Lab</Mono>
+        <section aria-labelledby="lab" className="mt-20 border-t border-ink pt-8">
+          <Mono className="text-accent">AI Lab</Mono>
           <h2 id="lab" className="mt-4 font-serif text-4xl">{aiLab.headline}</h2>
-          <p className="mt-3 max-w-2xl text-panel/70">{aiLab.sub}</p>
-          <p className="mt-6"><MoreLink href="/ai-lab" tone="dark">Inside the AI Lab</MoreLink></p>
+          <p className="mt-3 max-w-2xl text-muted">{aiLab.sub}</p>
+          <p className="mt-6"><MoreLink href="/ai-lab">Inside the AI Lab</MoreLink></p>
         </section>
       </Container>
     </main>

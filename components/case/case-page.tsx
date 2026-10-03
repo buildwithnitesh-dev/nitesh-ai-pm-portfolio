@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
+import { StageMarker, kindOf } from "@/components/trace";
 import { Arrow, EvidenceTag, Mono } from "@/components/ui";
 import type { Case } from "@/content/cases";
 import { flagships } from "@/content/portfolio";
@@ -25,14 +26,14 @@ export function CasePage({ c }: { c: Case }) {
               <li aria-current="page" className="text-ink">{c.title}</li>
             </ol>
           </nav>
-          <p className="mt-12 text-lg tracking-tight text-accent sm:text-xl">{c.capability}</p>
+          <p className="mt-12 text-lg font-semibold text-accent sm:text-xl">{c.capability}</p>
           <h1 className="mt-4 max-w-5xl font-serif text-[2.9rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-6xl lg:text-7xl">{c.opening}</h1>
           <p className="mt-4 text-sm text-muted">{c.title} · {c.company} · {c.domain} · {c.role}</p>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
-          <div className={`mt-10 grid gap-8 rounded-2xl border border-line bg-panel p-6 sm:p-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
+          <div className={`mt-10 grid gap-8 border-y-2 border-ink py-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
             {c.headline.map((id) => <Delta key={id} id={id} size="md" layout={c.headline.length > 1 ? "stack" : "row"} />)}
           </div>
-          {c.scope ? <p className="mt-4 max-w-3xl text-xs leading-5 text-muted">{c.scope}</p> : null}
+          {c.scope ? <p className="mt-4 max-w-3xl text-[13px] leading-5 text-muted">{c.scope}</p> : null}
         </Container>
       </header>
 
@@ -42,7 +43,7 @@ export function CasePage({ c }: { c: Case }) {
           {c.stages.map((s, i) => (
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="scroll-mt-24">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
-                <Mono className="text-accent"><span className="text-subtle">{String(i + 1).padStart(2, "0")}</span>&nbsp;&nbsp;{s.label}</Mono>
+                <p className="inline-flex items-center gap-3 text-[15px] font-semibold text-ink"><StageMarker kind={kindOf(s.label)} /><span className="tabular-nums font-normal text-subtle">{String(i + 1).padStart(2, "0")}</span>{s.label}</p>
                 {s.reasoning ? <EvidenceTag kind="reasoning" /> : null}
               </div>
               <h2 id={`${s.id}-title`} className="mt-6 font-serif text-3xl leading-tight text-balance text-ink sm:text-[2.4rem]">{s.title}</h2>
@@ -53,16 +54,16 @@ export function CasePage({ c }: { c: Case }) {
         </div>
       </Container>
 
-      <nav aria-label="More work" className="on-dark border-t border-line bg-dark text-panel">
+      <nav aria-label="More work" className="border-t border-ink">
         <Container className="grid gap-10 py-16 lg:grid-cols-[1fr_auto] lg:items-end">
           <Link href={other.href} className="group block">
-            <Mono className="text-accent-soft/80">Next case · {other.company}</Mono>
-            <p className="mt-3 font-serif text-4xl leading-tight transition-colors group-hover:text-accent-soft sm:text-5xl">{other.headline} <Arrow /></p>
-            <p className="mt-2 text-base text-panel/70">{other.opening}</p>
+            <Mono className="text-accent">Next case · {other.company}</Mono>
+            <p className="mt-3 font-serif text-4xl leading-tight text-ink transition-colors group-hover:text-accent sm:text-5xl">{other.headline} <Arrow /></p>
+            <p className="mt-2 text-base text-muted">{other.opening}</p>
           </Link>
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-panel/70">
-            <Link href="/decisions" className="hover:text-panel">Decisions</Link>
-            <Link href="/work" className="hover:text-panel">All work</Link>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-muted">
+            <Link href="/decisions" className="inline-flex min-h-6 items-center hover:text-accent">Decisions</Link>
+            <Link href="/work" className="inline-flex min-h-6 items-center hover:text-accent">All work</Link>
           </div>
         </Container>
       </nav>

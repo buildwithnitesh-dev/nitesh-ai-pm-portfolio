@@ -18,7 +18,7 @@ export default function DecisionsPage() {
         <nav aria-label="Decisions" className="mt-10">
           <ol className="flex flex-wrap gap-2">
             {decisions.map((d) => (
-              <li key={d.id}><a href={`#${d.id}`} className="inline-flex items-center gap-2 rounded-full border border-line px-3 py-1.5 text-sm text-ink hover:border-ink"><Mono className="text-subtle">{d.code}</Mono>{d.product ?? d.company}</a></li>
+              <li key={d.id}><a href={`#${d.id}`} className="inline-flex items-center gap-2 rounded-md border border-line px-3 py-1.5 text-sm text-ink hover:border-ink"><Mono className="text-subtle">{d.code}</Mono>{d.product ?? d.company}</a></li>
             ))}
           </ol>
         </nav>
