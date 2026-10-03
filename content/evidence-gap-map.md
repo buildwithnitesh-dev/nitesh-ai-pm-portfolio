@@ -248,4 +248,10 @@ What was actually available in this project. "PRD (text)" means the content was 
 | ~60% support-cost avoidance | V | Modeled: avoided paid SME/faculty headcount against projected ticket-volume growth | MODELED | Always "modeled support-cost avoidance"; never a cost or budget reduction |
 | ~70% repetitive / pattern-matching doubts | V | Initial sample tagging of logged tickets and question-ID overlap; sample size not supplied | DIRECTIONAL (sample-derived) | Always "approximate, sample-derived"; never an automated classifier |
 | Stakeholder positions, options, RICE + unit economics, guardrails, 1,000-student pilot, 90% circuit-breaker with rollback | V | — | VERIFIED (as supplied) | Decision stages; AI described only as an option considered |
-| Role on this decision | V says "Product Manager at Edfora on myPAT" | R, M and C give Edfora as Senior Product Manager, Jul 2023 – Jul 2026 | **NEEDS_USER_INPUT** | Shown as supplied ("Product Manager · myPAT") until the title and timing are confirmed |
+| Role on this decision | Resolved by Nitesh (2026-10-03): myPAT is an Edfora product, not an employment context | Senior Product Manager · Edfora, Jul 2023 – Jul 2026 | VERIFIED | Role "Senior Product Manager"; product "myPAT · Doubt resolution" |
+
+---
+
+## 9. Edfora product hierarchy (resolved 2026-10-03)
+
+Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 2026). Products and systems worked on, as supplied: myPAT, Glorifire, Stakeholder, Glorifire Ops, Adaptive Practice / Adaptive Assignment, myAdvisor, myPlan. They appear as product context on decisions and in the Edfora role summary. No relationships between them are described beyond what was supplied (for example, the faculty dashboards in D-08 are not assigned to a product, and Adaptive Practice is not placed inside myPAT).
