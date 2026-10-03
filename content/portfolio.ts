@@ -58,7 +58,7 @@ export const nav = [
 /* Evidence: every number on the site, defined once.                           */
 /* -------------------------------------------------------------------------- */
 
-export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners";
+export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners" | "tat";
 
 export type Delta = {
   label: string;
@@ -123,6 +123,15 @@ export const deltas: Record<DeltaId, Delta> = {
     context: "Witzeal · bonus allocation",
     href: "/decisions#bonus-allocation",
   },
+  tat: {
+    label: "Median doubt-resolution time",
+    before: "~24 h", after: "<15 min",
+    method: "Measured · median, doubt created → first qualifying resolution",
+    definition: "Median timestamp delta between doubt_created and first_qualifying_resolution_event.",
+    detail: "Turnaround before the change approached 24 hours during peak exam preparation.",
+    context: "Edfora · myPAT doubt resolution",
+    href: "/decisions#doubt-resolution",
+  },
   learners: {
     label: "Learners reached",
     after: "100K+",
@@ -168,6 +177,7 @@ export const proofWall: readonly {
   href: string;
   weight: "headline" | "context";
 }[] = [
+  { capability: "Prioritization", value: "<15 min", claim: "median doubt-resolution time, down from ~24 hours, after choosing peer answers and step-wise hints with faculty escalation over a tutor marketplace, piloted behind a 90% accuracy circuit-breaker", basis: "Measured · median", context: "Edfora · myPAT", href: "/decisions#doubt-resolution", weight: "headline" },
   { capability: "Incentive economics", value: "~20%", claim: "less bonus and discount spend, with retention held, after moving from flat tiers to expected ROI per segment", basis: "Directional", context: "Witzeal Technologies", href: "/decisions#bonus-allocation", weight: "headline" },
   { capability: "Experimentation", claim: "A testing program run end to end, from hypothesis and sample size to significance. A fair number of tests came back inconclusive or negative, and those results reshaped how later tests were scoped", basis: "Practice, not a measured effect", context: "Baazi Games", href: "/decisions#experimentation", weight: "headline" },
   { capability: "Risk", value: "~18%", claim: "lower fraud losses after a rules-based anomaly-detection layer for fraudulent transactions", basis: "Method not captured", context: "Baazi Games", href: "/about#baazi", weight: "context" },
@@ -240,7 +250,7 @@ export const sunsetStory = {
 /* Decision library                                                            */
 /* -------------------------------------------------------------------------- */
 
-export type Verdict = "Shipped" | "Sunset" | "Program" | "System";
+export type Verdict = "Shipped" | "Sunset" | "Program" | "System" | "Pilot";
 
 export type Decision = {
   id: string;
@@ -265,8 +275,37 @@ export type Decision = {
 
 export const decisions: readonly Decision[] = [
   {
-    id: "bonus-allocation",
+    id: "doubt-resolution",
     code: "D-01",
+    title: "Reduce doubt-resolution friction without scaling human support linearly.",
+    company: "Edfora",
+    product: "myPAT",
+    area: "Prioritization",
+    role: "Product Manager · myPAT",
+    verdict: "Pilot",
+    featured: true,
+    stages: [
+      { term: "Signal", text: "During peak exam preparation, doubt-resolution turnaround for JEE aspirants approached 24 hours." },
+      { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
+      { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
+      { term: "Evidence", text: "Initial sample tagging of logged tickets, with question-ID overlap, suggested ~70% of doubts were repetitive or pattern-matching. An approximate, sample-derived figure, not an automated classifier." },
+      { term: "Decision", text: "Rejected the full human marketplace, using RICE and unit economics. The initial rollout combined structured step-wise hints, peer and community answers with verification and quality guardrails, and escalation of complex or unresolved doubts to SMEs and faculty." },
+      { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors; a cohort-gated pilot of 1,000 active JEE batch subscribers to limit the blast radius; and a hard 90% accuracy circuit-breaker, measured by manual SME sampling of resolved hints plus student satisfaction ratings, with an agreed rollback if it was breached." },
+      { term: "Trade-off", text: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through." },
+    ],
+    details: [
+      { term: "Options considered", items: ["A. AI automated doubt-resolver bot: not part of the initial rollout", "B. Tutor and faculty marketplace, on-demand live 1:1: rejected", "C. Peer community and step-wise hints, with escalation: chosen"] },
+    ],
+    delta: "tat",
+    results: [
+      { text: "D14 return rate ~18% higher than the holdout cohort", basis: "Pilot A/B holdout: instant-hint access vs. the standard response queue" },
+      { text: "~60% modeled support-cost avoidance", basis: "Modeled: avoided paid SME and faculty headcount against projected ticket-volume growth; not an observed budget reduction" },
+    ],
+    note: "D14 is reported as the controlled-cohort result, not attributed to any one component. AI was one option considered; no AI resolver shipped in this decision.",
+  },
+  {
+    id: "bonus-allocation",
+    code: "D-02",
     title: "Stop paying the same bonus to every player.",
     company: "Witzeal Technologies",
     area: "Monetization",
@@ -288,7 +327,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "fanblaze",
-    code: "D-02",
+    code: "D-03",
     title: "Sunset live scores. Build for pre-match intent.",
     company: "Baazi Games",
     product: "FanBlaze",
@@ -308,7 +347,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "experimentation",
-    code: "D-03",
+    code: "D-04",
     title: "Run experiments to reduce uncertainty, not to win.",
     company: "Baazi Games",
     area: "Experimentation",
@@ -324,7 +363,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "pokerbaazi-matchmaking",
-    code: "D-04",
+    code: "D-05",
     title: "Match new players to tables they can survive.",
     company: "Baazi Games",
     product: "PokerBaazi",
@@ -341,7 +380,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "testing-roadmap",
-    code: "D-05",
+    code: "D-06",
     title: "Replace one-off monetization bets with a testing roadmap.",
     company: "Witzeal Technologies",
     area: "Experimentation",
@@ -357,7 +396,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "segmented-journeys",
-    code: "D-06",
+    code: "D-07",
     title: "Stop designing one journey for every kind of player.",
     company: "Baazi Games",
     area: "Personalization",
@@ -372,7 +411,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "faculty-signals",
-    code: "D-07",
+    code: "D-08",
     title: "Turn a monthly spreadsheet into a signal a teacher can act on.",
     company: "Edfora",
     area: "Data product",
@@ -392,7 +431,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "gamification",
-    code: "D-08",
+    code: "D-09",
     title: "Make practice more engaging without making it look like a game.",
     company: "Edfora",
     area: "Engagement",
@@ -407,7 +446,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "behavioural-loops",
-    code: "D-09",
+    code: "D-10",
     title: "Designing behavioural loops across students and faculty.",
     company: "Edfora",
     product: "Glorifire",
@@ -422,11 +461,11 @@ export const decisions: readonly Decision[] = [
     details: [
       { term: "myPlan confirmation", items: ["System-generated myPlan information", "Faculty verification", "Correct / Incorrect feedback", "100 points for accurate feedback"] },
     ],
-    note: "Product-system evidence from the platform's screens, not an outcome. No engagement or accuracy result is attributed to this system; the DAU result in D-08 belongs to the quiz and gamification layer as reported.",
+    note: "Product-system evidence from the platform's screens, not an outcome. No engagement or accuracy result is attributed to this system; the DAU result in D-09 belongs to the quiz and gamification layer as reported.",
   },
   {
     id: "one-app",
-    code: "D-10",
+    code: "D-11",
     title: "Ship one app with three roles, not three apps.",
     company: "Direct Create",
     area: "Product and engineering",

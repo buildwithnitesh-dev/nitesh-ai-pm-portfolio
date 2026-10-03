@@ -9,6 +9,7 @@ fact only Nitesh has is marked **NEEDS_USER_INPUT**.
 - **M**: pre-rebuild site content on `main` at `66f8291` (`content/portfolio.ts`, `content/case-studies.ts`, `public/llms.txt`)
 - **C**: current canonical content (`content/portfolio.ts`, `content/cases.ts`, `content/ai-diagnostic.ts`)
 - **U**: evidence supplied by Nitesh on 2026-10-03, describing Edfora platform screens
+- **V**: evidence supplied by Nitesh on 2026-10-03 (second supply), the myPAT doubt-resolution decision
 
 **Classes:** VERIFIED (documented fact, no comparison involved) · CONTEXTUAL (scale or setting, not an outcome) · BEFORE_AFTER · EXPERIMENTAL (concurrent control) · DIRECTIONAL (direction documented, magnitude or method thin) · UNKNOWN (method or definition absent) · NEEDS_USER_INPUT
 
@@ -139,7 +140,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | Class | NEEDS_USER_INPUT (is "Growth & AI" part of the official title?) · **Treatment:** keep "Senior Product Manager" until confirmed. The site must not imply AI work at Edfora beyond the IRT engine, which is statistical. |
 |---|---|
 
-### 2.9 Edfora behavioural loops across students and faculty (decision D-09)
+### 2.9 Edfora behavioural loops across students and faculty (decision D-10)
 | Field | Value |
 |---|---|
 | Source | U |
@@ -166,7 +167,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | 3.10 | PokerBaazi: peak server latency <60 ms; lower D1 bankruptcy rate; net revenue kept growing alongside higher D30 retention | M, C | Latency is an operational figure. The others have no magnitude. | — | Latency VERIFIED; others DIRECTIONAL | Keep latency. Mark the others DIRECTIONAL. |
 | 3.11 | Edfora DAU ~12–15% ↑, session ~15% ↑ after a two-month plateau | R, M, C | Implied before/after; window not recorded | Quiz/gamification layer | DIRECTIONAL | Text with "before/after, window not recorded". |
 | 3.12 | Edfora student retention ~8–12% ↑ after real-time dashboards | R ("as a result"), M, C | Definition, method: not recorded | Dashboards (myAdvisor explicitly excluded) | UNKNOWN | Text only; keep the myAdvisor exclusion note. |
-| 3.13 | myAdvisor alert design (priorities, module-level, timing around the teacher's schedule) | M | Product documentation, no outcome | — | CONTEXTUAL | Can enrich D-07 as design depth; no outcome claimed. |
+| 3.13 | myAdvisor alert design (priorities, module-level, timing around the teacher's schedule) | M | Product documentation, no outcome | — | CONTEXTUAL | Can enrich D-08 as design depth; no outcome claimed. |
 | 3.14 | PwC: release process for a web app deployed to 150+ Fortune companies; 4 distributed teams; UX A/B tests lifted client engagement ~25%; introduced agile ceremonies | R, M, C | 25%: method not recorded | — | 150+ / 4 teams CONTEXTUAL; 25% UNKNOWN | Keep the scope; text-only for 25%. |
 | 3.15 | Direct Create: crash rate ~30% ↓; 4.6+ Play Store rating; 400+ maker shops, 100+ designers | R, M, C | Operational figures | Platform scale is context, not a result (C) | DIRECTIONAL / CONTEXTUAL | Keep as is. |
 
@@ -223,14 +224,28 @@ What was actually available in this project. "PRD (text)" means the content was 
 | Adaptive Practice PRD (3PL IRT) | PRD (text): θ per concept from historical performance; 3PL b/a/c; P(θ) selection near current ability; correct → harder, incorrect → easier; discrimination prioritizes comparable candidates; concept selection; full loop; inputs (raw student data, 3PL parameters, content IDs); edge cases (initial ability, missing parameters, same median P(θ)); code examples | A fixed sequence gives poor difficulty fit | Personalization; systems thinking; translating learning requirements into product logic | Flagship case 02 | The loop, selection rule, inputs and edge cases as specified | That it is an LLM or AI model; how initial ability is estimated; calibration method; learning outcomes | **A** |
 | Adaptive outcome 18% → 45% | User correction (supersedes "18–25%"); R | Completion on the static path vs after | Measuring a product change honestly | Case 02, hero-adjacent cards, share card | 18% → 45%, before/after, 2-year academic-cycle dataset, not attributed to the engine alone | Causality; mastery; significance | **A** |
 | Team and scope | User brief, M | — | Scope signal | Case 02 context | 1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads | APM as a direct report | **A** |
-| myAdvisor | Feature list from the original brief and M: high/medium alerts, module-level alerting, history, module/date filters, deep links, schedule-aware timing, unread handling | Signals arrive too late or too broadly for a teacher to act | Turning data into action; attention design | Decision D-07 | Documented design; dashboards' retention result is separate | Any usage or outcome for myAdvisor | **C** |
-| Real-time faculty dashboards | R, M | Monthly spreadsheet lag | Data product | D-07 | Retention ~8–12% after dashboards (method not captured) | Method, definition | **C** |
-| myPlan accuracy confirmation | U: system-generated myPlan → faculty verification → Correct/Incorrect → 100 points | Keeping a system's plan checked by a person | Behavioural feedback loop design | D-09 | The loop as described | AI impact; plan accuracy; participation rates | **C** |
-| Glorifire student platform | U: points, streaks, badges, avatars, Hall of Fame, leaderboards | Engagement mechanics for learners | Behavioural loops | D-09 | The system's components | Engagement or business outcome from screens alone | **C** |
-| Glorifire faculty/stakeholder platform | U: analytics, leaderboards, configurable behaviour-based actions | Faculty tooling around the same loop | Stakeholder tooling | D-09 | The components | Outcomes | **C** |
-| Quiz and gamification layer | R, M: teachers found prototypes "too game-y"; DAU ~12–15%, session ~15% | Engagement vs teacher credibility | Trade-off judgment | D-08 | The tension and the directional result | That D-08's result came from the D-09 system (relationship not recorded) | **C** |
+| myAdvisor | Feature list from the original brief and M: high/medium alerts, module-level alerting, history, module/date filters, deep links, schedule-aware timing, unread handling | Signals arrive too late or too broadly for a teacher to act | Turning data into action; attention design | Decision D-08 | Documented design; dashboards' retention result is separate | Any usage or outcome for myAdvisor | **C** |
+| Real-time faculty dashboards | R, M | Monthly spreadsheet lag | Data product | D-08 | Retention ~8–12% after dashboards (method not captured) | Method, definition | **C** |
+| myPlan accuracy confirmation | U: system-generated myPlan → faculty verification → Correct/Incorrect → 100 points | Keeping a system's plan checked by a person | Behavioural feedback loop design | D-10 | The loop as described | AI impact; plan accuracy; participation rates | **C** |
+| Glorifire student platform | U: points, streaks, badges, avatars, Hall of Fame, leaderboards | Engagement mechanics for learners | Behavioural loops | D-10 | The system's components | Engagement or business outcome from screens alone | **C** |
+| Glorifire faculty/stakeholder platform | U: analytics, leaderboards, configurable behaviour-based actions | Faculty tooling around the same loop | Stakeholder tooling | D-10 | The components | Outcomes | **C** |
+| Quiz and gamification layer | R, M: teachers found prototypes "too game-y"; DAU ~12–15%, session ~15% | Engagement vs teacher credibility | Trade-off judgment | D-09 | The tension and the directional result | That D-09's result came from the D-10 system (relationship not recorded) | **C** |
 | Assignment Reattempt | Never supplied in this session (Figma not accessible) | — | — | — | — | Anything | **NEEDS INPUT** (D until reviewed) |
 | Other product documentation areas (AI Chatbot, Alerts and Escalation, Analytics, Research, Product Planning, VOD Analytics, Author Platform, Content Improvement) | Names only, from the original brief | — | Breadth | — | — | Any detail; "AI Chatbot" is ambiguous and must not imply LLM work | **D** |
 | Interviews and usability tests → RICE roadmap; 5+ features | R, M | — | Prioritization practice | Case 02 context | The practice | Any specific finding or prioritization decision | **B** |
 
 **Decision on a second featured story:** Edfora personalization already is the second featured story (case 02), and the PRD supports it as a system story. The engagement evidence (myPlan loop, Glorifire, myAdvisor) is product-system design without outcomes, so it stays in the Decision Library rather than becoming another case.
+
+---
+
+## 8. myPAT doubt-resolution decision (D-01)
+
+| Claim | Source | Definition / method | Class | Treatment |
+|---|---|---|---|---|
+| Turnaround approached ~24 h at peak exam preparation | V | Pre-change condition | VERIFIED (as supplied) | Signal stage; "before" of the delta |
+| Median TAT <15 min | V | Median timestamp delta, `doubt_created` → `first_qualifying_resolution_event` | VERIFIED (measured) | Delta on D-01 and the homepage Prioritization proof row; always "median" |
+| D14 return rate ~18% higher than holdout | V | Pilot A/B holdout: instant-hint access vs. standard response queue | EXPERIMENTAL | Relative wording only (no percentage points); not attributed to one component; no significance claimed |
+| ~60% support-cost avoidance | V | Modeled: avoided paid SME/faculty headcount against projected ticket-volume growth | MODELED | Always "modeled support-cost avoidance"; never a cost or budget reduction |
+| ~70% repetitive / pattern-matching doubts | V | Initial sample tagging of logged tickets and question-ID overlap; sample size not supplied | DIRECTIONAL (sample-derived) | Always "approximate, sample-derived"; never an automated classifier |
+| Stakeholder positions, options, RICE + unit economics, guardrails, 1,000-student pilot, 90% circuit-breaker with rollback | V | — | VERIFIED (as supplied) | Decision stages; AI described only as an option considered |
+| Role on this decision | V says "Product Manager at Edfora on myPAT" | R, M and C give Edfora as Senior Product Manager, Jul 2023 – Jul 2026 | **NEEDS_USER_INPUT** | Shown as supplied ("Product Manager · myPAT") until the title and timing are confirmed |

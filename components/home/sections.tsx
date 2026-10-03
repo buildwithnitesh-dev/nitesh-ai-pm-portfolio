@@ -12,7 +12,7 @@ export function ProofWall() {
   return (
     <section id="proof" aria-labelledby="proof-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
       <Container>
-        <SectionHeader id="proof-title" index="02" label="Proof" title="Incentives, experiments and risk." intro="Three levers I've worked beyond the stories below, each with how it was measured." />
+        <SectionHeader id="proof-title" index="02" label="Proof" title="Prioritization, incentives, experiments and risk." intro="Four levers I've worked beyond the stories below, each with how it was measured." />
         <ol className="mt-12 border-t border-ink">
           {proofWall.map((p) => {
             const headline = p.weight === "headline";
