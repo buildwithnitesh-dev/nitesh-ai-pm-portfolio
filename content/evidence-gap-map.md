@@ -8,6 +8,7 @@ fact only Nitesh has is marked **NEEDS_USER_INPUT**.
 - **R**: résumé PDF (`public/Nitesh_Product_Manager_Resume.pdf`, frozen)
 - **M**: pre-rebuild site content on `main` at `66f8291` (`content/portfolio.ts`, `content/case-studies.ts`, `public/llms.txt`)
 - **C**: current canonical content (`content/portfolio.ts`, `content/cases.ts`, `content/ai-diagnostic.ts`)
+- **U**: evidence supplied by Nitesh on 2026-10-03, describing Edfora platform screens
 
 **Classes:** VERIFIED (documented fact, no comparison involved) · CONTEXTUAL (scale or setting, not an outcome) · BEFORE_AFTER · EXPERIMENTAL (concurrent control) · DIRECTIONAL (direction documented, magnitude or method thin) · UNKNOWN (method or definition absent) · NEEDS_USER_INPUT
 
@@ -138,6 +139,15 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | Class | NEEDS_USER_INPUT (is "Growth & AI" part of the official title?) · **Treatment:** keep "Senior Product Manager" until confirmed. The site must not imply AI work at Edfora beyond the IRT engine, which is statistical. |
 |---|---|
 
+### 2.9 Edfora behavioural loops across students and faculty (decision D-09)
+| Field | Value |
+|---|---|
+| Source | U |
+| What it is | Product-system evidence. Students: points, streaks, badges, avatars, Hall of Fame, leaderboards. Faculty: analytics, leaderboards, configurable behaviour-based actionable items. "Confirmation of myPlan Accuracy": system-generated myPlan information → faculty verification → Correct / Incorrect feedback → 100 points for accurate feedback. |
+| Outcome | None recorded for this system. The DAU ~12–15% result (3.11) belongs to the quiz and gamification layer as reported on the résumé; whether that layer is the same system isn't recorded. |
+| Class | VERIFIED (that the system exists, per U); no outcome |
+| Treatment | Shown as a "System" decision card framed as a behavioural feedback/reinforcement loop. No engagement or accuracy result attributed. myPlan is not described as AI, and is not linked to the 3PL IRT engine (the relationship isn't recorded). |
+
 ---
 
 ## 3. Decision library and role highlights
@@ -147,7 +157,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | 3.1 | Bonus & discount spend ~20% ↓, "retention held" | R ("Cut … 20%; retention held steady"), M, C | No window, no base, "held" undefined | Allocation change (flat tiers → expected ROI per segment) | DIRECTIONAL | Keep as text with a DIRECTIONAL tag. Remove the indexed 100→80 bar (false precision). State the objective (incremental NGR per rupee) and that **the NGR outcome was not measured in the record**. |
 | 3.2 | GMV ~10% WoW, sustained over 11 months | R ("Drove GMV growth to 10% week-over-week"), M (adds "11 months") | No base; window 11 months (M) | Not attributed to testing alone (M, C). R's "Drove" is stronger than M and C. | DIRECTIONAL | Demote from any number treatment; text only, with "no starting GMV recorded". Taken literally, 10% WoW over ~47 weeks compounds to ~88×; NEEDS_USER_INPUT (base, or whether it was a peak rate rather than a sustained average). |
 | 3.3 | 20+ A/B tests, end to end (hypothesis, sample size, significance) | R, M, C | Count | — | VERIFIED (self-reported count) | Keep. |
-| 3.4 | "Core funnel conversion up ~15% across the tests" | R ("together improved … 15%"), M, C | Aggregated across tests; method of aggregation not recorded | — | UNKNOWN | Demote to text: "reported as a combined ~15% lift; how individual test results were combined isn't recorded." |
+| 3.4 | "Core funnel conversion up ~15% across the tests" | R ("together improved … 15%"), M, C | Aggregated across tests; method of aggregation not recorded | — | UNKNOWN | Removed from results and role highlights; kept only as a note on D-03 ("reported as a combined lift … not claimed as a measured effect"). |
 | 3.5 | "A fair number came back inconclusive or negative" | R, M, C | — | — | VERIFIED (qualitative) | Keep; it is a seniority signal. |
 | 3.6 | Segmented journeys: session duration ~35% ↑, retention ~25% ↑ | R, M, C | Method, window, relative vs absolute: not recorded | Behavioral clustering redesign | UNKNOWN | Text only, with "method not recorded". |
 | 3.7 | Fraud losses ~18% ↓ (rules-based anomaly detection) | R ("protecting net revenue margin"), M, C | Base, window, false-positive rate: not recorded | — | UNKNOWN | Text only. Can be used as the fraud → loss → margin chain in words (R supports the margin link qualitatively). |
@@ -182,7 +192,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 |---|---|---|---|---|
 | 5.1 | Independent prototype, deterministic demo, no real users, no model results | M, C | VERIFIED | Keep, verbatim, wherever the build is shown. |
 | 5.2 | Rules/model/teacher split; six failure modes; six evaluation criteria; launch gate | M, C | VERIFIED (design artifacts) | Keep. Label each as DESIGNED. |
-| 5.3 | Model decision, prompts, RAG/context, output schema, evaluation dataset, latency and cost budgets, monitoring | — | Not built | Label PLANNED / NOT YET TESTED. Budget values: NEEDS_USER_INPUT. |
+| 5.3 | Model decision, prompts, RAG/context, evaluation dataset, latency and cost budgets, monitoring | — | Partly built | Status tags on the site: IMPLEMENTED (baseline, override, output schema, evaluation harness), DESIGNED, PLANNED (model decision, retrieval, monitoring, model-based diagnosis), NEEDS INPUT (educator label review, latency and cost budgets, API access). |
 | 5.4 | Any evaluation result | — | None exists | Never shown until a real run produces it. |
 | 5.5 | Edfora adaptive engine as "AI" | C | Correctly scoped: statistical (3PL IRT), not an LLM | Keep the existing professional-context note. |
 | 5.6 | Tools: "OpenAI API", "Prompt engineering" | R | CONTEXTUAL (listed skills, no artifact) | Do not surface as evidence. |

@@ -92,7 +92,7 @@ export function WorkStories({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3
         <li key={c.slug}>
           <article className={card}>
             <div className="flex flex-col">
-              <Mono className="text-accent">{c.index} · {c.capability}</Mono>
+              <p className="text-base text-accent"><span className="font-mono text-sm text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
               <H className="mt-4 font-serif text-[2.4rem] leading-[1.05] text-ink sm:text-5xl">
                 <Link href={c.href} className="stretched-link outline-none group-hover:text-accent">{c.headline}</Link>
               </H>
@@ -110,7 +110,7 @@ export function WorkStories({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3
       <li>
         <article className={card}>
           <div className="flex flex-col">
-            <Mono className="text-accent">{s.index} · {s.capability}</Mono>
+            <p className="text-base text-accent"><span className="font-mono text-sm text-subtle">{s.index}</span>&nbsp;&nbsp;{s.capability}</p>
             <H className="mt-4 font-serif text-[2.4rem] leading-[1.05] text-ink sm:text-5xl">
               <Link href={s.href} className="stretched-link outline-none group-hover:text-accent">{s.headline}</Link>
             </H>
@@ -121,13 +121,13 @@ export function WorkStories({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3
           </div>
           <div className="grid content-start gap-6 border-t border-line pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10">
             <div>
-              <Mono className="text-accent">Live scores · usage</Mono>
+              <p className="text-sm text-accent">Live scores, usage</p>
               <p className="mt-2 font-sans text-4xl font-semibold tracking-tight text-ink tabular-nums sm:text-[2.75rem]">{s.figure.value}</p>
               <p className="mt-2 text-sm leading-6 text-ink/85">{s.figure.label}</p>
               <p className="font-mono text-[11px] leading-5 tracking-[0.04em] text-muted">{s.figure.basis}</p>
             </div>
             <div className="border-t border-line pt-5">
-              <Mono className="text-muted">Opportunity cost</Mono>
+              <p className="text-sm text-muted">Opportunity cost</p>
               <p className="mt-2 text-sm leading-6 text-ink/85">{s.opportunity}</p>
             </div>
           </div>
@@ -140,7 +140,7 @@ export function WorkStories({ headingLevel = "h3" }: { headingLevel?: "h2" | "h3
 /** 05 · AI as a product system, with the build's honest status at a glance. */
 export function AiLabTeaser() {
   const build = aiLab.builds[0];
-  const order: BuildStatus[] = ["Implemented", "Designed", "Planned", "Not yet tested"];
+  const order: BuildStatus[] = ["Implemented", "Designed", "Planned", "Needs input"];
   return (
     <section id="ai" aria-labelledby="ai-title" className="on-dark scroll-mt-20 border-b border-line bg-dark py-16 text-panel lg:py-24">
       <Container>

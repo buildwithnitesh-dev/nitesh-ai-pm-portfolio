@@ -7,11 +7,11 @@
 export type Tldr = { problem: string; approach: string; outcome: string };
 
 /**
- * Build status, from strongest to weakest. Only "Implemented" exists as working
- * code; "Designed" is a written design; "Planned" is not designed in detail;
- * "Not yet tested" names what has never been run against a model.
+ * Build status. Only "Implemented" exists as working code; "Designed" is a
+ * written design; "Planned" is scoped, not designed in detail; "Needs input"
+ * waits on a decision, data or access that has to come from outside the build.
  */
-export type BuildStatus = "Implemented" | "Designed" | "Planned" | "Not yet tested";
+export type BuildStatus = "Implemented" | "Designed" | "Planned" | "Needs input";
 
 /** The build spec: every part of the product, with its honest status. */
 export const buildSpec: readonly { part: string; status: BuildStatus; text: string }[] = [
@@ -21,15 +21,17 @@ export const buildSpec: readonly { part: string; status: BuildStatus; text: stri
   { part: "Human override", status: "Implemented", text: "The teacher accepts or overrides every plan in the prototype. In production, each override would become an evaluation case." },
   { part: "Output schema", status: "Implemented", text: "A typed diagnosis: likely misconception or a decision to abstain, the evidence items it rests on, a confidence, an explanation and a next step." },
   { part: "Evaluation harness", status: "Implemented", text: "A runner that scores groundedness, consistency, calibration, accuracy, latency and token cost. It refuses to run without an API key and writes results only from real model calls." },
-  { part: "Evaluation cases", status: "Designed", text: "Synthetic cases authored for testing, not learner data. Their expected labels are drafts awaiting an educator's review." },
+  { part: "Evaluation cases", status: "Designed", text: "Ten synthetic cases authored for testing, not learner data. Expected labels are drafts." },
   { part: "Architecture", status: "Designed", text: "Learner signals, then retrieval from a curated skill map and practice bank, then a model for diagnosis and explanation, with deterministic scoring and a teacher override." },
   { part: "Failure taxonomy", status: "Designed", text: "Six failure modes, each with how it shows up, how it is caught and what the product does instead." },
   { part: "Launch gate", status: "Designed", text: "Ship only if it beats the rules baseline on the rubric, with no overconfident or discouraging outputs in the failure review." },
   { part: "Model decision", status: "Planned", text: "Not chosen. Candidates get compared on evaluation results, latency and cost, not on a demo." },
   { part: "Context and retrieval", status: "Planned", text: "Retrieval from a curated knowledge base, with every claim traceable to learner evidence." },
-  { part: "Latency and cost budgets", status: "Planned", text: "Targets set before model selection, per learner checkpoint." },
   { part: "Monitoring", status: "Planned", text: "Override rate and agreement with the teacher's own call, tracked per release." },
-  { part: "Model-based diagnosis", status: "Not yet tested", text: "No model has been evaluated. There are no accuracy, groundedness or calibration results." },
+  { part: "Model-based diagnosis", status: "Planned", text: "Not built. No model has been evaluated, so there are no accuracy, groundedness or calibration results." },
+  { part: "Educator label review", status: "Needs input", text: "An educator reviews every expected label before any accuracy is reported." },
+  { part: "Latency and cost budgets", status: "Needs input", text: "Targets per learner checkpoint, set before a model is chosen." },
+  { part: "API access", status: "Needs input", text: "An API key and budget. Without them the runner refuses to run." },
 ];
 
 /** What the evaluation measures, and whether the harness computes it today. */
@@ -40,7 +42,7 @@ export const evalMetrics: readonly { metric: string; how: string; status: BuildS
   { metric: "Consistency", how: "The same diagnosis across repeated runs of a case", status: "Implemented" },
   { metric: "Calibration", how: "Stated confidence against how often it is right", status: "Implemented" },
   { metric: "Latency and cost", how: "p50 and p95 per call; tokens recorded, priced once a budget is set", status: "Implemented" },
-  { metric: "Usefulness", how: "An educator rates the proposed next step", status: "Planned" },
+  { metric: "Usefulness", how: "An educator rates the proposed next step", status: "Needs input" },
 ];
 
 export const aiLearnerDiagnostic = {
@@ -48,12 +50,12 @@ export const aiLearnerDiagnostic = {
   title: "AI Learner Diagnostic",
   subtitle: "An independent prototype for diagnosing a learner’s skill gaps and proposing the next step, designed around what happens when the AI is unsure or wrong.",
   type: "Independent portfolio project",
-  status: "Independent prototype · rules-only baseline, no model evaluated yet",
+  status: "Independent prototype · deterministic baseline · no evaluation run",
   focus: ["AI product", "Evaluation", "Human oversight"],
   tldr: {
     problem: "Working out what a learner is missing and what they should do next is judgment-heavy work that teachers rarely have time to do for every student.",
     approach: "Split the job between rules, a model and the teacher; designed confidence, fallbacks and override into the UX; defined the evaluation and launch gate before any model work.",
-    outcome: "Built: a rules-only baseline, the teacher override, the output schema and an evaluation harness. Not yet tested: any model. No real users and no model results.",
+    outcome: "Built: a deterministic rules-only baseline, the teacher override, the output schema and an evaluation harness. No evaluation has been run, there are no real users and no model results.",
   } satisfies Tldr,
   sections: {
     rules: [

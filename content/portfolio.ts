@@ -88,7 +88,7 @@ export const deltas: Record<DeltaId, Delta> = {
   d0: {
     label: "D0 gameplay",
     before: "12%", after: "33%", from: 12, to: 33, max: 40,
-    method: "New users who played a game on day one",
+    method: "New users who played a game on day one · comparison not recorded",
     definition: "Share of new users who played a game on their first day.",
     detail: "12% is the documented baseline before the redesign. The record lists 33% among the rollout's results but doesn't say whether it was read against the concurrent control or as the level after launch, so it is shown as a change in level, not as a test result.",
     context: "Witzeal · onboarding redesign",
@@ -101,6 +101,7 @@ export const deltas: Record<DeltaId, Delta> = {
     definition: "Definition not recorded: the original experiment record doesn't capture the denominator.",
     detail: "Control (existing onboarding) against treatment (redesigned), concurrently. The treatment bundled five changes, one of them an incentive, so the lift belongs to the bundle. Statistical significance wasn't recorded.",
     context: "Witzeal · onboarding redesign",
+    note: "Bundle result · definition not recorded",
     href: "/work/onboarding-funnel-redesign#result",
   },
   completion: {
@@ -246,7 +247,7 @@ export const sunsetStory = {
 /* Decision library                                                            */
 /* -------------------------------------------------------------------------- */
 
-export type Verdict = "Shipped" | "Sunset" | "Program";
+export type Verdict = "Shipped" | "Sunset" | "Program" | "System";
 
 export type Decision = {
   id: string;
@@ -327,8 +328,8 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use those results to change how later tests were scoped, instead of treating them as failures." },
     ],
     delta: "experiments",
-    results: [{ text: "Core funnel conversion up ~15%, combined across the tests", basis: "How results were combined isn't recorded" }],
     learning: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
+    note: "The résumé reports a combined ~15% lift in core funnel conversion across these tests. How individual results were combined isn't recorded, so it isn't claimed as a measured effect.",
   },
   {
     id: "pokerbaazi-matchmaking",
@@ -410,8 +411,26 @@ export const decisions: readonly Decision[] = [
     results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "Directional" }],
   },
   {
-    id: "one-app",
+    id: "behavioural-loops",
     code: "D-09",
+    title: "Designing behavioural loops across students and faculty.",
+    company: "Edfora",
+    area: "Engagement system",
+    role: "Senior Product Manager",
+    verdict: "System",
+    stages: [
+      { term: "Students", text: "Points, streaks, badges, avatars, a Hall of Fame and leaderboards." },
+      { term: "Faculty", text: "Analytics, leaderboards and configurable, behaviour-based actionable items." },
+      { term: "Feedback loop", text: "The system generates a learner's myPlan. Faculty confirm whether it is correct or incorrect, and accurate feedback earns 100 points, so verification is reinforced as part of the loop." },
+    ],
+    details: [
+      { term: "myPlan confirmation", items: ["System-generated myPlan information", "Faculty verification", "Correct / Incorrect feedback", "100 points for accurate feedback"] },
+    ],
+    note: "Product-system evidence from the platform's screens, not an outcome. No engagement or accuracy result is attributed to this system; the DAU result in D-08 belongs to the quiz and gamification layer as reported.",
+  },
+  {
+    id: "one-app",
+    code: "D-10",
     title: "Ship one app with three roles, not three apps.",
     company: "Direct Create",
     area: "Product and engineering",
@@ -464,7 +483,7 @@ export const principles = [
 
 export const aiLab = {
   headline: "How I build AI products",
-  sub: "I treat AI as a product system, not a model demo. The lab shows what is built, what is designed and what hasn't been tested yet.",
+  sub: "Strong AI product judgment; production evidence in progress. No evaluation has been run.",
   spine: ["Problem", "AI role", "System", "Evaluation", "Failure modes", "Product metric"],
   principles: [
     ["Rules first, a model where it earns it", "Much of a learning product can run on deterministic logic. A model belongs where judgment is needed and a wrong answer is recoverable."],
@@ -478,8 +497,8 @@ export const aiLab = {
       slug: "learner-diagnostic",
       href: "/ai-lab/learner-diagnostic",
       title: "AI Learner Diagnostic",
-      status: "Independent prototype · rules-only baseline",
-      statusNote: "No real users and no model results. The baseline, the override and the evaluation harness are built; the model-based diagnosis is the next build and hasn't been tested.",
+      status: "Independent prototype · deterministic baseline",
+      statusNote: "A deterministic, rules-only prototype; not an LLM. The baseline, the override and the evaluation harness are built. No evaluation has been run, and there are no real users or model results.",
       spine: [
         { term: "Problem", text: "A teacher can't diagnose every learner's misconception by hand." },
         { term: "AI role", text: "Proposed: map a pattern of errors to a likely misconception and explain it. Scoring stays deterministic." },
@@ -544,7 +563,7 @@ export const roles: readonly Role[] = [
     location: "New Delhi",
     summary: "Experimentation, segmentation and risk across a multi-game platform: PokerBaazi, Lagai Khai and FanBlaze.",
     highlights: [
-      "20+ A/B tests end to end (hypothesis, sample size, significance): core funnel conversion up ~15%; a fair number came back inconclusive or negative and reshaped later scoping",
+      "20+ A/B tests end to end (hypothesis, sample size, significance); a fair number came back inconclusive or negative and reshaped later scoping",
       "Behavioral clustering replaced one default journey with journeys by segment: session duration up ~35%, retention up ~25%",
       "Rules-based anomaly detection for fraudulent transactions: fraud losses down ~18%",
     ],

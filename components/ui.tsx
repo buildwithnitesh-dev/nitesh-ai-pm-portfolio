@@ -87,7 +87,7 @@ export function MoreLink({ href, children, tone = "light" }: { href: string; chi
 /**
  * Build status, drawn so the four states never read as equivalent: a solid
  * mark for working code, an outline for a written design, a dashed outline
- * for plans, and a struck ring for what has never been run.
+ * for plans, and a struck ring for what waits on outside input.
  */
 export function StatusMark({ status, tone = "light" }: { status: BuildStatus; tone?: "light" | "dark" }) {
   const dark = tone === "dark";

@@ -6,13 +6,11 @@ import { aiLearnerDiagnostic, buildSpec, evalMetrics, type BuildStatus } from "@
 const toc = [
   { id: "status", label: "Build status" },
   { id: "baseline", label: "Baseline" },
-  { id: "rules-vs-model", label: "Rules vs. model" },
   { id: "failure-modes", label: "Failure modes" },
   { id: "evaluation", label: "Evaluation" },
-  { id: "launch", label: "Launch gate" },
 ] as const;
 
-const statusOrder: BuildStatus[] = ["Implemented", "Designed", "Planned", "Not yet tested"];
+const statusOrder: BuildStatus[] = ["Implemented", "Designed", "Planned", "Needs input"];
 
 export function AiLearnerDiagnosticPage() {
   const c = aiLearnerDiagnostic;
@@ -26,39 +24,36 @@ export function AiLearnerDiagnosticPage() {
         focus: c.focus,
         outcome: c.status,
         evidence: "prototype",
-        note: "Independent portfolio project, not shipped at any employer. The interactive demo is the rules-only baseline, not an LLM. No real-user adoption, model accuracy or production results are claimed.",
+        note: "Strong AI product judgment; production evidence in progress. No evaluation has been run. The interactive demo is a deterministic, rules-only baseline, not an LLM, and the evaluation cases are synthetic.",
       }}
       tldr={c.tldr}
       toc={toc}
     >
       <Chapter id="status" index={1} label="Build status">
-        <Prose eyebrow="Where the build stands" title="Built, designed, planned, untested." body={["Every part of the product, with an honest status. Only the first group is working code; the last has never been run."]} />
+        <Prose eyebrow="Where the build stands" title="Built, designed, planned, waiting on input." body={["Every part of the product, with an honest status. Only the first group is working code."]} />
         <BuildSpec />
+        <details className="group rounded-xl border border-line bg-panel">
+          <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-5 py-3 text-sm text-ink sm:px-7">
+            Who owns each job: rules, the model or the teacher
+            <span aria-hidden className="text-muted transition-transform group-open:rotate-45">+</span>
+          </summary>
+          <div className="border-t border-line"><RulesSplit /></div>
+        </details>
       </Chapter>
 
       <Chapter id="baseline" index={2} label="Baseline">
-        <Prose eyebrow="Rules-only baseline" title="The bar any model has to beat." body={["This demo runs on deterministic rules, not a model. Choose answers that ignore the learner signal and watch it react: confidence drops, the evidence shows why, and at low confidence it holds the learner's path instead of guessing."]} />
+        <Prose eyebrow="Deterministic baseline" title="The bar any model has to beat." body={["This demo runs on deterministic rules, not a model, and its output is not an AI result. Choose answers that ignore the learner signal: confidence drops, the evidence shows why, and at low confidence it holds the learner's path instead of guessing."]} />
         <DiagnosticDemo />
       </Chapter>
 
-      <Chapter id="rules-vs-model" index={3} label="Rules vs. model">
-        <Prose eyebrow="The first decision" title="Where rules win, and where a model earns its place." body={s.rules.slice(1)} />
-        <RulesSplit />
-      </Chapter>
-
-      <Chapter id="failure-modes" index={4} label="Failure modes">
+      <Chapter id="failure-modes" index={3} label="Failure modes">
         <Prose eyebrow="Failure modes" title="What happens when it's wrong." body={s.failure.slice(1)} />
         <FailureTable />
       </Chapter>
 
-      <Chapter id="evaluation" index={5} label="Evaluation">
-        <Prose eyebrow="Evaluation" title="The harness exists. The run doesn't, yet." body={["The schema, ten synthetic cases and a runner are in the repository. The runner refuses to run without an API key, has no default model, and writes results only from real model calls. Every expected label is a draft until an educator reviews it."]} />
+      <Chapter id="evaluation" index={4} label="Evaluation">
+        <Prose eyebrow="Evaluation" title="The harness exists. The run doesn't, yet." body={["The schema, ten synthetic cases and a runner are in the repository. The runner refuses to run without an API key, has no default model and writes results only from real model calls. Launch gate: ship only if it beats the rules baseline on these measures, with no overconfident or discouraging outputs."]} />
         <EvalMetrics />
-      </Chapter>
-
-      <Chapter id="launch" index={6} label="Launch gate">
-        <Prose eyebrow="Launch gate" title="A gate, not a date." body={s.launch.slice(1)} />
-        <LaunchGate />
       </Chapter>
     </CaseStudyShell>
   );
@@ -93,11 +88,7 @@ function BuildSpec() {
 function RulesSplit() {
   const rows = aiLearnerDiagnostic.split;
   return (
-    <div className="rounded-xl border border-line bg-panel">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4 sm:px-7">
-        <p className="text-sm font-medium text-ink">Proposed production split</p>
-        <EvidenceTag kind="reasoning" />
-      </div>
+    <div>
       <table className="hidden w-full text-left text-sm md:table">
         <caption className="sr-only">Which part of the system owns each job, and why</caption>
         <thead className="text-xs tracking-[0.12em] text-muted uppercase">
@@ -189,29 +180,7 @@ function EvalMetrics() {
           </li>
         ))}
       </ul>
-      <p className="flex items-center gap-2 border-t border-line px-5 py-4 text-xs leading-5 text-muted sm:px-7"><StatusMark status="Not yet tested" />No model has been run through it yet, so there are no results.</p>
-    </div>
-  );
-}
-
-function LaunchGate() {
-  const checks = [
-    "Quality thresholds met across representative evaluation cases, not a handful of demo prompts",
-    "No harmful or overconfident outputs in the failure-category review",
-    "Latency and cost viable at every learner checkpoint",
-    "Measurable improvement over a credible non-AI baseline",
-  ];
-  return (
-    <div className="rounded-xl border border-line bg-panel p-5 sm:p-7">
-      <p className="text-sm font-medium text-ink">Launch gate: all four must hold</p>
-      <ol className="mt-4 grid gap-3">
-        {checks.map((c, i) => (
-          <li key={c} className="flex gap-3 text-sm leading-6 text-ink">
-            <span aria-hidden className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded border border-line-strong font-mono text-[10px] text-muted">{i + 1}</span>
-            {c}
-          </li>
-        ))}
-      </ol>
+      <p className="border-t border-line px-5 py-4 text-xs leading-5 text-muted sm:px-7">No evaluation has been run, so there are no scores.</p>
     </div>
   );
 }

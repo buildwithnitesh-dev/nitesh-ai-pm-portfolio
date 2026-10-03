@@ -6,6 +6,7 @@ const verdictTone: Record<Verdict, string> = {
   Shipped: "border-accent/40 text-accent",
   Sunset: "border-ink/30 text-ink",
   Program: "border-line-strong text-muted",
+  System: "border-line-strong text-muted",
 };
 
 export function VerdictTag({ verdict }: { verdict: Verdict }) {

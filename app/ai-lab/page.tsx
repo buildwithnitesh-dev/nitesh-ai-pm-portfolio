@@ -8,14 +8,14 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/ai-lab",
   title: "AI Lab",
-  description: "How Nitesh Tiwari builds AI products: a rules-first baseline, evaluation designed before model work, and an honest status on every part of the build. Includes the AI Learner Diagnostic prototype; no model has been evaluated yet.",
+  description: "How Nitesh Tiwari builds AI products: a deterministic rules-first baseline, evaluation designed before model work, and an honest status on every part of the build. No evaluation has been run.",
 });
 
 const legend: { status: BuildStatus; meaning: string }[] = [
   { status: "Implemented", meaning: "Working code in the repository" },
   { status: "Designed", meaning: "A written design, not yet code" },
   { status: "Planned", meaning: "Scoped, not designed in detail" },
-  { status: "Not yet tested", meaning: "Never run against a model" },
+  { status: "Needs input", meaning: "Waits on a decision, data or access" },
 ];
 
 export default function AiLabPage() {

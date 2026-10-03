@@ -32,7 +32,7 @@ export function Hero() {
 
         {/* The result the thesis comes from, on the same dark surface as the share card. */}
         <aside aria-label="Proof" className="on-dark rounded-2xl bg-dark p-6 text-panel sm:p-8">
-          <p className="font-mono text-[11px] tracking-[0.14em] text-panel/55 uppercase">Where the thesis comes from</p>
+          <p className="text-sm text-panel/60">Where the thesis comes from</p>
           <div className="mt-6"><Delta id={hero.proof} size="md" tone="dark" link="/work/onboarding-funnel-redesign" /></div>
           <p className="mt-6 border-t border-white/10 pt-5 text-sm leading-6 text-panel/75">Only ~12% of new users played on day one. Five changes to the first 60 seconds, tested against a 30% control.</p>
         </aside>
