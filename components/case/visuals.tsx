@@ -21,9 +21,10 @@ export function StageVisual({ v }: { v: Visual }) {
       return (
         <ul className="grid border-t border-ink sm:grid-cols-2 sm:gap-x-10">
           {v.items.map((s) => (
-            <li key={s.label} className="border-b border-line py-6">
+            <li key={s.label} className="border-b border-line py-5">
               <p className="text-5xl font-bold tracking-[-0.035em] text-ink proportional-nums">{s.value}</p>
-              <p className="mt-2 text-sm leading-6 text-muted">{s.label}</p>
+              <p className="mt-2 text-sm leading-6 text-ink/85">{s.label}</p>
+              {s.basis ? <p className="mt-1 text-[13px] leading-5 text-muted">{s.basis}</p> : null}
             </li>
           ))}
         </ul>
@@ -59,15 +60,46 @@ export function StageVisual({ v }: { v: Visual }) {
         </dl>
       );
 
+    case "positions":
+      return (
+        <ol className="grid border-t border-ink md:grid-cols-3 md:gap-x-8">
+          {v.items.map((p) => (
+            <li key={p.who} className={`border-b border-line py-4 md:border-b-0 md:pt-4 ${p.proposed ? "md:border-t-2 md:border-t-accent md:-mt-px" : ""}`}>
+              <Mono className={p.proposed ? "text-accent" : "text-muted"}>{p.who}</Mono>
+              <p className="mt-1.5 font-serif text-xl leading-snug text-ink">{p.wanted}</p>
+              <p className="mt-1 text-sm leading-6 text-ink/80">{p.because}</p>
+            </li>
+          ))}
+        </ol>
+      );
+
+    case "tradeoffs":
+      return (
+        <ol className="grid border-t border-ink md:grid-cols-3 md:gap-x-8">
+          {v.items.map((t) => (
+            <li key={t.name} className={`border-b border-line py-4 md:border-b-0 ${t.chosen ? "md:border-t-2 md:border-t-accent md:-mt-px" : ""}`}>
+              <p className={`flex items-center gap-2 text-[15px] font-semibold ${t.chosen ? "text-accent" : "text-ink"}`}>
+                {t.chosen ? <span aria-hidden className="h-2 w-2 rotate-45 bg-accent" /> : null}{t.name}{t.chosen ? <span className="sr-only"> (chosen)</span> : null}
+              </p>
+              <ul className="mt-2 grid gap-1 text-sm leading-6">
+                {t.gains.map((g) => <li key={g} className="flex gap-2 text-ink"><span aria-hidden className="w-3 shrink-0 font-semibold text-accent">+</span><span className="sr-only">Gain: </span>{g}</li>)}
+                {t.costs.map((c) => <li key={c} className="flex gap-2 text-ink/75"><span aria-hidden className="w-3 shrink-0 font-semibold text-muted">−</span><span className="sr-only">Cost: </span>{c}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ol>
+      );
+
     case "options":
       return (
         <ol className="grid border-t border-ink">
           {v.items.map((o, i) => (
-            <li key={o.name} className={`grid gap-3 border-b border-line py-6 pl-5 md:grid-cols-[13rem_1fr_1fr] md:gap-8 ${o.chosen ? "border-l-2 border-l-accent" : "border-l-2 border-l-transparent"}`}>
+            <li key={o.name} className={`grid gap-3 border-b border-line py-5 pl-5 md:grid-cols-[13rem_1fr_1fr] md:gap-8 ${o.chosen ? "border-l-2 border-l-accent" : "border-l-2 border-l-transparent"}`}>
               <div>
                 <Mono className="text-subtle">Option {String.fromCharCode(65 + i)}</Mono>
                 <p className="mt-1 font-serif text-xl leading-snug text-ink">{o.name}</p>
                 {o.chosen ? <p className="mt-2 inline-flex items-center gap-1.5 font-medium text-[13px] text-accent"><span aria-hidden className="h-2 w-2 rotate-45 bg-accent" />Chosen</p> : null}
+                {!o.chosen && o.status ? <p className="mt-2 inline-flex items-center gap-1.5 font-medium text-[13px] text-muted"><span aria-hidden className="h-px w-3 bg-subtle" />{o.status}</p> : null}
               </div>
               <div><Mono className="text-muted">Works because</Mono><p className="mt-1 text-sm leading-6 text-ink/85">{o.works}</p></div>
               <div><Mono className={o.chosen ? "text-accent" : "text-muted"}>{o.chosen ? "Costs" : "Falls short because"}</Mono><p className="mt-1 text-sm leading-6 text-ink/85">{o.fails}</p></div>
@@ -173,8 +205,8 @@ export function StageVisual({ v }: { v: Visual }) {
 
     case "deltas":
       return (
-        <div className="border-y-2 border-ink py-8">
-          <div className="grid gap-8 divide-y divide-line [&>*+*]:pt-8">
+        <div className="border-y-2 border-ink py-6">
+          <div className="grid gap-6 divide-y divide-line [&>*+*]:pt-6">
             {v.ids.map((id, i) => <Delta key={id} id={id} size={i === 0 ? "lg" : "md"} explain />)}
           </div>
           {v.notes ? (
@@ -190,7 +222,7 @@ export function StageVisual({ v }: { v: Visual }) {
         <aside className="flex gap-4 border-l-2 border-accent bg-accent-soft px-6 py-5">
           <span aria-hidden className="mt-1 inline-block h-3 w-3 shrink-0 rounded-full border-[1.5px] border-accent bg-[linear-gradient(90deg,var(--accent)_50%,transparent_50%)]" />
           <div>
-            <Mono className="text-accent">Attribution note</Mono>
+            <Mono className="text-accent">{v.label ?? "Attribution note"}</Mono>
             <p className="mt-2 text-base leading-7 text-ink">{v.text}</p>
             {v.also ? <p className="mt-2 text-base leading-7 text-ink">{v.also}</p> : null}
           </div>
@@ -277,8 +309,8 @@ export function StageVisual({ v }: { v: Visual }) {
         <dl className="grid border-t border-ink">
           {v.rows.map((r) => (
             <div key={r.term} className="grid gap-1 border-b border-line py-3.5 sm:grid-cols-[9.5rem_1fr] sm:gap-6">
-              <dt><Mono className={r.term === "Chose" ? "text-accent" : "text-muted"}>{r.term}</Mono></dt>
-              <dd className={`text-sm leading-6 ${r.term === "Chose" ? "font-medium text-ink" : "text-ink/85"}`}>{r.text}</dd>
+              <dt><Mono className={r.strong ? "text-accent" : "text-muted"}>{r.term}</Mono></dt>
+              <dd className={`text-sm leading-6 ${r.strong ? "font-medium text-ink" : "text-ink/85"}`}>{r.text}</dd>
             </div>
           ))}
         </dl>

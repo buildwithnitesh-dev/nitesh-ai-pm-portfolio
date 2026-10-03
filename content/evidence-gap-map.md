@@ -255,3 +255,23 @@ What was actually available in this project. "PRD (text)" means the content was 
 ## 9. Edfora product hierarchy (resolved 2026-10-03)
 
 Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 2026). Products and systems worked on, as supplied: myPAT, Glorifire, Stakeholder, Glorifire Ops, Adaptive Practice / Adaptive Assignment, myAdvisor, myPlan. They appear as product context on decisions and in the Edfora role summary. No relationships between them are described beyond what was supplied (for example, the faculty dashboards in D-08 are not assigned to a product, and Adaptive Practice is not placed inside myPAT).
+
+---
+
+## 10. Phase A treatments (information architecture, 2026-10-04)
+
+What changed in how existing evidence is shown. No new facts were added; every line traces to sections 1–9 or to source V.
+
+| Item | Treatment |
+|---|---|
+| myPAT doubt resolution (V) | Promoted from decision D-01 to selected-work case 01 (`/work/doubt-resolution`). Stakeholder positions shown as supplied, with "Product / Growth" proposing the hybrid; no personal-persuasion claim. Gate shown as threshold, method and rollback; its measured accuracy is stated as not in the record. D14 always "relative to holdout"; ~60% always "modeled". Whether the median TAT covers the pilot only is stated as not recorded. AI resolver shown as "not shipped". D-01 stays in the library as a short snapshot linking to the case. |
+| FanBlaze (3.9) | Promoted to selected-work case 04 (`/work/fanblaze`). "Why it missed" is labelled as the reading of the usage data at the time, not a tested cause. No outcome is shown for the replacement features. |
+| Proof strip | D7 (EXPERIMENTAL), median TAT (VERIFIED), bonus ~20% (DIRECTIONAL, "retention held · window not recorded") and fraud ~18% (UNKNOWN, "method not recorded"), each with its method label. GMV is not in it. |
+| GMV ~10% WoW (3.2) | Removed from role highlights. Kept only in D-06 as directional text, without "11 months" (not on R), with "no starting GMV recorded" and "whether ~10% was a sustained weekly average isn't recorded". |
+| Lifecycle 48% (3.8) | Removed from the site; the lifecycle change is described without the figure. |
+| Student retention ~8–12% (3.12) | Removed from the site; D-08's note says the figure is on the résumé without a recorded definition or method. |
+| "Practice drop-offs also reduced" (2.2) | Removed (no magnitude). |
+| PokerBaazi D1 bankruptcy, net revenue (3.10) | Removed. Latency kept, labelled as an operating constraint. |
+| Tools "OpenAI API", "Prompt engineering" (5.6) | Removed from the site's tool list. |
+| D0 (1.2) | Labelled everywhere as "change in level · comparison type not recorded"; Witzeal's headline outcome is D7. |
+| Segmented journeys, PwC 25% (3.6, 3.14) | Kept as text with "method not recorded". |

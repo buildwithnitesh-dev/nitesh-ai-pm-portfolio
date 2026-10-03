@@ -4,7 +4,8 @@
  *
  * Evidence rules: numbers keep the precision they were reported with (ranges
  * stay ranges, "~" stays "~"), each one says how it was measured, and any
- * attribution caveat travels with the number wherever it is shown.
+ * attribution caveat travels with the number wherever it is shown. Sources and
+ * classes for every claim: content/evidence-gap-map.md.
  */
 
 export const profile = {
@@ -12,6 +13,7 @@ export const profile = {
   firstName: "Nitesh",
   role: "Senior Product Manager",
   positioning: "Growth × Consumer × AI",
+  thesis: "Retention is won before the retention metric.",
   experience: "~7 years product management · 10+ years technology",
   location: "Delhi NCR · open to Mumbai",
   /** For structured data (knowsAbout). */
@@ -19,11 +21,12 @@ export const profile = {
     "Growth", "Monetization", "Personalization", "Product Strategy", "Experimentation",
     "Consumer Products", "AI Products", "Retention", "Product Analytics",
   ] as const,
-  /** Exactly the tools listed on the résumé. */
-  tools: [
-    "Mixpanel", "CleverTap", "GA4", "Firebase", "Jira", "Figma",
-    "Postman", "Notion", "Miro", "OpenAI API", "Prompt engineering",
-  ] as const,
+  /**
+   * Analytics and product tools from the résumé. "OpenAI API" and "Prompt
+   * engineering" are listed there too but have no supporting artifact
+   * (evidence map 5.6), so they are not shown on the site.
+   */
+  tools: ["Mixpanel", "CleverTap", "GA4", "Firebase", "Jira", "Figma", "Postman", "Notion", "Miro"] as const,
 };
 
 export const contact = {
@@ -37,7 +40,7 @@ export const contact = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager · Growth, Consumer & AI`,
   description:
-    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% in a controlled rollout, adaptive learning at Edfora, and an independent AI prototype.",
+    "Senior Product Manager · Growth × Consumer × AI. Doubt-resolution median turnaround ~24 h → <15 min at Edfora, Day-7 retention 12.2% → 25.4% in a controlled rollout at Witzeal, adaptive learning, and a feature sunset on usage evidence.",
   /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
   share: {
     title: "Nitesh Tiwari · Senior Product Manager · Growth × Consumer × AI",
@@ -58,7 +61,7 @@ export const nav = [
 /* Evidence: every number on the site, defined once.                           */
 /* -------------------------------------------------------------------------- */
 
-export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners" | "tat";
+export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners" | "tat" | "d14" | "supportCost" | "fraud" | "fanblaze";
 
 export type Delta = {
   label: string;
@@ -85,14 +88,34 @@ export type Delta = {
 };
 
 export const deltas: Record<DeltaId, Delta> = {
-  d0: {
-    label: "D0 gameplay",
-    before: "12%", after: "33%", from: 12, to: 33, max: 40,
-    method: "New users who played a game on day one · comparison not recorded",
-    definition: "Share of new users who played a game on their first day.",
-    detail: "12% is the documented baseline before the redesign. The record lists 33% among the rollout's results but doesn't say whether it was read against the concurrent control or as the level after launch, so it is shown as a change in level, not as a test result.",
-    context: "Witzeal · onboarding redesign",
-    href: "/work/onboarding-funnel-redesign#result",
+  tat: {
+    label: "Median doubt-resolution time",
+    before: "~24 h", after: "<15 min",
+    method: "Measured · median, doubt created → first qualifying resolution",
+    definition: "Median timestamp delta between doubt_created and first_qualifying_resolution_event.",
+    detail: "Turnaround before the change approached 24 hours during peak exam preparation. The record doesn't say whether the median covers the 1,000-student pilot only or a wider rollout.",
+    context: "Edfora · myPAT doubt resolution",
+    href: "/work/doubt-resolution#outcome",
+  },
+  d14: {
+    label: "D14 return rate vs. holdout",
+    after: "~18% higher",
+    method: "Pilot A/B holdout · relative difference, not percentage points",
+    definition: "Day-14 return rate of pilot students with instant-hint access, against a holdout on the standard response queue.",
+    detail: "Reported as the controlled-cohort result for the hybrid model as a whole; it isn't attributed to any one component, and no statistical significance is claimed.",
+    context: "Edfora · myPAT pilot",
+    note: "Relative to holdout · not attributed to one component",
+    href: "/work/doubt-resolution#outcome",
+  },
+  supportCost: {
+    label: "Support-cost avoidance",
+    after: "~60%",
+    method: "Modeled · not an observed saving",
+    definition: "Avoided paid SME and faculty headcount, modeled against projected ticket-volume growth.",
+    detail: "A projection used in the decision, not a measured cost or budget reduction.",
+    context: "Edfora · myPAT doubt resolution",
+    note: "Modeled, not an observed cost reduction",
+    href: "/work/doubt-resolution#outcome",
   },
   d7: {
     label: "Day-7 retention",
@@ -101,8 +124,17 @@ export const deltas: Record<DeltaId, Delta> = {
     definition: "Definition not recorded: the original experiment record doesn't capture the denominator.",
     detail: "Control (existing onboarding) against treatment (redesigned), concurrently. The treatment bundled five changes, one of them an incentive, so the lift belongs to the bundle. Statistical significance wasn't recorded.",
     context: "Witzeal · onboarding redesign",
-    note: "Bundle result · definition not recorded",
-    href: "/work/onboarding-funnel-redesign#result",
+    note: "Five changes bundled · no single change isolated",
+    href: "/work/onboarding-funnel-redesign#outcome",
+  },
+  d0: {
+    label: "D0 gameplay",
+    before: "12%", after: "33%", from: 12, to: 33, max: 40,
+    method: "Change in level · comparison type not recorded",
+    definition: "Share of new users who played a game on their first day.",
+    detail: "12% is the documented baseline before the redesign. The record lists 33% among the rollout's results but doesn't say whether it was read against the concurrent control or as the level after launch, so it is shown as a change in level, not as a test result.",
+    context: "Witzeal · onboarding redesign",
+    href: "/work/onboarding-funnel-redesign#outcome",
   },
   completion: {
     label: "Assignment completion",
@@ -112,7 +144,7 @@ export const deltas: Record<DeltaId, Delta> = {
     detail: "The static learning path before, the adaptive system after; no holdout. Concurrent product changes aren't on record. Completion was the measured outcome; learning mastery was not captured in this analysis.",
     context: "Edfora · adaptive assignments",
     note: "Not attributed to the adaptive system alone",
-    href: "/work/adaptive-assignment-engine#result",
+    href: "/work/adaptive-assignment-engine#outcome",
   },
   bonus: {
     label: "Bonus & discount spend",
@@ -121,16 +153,25 @@ export const deltas: Record<DeltaId, Delta> = {
     definition: "Bonus and discount spend after allocation moved from flat tiers to expected ROI per segment.",
     detail: "No time window or baseline is recorded. The objective was incremental NGR per rupee of bonus spend; the NGR outcome wasn't captured, so the result is reported as spend and retention.",
     context: "Witzeal · bonus allocation",
+    note: "Retention held steady · window not recorded",
     href: "/decisions#bonus-allocation",
   },
-  tat: {
-    label: "Median doubt-resolution time",
-    before: "~24 h", after: "<15 min",
-    method: "Measured · median, doubt created → first qualifying resolution",
-    definition: "Median timestamp delta between doubt_created and first_qualifying_resolution_event.",
-    detail: "Turnaround before the change approached 24 hours during peak exam preparation.",
-    context: "Edfora · myPAT doubt resolution",
-    href: "/decisions#doubt-resolution",
+  fraud: {
+    label: "Fraud losses",
+    after: "~18% ↓",
+    method: "Method not recorded · rules-based anomaly detection",
+    definition: "Fraud losses after a rules-based anomaly-detection layer for fraudulent transactions.",
+    detail: "Base, window and false-positive rate are not recorded.",
+    context: "Baazi Games",
+    href: "/about#baazi",
+  },
+  fanblaze: {
+    label: "Match-day users who used live scores",
+    after: "<6%",
+    method: "Observed after launch · usage, not a test",
+    definition: "Share of active match-day users who used the in-app live-score module.",
+    context: "Baazi Games · FanBlaze",
+    href: "/work/fanblaze#signal",
   },
   learners: {
     label: "Learners reached",
@@ -152,106 +193,159 @@ export const retentionHeadline = { before: 12.2, after: 25.4, label: "Day-7 rete
 
 export const hero = {
   role: profile.role,
-  headline: "Retention is won before the retention metric.",
+  headline: profile.thesis,
   positioning: profile.positioning,
   lede: "I find where users drop before they reach value, diagnose why, and fix the product before reaching for incentives — with an engineer's view of how it gets built.",
-  /** The one result the hero carries; every other number has its own home further down. */
-  proof: "d7" as const satisfies DeltaId,
 };
 
-/** The share card keeps its three proof points (app/opengraph-image.tsx). */
+/** The share card keeps its proof points (app/opengraph-image.tsx). */
 export const shareProof = ["d7", "completion"] as const satisfies readonly DeltaId[];
 
-/**
- * Proof beyond the three stories: one capability, one number, how it was
- * measured. `weight: "context"` keeps a thinly documented number visible
- * without letting it carry a headline.
- */
-export const proofWall: readonly {
-  capability: string;
-  /** A headline figure, when the evidence supports one. */
-  value?: string;
-  claim: string;
-  basis: string;
-  context: string;
-  href: string;
-  weight: "headline" | "context";
-}[] = [
-  { capability: "Prioritization", value: "<15 min", claim: "median doubt-resolution time, down from ~24 hours, after choosing peer answers and step-wise hints with faculty escalation over a tutor marketplace, piloted behind a 90% accuracy circuit-breaker", basis: "Measured · median", context: "Edfora · myPAT", href: "/decisions#doubt-resolution", weight: "headline" },
-  { capability: "Incentive economics", value: "~20%", claim: "less bonus and discount spend, with retention held, after moving from flat tiers to expected ROI per segment", basis: "Directional", context: "Witzeal Technologies", href: "/decisions#bonus-allocation", weight: "headline" },
-  { capability: "Experimentation", claim: "A testing program run end to end, from hypothesis and sample size to significance. A fair number of tests came back inconclusive or negative, and those results reshaped how later tests were scoped", basis: "Practice, not a measured effect", context: "Baazi Games", href: "/decisions#experimentation", weight: "headline" },
-  { capability: "Risk", value: "~18%", claim: "lower fraud losses after a rules-based anomaly-detection layer for fraudulent transactions", basis: "Method not captured", context: "Baazi Games", href: "/about#baazi", weight: "context" },
+/** The four strongest defensible results, directly under the hero. Each keeps its method label. */
+export const proof: readonly { id: DeltaId; capability: string }[] = [
+  { id: "d7", capability: "Retention" },
+  { id: "tat", capability: "Prioritization" },
+  { id: "bonus", capability: "Incentive economics" },
+  { id: "fraud", capability: "Risk" },
 ];
 
-/** Built → Shipped → Measured → Grew → Personalized → AI: what each phase taught, and the proof. */
-export const arc = [
-  { verb: "Built", field: "Android engineering", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
-  { verb: "Shipped", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Release process for a web app deployed to 150+ Fortune companies, across four distributed teams." },
-  { verb: "Measured", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
-  { verb: "Grew", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
-  { verb: "Personalized", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "A 3PL IRT adaptive engine in a product line that reached 100K+ learners." },
-  { verb: "AI", field: "Current direction", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
-] as const;
-
 /* -------------------------------------------------------------------------- */
-/* Flagship cases (index; the stories live in content/cases.ts)                */
+/* Selected work: ordered by hiring-manager signal, not chronology              */
 /* -------------------------------------------------------------------------- */
 
-export const flagships = [
+export type CaseSlug = "doubt-resolution" | "onboarding-funnel-redesign" | "adaptive-assignment-engine" | "fanblaze";
+
+export const work: readonly {
+  index: string;
+  slug: CaseSlug;
+  href: string;
+  /** The case's short name, used in navigation. */
+  short: string;
+  headline: string;
+  /** What the case shows a hiring manager. */
+  positioning: readonly string[];
+  company: string;
+  product?: string;
+  domain: string;
+  role: string;
+  signal: string;
+  decision: string;
+  /** The measured outcome, drawn from the evidence model. */
+  delta: DeltaId;
+}[] = [
   {
     index: "01",
-    slug: "onboarding-funnel-redesign",
-    href: "/work/onboarding-funnel-redesign",
-    capability: "Activation",
-    headline: "Fixing the path to first value",
-    company: "Witzeal Technologies",
-    domain: "Real-money gaming",
-    role: "Product Manager · 2022–2023",
-    title: "Onboarding Funnel Redesign",
-    opening: "Only ~12% of new users played on day one.",
-    summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control, and a clear account of what the test could and couldn't isolate.",
-    /** The decision, in a sentence already used in the case. */
-    decision: "Five changes to the first 60 seconds, tested against a 30% control.",
-    delta: "d0" as DeltaId,
+    slug: "doubt-resolution",
+    href: "/work/doubt-resolution",
+    short: "Doubt Resolution",
+    headline: "Faster doubt resolution without scaling faculty linearly",
+    positioning: ["Senior PM", "Strategy", "Consumer", "AI judgment"],
+    company: "Edfora",
+    product: "myPAT",
+    domain: "EdTech",
+    role: "Senior Product Manager · 2023–2026",
+    signal: "Doubt-resolution turnaround approached 24 hours during peak exam preparation.",
+    decision: "A hybrid of step-wise hints, verified peer answers and SME escalation, over an AI-first resolver and a tutor marketplace. Piloted with 1,000 students behind a 90% accuracy gate.",
+    delta: "tat",
   },
   {
     index: "02",
+    slug: "onboarding-funnel-redesign",
+    href: "/work/onboarding-funnel-redesign",
+    short: "Witzeal Onboarding",
+    headline: "Fixing the path to first value",
+    positioning: ["Growth", "Activation", "Retention", "Experimentation"],
+    company: "Witzeal Technologies",
+    domain: "Real-money gaming",
+    role: "Product Manager · 2022–2023",
+    signal: "Only ~12% of new users played on day one.",
+    decision: "Five changes to the first 60 seconds, tested against a 30% control.",
+    delta: "d7",
+  },
+  {
+    index: "03",
     slug: "adaptive-assignment-engine",
     href: "/work/adaptive-assignment-engine",
-    capability: "Personalization",
-    headline: "Personalizing the learning path",
+    short: "Adaptive Practice",
+    headline: "Matching each question to the learner",
+    positioning: ["Personalization", "Product logic", "Technical depth"],
     company: "Edfora",
+    product: "Adaptive Practice",
     domain: "EdTech",
     role: "Senior Product Manager · 2023–2026",
-    title: "Adaptive Assignment Engine",
-    opening: "Every learner was getting the same next question.",
-    summary: "Three ways to fix difficulty fit, one chosen: a 3PL IRT engine that estimates each learner's ability and matches the question to it.",
-    decision: "A 3PL IRT engine that estimates each learner's ability and matches the question to it.",
-    delta: "completion" as DeltaId,
+    signal: "Every learner got the same next question; completion stood at 18%.",
+    decision: "A 3PL IRT engine that estimates each learner's ability and matches question difficulty to it.",
+    delta: "completion",
   },
-] as const;
-
-export type CaseSlug = (typeof flagships)[number]["slug"];
-
-/** The third homepage story: not another metric, but a decision to stop. */
-export const sunsetStory = {
-  index: "03",
-  capability: "Product judgment",
-  headline: "Sunsetting a feature on usage evidence",
-  company: "Baazi Games",
-  product: "FanBlaze",
-  domain: "Fantasy sports",
-  role: "Product Manager · 2019–2022",
-  opening: "Fewer than 6% of match-day users used live scores.",
-  summary: "Live scores were built to cut context switching and lift contest joins. Usage said fantasy intent was pre-match. The feature was sunset, and the effort moved to what users came for.",
-  href: "/decisions#fanblaze",
-  decision: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats.",
-  figure: { value: "<6%", label: "of active match-day users used it", basis: "Observed after launch" },
-  opportunity: "Effort moved to starting-XI notifications, injury alerts and head-to-head stats.",
-};
+  {
+    index: "04",
+    slug: "fanblaze",
+    href: "/work/fanblaze",
+    short: "FanBlaze",
+    headline: "Killing a weak bet on usage evidence",
+    positioning: ["Product judgment", "Killing weak bets"],
+    company: "Baazi Games",
+    product: "FanBlaze",
+    domain: "Fantasy sports",
+    role: "Product Manager · 2019–2022",
+    signal: "Fewer than 6% of active match-day users used live scores.",
+    decision: "Sunset the feature and move the effort to pre-match intent: starting-XI notifications, injury alerts, head-to-head stats.",
+    delta: "fanblaze",
+  },
+];
 
 /* -------------------------------------------------------------------------- */
-/* Decision library                                                            */
+/* Same PM. Different domains.                                                 */
+/* -------------------------------------------------------------------------- */
+
+export type DomainEvidence = { text: string; href: string };
+
+/** One capability, applied in gaming and in EdTech. Every cell points at evidence already on the site. */
+export const domainMap: readonly { capability: string; gaming: DomainEvidence; edtech: DomainEvidence }[] = [
+  {
+    capability: "Activation",
+    gaming: { text: "Read a ~12% Day-7 number as an activation problem; D0 gameplay 12% → 33%", href: "/work/onboarding-funnel-redesign#problem" },
+    edtech: { text: "Time to a first answer for a stuck learner: median ~24 h → <15 min", href: "/work/doubt-resolution#outcome" },
+  },
+  {
+    capability: "Retention",
+    gaming: { text: "Day-7 retention 12.2% → 25.4%, control vs. treatment", href: "/work/onboarding-funnel-redesign#outcome" },
+    edtech: { text: "D14 return rate ~18% higher than holdout (relative)", href: "/work/doubt-resolution#outcome" },
+  },
+  {
+    capability: "Experimentation",
+    gaming: { text: "20+ A/B tests end to end; a 30/70 controlled rollout", href: "/decisions#experimentation" },
+    edtech: { text: "A cohort-gated 1,000-student pilot with a holdout", href: "/work/doubt-resolution#pilot" },
+  },
+  {
+    capability: "Segmentation",
+    gaming: { text: "Behavioral clustering into journeys by player segment", href: "/decisions#segmented-journeys" },
+    edtech: { text: "Ability (θ) estimated per learner, per concept", href: "/work/adaptive-assignment-engine#decision" },
+  },
+  {
+    capability: "Incentive economics",
+    gaming: { text: "Bonuses by expected ROI per segment: spend ~20% ↓, retention held", href: "/decisions#bonus-allocation" },
+    edtech: { text: "Points for accurate faculty feedback on myPlan (design; no outcome claimed)", href: "/decisions#behavioural-loops" },
+  },
+  {
+    capability: "Risk & quality",
+    gaming: { text: "Rules-based fraud detection: losses ~18% ↓ (method not recorded)", href: "/about#baazi" },
+    edtech: { text: "A 90% accuracy circuit-breaker with an agreed rollback", href: "/work/doubt-resolution#pilot" },
+  },
+  {
+    capability: "Funnel optimization",
+    gaming: { text: "Traced the drop to signup and OTP friction before the first game", href: "/work/onboarding-funnel-redesign#problem" },
+    edtech: { text: "Assignment completion 18% → 45% (before/after)", href: "/work/adaptive-assignment-engine#outcome" },
+  },
+  {
+    capability: "Behavioral engagement",
+    gaming: { text: "Live scores sunset at <6% usage; effort moved to pre-match intent", href: "/work/fanblaze" },
+    edtech: { text: "Gamification kept credible to teachers: DAU ~12–15% ↑ (directional)", href: "/decisions#gamification" },
+  },
+];
+
+/* -------------------------------------------------------------------------- */
+/* Decision library: short product-judgment snapshots                           */
 /* -------------------------------------------------------------------------- */
 
 export type Verdict = "Shipped" | "Sunset" | "Program" | "System" | "Pilot";
@@ -265,8 +359,12 @@ export type Decision = {
   area: string;
   role: string;
   verdict: Verdict;
-  /** Shown on the homepage. */
+  /** Shown on the homepage as a signal → decision → outcome snapshot. */
   featured?: boolean;
+  /** The one-line outcome for the homepage snapshot. */
+  outcome?: string;
+  /** When the decision has a full case study. */
+  caseHref?: string;
   /** Ordered stages; the grammar is shared across every card. */
   stages: readonly { term: string; text: string }[];
   /** Evidence: a Delta, or plain documented results, each with how it was measured where that is short. */
@@ -287,25 +385,15 @@ export const decisions: readonly Decision[] = [
     area: "Prioritization",
     role: "Senior Product Manager",
     verdict: "Pilot",
-    featured: true,
+    caseHref: "/work/doubt-resolution",
     stages: [
-      { term: "Signal", text: "During peak exam preparation, doubt-resolution turnaround for JEE aspirants approached 24 hours." },
-      { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
-      { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
-      { term: "Evidence", text: "Initial sample tagging of logged tickets, with question-ID overlap, suggested ~70% of doubts were repetitive or pattern-matching. An approximate, sample-derived figure, not an automated classifier." },
-      { term: "Decision", text: "Rejected the full human marketplace, using RICE and unit economics. The initial rollout combined structured step-wise hints, peer and community answers with verification and quality guardrails, and escalation of complex or unresolved doubts to SMEs and faculty." },
-      { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors; a cohort-gated pilot of 1,000 active JEE batch subscribers to limit the blast radius; and a hard 90% accuracy circuit-breaker, measured by manual SME sampling of resolved hints plus student satisfaction ratings, with an agreed rollback if it was breached." },
-      { term: "Trade-off", text: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through." },
-    ],
-    details: [
-      { term: "Options considered", items: ["A. AI automated doubt-resolver bot: not part of the initial rollout", "B. Tutor and faculty marketplace, on-demand live 1:1: rejected", "C. Peer community and step-wise hints, with escalation: chosen"] },
+      { term: "Signal", text: "During peak exam preparation, doubt-resolution turnaround approached 24 hours." },
+      { term: "Decision", text: "A hybrid: structured step-wise hints, peer answers with verification, and escalation to SMEs and faculty, chosen with RICE and unit economics over an AI-first resolver and a tutor marketplace." },
+      { term: "Guardrails", text: "A cohort-gated pilot of 1,000 students and a hard 90% accuracy circuit-breaker, with an agreed rollback." },
     ],
     delta: "tat",
-    results: [
-      { text: "D14 return rate ~18% higher than the holdout cohort", basis: "Pilot A/B holdout: instant-hint access vs. the standard response queue" },
-      { text: "~60% modeled support-cost avoidance", basis: "Modeled: avoided paid SME and faculty headcount against projected ticket-volume growth; not an observed budget reduction" },
-    ],
-    note: "D14 is reported as the controlled-cohort result, not attributed to any one component. AI was one option considered; no AI resolver shipped in this decision.",
+    results: [{ text: "D14 return rate ~18% higher than the holdout", basis: "Relative, pilot A/B holdout" }],
+    note: "The full decision, including the AI option that wasn't shipped, is in the case study.",
   },
   {
     id: "bonus-allocation",
@@ -316,13 +404,13 @@ export const decisions: readonly Decision[] = [
     role: "Product Manager",
     verdict: "Shipped",
     featured: true,
+    outcome: "Bonus and discount spend ~20% ↓, retention held · directional",
     stages: [
       { term: "Signal", text: "Reward costs were eating into margin without a clear retention payoff. Bonuses were allocated in flat tiers." },
       { term: "Decision", text: "Replace flat tiers with expected ROI per segment, optimizing for incremental NGR (net gaming revenue) per rupee of bonus spend." },
       { term: "Trade-off", text: "Cutting incentives in real-money gaming can quietly hurt retention, the main risk going in. It only reads as a win because both numbers moved the right way." },
     ],
     delta: "bonus",
-    results: [{ text: "Retention held" }],
     note: "The objective was incremental NGR per rupee of bonus spend. The NGR outcome wasn't captured, so the result is reported as spend and retention.",
     details: [
       { term: "Segments", items: ["New / onboarding", "High-value / core LTV drivers", "Low-value / recreational", "Dormant / at-risk"] },
@@ -338,15 +426,12 @@ export const decisions: readonly Decision[] = [
     area: "Fantasy sports",
     role: "Product Manager",
     verdict: "Sunset",
-    featured: true,
+    caseHref: "/work/fanblaze",
     stages: [
-      { term: "Hypothesis", text: "In-app live football scores would cut context switching and lift live engagement and contest joins." },
-      { term: "Built", text: "A live score and play-by-play ticker, contest and match-lobby integration, match-event pushes." },
-      { term: "Signal", text: "Fewer than 6% of active match-day users used it. Sessions grew ~2 minutes, with no meaningful uplift in mid-match contest joins, lineup changes or re-deposits." },
-      { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
+      { term: "Signal", text: "Fewer than 6% of active match-day users used live scores, with no meaningful uplift in mid-match contest joins, lineup changes or re-deposits." },
       { term: "Decision", text: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
     ],
-    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }, { text: "~2 min longer sessions" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits" }],
+    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }],
     learning: "Users came for fantasy execution, not passive score consumption.",
   },
   {
@@ -358,9 +443,9 @@ export const decisions: readonly Decision[] = [
     role: "Product Manager",
     verdict: "Program",
     featured: true,
+    outcome: "A fair number of tests came back inconclusive or negative, and changed how later tests were scoped",
     stages: [
-      { term: "Practice", text: "20+ A/B tests run end to end: hypothesis, sample size and significance." },
-      { term: "Signal", text: "A fair number came back inconclusive or negative." },
+      { term: "Signal", text: "20+ A/B tests run end to end, from hypothesis and sample size to significance. A fair number came back inconclusive or negative." },
       { term: "Decision", text: "Use those results to change how later tests were scoped, instead of treating them as failures." },
     ],
     learning: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
@@ -374,13 +459,13 @@ export const decisions: readonly Decision[] = [
     area: "Real-money poker",
     role: "Product Manager",
     verdict: "Shipped",
-    featured: true,
     stages: [
       { term: "Problem", text: "Optimize for D7 liquidity and player survival, not only D0 ARPPU or raw server latency." },
       { term: "Decision", text: "Contextual matchmaking on historical wallet size and skill band, so new players see fewer inappropriate high-stakes tables." },
       { term: "Trade-off", text: "Client-side polling only for active seat counts; static table metadata served from edge CDN cache." },
     ],
-    results: [{ text: "Peak server latency under 60 ms" }, { text: "Lower D1 bankruptcy rate for new users", basis: "Directional" }, { text: "Net revenue kept growing alongside higher D30 retention", basis: "Directional" }],
+    results: [{ text: "Peak server latency held under 60 ms", basis: "An operating constraint, not a user outcome" }],
+    note: "No player-outcome magnitude is recorded for this decision, so none is shown.",
   },
   {
     id: "testing-roadmap",
@@ -395,8 +480,8 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "An experimentation roadmap across pricing and reward loops, each change written as a hypothesis and run as an A/B test." },
       { term: "Trade-off", text: "Testing is slower per idea than shipping on conviction. Every result, including the flat ones, narrows the next bet." },
     ],
-    results: [{ text: "GMV on a ~10% week-over-week growth trajectory over 11 months", basis: "Directional" }],
-    note: "The trajectory spans the period the roadmap ran in. It isn't attributed to testing alone, and no starting GMV is recorded.",
+    results: [{ text: "GMV on a ~10% week-over-week growth trajectory over the period", basis: "Directional · no starting GMV recorded" }],
+    note: "The trajectory spans the period the roadmap ran in and isn't attributed to testing alone. No starting GMV is recorded, and whether ~10% was a sustained weekly average isn't recorded either.",
   },
   {
     id: "segmented-journeys",
@@ -411,27 +496,29 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use behavioral clustering to find the segments that behaved differently, then redesign the journey for each." },
       { term: "Trade-off", text: "Every extra journey is more to build, test and maintain. Segmentation pays off when segments are few and clearly different." },
     ],
-    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Method not captured" }],
+    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Method not recorded" }],
   },
   {
     id: "faculty-signals",
     code: "D-08",
     title: "Turn a monthly spreadsheet into a signal a teacher can act on.",
     company: "Edfora",
+    product: "myAdvisor",
     area: "Data product",
     role: "Senior Product Manager",
     verdict: "Shipped",
+    featured: true,
+    outcome: "Real-time dashboards shipped; myAdvisor alerts designed · no outcome claimed for the alerts",
     stages: [
       { term: "Signal", text: "Students disengaged well before faculty found out: retention data arrived through a monthly spreadsheet pull." },
-      { term: "Decision", text: "Real-time engagement dashboards, so faculty could step in while a student was still reachable." },
-      { term: "Trade-off", text: "A dashboard shows everything and leaves the teacher to find the problem; the documented next layer, myAdvisor, moves to prioritized alerts timed around a teacher's schedule." },
+      { term: "Decision", text: "Real-time dashboards, so faculty could act while a student was still reachable; then myAdvisor: prioritized alerts timed around a teacher's schedule." },
+      { term: "Trade-off", text: "A dashboard shows everything and leaves the teacher to find the problem; an alert picks the problem for them, so priority, timing and unread handling matter as much as the signal." },
     ],
-    results: [{ text: "Student retention up ~8–12% after real-time dashboards", basis: "Method not captured" }],
     details: [
       { term: "myAdvisor, as documented", items: ["High- and medium-priority alerts, raised at module level", "History, with filters by module and date", "Deep links into the part of the product where the teacher can act"] },
       { term: "Designed for attention", items: ["Notifications timed around a teacher's schedule", "Unread alerts handled deliberately"] },
     ],
-    note: "The retention result belongs to the dashboards. myAdvisor is product design from the documentation; no outcome is claimed for it.",
+    note: "myAdvisor is product design from the documentation; no outcome is claimed for it. A retention figure for the dashboards is on the résumé, but its definition and method aren't recorded, so it isn't shown here.",
   },
   {
     id: "gamification",
@@ -441,12 +528,14 @@ export const decisions: readonly Decision[] = [
     area: "Engagement",
     role: "Senior Product Manager",
     verdict: "Shipped",
+    featured: true,
+    outcome: "DAU ~12–15% ↑, average session ~15% ↑ · directional, window not recorded",
     stages: [
       { term: "Signal", text: "DAU had been flat for two months. Teachers flagged early quiz prototypes as “too game-y”." },
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "Directional" }],
+    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "Directional · before/after, window not recorded" }],
   },
   {
     id: "behavioural-loops",
@@ -494,19 +583,19 @@ export const principles = [
     n: "01",
     title: "Diagnose before building.",
     body: "Find where users actually drop, and why, before choosing what to build.",
-    example: { text: "A ~12% Day-7 number pointed to reminders and rewards. The funnel showed only 12% of new users played on day one: an activation problem, with a different fix.", label: "Witzeal · Diagnosis", href: "/work/onboarding-funnel-redesign#diagnosis" },
+    example: { text: "A ~12% Day-7 number pointed to reminders and rewards. The funnel showed only 12% of new users played on day one: an activation problem, with a different fix.", label: "Witzeal · Problem", href: "/work/onboarding-funnel-redesign#problem" },
   },
   {
     n: "02",
-    title: "One outcome decides. The rest explain.",
-    body: "Pick one outcome tied to user value, and treat activity metrics as diagnosis rather than success.",
-    example: { text: "At Edfora, assignment completion was the outcome; practice drop-off was the second signal that explained it.", label: "Edfora · Hypothesis", href: "/work/adaptive-assignment-engine#hypothesis" },
+    title: "Turn a disagreement into a threshold.",
+    body: "When teams want different things for good reasons, agree what would have to be true, and measure it.",
+    example: { text: "Engineering wanted an AI-first resolver for scale; faculty wanted human answers for accuracy. The hybrid was piloted behind a 90% accuracy circuit-breaker with an agreed rollback.", label: "Doubt Resolution · Pilot", href: "/work/doubt-resolution#pilot" },
   },
   {
     n: "03",
     title: "Experiments can fail.",
     body: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
-    example: { text: "20+ A/B tests at Baazi Games, a fair number inconclusive or negative, and they changed how later tests were scoped. FanBlaze live scores were sunset at under 6% usage.", label: "Decisions · Experimentation, FanBlaze", href: "/decisions#experimentation" },
+    example: { text: "20+ A/B tests at Baazi Games, a fair number inconclusive or negative, and they changed how later tests were scoped. FanBlaze live scores were sunset at under 6% usage.", label: "Decisions · Experimentation", href: "/decisions#experimentation" },
   },
   {
     n: "04",
@@ -521,16 +610,27 @@ export const principles = [
 /* -------------------------------------------------------------------------- */
 
 export const aiLab = {
-  headline: "How I build AI products",
-  sub: "Strong AI product judgment; production evidence in progress. No evaluation has been run.",
+  label: "AI product judgment",
+  headline: "Problem first. Model second.",
+  sub: "How I decide where AI belongs, and where it doesn't. Strong judgment, production evidence in progress: no production LLM work is claimed here, and no evaluation has been run yet.",
   spine: ["Problem", "AI role", "System", "Evaluation", "Failure modes", "Product metric"],
+  /** What the judgment covers, and where each piece is shown. `kind` keeps professional decisions and prototype design visibly apart. */
+  judgment: [
+    { practice: "When not to ship AI", text: "An AI-first doubt resolver was considered at Edfora and not shipped; accuracy and academic integrity came first.", href: "/work/doubt-resolution#decision", kind: "Professional decision" },
+    { practice: "AI vs. non-AI", text: "The adaptive engine at Edfora is 3PL IRT, a statistical model, not an LLM.", href: "/work/adaptive-assignment-engine#decision", kind: "Professional decision" },
+    { practice: "Quality gate", text: "A 90% accuracy circuit-breaker, measured by SME sampling, with an agreed rollback.", href: "/work/doubt-resolution#pilot", kind: "Professional decision" },
+    { practice: "Deterministic baseline", text: "A rules-only diagnostic: the bar any model has to beat.", href: "/ai-lab/learner-diagnostic#baseline", kind: "Independent prototype" },
+    { practice: "Evaluation", text: "Rubric and harness built before model work. Not yet run.", href: "/ai-lab/learner-diagnostic#evaluation", kind: "Independent prototype" },
+    { practice: "Failure modes & guardrails", text: "Six failure modes designed before the happy path, each with a fallback.", href: "/ai-lab/learner-diagnostic#failure-modes", kind: "Independent prototype" },
+    { practice: "Human in the loop", text: "The teacher keeps the final call; overrides are logged.", href: "/ai-lab/learner-diagnostic#status", kind: "Independent prototype" },
+  ],
   principles: [
     ["Rules first, a model where it earns it", "Much of a learning product can run on deterministic logic. A model belongs where judgment is needed and a wrong answer is recoverable."],
     ["Evaluation before scale", "A representative test set, a rubric, named failure categories and a launch threshold, agreed before anyone argues about the demo."],
     ["Uncertainty is a UX problem", "Show the evidence, say how confident the system is, define what happens when it isn't, and let a person overrule it."],
     ["Cost and latency are product constraints", "If it can't run at every checkpoint at an acceptable speed and cost, it is a demo feature, not a product."],
   ],
-  professional: "Professional context: at Edfora the adaptive engine used 3PL Item Response Theory, a statistical model rather than an LLM. It is a personalization case, not an AI-model claim.",
+  professional: "Professional context: at Edfora the adaptive engine used 3PL Item Response Theory, a statistical model rather than an LLM, and the AI-first doubt resolver was an option considered, not shipped.",
   builds: [
     {
       slug: "learner-diagnostic",
@@ -551,8 +651,17 @@ export const aiLab = {
 } as const;
 
 /* -------------------------------------------------------------------------- */
-/* About                                                                       */
+/* Career and About                                                            */
 /* -------------------------------------------------------------------------- */
+
+/** Engineer → Builder → Growth PM → Senior PM → AI product thinker: what each phase taught, and the proof. */
+export const arc = [
+  { verb: "Engineer", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
+  { verb: "Builder", org: "PwC India · Baazi Games", years: "2019–2022", taught: "How software ships, and how users behave once it does.", proof: "Release process for a web app deployed to 150+ Fortune companies; then 20+ A/B tests, segmentation and fraud rules at Baazi Games." },
+  { verb: "Growth PM", org: "Witzeal Technologies", years: "2022–2023", taught: "Where users drop before they reach value.", proof: "Day-7 retention 12.2% → 25.4% in a controlled rollout; bonus spend ~20% down with retention held." },
+  { verb: "Senior PM", org: "Edfora", years: "2023–2026", taught: "How to decide across teams, and adapt a product to each user.", proof: "myPAT doubt resolution (median ~24 h → <15 min) and a 3PL IRT adaptive engine, in a product line that reached 100K+ learners." },
+  { verb: "AI product thinker", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "An AI-first resolver considered and not shipped at Edfora; an independent prototype with evaluation designed before any model work." },
+] as const;
 
 export type Role = {
   id: string;
@@ -574,10 +683,11 @@ export const roles: readonly Role[] = [
     location: "Gurugram",
     summary: "Across Edfora's products and systems, including myPAT, Glorifire, Stakeholder, Glorifire Ops, Adaptive Practice, myAdvisor and myPlan: roadmap and prioritization for learning and engagement experiences on web and mobile, with engineering, design, content and business teams.",
     highlights: [
+      "myPAT doubt resolution: a hybrid of step-wise hints, verified peer answers and SME escalation, piloted with 1,000 students behind a 90% accuracy circuit-breaker; median resolution time ~24 h → <15 min",
       "3PL IRT-based adaptive assignments: across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after (not attributed to the engine alone)",
-      "Quiz and gamification layer shaped by teachers who found early prototypes “too game-y”: DAU up ~12–15%, average session time up ~15%",
-      "Real-time engagement dashboards for faculty replaced a monthly spreadsheet pull: student retention up ~8–12%",
-      "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, reaching 100K+ learners",
+      "Quiz and gamification layer shaped by teachers who found early prototypes “too game-y”: DAU up ~12–15%, average session time up ~15% (directional)",
+      "Real-time engagement dashboards for faculty replaced a monthly spreadsheet pull",
+      "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, in products that reached 100K+ learners",
     ],
   },
   {
@@ -588,10 +698,10 @@ export const roles: readonly Role[] = [
     location: "Gurugram",
     summary: "Growth, onboarding, monetization and lifecycle for a real-money gaming platform.",
     highlights: [
-      "Onboarding redesign: D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4% in a 30/70 controlled rollout",
-      "Experimentation roadmap across pricing and reward loops, during an 11-month ~10% week-over-week GMV growth trajectory",
+      "Onboarding redesign: Day-7 retention 12.2% → 25.4% in a 30/70 controlled rollout (five changes bundled); D0 gameplay 12% → 33%",
       "Bonus allocation by expected ROI per segment: bonus and discount spend down ~20%, retention held",
-      "Lifecycle messaging (push, in-app, email) moved from one blast to segmented cohorts: long-term retention stabilized at 48%",
+      "Experimentation roadmap across pricing and reward loops: each change written as a hypothesis and run as an A/B test",
+      "Lifecycle messaging (push, in-app, email) moved from one blast to segmented cohorts",
     ],
   },
   {
@@ -603,8 +713,9 @@ export const roles: readonly Role[] = [
     summary: "Experimentation, segmentation and risk across a multi-game platform: PokerBaazi, Lagai Khai and FanBlaze.",
     highlights: [
       "20+ A/B tests end to end (hypothesis, sample size, significance); a fair number came back inconclusive or negative and reshaped later scoping",
-      "Behavioral clustering replaced one default journey with journeys by segment: session duration up ~35%, retention up ~25%",
-      "Rules-based anomaly detection for fraudulent transactions: fraud losses down ~18%",
+      "Behavioral clustering replaced one default journey with journeys by segment: session duration up ~35%, retention up ~25% (method not recorded)",
+      "Rules-based anomaly detection for fraudulent transactions: fraud losses down ~18% (method not recorded)",
+      "FanBlaze live scores sunset at under 6% match-day usage, with effort moved to pre-match intent",
     ],
   },
   {
@@ -617,7 +728,7 @@ export const roles: readonly Role[] = [
     highlights: [
       "Standardized releases for a web application deployed to 150+ Fortune companies",
       "Coordinated four distributed teams across development, QA, UAT and deployment",
-      "Ran A/B tests on UX changes that lifted client engagement by ~25%",
+      "Ran A/B tests on UX changes that lifted client engagement by ~25% (method not recorded)",
     ],
   },
   {
@@ -645,12 +756,12 @@ export const status: { availability: string | null } = { availability: null };
 export const about = {
   opening: "I started by writing the product.",
   intro: "Before I owned roadmaps, I was the only Android developer on a marketplace app, and then the person standardizing releases for a web app used by 150+ Fortune companies. That order still shapes how I work: I scope with engineering, not around it.",
+  /** One per arc phase, in the same order. */
   phases: [
-    { verb: "Built", text: "Writing the app from scratch taught me what a feature really costs, and that one well-scoped app can beat three tailored ones." },
-    { verb: "Shipped", text: "Release management taught me that a product is only as good as the way it reaches people: process, sequencing, four teams in step." },
-    { verb: "Measured", text: "Gaming taught me how users behave, and how to measure it. Twenty-plus experiments, many of them inconclusive, taught me to scope bets smaller." },
-    { verb: "Grew", text: "Growth taught me to find where users drop before they reach value, and to fix the product before paying them to come back." },
-    { verb: "Personalized", text: "EdTech taught me to adapt a product to each person with a statistical model, and to be honest about what a before/after can and can't prove." },
-    { verb: "AI", text: "AI is the next application of the same discipline: a clear user problem, a measured outcome, and an evaluation agreed before the demo." },
+    { verb: "Engineer", text: "Writing the app from scratch taught me what a feature really costs, and that one well-scoped app can beat three tailored ones." },
+    { verb: "Builder", text: "Release management taught me how a product reaches people. Gaming then taught me how users behave, and how to measure it: twenty-plus experiments, many inconclusive, taught me to scope bets smaller." },
+    { verb: "Growth PM", text: "Growth taught me to find where users drop before they reach value, and to fix the product before paying them to come back." },
+    { verb: "Senior PM", text: "EdTech taught me to work through decisions where engineering and faculty wanted different things, to adapt a product to each person, and to be honest about what a before/after can and can't prove." },
+    { verb: "AI product thinker", text: "AI is the next application of the same discipline: a clear user problem, a measured outcome, and an evaluation agreed before the demo." },
   ],
 };

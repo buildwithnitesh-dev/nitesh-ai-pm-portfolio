@@ -25,7 +25,7 @@ const kindLabel: Record<StepKind, string> = { signal: "Signal", decision: "Decis
 export function kindOf(term: string): StepKind {
   const t = term.toLowerCase();
   if (/(trade-off|tradeoff|limits|cold start|attribution|guardrail|why it missed|risk|constraint)/.test(t)) return "tradeoff";
-  if (/(result|experiment|rollout|business|outcome|evidence)/.test(t)) return "outcome";
+  if (/(result|experiment|rollout|pilot|business|outcome|evidence)/.test(t)) return "outcome";
   if (/(learning|next|isolate)/.test(t)) return "learning";
   if (/(decision|hypothesis|options|system|built|practice)/.test(t)) return "decision";
   return "signal";

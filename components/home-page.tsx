@@ -1,19 +1,23 @@
 import { Hero } from "@/components/home/hero";
-import { AiLabTeaser, CareerArc, Contact, ProofWall, SelectedWork } from "@/components/home/sections";
+import { AboutTeaser, AiLabTeaser, CareerArc, Contact, Decisions, Domains, Proof, SelectedWork } from "@/components/home/sections";
 
 /**
- * The homepage reads at three depths: 5 seconds (hero), 30 seconds (proof and
- * the three stories), and the arc and AI Lab for the reader who stays. Every
- * number has one home on this page; the deep material lives on its own pages.
+ * Homepage order, by the questions a hiring manager asks:
+ * who is this (hero) → can he prove it (proof, work) → does it transfer
+ * (same PM, different domains) → how does he decide (decisions, AI) →
+ * how did he get here (career, about) → how do I reach him (contact).
  */
 export function HomePage() {
   return (
     <>
       <Hero />
-      <ProofWall />
+      <Proof />
       <SelectedWork />
-      <CareerArc />
+      <Domains />
+      <Decisions />
       <AiLabTeaser />
+      <CareerArc />
+      <AboutTeaser />
       <Contact />
     </>
   );

@@ -1,56 +1,41 @@
-import Link from "next/link";
 import { Container } from "@/components/container";
-import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
-import { Trace } from "@/components/trace";
 import { Arrow, button } from "@/components/ui";
 import { contact, hero, profile } from "@/content/portfolio";
 
 /**
- * Who, then what he believes, then one piece of evidence drawn as a decision
- * trace: the signal, the call, the measured outcome. Static and server-rendered;
- * the thesis is the largest paint.
+ * Who, what kind of PM, and the thesis, in one compact block that hands
+ * straight over to the proof strip below it: the first evidence should be
+ * visible without a long scroll.
  */
 export function Hero() {
   const [first, ...rest] = hero.positioning.split(" × ");
   return (
-    <section aria-labelledby="hero-title" className="border-b border-line">
-      <Container className="pt-14 pb-14 lg:pt-24 lg:pb-20">
-        <p className="text-lg font-extrabold tracking-[0.08em] text-ink uppercase sm:text-xl">{hero.role}</p>
-        <p className="mt-2 text-lg text-muted sm:text-xl">
-          {first}
-          {rest.map((r) => <span key={r}> <span className="text-accent">×</span> {r}</span>)}
+    <section aria-labelledby="hero-title">
+      <Container className="pt-8 pb-8 sm:pt-10 lg:pt-14 lg:pb-10">
+        <p className="text-base font-extrabold tracking-[0.08em] text-ink uppercase sm:text-lg">
+          {hero.role}
+          <span className="mt-1 block font-normal tracking-normal text-muted normal-case sm:mt-0 sm:ml-3 sm:inline">
+            {first}
+            {rest.map((r) => <span key={r}> <span className="text-accent">×</span> {r}</span>)}
+          </span>
         </p>
-        <h1 id="hero-title" className="mt-10 max-w-5xl font-serif text-[3rem] leading-[0.98] text-balance text-ink sm:text-7xl lg:text-[6rem]">
+        <h1 id="hero-title" className="mt-5 max-w-5xl font-serif text-[2.6rem] leading-[1] text-balance text-ink sm:text-6xl lg:text-[4.6rem]">
           {hero.headline}
         </h1>
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
           <div>
-            <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
-            <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}</p>
+            <p className="max-w-2xl text-base leading-7 text-ink/80 sm:text-lg sm:leading-8">{hero.lede}</p>
+            <p className="mt-3 text-[15px] tabular-nums text-muted">{profile.experience} · EdTech and consumer gaming<a href={contact.linkedin} target="_blank" rel="noreferrer" className="flex min-h-11 w-fit items-center gap-1 font-medium text-ink underline decoration-line-strong underline-offset-4 sm:hidden">LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span></a></p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a href="#work" className={`group ${button.primary}`}>Explore the work <Arrow /></a>
-            <ResumeCta label="Resume" className={button.secondary} />
-            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:items-center">
+            <a href="#work" className={`group ${button.primary} px-4 sm:px-6`}>See the work <Arrow /></a>
+            <ResumeCta label="Resume" className={`${button.secondary} px-4 sm:px-6`} />
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="hidden min-h-11 items-center gap-1 text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:inline-flex">
               LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
             </a>
           </div>
         </div>
-
-        {/* The evidence moment: where the thesis comes from. */}
-        <section aria-label="Where the thesis comes from" className="mt-14 border-t border-ink pt-8 lg:mt-20">
-          <p className="text-[15px] font-semibold text-ink">Where the thesis comes from <span className="font-normal text-muted">· Witzeal Technologies</span></p>
-          <Trace
-            className="mt-7"
-            steps={[
-              { kind: "signal", content: "Only ~12% of new users played on day one." },
-              { kind: "decision", content: "Fix the first 60 seconds before paying to bring players back." },
-              { kind: "outcome", content: <Delta id={hero.proof} size="sm" showContext={false} /> },
-            ]}
-          />
-          <p className="mt-6"><Link href="/work/onboarding-funnel-redesign" className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">Read the case <Arrow /></Link></p>
-        </section>
       </Container>
     </section>
   );
