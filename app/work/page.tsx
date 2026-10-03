@@ -9,23 +9,23 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/work",
   title: "Work",
-  description: "Product work by Nitesh Tiwari, Senior Product Manager: a strategic trade-off in doubt resolution, an activation fix and a personalization system as case studies, a feature sunset on usage evidence, a decision library and an AI product lab.",
+  description: "Product work by Nitesh Tiwari, Senior Product Manager: four case studies (doubt resolution, onboarding activation, adaptive practice, behavioural loops), a decision library including a feature sunset, and an AI product lab.",
 });
 
 export default function WorkPage() {
   return (
     <main id="main" className="flex-1">
       <Container className="py-14 lg:py-20">
-        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Three flagship cases and a sunset in depth, then the smaller calls in one grammar, then the AI Lab." />
+        <SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Four product stories in depth, then the smaller calls as short snapshots, including the bets that were stopped, then the AI Lab." />
 
         <section aria-labelledby="flagships" className="mt-16">
           <h2 id="flagships" className="font-medium text-[13px] text-accent">Four stories</h2>
-          <WorkStories headingLevel="h3" withSummary withSunset />
+          <WorkStories headingLevel="h3" withSummary />
         </section>
 
         <section aria-labelledby="library" className="mt-20">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <h2 id="library" className="font-serif text-4xl text-ink">Decision library</h2>
+            <h2 id="library" className="font-serif text-4xl text-ink">Decision library <span className="block text-base font-normal tracking-normal text-muted">Short snapshots: signal, decision, outcome or learning.</span></h2>
             <MoreLink href="/decisions">Read every decision</MoreLink>
           </div>
           <ul className="mt-6 border-t border-ink">

@@ -183,7 +183,7 @@ export const domains: readonly {
   { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% modeled support-cost avoidance", href: "/work/doubt-resolution#decision" } },
   { capability: "Risk", gaming: { text: "~18% lower fraud losses after rules-based anomaly detection", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", href: "/work/doubt-resolution#gate" } },
   { capability: "Funnel diagnosis", gaming: { text: "Loss traced to signup and OTP verification, before the first game", href: "/work/onboarding-funnel-redesign#diagnosis" }, edtech: { text: "Low completion read against each learner's performance: one sequence failing in two directions", href: "/work/adaptive-assignment-engine#problem" } },
-  { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", href: "/decisions#fanblaze" }, edtech: { text: "Points, streaks and a faculty feedback loop; quiz layer DAU ~12–15% (directional)", href: "/decisions#gamification" } },
+  { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", href: "/work/behavioural-loops" } },
 ];
 
 /** Built → Shipped → Measured → Grew → Personalized → AI: what each phase taught, and the proof. */
@@ -206,6 +206,7 @@ export const flagships = [
     slug: "doubt-resolution",
     href: "/work/doubt-resolution",
     capability: "Strategic trade-offs",
+    tags: ["Senior PM", "Strategy", "Consumer", "AI judgment"],
     headline: "Faster answers without scaling support",
     company: "Edfora",
     domain: "EdTech · myPAT",
@@ -214,6 +215,7 @@ export const flagships = [
     opening: "Doubt resolution approached 24 hours at peak exam preparation.",
     summary: "An AI resolver, a tutor marketplace, or a hybrid. The hybrid was chosen on RICE and unit economics, held to a 90% accuracy gate in a 1,000-student pilot, and the AI resolver was not shipped.",
     decision: "Step-wise hints, verified peer answers and SME escalation, behind a 90% accuracy gate. The AI resolver was not shipped.",
+    tradeoff: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through.",
     delta: "tat" as DeltaId,
   },
   {
@@ -221,6 +223,7 @@ export const flagships = [
     slug: "onboarding-funnel-redesign",
     href: "/work/onboarding-funnel-redesign",
     capability: "Activation",
+    tags: ["Growth", "Activation", "Retention", "Experimentation"],
     headline: "Fixing the path to first value",
     company: "Witzeal Technologies",
     domain: "Real-money gaming",
@@ -228,8 +231,8 @@ export const flagships = [
     title: "Onboarding Funnel Redesign",
     opening: "Only 12% of new users played a game on day one.",
     summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control, and a clear account of what the test could and couldn't isolate.",
-    /** The decision, in a sentence already used in the case. */
     decision: "Five changes to the first 60 seconds, tested against a 30% control.",
+    tradeoff: "Shipping the five changes as one bundle was faster; the price was attribution, since one of them was ₹15 of free games.",
     delta: "d0" as DeltaId,
   },
   {
@@ -237,36 +240,39 @@ export const flagships = [
     slug: "adaptive-assignment-engine",
     href: "/work/adaptive-assignment-engine",
     capability: "Personalization",
+    tags: ["Personalization", "Product logic", "Technical depth"],
     headline: "Personalizing the learning path",
     company: "Edfora",
-    domain: "EdTech",
+    domain: "EdTech · Adaptive Practice",
     role: "Senior Product Manager · 2023–2026",
-    title: "Adaptive Assignment Engine",
+    title: "Adaptive Practice Engine",
     opening: "Every learner was getting the same next question.",
     summary: "Three ways to fix difficulty fit, one chosen: a 3PL IRT engine that estimates each learner's ability and matches the question to it.",
     decision: "A 3PL IRT engine that estimates each learner's ability and matches the question to it.",
+    tradeoff: "Fit against explainability: every question needs calibrated parameters, and a new learner's first questions are the least certain.",
     delta: "completion" as DeltaId,
+  },
+  {
+    index: "04",
+    slug: "behavioural-loops",
+    href: "/work/behavioural-loops",
+    capability: "Behavioural systems",
+    tags: ["Consumer engagement", "Behavioural systems"],
+    headline: "Designing behavioural loops across students and faculty",
+    company: "Edfora",
+    domain: "EdTech · Glorifire / Stakeholder",
+    role: "Senior Product Manager · 2023–2026",
+    title: "Behavioural Loops & Gamification",
+    opening: "DAU had been flat for two straight months.",
+    summary: "A configurable behavioural engagement system across student and faculty workflows: actions tied to points, streaks and badges, progression through avatars and rank, recognition on leaderboards and a Hall of Fame, and analytics for faculty.",
+    decision: "A configurable behavioural layer built around product actions, not one-off rewards, for students and faculty alike.",
+    tradeoff: "Motivate students without looking gimmicky to the teachers who had flagged early prototypes as “too game-y”.",
+    /** No outcome metric is attributed to this system; the evidence is the system itself. */
+    evidence: "Behaviour → reward → progression → recognition → analytics, configurable per action. No engagement or business outcome is attributed to it.",
   },
 ] as const;
 
 export type CaseSlug = (typeof flagships)[number]["slug"];
-
-/** The third homepage story: not another metric, but a decision to stop. */
-export const sunsetStory = {
-  index: "03",
-  capability: "Product judgment",
-  headline: "Sunsetting a feature on usage evidence",
-  company: "Baazi Games",
-  product: "FanBlaze",
-  domain: "Fantasy sports",
-  role: "Product Manager · 2019–2022",
-  opening: "Fewer than 6% of match-day users used live scores.",
-  summary: "Live scores were built to cut context switching and lift contest joins. Usage said fantasy intent was pre-match. The feature was sunset, and the effort moved to what users came for.",
-  href: "/decisions#fanblaze",
-  decision: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats.",
-  figure: { value: "<6%", label: "of active match-day users used it", basis: "Observed after launch" },
-  opportunity: "Effort moved to starting-XI notifications, injury alerts and head-to-head stats.",
-};
 
 /* -------------------------------------------------------------------------- */
 /* Decision library                                                            */
@@ -283,8 +289,6 @@ export type Decision = {
   area: string;
   role: string;
   verdict: Verdict;
-  /** Shown on the homepage. */
-  featured?: boolean;
   /** Ordered stages; the grammar is shared across every card. */
   stages: readonly { term: string; text: string }[];
   /** Evidence: a Delta, or plain documented results, each with how it was measured where that is short. */
@@ -299,34 +303,23 @@ export type Decision = {
 
 export const decisions: readonly Decision[] = [
   {
-    id: "doubt-resolution",
+    id: "fanblaze",
     code: "D-01",
-    title: "Reduce doubt-resolution friction without scaling human support linearly.",
-    company: "Edfora",
-    product: "myPAT · Doubt resolution",
-    area: "Prioritization",
-    role: "Senior Product Manager",
-    verdict: "Pilot",
-    featured: true,
+    title: "Sunset live scores. Build for pre-match intent.",
+    company: "Baazi Games",
+    product: "FanBlaze",
+    area: "Fantasy sports",
+    role: "Product Manager",
+    verdict: "Sunset",
     stages: [
-      { term: "Signal", text: "During peak exam preparation, doubt-resolution turnaround for JEE aspirants approached 24 hours." },
-      { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
-      { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
-      { term: "Evidence", text: "Initial sample tagging of logged tickets, with question-ID overlap, suggested ~70% of doubts were repetitive or pattern-matching. An approximate, sample-derived figure, not an automated classifier." },
-      { term: "Decision", text: "Rejected the full human marketplace, using RICE and unit economics. The initial rollout combined structured step-wise hints, peer and community answers with verification and quality guardrails, and escalation of complex or unresolved doubts to SMEs and faculty." },
-      { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors; a cohort-gated pilot of 1,000 active JEE batch subscribers to limit the blast radius; and a hard 90% accuracy circuit-breaker, measured by manual SME sampling of resolved hints plus student satisfaction ratings, with an agreed rollback if it was breached." },
-      { term: "Trade-off", text: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through." },
+      { term: "Hypothesis", text: "In-app live football scores would cut context switching and lift live engagement and contest joins." },
+      { term: "Built", text: "A live score and play-by-play ticker, contest and match-lobby integration, match-event pushes." },
+      { term: "Signal", text: "Fewer than 6% of active match-day users used it. Sessions grew ~2 minutes, with no meaningful uplift in mid-match contest joins, lineup changes or re-deposits." },
+      { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
+      { term: "Decision", text: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
     ],
-    details: [
-      { term: "Options considered", items: ["A. AI automated doubt-resolver bot: not part of the initial rollout", "B. Tutor and faculty marketplace, on-demand live 1:1: rejected", "C. Peer community and step-wise hints, with escalation: chosen"] },
-    ],
-    delta: "tat",
-    results: [
-      { text: "D14 return rate ~18% higher than the holdout cohort (relative)", basis: "Pilot A/B holdout: instant-hint access vs. the standard response queue" },
-      { text: "~60% modeled support-cost avoidance", basis: "Modeled: avoided paid SME and faculty headcount against projected ticket-volume growth; not an observed budget reduction" },
-    ],
-    note: "D14 is reported as the controlled-cohort result, not attributed to any one component. AI was one option considered; no AI resolver shipped in this decision.",
-    caseHref: "/work/doubt-resolution",
+    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }, { text: "~2 min longer sessions" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits" }],
+    learning: "Users came for fantasy execution, not passive score consumption.",
   },
   {
     id: "bonus-allocation",
@@ -336,7 +329,6 @@ export const decisions: readonly Decision[] = [
     area: "Monetization",
     role: "Product Manager",
     verdict: "Shipped",
-    featured: true,
     stages: [
       { term: "Signal", text: "Reward costs were eating into margin without a clear retention payoff. Bonuses were allocated in flat tiers." },
       { term: "Decision", text: "Replace flat tiers with expected ROI per segment, optimizing for incremental NGR (net gaming revenue) per rupee of bonus spend." },
@@ -351,34 +343,13 @@ export const decisions: readonly Decision[] = [
     ],
   },
   {
-    id: "fanblaze",
-    code: "D-03",
-    title: "Sunset live scores. Build for pre-match intent.",
-    company: "Baazi Games",
-    product: "FanBlaze",
-    area: "Fantasy sports",
-    role: "Product Manager",
-    verdict: "Sunset",
-    featured: true,
-    stages: [
-      { term: "Hypothesis", text: "In-app live football scores would cut context switching and lift live engagement and contest joins." },
-      { term: "Built", text: "A live score and play-by-play ticker, contest and match-lobby integration, match-event pushes." },
-      { term: "Signal", text: "Fewer than 6% of active match-day users used it. Sessions grew ~2 minutes, with no meaningful uplift in mid-match contest joins, lineup changes or re-deposits." },
-      { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
-      { term: "Decision", text: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
-    ],
-    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }, { text: "~2 min longer sessions" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits" }],
-    learning: "Users came for fantasy execution, not passive score consumption.",
-  },
-  {
     id: "experimentation",
-    code: "D-04",
+    code: "D-03",
     title: "Run experiments to reduce uncertainty, not to win.",
     company: "Baazi Games",
     area: "Experimentation",
     role: "Product Manager",
     verdict: "Program",
-    featured: true,
     stages: [
       { term: "Practice", text: "20+ A/B tests run end to end: hypothesis, sample size and significance." },
       { term: "Signal", text: "A fair number came back inconclusive or negative." },
@@ -387,25 +358,8 @@ export const decisions: readonly Decision[] = [
     learning: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
   },
   {
-    id: "pokerbaazi-matchmaking",
-    code: "D-05",
-    title: "Match new players to tables they can survive.",
-    company: "Baazi Games",
-    product: "PokerBaazi",
-    area: "Real-money poker",
-    role: "Product Manager",
-    verdict: "Shipped",
-    featured: true,
-    stages: [
-      { term: "Problem", text: "Optimize for D7 liquidity and player survival, not only D0 ARPPU or raw server latency." },
-      { term: "Decision", text: "Contextual matchmaking on historical wallet size and skill band, so new players see fewer inappropriate high-stakes tables." },
-      { term: "Trade-off", text: "Client-side polling only for active seat counts; static table metadata served from edge CDN cache." },
-    ],
-    note: "No outcome is shown: the record has no magnitude or method for the player-level results, and the latency figure is an infrastructure measure whose ownership isn't recorded.",
-  },
-  {
     id: "testing-roadmap",
-    code: "D-06",
+    code: "D-04",
     title: "Replace one-off monetization bets with a testing roadmap.",
     company: "Witzeal Technologies",
     area: "Experimentation",
@@ -420,7 +374,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "segmented-journeys",
-    code: "D-07",
+    code: "D-05",
     title: "Stop designing one journey for every kind of player.",
     company: "Baazi Games",
     area: "Personalization",
@@ -434,8 +388,24 @@ export const decisions: readonly Decision[] = [
     results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Method not captured" }],
   },
   {
+    id: "pokerbaazi-matchmaking",
+    code: "D-06",
+    title: "Match new players to tables they can survive.",
+    company: "Baazi Games",
+    product: "PokerBaazi",
+    area: "Real-money poker",
+    role: "Product Manager",
+    verdict: "Shipped",
+    stages: [
+      { term: "Problem", text: "Optimize for D7 liquidity and player survival, not only D0 ARPPU or raw server latency." },
+      { term: "Decision", text: "Contextual matchmaking on historical wallet size and skill band, so new players see fewer inappropriate high-stakes tables." },
+      { term: "Trade-off", text: "Client-side polling only for active seat counts; static table metadata served from edge CDN cache." },
+    ],
+    note: "No outcome is shown: the record has no magnitude or method for the player-level results, and the latency figure is an infrastructure measure whose ownership isn't recorded.",
+  },
+  {
     id: "faculty-signals",
-    code: "D-08",
+    code: "D-07",
     title: "Turn a monthly spreadsheet into a signal a teacher can act on.",
     company: "Edfora",
     area: "Data product",
@@ -455,7 +425,7 @@ export const decisions: readonly Decision[] = [
   },
   {
     id: "gamification",
-    code: "D-09",
+    code: "D-08",
     title: "Make practice more engaging without making it look like a game.",
     company: "Edfora",
     area: "Engagement",
@@ -466,26 +436,56 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "Directional" }],
+    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "As recorded on the résumé: before/after, no method or control, and not attributed to the behavioural system on its own" }],
+    caseHref: "/work/behavioural-loops",
   },
   {
-    id: "behavioural-loops",
-    code: "D-10",
-    title: "Designing behavioural loops across students and faculty.",
+    id: "myplan-accuracy",
+    code: "D-09",
+    title: "Pay for the feedback that keeps the system honest.",
     company: "Edfora",
-    product: "Glorifire · Stakeholder · myPlan",
-    area: "Engagement system",
+    product: "myPlan · Stakeholder",
+    area: "Feedback loop",
     role: "Senior Product Manager",
     verdict: "System",
     stages: [
-      { term: "Students", text: "Points, streaks, badges, avatars, a Hall of Fame and leaderboards." },
-      { term: "Faculty", text: "Analytics, leaderboards and configurable, behaviour-based actionable items." },
-      { term: "Feedback loop", text: "The system generates a learner's myPlan. Faculty confirm whether it is correct or incorrect, and accurate feedback earns 100 points, so verification is reinforced as part of the loop." },
+      { term: "Signal", text: "A system-generated myPlan is only useful if it is right, and faculty are the people who can tell." },
+      { term: "Decision", text: "Faculty confirm each myPlan as correct or incorrect, and accurate feedback earns 100 points, so verification is part of the behavioural loop rather than a chore outside it." },
     ],
     details: [
-      { term: "myPlan confirmation", items: ["System-generated myPlan information", "Faculty verification", "Correct / Incorrect feedback", "100 points for accurate feedback"] },
+      { term: "The loop, as documented", items: ["System-generated myPlan information", "Faculty verification", "Correct / Incorrect feedback", "100 points for accurate feedback"] },
     ],
-    note: "Product-system evidence from the platform's screens, not an outcome. No engagement or accuracy result is attributed to this system; the DAU result in D-09 belongs to the quiz and gamification layer as reported.",
+    note: "Product-system evidence from the platform's screens, not an outcome. No accuracy or engagement result is attributed to it.",
+    caseHref: "/work/behavioural-loops#feedback",
+  },
+  {
+    id: "doubt-resolution",
+    code: "D-10",
+    title: "Reduce doubt-resolution friction without scaling human support linearly.",
+    company: "Edfora",
+    product: "myPAT · Doubt resolution",
+    area: "Prioritization",
+    role: "Senior Product Manager",
+    verdict: "Pilot",
+    stages: [
+      { term: "Signal", text: "During peak exam preparation, doubt-resolution turnaround for JEE aspirants approached 24 hours." },
+      { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
+      { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
+      { term: "Evidence", text: "Initial sample tagging of logged tickets, with question-ID overlap, suggested ~70% of doubts were repetitive or pattern-matching. An approximate, sample-derived figure, not an automated classifier." },
+      { term: "Decision", text: "Rejected the full human marketplace, using RICE and unit economics. The initial rollout combined structured step-wise hints, peer and community answers with verification and quality guardrails, and escalation of complex or unresolved doubts to SMEs and faculty." },
+      { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors; a cohort-gated pilot of 1,000 active JEE batch subscribers to limit the blast radius; and a hard 90% accuracy circuit-breaker, measured by manual SME sampling of resolved hints plus student satisfaction ratings, with an agreed rollback if it was breached." },
+      { term: "Trade-off", text: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through." },
+    ],
+    details: [
+      { term: "Options considered", items: ["A. AI automated doubt-resolver bot: not part of the initial rollout", "B. Tutor and faculty marketplace, on-demand live 1:1: rejected", "C. Peer community and step-wise hints, with escalation: chosen"] },
+    ],
+    delta: "tat",
+    results: [
+      { text: "D14 return rate ~18% higher than the holdout cohort (relative)", basis: "Pilot A/B holdout: instant-hint access vs. the standard response queue" },
+      { text: "~60% modeled support-cost avoidance", basis: "Modeled: avoided paid SME and faculty headcount against projected ticket-volume growth; not an observed budget reduction" },
+    ],
+    note: "D14 is reported as the controlled-cohort result, not attributed to any one component. AI was one option considered; no AI resolver shipped in this decision.",
+    caseHref: "/work/doubt-resolution",
   },
   {
     id: "one-app",

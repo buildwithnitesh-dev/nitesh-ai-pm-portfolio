@@ -284,6 +284,41 @@ export function StageVisual({ v }: { v: Visual }) {
         </dl>
       );
 
+    case "loop":
+      return (
+        <figure>
+          <ol className="trace-lg relative grid gap-6 lg:grid-flow-col lg:auto-cols-fr lg:gap-6">
+            {v.steps.map((st, i) => (
+              <li key={st.stage} className="relative pl-7 lg:pl-0">
+                <span aria-hidden className={`absolute top-[3px] left-0 inline-block h-[11px] w-[11px] lg:static lg:block ${i === 0 ? "rotate-45 scale-[0.85] bg-accent" : i === v.steps.length - 1 ? "bg-ink" : "rounded-full border-[1.5px] border-ink bg-background"}`} />
+                <p className="text-[13px] font-medium text-muted lg:mt-4"><span className="tabular-nums text-subtle">{String(i + 1).padStart(2, "0")}</span>&nbsp;&nbsp;{st.stage}</p>
+                <ul className="mt-1.5 grid gap-0.5">
+                  {st.items.map((it) => <li key={it} className="text-[17px] leading-7 font-semibold tracking-[-0.01em] text-ink">{it}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ol>
+          {v.note ? <figcaption className="mt-4 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
+        </figure>
+      );
+
+    case "split":
+      return (
+        <figure>
+          <div className="grid border-t border-ink sm:grid-cols-2 sm:gap-x-10">
+            {v.sides.map((side) => (
+              <div key={side.who} className="border-b border-line py-5">
+                <p className="text-[15px] font-bold text-ink">{side.who}</p>
+                <ul className="mt-3 grid gap-1.5 text-[15px] leading-6 text-ink/85">
+                  {side.items.map((it) => <li key={it} className="flex gap-2.5"><span aria-hidden className="mt-[9px] h-1.5 w-1.5 shrink-0 bg-accent" />{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {v.note ? <figcaption className="mt-3 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
+        </figure>
+      );
+
     case "next":
       return (
         <ol className="grid gap-5">

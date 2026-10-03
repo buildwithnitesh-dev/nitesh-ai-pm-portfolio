@@ -1,5 +1,5 @@
 /**
- * The three flagship case studies, told as product-decision narratives. Each
+ * The four flagship case studies, told as product-decision narratives. Each
  * stage is one step of the decision; `reasoning` marks product reasoning (how
  * the problem was read), as opposed to documented history, and is labelled on
  * the page. No quotes, numbers or outcomes beyond the documented record.
@@ -24,7 +24,9 @@ export type Visual =
   | { type: "levers"; groups: readonly { lever: string; changes: readonly string[]; incentive?: boolean }[] }
   | { type: "isolation"; factors: readonly string[]; arms: readonly { arm: string; on: readonly boolean[]; answers: string }[]; note: string }
   | { type: "chain"; links: readonly { metric: string; measured: boolean }[]; note: string }
-  | { type: "record"; rows: readonly { term: string; text: string }[] };
+  | { type: "record"; rows: readonly { term: string; text: string }[] }
+  | { type: "loop"; steps: readonly { stage: string; items: readonly string[] }[]; note?: string }
+  | { type: "split"; sides: readonly { who: string; items: readonly string[] }[]; note?: string };
 
 export type Stage = {
   id: string;
@@ -36,7 +38,7 @@ export type Stage = {
 };
 
 export type Case = {
-  slug: "doubt-resolution" | "onboarding-funnel-redesign" | "adaptive-assignment-engine";
+  slug: "doubt-resolution" | "onboarding-funnel-redesign" | "adaptive-assignment-engine" | "behavioural-loops";
   /** Capability-first headline; company and domain sit in the metadata line. */
   capability: string;
   company: string;
@@ -46,7 +48,10 @@ export type Case = {
   opening: string;
   standfirst: string;
   description: string;
+  /** Headline numbers; empty when the evidence is the system rather than a metric. */
   headline: readonly DeltaId[];
+  /** Shown in the header instead of numbers when a case has no headline metric. */
+  headerVisual?: Visual;
   scope?: string;
   stages: readonly Stage[];
 };
@@ -164,6 +169,17 @@ export const doubt: Case = {
     },
   ],
 };
+
+const LOOP = {
+  type: "loop",
+  steps: [
+    { stage: "Behaviour", items: ["Actionable items, configured per product action"] },
+    { stage: "Reward", items: ["Points", "Streaks", "Badges"] },
+    { stage: "Progression", items: ["Avatars", "Rank and level"] },
+    { stage: "Recognition", items: ["Leaderboards", "Hall of Fame"] },
+    { stage: "Analytics", items: ["Student activity", "Faculty and stakeholder analytics"] },
+  ],
+} as const satisfies Visual;
 
 export const witzeal: Case = {
   slug: "onboarding-funnel-redesign",
@@ -324,7 +340,7 @@ export const edfora: Case = {
   company: "Edfora",
   domain: "EdTech",
   role: "Senior Product Manager · Jul 2023 – Jul 2026",
-  title: "Adaptive Assignment Engine",
+  title: "Adaptive Practice Engine",
   opening: "Every learner was getting the same next question.",
   standfirst: "A fixed practice sequence was too hard for some learners and too easy for others. Three ways to fix difficulty fit; the one chosen was a 3PL IRT engine.",
   description: "Case study: a 3PL IRT-based adaptive assignment engine at Edfora. Across a 2-year academic-cycle dataset, assignment completion was 18% on the static path and 45% after the adaptive system was introduced, not attributed to the engine alone.",
@@ -433,4 +449,108 @@ export const edfora: Case = {
   ],
 };
 
-export const cases = { doubt, witzeal, edfora } as const;
+
+export const behaviour: Case = {
+  slug: "behavioural-loops",
+  capability: "Designing behavioural loops across students and faculty",
+  company: "Edfora",
+  domain: "EdTech · Glorifire / Stakeholder",
+  role: "Senior Product Manager · Jul 2023 – Jul 2026",
+  title: "Behavioural Loops & Gamification",
+  opening: "DAU had been flat for two straight months.",
+  standfirst: "The answer wasn't more game features. It was a configurable behavioural engagement system across student and faculty workflows: product actions tied to rewards, progression, recognition and analytics.",
+  description: "Case study: a configurable behavioural engagement system at Edfora (Glorifire and the Stakeholder platform), across student and faculty workflows: actions, points, streaks, badges, avatars, rank and level, leaderboards, a Hall of Fame, analytics, and a myPlan accuracy feedback loop. No engagement or business outcome is attributed to the system.",
+  headline: [],
+  headerVisual: LOOP,
+  scope: "The evidence in this case is the product system, as documented in the platform's screens. Screens aren't reproduced here.",
+  stages: [
+    {
+      id: "context", label: "Context",
+      title: "Two audiences in one classroom product.",
+      body: ["Glorifire is where students practice; the Stakeholder platform is where faculty and stakeholders follow and guide them. Any engagement mechanic had to work for both."],
+      visual: { type: "facts", items: [{ term: "Company", value: "Edfora" }, { term: "Products", value: "Glorifire · Stakeholder platform" }, { term: "Role", value: "Senior Product Manager" }, { term: "Users", value: "Students; faculty and stakeholders" }] },
+    },
+    {
+      id: "signal", label: "Signal",
+      title: "Flat DAU, and teachers wary of anything “too game-y”.",
+      body: ["Daily active use had been flat for two straight months. When early quiz prototypes reached teachers, they flagged them as “too game-y”."],
+      visual: { type: "signal", items: [{ value: "2 months", label: "of flat DAU" }, { value: "“Too game-y”", label: "teachers' read of early quiz prototypes" }] },
+    },
+    {
+      id: "problem", label: "Problem",
+      title: "Reinforce the right behaviours, for students and for faculty.",
+      body: ["Engagement needed a system that reinforced the behaviours that matter, for learners and for the faculty and stakeholders around them, not a scattering of game mechanics bolted onto features."],
+    },
+    {
+      id: "decision", label: "Decision",
+      title: "A configurable behavioural layer, not hard-coded rewards.",
+      visual: {
+        type: "record",
+        rows: [
+          { term: "Chose", text: "A behavioural engagement layer built around product actions, with configurable reward rules" },
+          { term: "Didn't choose", text: "One-off rewards hard-coded into individual features" },
+          { term: "Defined", text: "The actionable behaviours each reward is tied to" },
+          { term: "Mechanics", text: "Points, streaks and badges; avatars and rank and level; leaderboards and a Hall of Fame" },
+          { term: "Built for", text: "Student workflows and faculty and stakeholder workflows, with analytics on both" },
+        ],
+      },
+    },
+    {
+      id: "system", label: "System",
+      title: "Behaviour → reward → progression → recognition → analytics.",
+      body: ["Each mechanic has a job in the loop. An action earns a reward; rewards add up to progression; progression is made visible as recognition; and analytics show faculty which behaviours are actually happening."],
+      visual: LOOP,
+    },
+    {
+      id: "workflows", label: "Workflows",
+      title: "The same system, two sides of it.",
+      visual: {
+        type: "split",
+        sides: [
+          { who: "Students · Glorifire", items: ["Earn points for actionable items", "Keep streaks, unlock badges", "Avatars, rank and level", "Leaderboards and the Hall of Fame"] },
+          { who: "Faculty and stakeholders · Stakeholder platform", items: ["Configure behaviour-based actionable items", "Analytics on learner activity", "Leaderboards", "Confirm myPlan accuracy, and earn points for it"] },
+        ],
+      },
+    },
+    {
+      id: "feedback", label: "Feedback loop",
+      title: "Paying faculty, in points, for the feedback that keeps myPlan honest.",
+      body: ["The same mechanics reach faculty. A system-generated myPlan is shown to faculty, who confirm it as correct or incorrect; accurate feedback earns 100 points."],
+      visual: {
+        type: "path", title: "Confirmation of myPlan accuracy",
+        steps: [
+          { step: "myPlan", change: "Generated by the system" },
+          { step: "Faculty", change: "Review it" },
+          { step: "Feedback", change: "Correct or incorrect" },
+          { step: "Reward", change: "100 points if accurate" },
+        ],
+      },
+    },
+    {
+      id: "tradeoff", label: "Trade-off",
+      title: "Engagement against teacher credibility.",
+      body: ["The mechanics had to motivate students without looking gimmicky to the teachers who had flagged early prototypes. The work with design was to keep them from feeling like a game for its own sake: in a classroom product, teacher trust is part of the engagement loop."],
+    },
+    {
+      id: "evidence", label: "Evidence",
+      title: "The proof here is the system, not a number.",
+      visual: {
+        type: "caveat",
+        text: "No engagement, retention or business outcome is attributed to this behavioural system. The résumé records DAU up 12–15% and average session time up ~15% after the quiz and gamification layer, with no method or control, so those figures stay on the decision record (D-08) as directional.",
+        also: "100K+ learners is the reach of Edfora's products overall, not of this system.",
+      },
+    },
+    {
+      id: "learning", label: "Learning", reasoning: true,
+      title: "Design the rules, not the rewards.",
+      body: ["A reward is only as good as the behaviour it is tied to. Making actions configurable lets one system reinforce different behaviours for students and for faculty, and the myPlan reward shows the pattern: pay for the behaviour that keeps the product honest."],
+    },
+    {
+      id: "next", label: "Next", reasoning: true,
+      title: "What I would measure next",
+      visual: { type: "next", items: ["Hold out a cohort without rewards, to separate the system's effect from everything else that shipped.", "Track faculty verification of myPlan before and after the 100-point reward, by course."] },
+    },
+  ],
+};
+
+export const cases = { doubt, witzeal, edfora, behaviour } as const;

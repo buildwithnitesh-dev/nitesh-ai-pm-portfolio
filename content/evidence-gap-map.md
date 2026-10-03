@@ -273,3 +273,17 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | 100K+ learners | Always "on products that reach 100K+ learners". | Product reach, not personal attribution. |
 | Doubt resolution: median TAT, D14, ~60% | Promoted to a flagship case (/work/doubt-resolution). Median always stated; D14 always "relative"; ~60% always "modeled", "not an observed budget reduction". The hybrid is attributed to "Product & growth", not to Nitesh personally. | As supplied in §8. |
 | ~20% bonus spend (retention held), ~18% fraud losses | Promoted: ~20% in the hero proof; ~18% in "Same PM. Different domains." Both keep their basis (directional / method not captured). | Business evidence, with caveats. |
+
+---
+
+## 11. Behavioural loops case and story architecture (2026-10-03)
+
+| Item | Treatment | Why |
+|---|---|---|
+| Behavioural loops / gamification | Promoted to flagship case 04 (/work/behavioural-loops). The system itself is the evidence: configurable actionable items → points, streaks, badges → avatars, rank and level → leaderboards, Hall of Fame → analytics; student and faculty/stakeholder workflows; the myPlan accuracy loop (100 points). | As supplied (U) and in this round's brief. |
+| Screenshots | None exist in the repository, so none are shown; the system is drawn in the site's own visual language and the case says screens aren't reproduced. | No manufactured UI. |
+| Signal: DAU flat two months; teachers flagged prototypes "too game-y" | Used as the case signal and trade-off. | Résumé (R). |
+| DAU +12–15%, session time ~15% | Not attributed to the behavioural system. Kept only on D-08 with the basis "as recorded on the résumé: before/after, no method or control". | No attribution in any source. |
+| 100K+ learners | Edfora product reach only; the case says it is not this system's reach. | — |
+| FanBlaze | Removed from the flagship stories; leads the decision library (D-01) as a stopped bet. | Product judgment, not a success case. |
+| myPlan accuracy loop | Its own decision snapshot (D-09) and a stage of case 04. | — |

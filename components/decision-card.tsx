@@ -17,14 +17,18 @@ export function VerdictTag({ verdict }: { verdict: Verdict }) {
 }
 
 /**
- * One grammar for every decision: code and verdict, the call in one line, then
- * signal → decision → trade-off (or hypothesis → … for a sunset), the evidence,
- * and the learning where one is on record.
+ * One grammar for every decision, kept short: code and verdict, the call in one
+ * line, the signal and the decision, then the outcome or learning. Trade-offs
+ * and the rest of the reasoning open on request.
  */
 export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: Decision; variant?: "full" | "compact"; headingLevel?: "h2" | "h3" }) {
   const H = headingLevel;
   const compact = variant === "compact";
   const decision = d.stages.find((s) => s.term === "Decision");
+  // A snapshot: the signal (or what stands in for it) and the decision lead; the rest of the reasoning sits behind a disclosure.
+  const signal = d.stages.find((s) => s.term === "Signal") ?? d.stages[0];
+  const lead = d.stages.filter((s) => s === signal || s === decision);
+  const rest = d.stages.filter((s) => !lead.includes(s));
   return (
     <article id={compact ? undefined : d.id} className={`flex scroll-mt-24 flex-col ${compact ? "flex-1" : ""}`}>
       <div className="flex flex-wrap items-center gap-3">
@@ -37,25 +41,29 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
       {compact ? (
         decision ? <p className="mt-3 text-sm leading-6 text-ink/85">{decision.text}</p> : null
       ) : (
-        <dl className="mt-6 grid gap-4">
-          {d.stages.map((s) => (
-            <div key={s.term} className="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
-              <dt className="flex items-center gap-2.5"><StageMarker kind={kindOf(s.term)} /><Mono className={kindOf(s.term) === "decision" ? "text-accent" : "text-ink"}>{s.term}</Mono></dt>
-              <dd className={`text-[15px] leading-7 ${s.term === "Decision" ? "font-medium text-ink" : "text-ink/85"}`}>{s.text}</dd>
-            </div>
-          ))}
+        <dl className="mt-5 grid gap-3">
+          {lead.map((s) => <Step key={s.term} term={s.term} text={s.text} />)}
         </dl>
       )}
 
-      {d.details && !compact ? (
-        <dl className="mt-6 grid gap-6 border-t border-line pt-5 sm:grid-cols-2">
-          {d.details.map((x) => (
-            <div key={x.term}>
-              <dt><Mono className="text-accent">{x.term}</Mono></dt>
-              <dd className="mt-2"><ul className="grid gap-1 text-sm leading-6 text-ink/85">{x.items.map((i) => <li key={i}>{i}</li>)}</ul></dd>
-            </div>
-          ))}
-        </dl>
+      {!compact && (rest.length || d.details) ? (
+        <details className="group/more mt-4">
+          <summary className="inline-flex min-h-6 cursor-pointer list-none items-center gap-1.5 text-[13px] font-medium text-muted underline decoration-dotted decoration-line-strong underline-offset-4 hover:text-ink [&::-webkit-details-marker]:hidden">
+            More on this call<span className="sr-only">: {d.title}</span>
+            <span aria-hidden className="transition-transform group-open/more:rotate-45">+</span>
+          </summary>
+          {rest.length ? <dl className="mt-4 grid gap-3">{rest.map((s) => <Step key={s.term} term={s.term} text={s.text} />)}</dl> : null}
+          {d.details ? (
+            <dl className="mt-5 grid gap-6 border-t border-line pt-4 sm:grid-cols-2">
+              {d.details.map((x) => (
+                <div key={x.term}>
+                  <dt><Mono className="text-accent">{x.term}</Mono></dt>
+                  <dd className="mt-2"><ul className="grid gap-1 text-sm leading-6 text-ink/85">{x.items.map((i) => <li key={i}>{i}</li>)}</ul></dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+        </details>
       ) : null}
 
       <div className={`border-t border-line ${compact ? "mt-auto pt-5" : "mt-6 pt-5"}`}>
@@ -78,5 +86,15 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
       {d.note && !compact ? <p className="mt-4 text-[13px] leading-5 text-muted">{d.note}</p> : null}
       {d.caseHref && !compact ? <p className="mt-5"><Link href={d.caseHref} className="group inline-flex min-h-6 items-center gap-2 text-[15px] font-medium text-accent underline decoration-accent/30 underline-offset-[6px] hover:decoration-accent">Read the full case<span className="sr-only">: {d.title}</span> <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span></Link></p> : null}
     </article>
+  );
+}
+
+function Step({ term, text }: { term: string; text: string }) {
+  const kind = kindOf(term);
+  return (
+    <div className="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
+      <dt className="flex items-center gap-2.5"><StageMarker kind={kind} /><Mono className={kind === "decision" ? "text-accent" : "text-ink"}>{term}</Mono></dt>
+      <dd className={`text-[15px] leading-7 ${term === "Decision" ? "font-medium text-ink" : "text-ink/85"}`}>{text}</dd>
+    </div>
   );
 }

@@ -82,8 +82,8 @@ body {
  * The decision trace: Signal → Decision → Outcome on one ruled line. On wide
  * screens the rule runs through the markers; on phones it runs down the left.
  */
-.trace { position: relative; }
-.trace::before {
+.trace, .trace-lg { position: relative; }
+.trace::before, .trace-lg::before {
   content: "";
   position: absolute;
   left: 5px; top: 8px; bottom: 8px;
@@ -92,6 +92,9 @@ body {
 }
 @media (min-width: 768px) {
   .trace::before { left: 6px; right: 0; top: 6px; bottom: auto; width: auto; height: 1px; }
+}
+@media (min-width: 1024px) {
+  .trace-lg::before { left: 6px; right: 0; top: 6px; bottom: auto; width: auto; height: 1px; }
 }
 
 /* Whole-card links: the heading link covers the card so the card is one target. */

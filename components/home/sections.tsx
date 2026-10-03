@@ -2,16 +2,17 @@ import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
-import { Trace, type StepKind } from "@/components/trace";
+import { StageMarker, Trace, type StepKind } from "@/components/trace";
+import { VerdictTag } from "@/components/decision-card";
 import { Arrow, MoreLink, SectionHeader, StatusLabel, button } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
-import { aiLab, arc, contact, decisions, domains, flagships, sunsetStory } from "@/content/portfolio";
+import { about, aiLab, arc, contact, decisions, domains, flagships, profile, technical } from "@/content/portfolio";
 import { CopyEmail } from "./copy-email";
 
 /** 03 · The same capabilities, proved in two consumer domains. */
 export function DomainTransfer() {
   return (
-    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
+    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
       <Container>
         <SectionHeader id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each with evidence from real-money gaming and from EdTech. Every line links to the story and its caveats." />
         <table className="mt-12 hidden w-full table-fixed border-t border-ink text-left md:table">
@@ -58,12 +59,12 @@ function EvidenceLink({ text, href }: { text: string; href: string }) {
   );
 }
 
-/** 04 · The career as a transformation, not a timeline: what each phase taught, and one proof. */
+/** 06 · The career as a transformation, not a timeline: what each phase taught, and one proof. */
 export function CareerArc() {
   return (
-    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
+    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
       <Container>
-        <SectionHeader id="arc-title" index="04" label="Career" title="Six phases. Each added a layer of the job." intro="How software gets built, how it ships, how users behave, how growth works, how a product adapts to each person. AI is the next application of the same discipline." />
+        <SectionHeader id="arc-title" index="06" label="Career" title="Six phases. Each added a layer of the job." intro="How software gets built, how it ships, how users behave, how growth works, how a product adapts to each person. AI is the next application of the same discipline." />
         <ol className="mt-12">
           {arc.map((a, i) => {
             const last = i === arc.length - 1;
@@ -85,14 +86,14 @@ export function CareerArc() {
   );
 }
 
-/** 02 · Three stories, each drawn as signal → decision → outcome. */
+/** 02 · Four deep stories, each drawn as signal → decision → trade-off → outcome. */
 export function SelectedWork() {
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-16 lg:py-24">
+    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeader id="work-title" index="02" label="Selected work" title="Three decisions, with the evidence behind them." intro="A strategic trade-off, an activation fix and a personalization system: how I found the problem, made the call, and what the evidence does and doesn't prove." />
-          <MoreLink href="/decisions">All {decisions.length} decisions</MoreLink>
+          <SectionHeader id="work-title" index="02" label="Selected work" title="Four product stories, in depth." intro="A strategic trade-off, an activation fix, a personalization system and a behavioural system: the signal, the call, what it cost, and what the evidence does and doesn't prove." />
+          <MoreLink href="/work">All work</MoreLink>
         </div>
         <WorkStories />
       </Container>
@@ -100,58 +101,106 @@ export function SelectedWork() {
   );
 }
 
-type Story = {
-  key: string; index: string; capability: string; headline: string; meta: string; href: string; cta: string;
-  summary: string; signal: string; decision: string; outcome: React.ReactNode;
-};
-
-/** The flagship cases (and, on /work, the sunset), as editorial entries rather than cards. */
-export function WorkStories({ headingLevel = "h3", withSummary = false, withSunset = false }: { headingLevel?: "h2" | "h3"; withSummary?: boolean; withSunset?: boolean }) {
+/** The four flagship cases, as editorial entries rather than cards. */
+export function WorkStories({ headingLevel = "h3", withSummary = false }: { headingLevel?: "h2" | "h3"; withSummary?: boolean }) {
   const H = headingLevel;
-  const s = sunsetStory;
-  const stories: Story[] = [
-    ...flagships.map((c) => ({
-      key: c.slug, index: c.index, capability: c.capability, headline: c.headline, meta: `${c.company} · ${c.domain} · ${c.role}`, href: c.href, cta: "Read the case",
-      summary: c.summary, signal: c.opening, decision: c.decision, outcome: <Delta id={c.delta} size="sm" showContext={false} />,
-    })),
-    ...(withSunset ? [{
-      key: "fanblaze", index: "04", capability: s.capability, headline: s.headline, meta: `${s.company} · ${s.product} · ${s.domain} · ${s.role}`, href: s.href, cta: "Read the decision",
-      summary: s.summary, signal: s.opening, decision: s.decision,
-      outcome: (
-        <div>
-          <p className="text-3xl font-bold tracking-[-0.03em] proportional-nums">{s.figure.value}</p>
-          <p className="mt-1 text-[15px] leading-6">{s.figure.label}</p>
-          <p className="text-[13px] leading-5 text-muted">{s.figure.basis}. {s.opportunity}</p>
-        </div>
-      ),
-    }] : []),
-  ];
   return (
-    <ol className="mt-12">
-      {stories.map((st) => (
-        <li key={st.key}>
-          <article className="group relative grid gap-8 border-t border-ink py-10 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.65fr)] lg:gap-14">
-            <div className="flex flex-col">
-              <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{st.index}</span>&nbsp;&nbsp;{st.capability}</p>
-              <H className="mt-3 font-serif text-[2.1rem] leading-[1.02] text-ink sm:text-[2.6rem]">
-                <Link href={st.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{st.headline}</Link>
-              </H>
-              <p className="mt-3 text-sm text-muted">{st.meta}</p>
-              {withSummary ? <p className="mt-5 text-base leading-7 text-ink/80">{st.summary}</p> : null}
-              <p className="mt-auto inline-flex items-center gap-2 pt-6 text-[15px] font-medium text-accent">{st.cta} <Arrow /></p>
-            </div>
-            <Trace
-              className="md:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)_minmax(0,1.2fr)]"
-              steps={[
-                { kind: "signal", content: st.signal },
-                { kind: "decision", content: st.decision },
-                { kind: "outcome", content: st.outcome },
-              ]}
-            />
-          </article>
-        </li>
-      ))}
+    <ol className="mt-10">
+      {flagships.map((c) => {
+        const outcome = "delta" in c
+          ? { kind: "outcome" as const, label: "Outcome", content: <Delta id={c.delta} size="sm" showContext={false} /> }
+          : { kind: "outcome" as const, label: "Evidence", content: <p>{c.evidence}</p> };
+        return (
+          <li key={c.slug}>
+            <article className="group relative border-t border-ink py-9 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:py-11">
+              <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
+                <div>
+                  <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
+                  <H className="mt-2.5 max-w-3xl font-serif text-[2rem] leading-[1.04] text-ink sm:text-[2.5rem]">
+                    <Link href={c.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{c.headline}</Link>
+                  </H>
+                  <p className="mt-3 text-sm text-muted">{c.company} · {c.domain} · {c.role}</p>
+                  <p className="mt-1 text-[13px] font-medium text-ink">{c.tags.join(" × ")}</p>
+                  {withSummary ? <p className="mt-4 max-w-3xl text-base leading-7 text-ink/80">{c.summary}</p> : null}
+                </div>
+                <p aria-hidden className="hidden items-center gap-2 text-[15px] font-medium text-accent lg:inline-flex">Read the case <Arrow /></p>
+              </div>
+              <Trace
+                wide
+                className="mt-8"
+                steps={[
+                  { kind: "signal", content: c.opening },
+                  { kind: "decision", content: c.decision },
+                  { kind: "tradeoff", content: c.tradeoff },
+                  outcome,
+                ]}
+              />
+              <p aria-hidden className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-accent lg:hidden">Read the case <Arrow /></p>
+            </article>
+          </li>
+        );
+      })}
     </ol>
+  );
+}
+
+/** 04 · Short product-judgment snapshots: signal, decision, outcome or learning. */
+export function DecisionsTeaser() {
+  const pick = ["fanblaze", "experimentation", "myplan-accuracy"].map((id) => decisions.find((d) => d.id === id)!);
+  return (
+    <section id="decisions" aria-labelledby="decisions-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+      <Container>
+        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+          <SectionHeader id="decisions-title" index="04" label="Decisions" title="Smaller calls, same discipline." intro="Snapshots of product judgment, including the bets that didn't work. The full library has eleven." />
+          <MoreLink href="/decisions">All {decisions.length} decisions</MoreLink>
+        </div>
+        <ol className="mt-10 border-t border-ink">
+          {pick.map((d) => {
+            const signal = d.stages.find((x) => x.term === "Signal") ?? d.stages[0];
+            const decision = d.stages.find((x) => x.term === "Decision");
+            const end = d.learning ?? d.results?.[0]?.text ?? d.note;
+            return (
+              <li key={d.id} className="grid gap-4 border-b border-line py-7 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
+                <div>
+                  <p className="flex items-center gap-2.5 text-[13px] font-medium text-muted"><span className="tabular-nums">{d.code}</span><VerdictTag verdict={d.verdict} />{d.product ?? d.company}</p>
+                  <h3 className="mt-2.5 font-serif text-2xl leading-tight text-ink">
+                    <Link href={`/decisions#${d.id}`} className="hover:text-accent">{d.title}</Link>
+                  </h3>
+                </div>
+                <dl className="grid gap-3 text-[15px] leading-6 sm:grid-cols-3 sm:gap-6">
+                  <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="signal" />Signal</dt><dd className="mt-1 text-ink/85">{signal.text}</dd></div>
+                  {decision ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</dt><dd className="mt-1 text-ink">{decision.text}</dd></div> : null}
+                  {end ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind={d.learning ? "learning" : "outcome"} />{d.learning ? "Learning" : "Outcome"}</dt><dd className="mt-1 text-ink/85">{end}</dd></div> : null}
+                </dl>
+              </li>
+            );
+          })}
+        </ol>
+      </Container>
+    </section>
+  );
+}
+
+/** 07 · The person behind the work, in brief. */
+export function AboutTeaser() {
+  return (
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+      <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
+        <div>
+          <SectionHeader id="about-title" index="07" label="About" title={about.opening} intro={about.intro} />
+          <p className="mt-6"><MoreLink href="/about">About me, and how I work</MoreLink></p>
+        </div>
+        <div className="border-t border-ink pt-6 lg:mt-12">
+          <p className="font-serif text-2xl leading-snug text-ink">“{technical.insight.text}”</p>
+          <p className="mt-2 text-[13px] font-medium text-muted">{technical.insight.source}</p>
+          <dl className="mt-6 grid gap-2 text-[15px] leading-6">
+            {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location]] as const).map(([k, v]) => (
+              <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3 border-b border-line pb-2"><dt className="text-[13px] font-medium text-muted">{k}</dt><dd className="text-ink">{v}</dd></div>
+            ))}
+          </dl>
+        </div>
+      </Container>
+    </section>
   );
 }
 
@@ -160,7 +209,7 @@ export function AiLabTeaser() {
   const build = aiLab.builds[0];
   const order: BuildStatus[] = ["Implemented", "Designed", "Planned", "Needs input"];
   return (
-    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-16 lg:py-24">
+    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-14 lg:py-20">
       <Container>
         <SectionHeader id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first: a deterministic baseline, an evaluation and a quality gate come before it, and sometimes the answer is not to ship it." />
         <FieldExample className="mt-10" />
@@ -205,14 +254,13 @@ export function FieldExample({ className = "" }: { className?: string }) {
   );
 }
 
-/** 06 · Every way to get in touch, and a path to the person behind the work. */
+/** 08 · Every way to get in touch, and a path to the person behind the work. */
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-16 lg:py-24">
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-14 lg:py-20">
       <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
         <div>
-          <SectionHeader id="contact-title" index="06" label="Contact" title="Hiring for a product role? Let's talk." intro={`Open to ${contact.lookingFor}. Delhi NCR, and Mumbai where it makes sense.`} />
-          <p className="mt-6"><MoreLink href="/about">About me, and how I work</MoreLink></p>
+          <SectionHeader id="contact-title" index="08" label="Contact" title="Hiring for a product role? Let's talk." intro={`Open to ${contact.lookingFor}. Delhi NCR, and Mumbai where it makes sense.`} />
         </div>
         <div className="border-t border-ink pt-8">
           <CopyEmail email={contact.email} />

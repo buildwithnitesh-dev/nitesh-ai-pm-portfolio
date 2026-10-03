@@ -33,14 +33,20 @@ export function kindOf(term: string): StepKind {
 
 export type TraceStep = { kind: StepKind; label?: string; content: React.ReactNode };
 
-/** Three (or more) steps on one ruled line; stacks with a left rule on phones. */
-export function Trace({ steps, className = "" }: { steps: readonly TraceStep[]; className?: string }) {
+/**
+ * Three (or more) steps on one ruled line; stacks with a left rule on narrow
+ * screens. `wide` (four steps) stays stacked until desktop width.
+ */
+export function Trace({ steps, className = "", wide = false }: { steps: readonly TraceStep[]; className?: string; wide?: boolean }) {
+  const bp = wide
+    ? { ol: "trace-lg lg:grid-flow-col lg:auto-cols-fr lg:gap-8", li: "pl-7 lg:pl-0", mark: "lg:static lg:block", label: "lg:mt-4" }
+    : { ol: "trace md:grid-flow-col md:auto-cols-fr md:gap-8", li: "pl-7 md:pl-0", mark: "md:static md:block", label: "md:mt-4" };
   return (
-    <ol className={`trace grid gap-6 md:grid-flow-col md:auto-cols-fr md:gap-8 ${className}`}>
+    <ol className={`relative grid gap-6 ${bp.ol} ${className}`}>
       {steps.map((s, i) => (
-        <li key={i} className="relative pl-7 md:pl-0">
-          <span className="absolute top-[3px] left-0 md:static md:block"><StageMarker kind={s.kind} /></span>
-          <p className={`text-[13px] font-medium md:mt-4 ${s.kind === "decision" ? "text-accent" : "text-muted"}`}>{s.label ?? kindLabel[s.kind]}</p>
+        <li key={i} className={`relative ${bp.li}`}>
+          <span className={`absolute top-[3px] left-0 ${bp.mark}`}><StageMarker kind={s.kind} /></span>
+          <p className={`text-[13px] font-medium ${bp.label} ${s.kind === "decision" ? "text-accent" : "text-muted"}`}>{s.label ?? kindLabel[s.kind]}</p>
           <div className="mt-1.5 text-[15px] leading-6 text-ink">{s.content}</div>
         </li>
       ))}
