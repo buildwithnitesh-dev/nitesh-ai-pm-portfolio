@@ -20,7 +20,7 @@ export function ProofWall() {
               <li key={p.capability} className="grid gap-3 border-b border-line py-8 md:grid-cols-[13rem_minmax(0,1fr)_minmax(0,0.75fr)] md:items-baseline md:gap-10">
                 <p className="font-serif text-3xl text-ink">{p.capability}</p>
                 <p className="text-base leading-7 text-ink/85">
-                  <span className={`mr-2 font-sans font-semibold tracking-tight tabular-nums ${headline ? "text-4xl text-ink" : "text-2xl text-muted"}`}>{p.value}</span>
+                  {p.value ? <span className={`mr-2 font-sans font-semibold tracking-tight tabular-nums ${headline ? "text-4xl text-ink" : "text-2xl text-muted"}`}>{p.value}</span> : null}
                   {p.claim}.
                 </p>
                 <div className="text-xs leading-5 text-muted">

@@ -157,7 +157,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | 3.1 | Bonus & discount spend ~20% ↓, "retention held" | R ("Cut … 20%; retention held steady"), M, C | No window, no base, "held" undefined | Allocation change (flat tiers → expected ROI per segment) | DIRECTIONAL | Keep as text with a DIRECTIONAL tag. Remove the indexed 100→80 bar (false precision). State the objective (incremental NGR per rupee) and that **the NGR outcome was not measured in the record**. |
 | 3.2 | GMV ~10% WoW, sustained over 11 months | R ("Drove GMV growth to 10% week-over-week"), M (adds "11 months") | No base; window 11 months (M) | Not attributed to testing alone (M, C). R's "Drove" is stronger than M and C. | DIRECTIONAL | Demote from any number treatment; text only, with "no starting GMV recorded". Taken literally, 10% WoW over ~47 weeks compounds to ~88×; NEEDS_USER_INPUT (base, or whether it was a peak rate rather than a sustained average). |
 | 3.3 | 20+ A/B tests, end to end (hypothesis, sample size, significance) | R, M, C | Count | — | VERIFIED (self-reported count) | Keep. |
-| 3.4 | "Core funnel conversion up ~15% across the tests" | R ("together improved … 15%"), M, C | Aggregated across tests; method of aggregation not recorded | — | UNKNOWN | Removed from results and role highlights; kept only as a note on D-03 ("reported as a combined lift … not claimed as a measured effect"). |
+| 3.4 | "Core funnel conversion up ~15% across the tests" | R ("together improved … 15%"), M, C | Aggregated across tests; method of aggregation not recorded | — | UNKNOWN | Removed from the site entirely (results, notes and role highlights): the aggregation isn't defined by any source. Remains on the frozen résumé. |
 | 3.5 | "A fair number came back inconclusive or negative" | R, M, C | — | — | VERIFIED (qualitative) | Keep; it is a seniority signal. |
 | 3.6 | Segmented journeys: session duration ~35% ↑, retention ~25% ↑ | R, M, C | Method, window, relative vs absolute: not recorded | Behavioral clustering redesign | UNKNOWN | Text only, with "method not recorded". |
 | 3.7 | Fraud losses ~18% ↓ (rules-based anomaly detection) | R ("protecting net revenue margin"), M, C | Base, window, false-positive rate: not recorded | — | UNKNOWN | Text only. Can be used as the fraud → loss → margin chain in words (R supports the margin link qualitatively). |
@@ -211,3 +211,26 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 8. Current availability after Jul 2026.
 9. Any specific, documentable stakeholder disagreement or prioritization decision (PM era).
 10. AI Diagnostic v2: latency and cost budget targets; who authors or validates gold labels for evaluation cases (an educator).
+
+---
+
+## 7. Edfora evidence audit (2026-10-03)
+
+What was actually available in this project. "PRD (text)" means the content was relayed in the conversation; the file itself is not in the repository.
+
+| Item | Evidence available | Problem it demonstrates | Capability | Where | Safe claim | Can't claim | Class |
+|---|---|---|---|---|---|---|---|
+| Adaptive Practice PRD (3PL IRT) | PRD (text): θ per concept from historical performance; 3PL b/a/c; P(θ) selection near current ability; correct → harder, incorrect → easier; discrimination prioritizes comparable candidates; concept selection; full loop; inputs (raw student data, 3PL parameters, content IDs); edge cases (initial ability, missing parameters, same median P(θ)); code examples | A fixed sequence gives poor difficulty fit | Personalization; systems thinking; translating learning requirements into product logic | Flagship case 02 | The loop, selection rule, inputs and edge cases as specified | That it is an LLM or AI model; how initial ability is estimated; calibration method; learning outcomes | **A** |
+| Adaptive outcome 18% → 45% | User correction (supersedes "18–25%"); R | Completion on the static path vs after | Measuring a product change honestly | Case 02, hero-adjacent cards, share card | 18% → 45%, before/after, 2-year academic-cycle dataset, not attributed to the engine alone | Causality; mastery; significance | **A** |
+| Team and scope | User brief, M | — | Scope signal | Case 02 context | 1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads | APM as a direct report | **A** |
+| myAdvisor | Feature list from the original brief and M: high/medium alerts, module-level alerting, history, module/date filters, deep links, schedule-aware timing, unread handling | Signals arrive too late or too broadly for a teacher to act | Turning data into action; attention design | Decision D-07 | Documented design; dashboards' retention result is separate | Any usage or outcome for myAdvisor | **C** |
+| Real-time faculty dashboards | R, M | Monthly spreadsheet lag | Data product | D-07 | Retention ~8–12% after dashboards (method not captured) | Method, definition | **C** |
+| myPlan accuracy confirmation | U: system-generated myPlan → faculty verification → Correct/Incorrect → 100 points | Keeping a system's plan checked by a person | Behavioural feedback loop design | D-09 | The loop as described | AI impact; plan accuracy; participation rates | **C** |
+| Glorifire student platform | U: points, streaks, badges, avatars, Hall of Fame, leaderboards | Engagement mechanics for learners | Behavioural loops | D-09 | The system's components | Engagement or business outcome from screens alone | **C** |
+| Glorifire faculty/stakeholder platform | U: analytics, leaderboards, configurable behaviour-based actions | Faculty tooling around the same loop | Stakeholder tooling | D-09 | The components | Outcomes | **C** |
+| Quiz and gamification layer | R, M: teachers found prototypes "too game-y"; DAU ~12–15%, session ~15% | Engagement vs teacher credibility | Trade-off judgment | D-08 | The tension and the directional result | That D-08's result came from the D-09 system (relationship not recorded) | **C** |
+| Assignment Reattempt | Never supplied in this session (Figma not accessible) | — | — | — | — | Anything | **NEEDS INPUT** (D until reviewed) |
+| Other product documentation areas (AI Chatbot, Alerts and Escalation, Analytics, Research, Product Planning, VOD Analytics, Author Platform, Content Improvement) | Names only, from the original brief | — | Breadth | — | — | Any detail; "AI Chatbot" is ambiguous and must not imply LLM work | **D** |
+| Interviews and usability tests → RICE roadmap; 5+ features | R, M | — | Prioritization practice | Case 02 context | The practice | Any specific finding or prioritization decision | **B** |
+
+**Decision on a second featured story:** Edfora personalization already is the second featured story (case 02), and the PRD supports it as a system story. The engagement evidence (myPlan loop, Glorifire, myAdvisor) is product-system design without outcomes, so it stays in the Decision Library rather than becoming another case.

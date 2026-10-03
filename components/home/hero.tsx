@@ -18,7 +18,7 @@ export function Hero() {
           <h1 id="hero-title" className="mt-5 font-serif text-[3.1rem] leading-[1] tracking-tight text-balance text-ink sm:text-7xl lg:text-[5.4rem]">
             {hero.headline}
           </h1>
-          <p className="mt-6 text-xl tracking-tight text-accent sm:text-2xl">{hero.positioning}</p>
+          <p className="mt-6 text-lg tracking-tight text-accent sm:text-xl">{hero.positioning}</p>
           <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg sm:leading-8">{hero.lede}</p>
           <p className="mt-5 font-mono text-xs tracking-[0.04em] text-ink">{profile.experience}</p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">

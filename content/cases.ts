@@ -274,21 +274,22 @@ export const edfora: Case = {
     {
       id: "system", label: "System",
       title: "Learner ability on one side, question parameters on the other.",
+      body: ["The PRD specifies the loop end to end: initialization, ability calculation, concept selection, question assignment, response evaluation, ability update and difficulty adjustment, until the practice ends. Its inputs are raw student data, each question's 3PL parameters and content IDs."],
       visual: {
         type: "system",
         steps: [
-          { step: "Estimate", detail: "Ability (θ) per concept, from performance history" },
-          { step: "Score", detail: "Each candidate's P(θ) from difficulty, discrimination and guessing" },
-          { step: "Serve", detail: "The question targeted at current ability" },
-          { step: "Update", detail: "θ after every response, then repeat" },
+          { step: "Estimate", detail: "Ability (θ) per concept, from historical performance" },
+          { step: "Score", detail: "P(θ) for each candidate, from difficulty (b), discrimination (a) and guessing (c)" },
+          { step: "Serve", detail: "A question near current ability; when candidates are comparable, the more discriminating one goes first" },
+          { step: "Update", detail: "θ after every response: a correct answer moves the next question harder, an incorrect one easier" },
         ],
-        edge: ["No history yet (a new learner)", "Questions missing 3PL parameters", "Several questions with the same P(θ)"],
+        edge: ["Initial ability estimation (a new learner)", "Questions missing 3PL parameters", "Several questions with the same median P(θ)"],
       },
     },
     {
-      id: "cold-start", label: "Cold start", reasoning: true,
+      id: "cold-start", label: "Cold start",
       title: "A new learner starts with no estimate.",
-      body: ["With no history, the engine's first questions are its least informed; the ability estimate only sharpens as answers come in. That is where a fixed sequence and an adaptive one behave most alike. How the shipped engine handled cold start isn't in the record."],
+      body: ["The PRD names initial ability estimation as an edge case. With no history, the first questions are the least informed and the estimate sharpens as answers come in, which is where a fixed sequence and an adaptive one behave most alike. The method the PRD specifies isn't in the evidence available here, so it isn't described."],
     },
     {
       id: "rollout", label: "Rollout",

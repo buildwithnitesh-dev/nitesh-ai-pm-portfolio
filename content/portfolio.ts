@@ -37,12 +37,12 @@ export const contact = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager · Growth, Consumer & AI`,
   description:
-    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% in a controlled rollout, 20+ A/B experiments, adaptive learning at Edfora, and an independent AI prototype.",
+    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% in a controlled rollout, adaptive learning at Edfora, and an independent AI prototype.",
   /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
   share: {
     title: "Nitesh Tiwari · Senior Product Manager · Growth × Consumer × AI",
     description: "Retention is won before the retention metric. ~7 years in product management, 10+ in technology: find where users drop before they reach value, and fix the product first.",
-    imageAlt: "Nitesh Tiwari, Senior Product Manager, Growth × Consumer × AI. Day-7 retention 12.2% to 25.4% in a controlled rollout; assignment completion 18% to 45%, before vs. after, not attributed to one system alone; 20+ A/B experiments.",
+    imageAlt: "Nitesh Tiwari, Senior Product Manager, Growth × Consumer × AI. Day-7 retention 12.2% to 25.4% in a controlled rollout; assignment completion 18% to 45%, before vs. after, not attributed to one system alone.",
   },
 };
 
@@ -58,7 +58,7 @@ export const nav = [
 /* Evidence: every number on the site, defined once.                           */
 /* -------------------------------------------------------------------------- */
 
-export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "experiments" | "learners";
+export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners";
 
 export type Delta = {
   label: string;
@@ -123,14 +123,6 @@ export const deltas: Record<DeltaId, Delta> = {
     context: "Witzeal · bonus allocation",
     href: "/decisions#bonus-allocation",
   },
-  experiments: {
-    label: "A/B experiments, end to end",
-    after: "20+",
-    method: "Hypothesis, sample size, significance · many inconclusive",
-    definition: "A/B tests run end to end, counted.",
-    context: "Baazi Games",
-    href: "/decisions#experimentation",
-  },
   learners: {
     label: "Learners reached",
     after: "100K+",
@@ -159,7 +151,7 @@ export const hero = {
 };
 
 /** The share card keeps its three proof points (app/opengraph-image.tsx). */
-export const shareProof = ["d7", "completion", "experiments"] as const satisfies readonly DeltaId[];
+export const shareProof = ["d7", "completion"] as const satisfies readonly DeltaId[];
 
 /**
  * Proof beyond the three stories: one capability, one number, how it was
@@ -168,7 +160,8 @@ export const shareProof = ["d7", "completion", "experiments"] as const satisfies
  */
 export const proofWall: readonly {
   capability: string;
-  value: string;
+  /** A headline figure, when the evidence supports one. */
+  value?: string;
   claim: string;
   basis: string;
   context: string;
@@ -176,7 +169,7 @@ export const proofWall: readonly {
   weight: "headline" | "context";
 }[] = [
   { capability: "Incentive economics", value: "~20%", claim: "less bonus and discount spend, with retention held, after moving from flat tiers to expected ROI per segment", basis: "Directional", context: "Witzeal Technologies", href: "/decisions#bonus-allocation", weight: "headline" },
-  { capability: "Experimentation", value: "20+", claim: "A/B tests run end to end, with a fair number inconclusive or negative, and those results reshaped how later tests were scoped", basis: "Count", context: "Baazi Games", href: "/decisions#experimentation", weight: "headline" },
+  { capability: "Experimentation", claim: "A testing program run end to end, from hypothesis and sample size to significance. A fair number of tests came back inconclusive or negative, and those results reshaped how later tests were scoped", basis: "Practice, not a measured effect", context: "Baazi Games", href: "/decisions#experimentation", weight: "headline" },
   { capability: "Risk", value: "~18%", claim: "lower fraud losses after a rules-based anomaly-detection layer for fraudulent transactions", basis: "Method not captured", context: "Baazi Games", href: "/about#baazi", weight: "context" },
 ];
 
@@ -327,9 +320,7 @@ export const decisions: readonly Decision[] = [
       { term: "Signal", text: "A fair number came back inconclusive or negative." },
       { term: "Decision", text: "Use those results to change how later tests were scoped, instead of treating them as failures." },
     ],
-    delta: "experiments",
     learning: "Experiments are not successful because they win. They are successful because they reduce uncertainty.",
-    note: "The résumé reports a combined ~15% lift in core funnel conversion across these tests. How individual results were combined isn't recorded, so it isn't claimed as a measured effect.",
   },
   {
     id: "pokerbaazi-matchmaking",
@@ -393,6 +384,10 @@ export const decisions: readonly Decision[] = [
       { term: "Trade-off", text: "A dashboard shows everything and leaves the teacher to find the problem; the documented next layer, myAdvisor, moves to prioritized alerts timed around a teacher's schedule." },
     ],
     results: [{ text: "Student retention up ~8–12% after real-time dashboards", basis: "Method not captured" }],
+    details: [
+      { term: "myAdvisor, as documented", items: ["High- and medium-priority alerts, raised at module level", "History, with filters by module and date", "Deep links into the part of the product where the teacher can act"] },
+      { term: "Designed for attention", items: ["Notifications timed around a teacher's schedule", "Unread alerts handled deliberately"] },
+    ],
     note: "The retention result belongs to the dashboards. myAdvisor is product design from the documentation; no outcome is claimed for it.",
   },
   {
@@ -415,6 +410,7 @@ export const decisions: readonly Decision[] = [
     code: "D-09",
     title: "Designing behavioural loops across students and faculty.",
     company: "Edfora",
+    product: "Glorifire",
     area: "Engagement system",
     role: "Senior Product Manager",
     verdict: "System",

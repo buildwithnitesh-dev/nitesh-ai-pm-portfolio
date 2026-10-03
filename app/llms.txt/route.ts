@@ -25,7 +25,7 @@ export function GET() {
     ...Object.values(cases).map((c) => `- [${c.capability}: ${c.title}](${siteUrl}/work/${c.slug}): ${c.description}`),
     "",
     "## Documented outcomes",
-    ...(["d0", "d7", "completion", "bonus", "experiments", "learners"] as const).map((id) => `- ${d(id)} — ${deltas[id].context}`),
+    ...(["d0", "d7", "completion", "bonus", "learners"] as const).map((id) => `- ${d(id)} — ${deltas[id].context}`),
     "",
     "## Decisions",
     ...decisions.map((x) => `- ${x.title} (${x.product ? `${x.company} · ${x.product}` : x.company}, ${x.verdict}): ${x.stages.map((s) => `${s.term}: ${s.text}`).join(" ")}${x.results ? ` Results: ${x.results.map((r) => (r.basis ? `${r.text} (${r.basis})` : r.text)).join("; ")}.` : ""}${x.note ? ` Note: ${x.note}` : ""}`),
