@@ -287,3 +287,17 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | 100K+ learners | Edfora product reach only; the case says it is not this system's reach. | — |
 | FanBlaze | Removed from the flagship stories; leads the decision library (D-01) as a stopped bet. | Product judgment, not a success case. |
 | myPlan accuracy loop | Its own decision snapshot (D-09) and a stage of case 04. | — |
+
+---
+
+## 12. Doubt Resolution case audit (2026-10-04)
+
+| Item | Treatment |
+|---|---|
+| Structure | Signal → Tension → Options → Basis → Trade-off → Decision → Quality gate → Pilot → Outcome → Not shipped → Learning. The header pairs the median TAT with the decision path (considered → selected → gate → not shipped). |
+| RICE and unit economics | Shown as the decision basis; the scores and cost inputs are **not in the record** and the page says so. No numbers invented. |
+| 90% accuracy | Shown as the gate (threshold, SME sampling of hints marked resolved, satisfaction ratings, rollback). **Not shown as achieved**: no measured accuracy figure is in the record, and the page says so. |
+| Pilot | 1,000 active JEE batch subscribers, cohort-gated, instant hints vs. standard queue. Duration, split, holdout size and significance are **not in the record** and the page says so. |
+| Outcomes | Median TAT ~24 h → <15 min; D14 ~18% relative vs. holdout; ~60% modeled support-cost avoidance (not a saving). |
+| Trade-off matrix | Qualitative cells (product reasoning), labelled as such; not scores. |
+| Not shipped / Learning | Labelled product reasoning. No production AI, model or LLM claim. The hybrid is attributed to product & growth, not to Nitesh personally. |

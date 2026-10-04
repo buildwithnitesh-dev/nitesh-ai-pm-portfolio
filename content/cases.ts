@@ -26,7 +26,9 @@ export type Visual =
   | { type: "chain"; links: readonly { metric: string; measured: boolean }[]; note: string }
   | { type: "record"; rows: readonly { term: string; text: string }[] }
   | { type: "loop"; steps: readonly { stage: string; items: readonly string[] }[]; note?: string }
-  | { type: "split"; sides: readonly { who: string; items: readonly string[] }[]; note?: string };
+  | { type: "split"; sides: readonly { who: string; items: readonly string[] }[]; note?: string }
+  | { type: "matrix"; columns: readonly string[]; rows: readonly { name: string; cells: readonly string[]; chosen?: boolean }[]; note?: string }
+  | { type: "trace"; steps: readonly { kind: "signal" | "decision" | "tradeoff" | "outcome" | "learning"; label: string; text: string }[]; note?: string };
 
 export type Stage = {
   id: string;
@@ -50,7 +52,7 @@ export type Case = {
   description: string;
   /** Headline numbers; empty when the evidence is the system rather than a metric. */
   headline: readonly DeltaId[];
-  /** Shown in the header instead of numbers when a case has no headline metric. */
+  /** Shown in the header: instead of numbers when a case has none, or beneath them. */
   headerVisual?: Visual;
   scope?: string;
   stages: readonly Stage[];
@@ -64,108 +66,137 @@ export const doubt: Case = {
   role: "Senior Product Manager · Jul 2023 – Jul 2026",
   title: "Doubt Resolution",
   opening: "Doubt resolution approached 24 hours at peak exam preparation.",
-  standfirst: "Three ways to cut it: an AI resolver, a tutor marketplace, or a hybrid. The hybrid was chosen on RICE and unit economics, held to a 90% accuracy gate in a 1,000-student pilot, and the AI resolver was not shipped.",
-  description: "Case study: myPAT doubt resolution at Edfora. An AI resolver, a tutor marketplace and a hybrid were weighed; the hybrid was piloted behind a 90% accuracy gate in a 1,000-student pilot. Median resolution time ~24 h → <15 min; D14 return rate ~18% higher than holdout (relative); ~60% modeled support-cost avoidance.",
+  standfirst: "How do you cut resolution friction without scaling human support linearly, and without giving up academic accuracy? An AI resolver, a tutor marketplace and a hybrid were weighed. The hybrid was chosen, held to a 90% accuracy gate in a 1,000-student pilot, and the AI resolver was not shipped.",
+  description: "Case study: myPAT doubt resolution at Edfora. An AI resolver, a tutor marketplace and a hybrid were weighed on RICE and unit economics; the hybrid was piloted behind a 90% accuracy gate with 1,000 students. Median resolution time ~24 h → <15 min; D14 return rate ~18% higher than holdout (relative); ~60% modeled support-cost avoidance. The AI resolver was not shipped.",
   headline: ["tat"],
-  scope: "Median, doubt created → first qualifying resolution, in myPAT doubt resolution. D14 and support-cost figures are below, each with its basis.",
+  headerVisual: {
+    type: "trace",
+    steps: [
+      { kind: "signal", label: "Considered", text: "An AI resolver, for scale" },
+      { kind: "decision", label: "Selected", text: "A hybrid: step-wise hints, verified peer answers, SME escalation" },
+      { kind: "tradeoff", label: "Quality gate", text: "90% accuracy, with an agreed rollback" },
+      { kind: "outcome", label: "Not shipped", text: "The AI resolver, as the final solution" },
+    ],
+  },
+  scope: "Median, doubt created → first qualifying resolution, in myPAT doubt resolution. D14 and support-cost figures are in Outcome, each with its basis.",
   stages: [
     {
-      id: "context", label: "Context",
-      title: "Doubt resolution for JEE aspirants in myPAT.",
-      body: ["A doubt is a learner stuck on a question and asking for help. In myPAT, an Edfora product, doubts were resolved by people: SMEs and faculty."],
-      visual: { type: "facts", items: [{ term: "Company", value: "Edfora" }, { term: "Product", value: "myPAT · Doubt resolution" }, { term: "Role", value: "Senior Product Manager" }, { term: "Learners", value: "JEE aspirants" }] },
-    },
-    {
       id: "signal", label: "Signal",
-      title: "At peak exam preparation, turnaround approached 24 hours.",
-      body: ["Initial sample tagging of logged tickets, with question-ID overlap, suggested most doubts were repetitive or pattern-matching. That figure is approximate and sample-derived, not the output of an automated classifier."],
-      visual: { type: "signal", items: [{ value: "~24 h", label: "doubt-resolution turnaround at peak exam preparation" }, { value: "~70%", label: "of sampled doubts repetitive or pattern-matching (approximate, sample-derived)" }] },
+      title: "At peak exam preparation, median turnaround approached 24 hours.",
+      body: ["A doubt is a learner stuck on a question and asking for help. In myPAT, an Edfora product for JEE aspirants, doubts were resolved by people: SMEs and faculty. At peak exam preparation the wait approached a day. Initial sample tagging of logged tickets, with question-ID overlap, suggested most doubts were repetitive or pattern-matching."],
+      visual: { type: "signal", items: [{ value: "~24 h", label: "median turnaround at peak exam preparation" }, { value: "~70%", label: "of sampled doubts repetitive or pattern-matching (approximate, sample-derived; not an automated classifier)" }] },
     },
     {
       id: "tension", label: "Tension",
-      title: "Cut resolution time without scaling human support linearly.",
-      body: ["The question was how to reduce resolution friction without adding human support in step with volume, while keeping answers academically accurate. Each function read it differently."],
+      title: "Cut the wait without scaling human support linearly, and without giving up academic accuracy.",
+      body: ["Each function read the problem differently, and each had a point."],
       visual: {
         type: "record",
         rows: [
           { term: "Engineering", text: "AI-first resolver: scale, and lower recurring dependence on faculty" },
           { term: "Faculty", text: "Human resolution: accuracy and academic integrity" },
-          { term: "Product & growth", text: "A hybrid: high-frequency, lower-complexity doubts handled at scale; complex ones escalated" },
+          { term: "Product & growth", text: "A hybrid: high-frequency, lower-complexity doubts handled at scale; complex ones escalated to people" },
         ],
       },
     },
     {
-      id: "options", label: "Options", reasoning: true,
-      title: "Three ways to cut the wait.",
+      id: "options", label: "Options",
+      title: "Three strategies, not three features.",
+      body: ["Each option is a different answer to who resolves a doubt, and what that costs as volume grows."],
       visual: {
         type: "options",
         items: [
           { name: "AI automated doubt resolver", works: "Scales with volume and lowers recurring dependence on faculty.", fails: "Accuracy and academic integrity were the open risk, and the reason faculty preferred human resolution." },
           { name: "Tutor and faculty marketplace, live 1:1", works: "Human accuracy, on demand.", fails: "Support cost grows with every doubt: the linear scaling the problem ruled out." },
-          { name: "Hints, peer answers and SME escalation", works: "Takes the repetitive volume off faculty; complex doubts still reach a person.", fails: "Needs verification and quality guardrails so unverified answers don't get through.", chosen: true },
+          { name: "Peer answers, step-wise hints and SME escalation", works: "Takes the repetitive volume off faculty; complex or unresolved doubts still reach a person.", fails: "Needs verification and quality guardrails so unverified answers don't get through.", chosen: true },
         ],
+      },
+    },
+    {
+      id: "basis", label: "Basis",
+      title: "Decided on RICE and unit economics.",
+      body: ["RICE weighed each option's reach, impact, confidence and effort. Unit economics asked how support cost grows with doubt volume under each option, which is where the marketplace failed: every doubt costs a person's time."],
+      visual: { type: "facts", items: [{ term: "Frameworks", value: "RICE; unit economics" }, { term: "Outcome", value: "The full human marketplace was rejected" }, { term: "Not in the record", value: "The RICE scores and the unit-economics inputs. None are shown" }, { term: "Modeled later", value: "~60% support-cost avoidance (see Outcome)" }] },
+    },
+    {
+      id: "tradeoff", label: "Trade-off", reasoning: true,
+      title: "Scale against academic integrity.",
+      body: ["The hybrid gives up some of the AI resolver's theoretical scale, and some of the marketplace's certainty, to hold both lines at once."],
+      visual: {
+        type: "matrix",
+        columns: ["Scales with doubt volume", "Accuracy and integrity", "Human in the loop"],
+        rows: [
+          { name: "AI-first", cells: ["Highest, in theory", "Highest risk", "Not by default"] },
+          { name: "Human-first", cells: ["Linear cost", "Highest confidence", "Always"] },
+          { name: "Hybrid", cells: ["Repetitive volume at scale", "Gated at 90%, with rollback", "On escalation"], chosen: true },
+        ],
+        note: "Product reasoning from the documented options and stakeholder positions; the cells are qualitative, not scores.",
       },
     },
     {
       id: "decision", label: "Decision",
-      title: "A hybrid, chosen on RICE and unit economics.",
+      title: "Selected: a hybrid, with people where it matters.",
       visual: {
         type: "record",
         rows: [
-          { term: "Chose", text: "Structured step-wise hints, peer and community answers with verification and quality guardrails, and escalation of complex or unresolved doubts to SMEs and faculty" },
+          { term: "Chose", text: "Structured step-wise hints · peer and community answers · verification and quality guardrails · escalation of complex or unresolved doubts to SMEs and faculty" },
+          { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors" },
           { term: "Rejected", text: "The full tutor and faculty marketplace" },
           { term: "Not in the rollout", text: "The AI automated resolver" },
-          { term: "Basis", text: "RICE and unit economics" },
-          { term: "Guardrails", text: "Step-wise hints instead of answer dumps; verified-answer treatment for high-reputation mentors" },
         ],
       },
     },
     {
-      id: "tradeoff", label: "Trade-off",
-      title: "Scale against academic integrity.",
-      body: ["Take the repetitive volume off faculty without letting unverified answers through. The hybrid gives up some of the AI resolver's scale, and some of the marketplace's certainty, to hold both lines at once."],
-    },
-    {
       id: "gate", label: "Quality gate",
-      title: "A hard 90% accuracy circuit-breaker, with an agreed rollback.",
-      body: ["The quality bar was a number, measured, with a defined consequence if it was missed."],
-      visual: { type: "facts", items: [{ term: "Threshold", value: "90% accuracy, as a hard circuit-breaker" }, { term: "Measured by", value: "Manual SME sampling of hints marked resolved" }, { term: "Read alongside", value: "Post-resolution student satisfaction ratings" }, { term: "If breached", value: "The agreed rollback" }] },
+      title: "A 90% accuracy threshold, used as the gate.",
+      body: ["A hard circuit-breaker: if accuracy fell below 90%, the agreed rollback applied. The quality bar was a number before launch, not an opinion after it."],
+      visual: { type: "facts", items: [{ term: "Threshold", value: "90% accuracy, as a hard circuit-breaker" }, { term: "Measured by", value: "Manual SME sampling of hints marked resolved" }, { term: "Read alongside", value: "Post-resolution student satisfaction ratings" }, { term: "Not in the record", value: "A measured accuracy figure. The gate is shown, not a result against it" }] },
     },
     {
       id: "pilot", label: "Pilot",
       title: "1,000 students first, against a holdout.",
-      body: ["A cohort-gated pilot of 1,000 active JEE batch subscribers limited the blast radius. The pilot compared instant-hint access with the standard response queue."],
-      visual: { type: "facts", items: [{ term: "Cohort", value: "1,000 active JEE batch subscribers" }, { term: "Rollout", value: "Cohort-gated" }, { term: "Treatment", value: "Instant-hint access" }, { term: "Holdout", value: "The standard response queue" }] },
+      body: ["A cohort-gated rollout limited the blast radius. The pilot compared instant-hint access with the standard response queue."],
+      visual: { type: "facts", items: [{ term: "Cohort", value: "1,000 active JEE batch subscribers, cohort-gated" }, { term: "Compared", value: "Instant-hint access vs. the standard response queue" }, { term: "Not in the record", value: "Pilot duration, the split, holdout size and statistical significance" }, { term: "Read as", value: "A controlled-cohort result, not attributed to any one component" }] },
     },
     {
       id: "outcome", label: "Outcome",
-      title: "Median resolution time: ~24 h → <15 min.",
-      visual: { type: "deltas", ids: ["tat"] },
-    },
-    {
-      id: "business", label: "Business link",
-      title: "Learners came back more often. Support cost is a model, not a saving.",
+      title: "Faster answers, more returning learners, a modeled support curve.",
       visual: {
         type: "ledger",
         items: [
+          { value: "<15 min", label: "median doubt-resolution time, down from ~24 h", detail: "Measured · doubt created → first qualifying resolution" },
           { value: "~18%", label: "higher D14 return rate than the holdout cohort", detail: "Relative, not percentage points · pilot A/B holdout" },
           { value: "~60%", label: "modeled support-cost avoidance", detail: "Avoided paid SME and faculty headcount against projected ticket-volume growth" },
         ],
-        note: "D14 is the controlled-cohort result, not attributed to any one component. The ~60% is modeled; it is not an observed budget reduction or a cost saving.",
+        note: "The ~60% is modeled: it is not an observed budget reduction or a cost saving. D14 is the controlled-cohort result, not attributed to any one component.",
       },
     },
     {
       id: "not-shipped", label: "Not shipped", reasoning: true,
       title: "The AI resolver was considered, and not shipped.",
-      body: [
-        "It had the strongest scale story, and it was the option engineering favoured. It wasn't part of the rollout: the accuracy and integrity concerns had no answer yet, while the hybrid could be held to a measured gate from day one. The full marketplace was rejected outright.",
-        "Not shipping it is part of the result. The gate now defines what any AI resolver for this problem would have to clear.",
-      ],
+      body: ["It had the strongest scale story and was the option engineering favoured. It wasn't part of the rollout: the accuracy and integrity concerns had no answer yet, while the hybrid could be held to a measured gate from day one. The full marketplace was rejected outright."],
+      visual: {
+        type: "trace",
+        steps: [
+          { kind: "signal", label: "Considered", text: "AI-first resolution, for scale and lower faculty dependence" },
+          { kind: "tradeoff", label: "Weighed against", text: "Faculty's accuracy and academic-integrity concerns, and a 90% quality bar" },
+          { kind: "outcome", label: "Not shipped", text: "Not the final solution; the hybrid was piloted behind the gate instead" },
+        ],
+        note: "No AI resolver, model or LLM went into production in this decision.",
+      },
     },
     {
       id: "learning", label: "Learning", reasoning: true,
       title: "Problem first. Model second.",
-      body: ["The question was never whether AI could answer doubts. It was how to cut the wait without trading away accuracy. Writing the quality bar as a number, with a rollback, turned a debate between scale and integrity into something a pilot could settle."],
+      body: ["The question was never whether AI could answer doubts. It was how to cut the wait without trading away accuracy."],
+      visual: {
+        type: "next",
+        items: [
+          "Scale is not the only optimization target: accuracy and integrity set the limits it had to work within.",
+          "A quality gate decides whether an AI path is viable. Written as a number with a rollback, it turned a debate into something a pilot could settle.",
+          "A hybrid can beat a binary AI-versus-human choice: automate the repetitive volume, keep people where judgment matters.",
+        ],
+      },
     },
   ],
 };

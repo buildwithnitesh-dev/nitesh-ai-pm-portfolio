@@ -36,12 +36,15 @@ export function CasePage({ c }: { c: Case }) {
           <h1 className="mt-4 max-w-5xl font-serif text-[2.9rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-6xl lg:text-7xl">{c.opening}</h1>
           <p className="mt-4 text-sm text-muted">{c.title} · {c.company} · {c.domain} · {c.role}</p>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
-          {c.headline.length ? (
-            <div className={`mt-10 grid gap-8 border-y-2 border-ink py-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
-              {c.headline.map((id) => <Delta key={id} id={id} size="md" layout={c.headline.length > 1 ? "stack" : "row"} />)}
+          {c.headline.length || c.headerVisual ? (
+            <div className="mt-10 grid gap-8 border-y-2 border-ink py-8">
+              {c.headline.length ? (
+                <div className={`grid gap-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
+                  {c.headline.map((id) => <Delta key={id} id={id} size="md" layout={c.headline.length > 1 ? "stack" : "row"} />)}
+                </div>
+              ) : null}
+              {c.headerVisual ? <div className={c.headline.length ? "border-t border-line pt-7" : ""}><StageVisual v={c.headerVisual} /></div> : null}
             </div>
-          ) : c.headerVisual ? (
-            <div className="mt-10 border-y-2 border-ink py-8"><StageVisual v={c.headerVisual} /></div>
           ) : null}
           {c.scope ? <p className="mt-4 max-w-3xl text-[13px] leading-5 text-muted">{c.scope}</p> : null}
         </Container>

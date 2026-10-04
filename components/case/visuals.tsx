@@ -1,4 +1,5 @@
 import { Delta } from "@/components/delta";
+import { Trace } from "@/components/trace";
 import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
 
@@ -298,6 +299,53 @@ export function StageVisual({ v }: { v: Visual }) {
               </li>
             ))}
           </ol>
+          {v.note ? <figcaption className="mt-4 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
+        </figure>
+      );
+
+    case "matrix":
+      return (
+        <figure>
+          <div className="hidden sm:block">
+            <table className="w-full border-t border-ink text-left text-[15px]">
+              <caption className="sr-only">Options compared on {v.columns.join(", ")}</caption>
+              <thead>
+                <tr className="border-b border-line">
+                  <th scope="col" className="py-2.5 pr-4 font-normal"><span className="sr-only">Option</span></th>
+                  {v.columns.map((c) => <th key={c} scope="col" className="py-2.5 pr-4 text-[13px] font-medium text-muted">{c}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {v.rows.map((r) => (
+                  <tr key={r.name} className={`border-b ${r.chosen ? "border-accent" : "border-line"}`}>
+                    <th scope="row" className={`py-3 pr-4 align-top font-bold ${r.chosen ? "text-accent" : "text-ink"}`}>
+                      <span className="inline-flex items-center gap-2">{r.chosen ? <span aria-hidden className="h-2 w-2 rotate-45 bg-accent" /> : null}{r.name}{r.chosen ? <span className="sr-only"> (chosen)</span> : null}</span>
+                    </th>
+                    {r.cells.map((c, i) => <td key={i} className={`py-3 pr-4 align-top leading-6 ${r.chosen ? "text-ink" : "text-ink/80"}`}>{c}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {/* Phones: one ruled block per option, with the criteria as a label column. */}
+          <ol className="border-t border-ink sm:hidden">
+            {v.rows.map((r) => (
+              <li key={r.name} className={`border-b py-3 ${r.chosen ? "border-accent" : "border-line"}`}>
+                <p className={`flex items-center gap-2 font-bold ${r.chosen ? "text-accent" : "text-ink"}`}>{r.chosen ? <span aria-hidden className="h-2 w-2 rotate-45 bg-accent" /> : null}{r.name}{r.chosen ? <span className="sr-only"> (chosen)</span> : null}</p>
+                <dl className="mt-1 grid grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] gap-x-3 gap-y-0.5 text-[15px] leading-6">
+                  {r.cells.map((c, i) => <div key={i} className="contents"><dt className="text-[13px] leading-6 text-muted">{v.columns[i]}</dt><dd className="text-ink/85">{c}</dd></div>)}
+                </dl>
+              </li>
+            ))}
+          </ol>
+          {v.note ? <figcaption className="mt-3 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
+        </figure>
+      );
+
+    case "trace":
+      return (
+        <figure>
+          <Trace wide steps={v.steps.map((x) => ({ kind: x.kind, label: x.label, content: x.text }))} />
           {v.note ? <figcaption className="mt-4 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
         </figure>
       );
