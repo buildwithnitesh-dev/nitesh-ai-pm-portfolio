@@ -35,7 +35,7 @@ export function GET() {
     ...aiLab.builds.map((b) => `- [${b.title}](${siteUrl}${b.href}): ${b.status}. ${b.statusNote}`),
     "",
     "## Experience",
-    ...roles.map((r) => `- ${r.title}, ${r.company} (${r.period}): ${r.highlights.join("; ")}.`),
+    ...roles.map((r) => `- ${r.title}, ${r.company} (${r.period}): ${r.highlights.map((h) => h.replace(/\.$/, "")).join("; ")}.`),
     "",
   ];
   return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });

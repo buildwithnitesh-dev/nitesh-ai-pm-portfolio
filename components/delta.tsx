@@ -8,12 +8,12 @@ import { deltas, type DeltaId } from "@/content/portfolio";
  * the segment between the two grows into place as it scrolls into view.
  */
 export function Delta({
-  id, size = "md", showContext = true, link = false, explain = false, layout = "stack",
-}: { id: DeltaId; size?: "lg" | "md" | "sm"; showContext?: boolean; link?: boolean | string; explain?: boolean; layout?: "stack" | "row" }) {
+  id, size = "md", showContext = true, link = false, explain = false, layout = "stack", caption,
+}: { id: DeltaId; size?: "lg" | "md" | "sm"; showContext?: boolean; link?: boolean | string; explain?: boolean; layout?: "stack" | "row"; caption?: string }) {
   const d = deltas[id];
   const hasAxis = d.from !== undefined && d.to !== undefined && d.max;
   const value = size === "lg" ? "text-[2.6rem] sm:text-6xl" : size === "md" ? "text-4xl sm:text-[2.75rem]" : "text-3xl";
-  const summary = `${d.label}: ${d.before ? `${d.before} to ` : ""}${d.after}. ${d.method}.${d.note ? ` ${d.note}.` : ""}`;
+  const summary = `${d.label}: ${d.before ? `${d.before} to ` : ""}${d.after}. ${caption ?? d.method}.${d.note ? ` ${d.note}.` : ""}`;
   // The <details> holds interactive content, so the figure can't be one opaque label when it is present.
   const label = explain ? undefined : summary;
 
@@ -31,7 +31,7 @@ export function Delta({
         {hasAxis ? <Shift from={d.from!} to={d.to!} max={d.max!} /> : null}
       </div>
       <div className="min-w-0">
-        <p aria-hidden className={`${row ? "" : "mt-3 "}text-[13px] leading-5 text-muted`}>{d.method}</p>
+        <p aria-hidden className={`${row ? "" : "mt-3 "}text-[13px] leading-5 text-muted`}>{caption ?? d.method}</p>
         {showContext ? <p aria-hidden className="text-[13px] leading-5 text-muted">{d.context}</p> : null}
         {d.note ? (
           <p aria-hidden className="mt-2 inline-flex items-start gap-2 text-[13px] leading-5 text-accent">

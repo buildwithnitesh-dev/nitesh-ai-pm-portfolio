@@ -88,7 +88,7 @@ export function EcosystemMap() {
           </li>
         </ul>
       </section>
-      <figcaption className="mt-1 border-t border-line pt-3 text-[13px] leading-5 text-muted">The student screen shows the experience existed; it doesn&apos;t establish ownership or outcomes. Faculty-side screens aren&apos;t reproduced. No engagement, retention or business outcome is attributed to the system.</figcaption>
+      <figcaption className="mt-1 border-t border-line pt-3 text-[13px] leading-5 text-muted">The student screen shows the experience as it shipped. Faculty-side screens aren&apos;t reproduced. Engagement figures are reported, not causally attributed: see Evidence.</figcaption>
     </figure>
   );
 }

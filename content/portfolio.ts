@@ -37,7 +37,7 @@ export const contact = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager · Growth, Consumer & AI`,
   description:
-    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% in a controlled rollout; median doubt-resolution time ~24 h → <15 min, choosing a gated hybrid over an AI resolver; ~20% less bonus spend with retention held.",
+    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% (+13.2 pp) in a 30/70 controlled rollout; median doubt-resolution time ~24 h → <15 min with a gated hybrid, after evaluating an AI auto-resolver.",
   /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
   share: {
     title: "Nitesh Tiwari · Senior Product Manager · Growth × Consumer × AI",
@@ -210,11 +210,10 @@ export const hero = {
   headline: "Retention is won before the retention metric.",
   positioning: profile.positioning,
   lede: "I find where users drop before they reach value, fix the product before reaching for incentives, and hold AI to a measured quality gate before it ships — with an engineer's view of how it gets built.",
-  /** Three results, one per kind of strength: activation, a strategic trade-off, incentive economics. */
+  /** Two results, one per kind of strength: a controlled activation test and a strategic trade-off. The bonus figure stays on D-02, where its context is shown. */
   proof: [
     { id: "d7", context: "Witzeal · onboarding, controlled rollout", href: "/work/onboarding-funnel-redesign" },
     { id: "tat", context: "Edfora · myPAT, hybrid over an AI resolver", href: "/work/doubt-resolution" },
-    { id: "bonus", context: "Witzeal · bonus allocation by segment ROI", href: "/decisions#bonus-allocation" },
   ] as const satisfies readonly { id: DeltaId; context: string; href: string }[],
 };
 
@@ -233,11 +232,11 @@ export const domains: readonly {
   edtech: { text: string; short: string; href: string };
 }[] = [
   { capability: "Activation", gaming: { text: "Five changes to the first 60 seconds, all aimed at the first game", short: "Five changes to the first 60 seconds", href: "/work/onboarding-funnel-redesign" }, edtech: { text: "A stuck learner's next step in minutes, not a day: hints and peer answers before escalation", short: "A stuck learner's next step in minutes, not a day", href: "/work/doubt-resolution" } },
-  { capability: "Retention", gaming: { text: "Day-7 retention lifted by fixing activation, not by paying for re-engagement", short: "D7 lifted by fixing activation, not paying for it", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "+18% D14 retention, measured via a pilot holdout / A-B cohort", short: "+18% D14 retention (pilot holdout / A-B)", href: "/work/doubt-resolution#outcome" } },
+  { capability: "Retention", gaming: { text: "Day-7 retention 12.2% → 25.4% (+13.2 pp) for a bundle of five onboarding changes, including ₹15 of free games, in a 30/70 controlled rollout", short: "D7 +13.2 pp for a five-change bundle, incl. ₹15 free games", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "+18% D14 retention, measured via a pilot holdout / A-B cohort", short: "+18% D14 retention (pilot holdout / A-B)", href: "/work/doubt-resolution#outcome" } },
   { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", short: "30/70 rollout, ~50K users; a testing program", href: "/decisions#experimentation" }, edtech: { text: "10,000-student cohort-gated pilot against a holdout", short: "10,000-student gated pilot vs holdout", href: "/work/doubt-resolution#pilot" } },
   { capability: "Segmentation", gaming: { text: "Journeys redesigned per behavioural cluster instead of one default", short: "Journeys per behavioural cluster", href: "/decisions#segmented-journeys" }, edtech: { text: "Questions matched to each learner's estimated ability (3PL IRT)", short: "Questions matched to ability (3PL IRT)", href: "/work/adaptive-assignment-engine#system" } },
   { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", short: "Bonuses by segment ROI, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% support-cost reduction (derived)", short: "~60% support-cost reduction (derived)", href: "/work/doubt-resolution#decision" } },
-  { capability: "Risk", gaming: { text: "~18% lower fraud losses after rules-based anomaly detection", short: "~18% lower fraud losses (anomaly rules)", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", short: "90% accuracy circuit-breaker, rollback", href: "/work/doubt-resolution#gate" } },
+  { capability: "Risk", gaming: { text: "Rules-based anomaly detection; fraud losses reported ~18% lower", short: "Fraud losses reported ~18% lower", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", short: "90% accuracy circuit-breaker, rollback", href: "/work/doubt-resolution#gate" } },
   { capability: "Funnel diagnosis", gaming: { text: "Loss traced to signup and OTP verification, before the first game", short: "Loss traced to signup and OTP", href: "/work/onboarding-funnel-redesign#diagnosis" }, edtech: { text: "Low completion read against each learner's performance: one sequence failing in two directions", short: "Completion read against learner ability", href: "/work/adaptive-assignment-engine#problem" } },
   { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", short: "Live scores sunset at <6% usage", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", short: "Configurable rewards for students and faculty", href: "/work/behavioural-loops" } },
 ];
@@ -305,7 +304,9 @@ export const flagships = [
     summary: "Read as a retention problem, it pointed to reminders and rewards. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control, and a clear account of what the test could and couldn't isolate.",
     decision: "Five changes to the first 60 seconds, tested against a 30% control.",
     tradeoff: "Shipping the five changes as one bundle was faster; the price was attribution, since one of them was ₹15 of free games.",
-    delta: "d0" as DeltaId,
+    delta: "d7" as DeltaId,
+    /** Card caption: the controlled D7 result, read as a bundle. D0 stays in the case, where its caveat is shown. */
+    deltaCaption: "control vs treatment, +13.2 pp · five-change bundle",
   },
   {
     index: "03",
@@ -341,12 +342,12 @@ export const flagships = [
     problem: "DAU had been flat for two straight months, and teachers found early prototypes “too game-y”.",
     brief: "A configurable behavioural layer across students and faculty, not one-off rewards.",
     /** Short evidence line for the homepage index. */
-    evidenceShort: "The system: actions → points, streaks, badges → rank → leaderboards, Hall of Fame → analytics. No outcome attributed.",
+    evidenceShort: "The system: actions → points, streaks, badges → rank → leaderboards, Hall of Fame → analytics. DAU reported up 12–15% after launch; not causally attributed.",
     summary: "A configurable behavioural engagement system across student and faculty workflows: actions tied to points, streaks and badges, progression through avatars and rank, recognition on leaderboards and a Hall of Fame, and analytics for faculty.",
     decision: "A configurable behavioural layer built around product actions, not one-off rewards, for students and faculty alike.",
     tradeoff: "Motivate students without looking gimmicky to the teachers who had flagged early prototypes as “too game-y”.",
-    /** No outcome metric is attributed to this system; the evidence is the system itself. */
-    evidence: "Behaviour → reward → progression → recognition → analytics, configurable per action. No engagement or business outcome is attributed to it.",
+    /** Engagement figures are reported for this system, not causally attributed; no retention or business outcome is claimed. */
+    evidence: "Behaviour → reward → progression → recognition → analytics, configurable per action. DAU and session time were reported up after launch; no retention or business outcome is claimed, and no change is causally attributed.",
   },
 ] as const;
 
@@ -463,7 +464,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use behavioral clustering to find the segments that behaved differently, then redesign the journey for each." },
       { term: "Trade-off", text: "Every extra journey is more to build, test and maintain. Segmentation pays off when segments are few and clearly different." },
     ],
-    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Method not captured" }],
+    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Reported: session duration up ~35%, retention up ~25% · method, window and unit (relative or points) not recorded" }],
   },
   {
     id: "pokerbaazi-matchmaking",
@@ -514,7 +515,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: [{ text: "DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.", basis: "As recorded on the résumé: before/after, no method or control, and not attributed to the behavioural system on its own" }],
+    results: [{ text: "DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.", basis: "Reported before/after for the Glorifire quiz and gamification layer; measurement method, window and control not recorded, so not causally attributed." }],
     caseHref: "/work/behavioural-loops",
   },
   {
@@ -600,7 +601,7 @@ export const principles = [
     n: "02",
     title: "One outcome decides. The rest explain.",
     body: "Pick one outcome tied to user value, and treat activity metrics as diagnosis rather than success.",
-    example: { text: "At Edfora, assignment completion was the outcome; practice drop-off was the second signal that explained it.", label: "Edfora · Hypothesis", href: "/work/adaptive-assignment-engine#hypothesis" },
+    example: { text: "At Edfora, assignment completion was the success measure for adaptive practice, with practice drop-off defined as the second signal.", label: "Edfora · Hypothesis", href: "/work/adaptive-assignment-engine#hypothesis" },
   },
   {
     n: "03",
@@ -700,7 +701,7 @@ export const roles: readonly Role[] = [
     location: "Gurugram",
     summary: "Growth, onboarding, monetization and lifecycle for a real-money gaming platform.",
     highlights: [
-      "Onboarding redesign: D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4% in a 30/70 controlled rollout",
+      "Onboarding redesign, shipped as one bundle of five changes: Day-7 retention 12.2% (control) vs 25.4% (treatment), +13.2 pp, in a 30/70 controlled rollout on ~50K users over ~3 weeks. D0 gameplay was 12% before the redesign and 33% after; that comparison basis isn't recorded.",
       "Experimentation roadmap across pricing and reward loops, each change written as a hypothesis and run as an A/B test",
       "Bonus allocation by expected ROI per segment: bonus and discount spend down ~20%, retention held",
       "Lifecycle messaging (push, in-app, email) moved from one blast to segmented cohorts",
@@ -715,8 +716,8 @@ export const roles: readonly Role[] = [
     summary: "Experimentation, segmentation and risk across a multi-game platform: PokerBaazi, Lagai Khai and FanBlaze.",
     highlights: [
       "20+ A/B tests end to end (hypothesis, sample size, significance); a fair number came back inconclusive or negative and reshaped later scoping",
-      "Behavioral clustering replaced one default journey with journeys by segment: session duration up ~35%, retention up ~25%",
-      "Rules-based anomaly detection for fraudulent transactions: fraud losses down ~18%",
+      "Behavioral clustering replaced one default journey with journeys by segment: session duration reported up ~35% and retention up ~25% (method, window and unit not recorded)",
+      "Rules-based anomaly detection for fraudulent transactions: fraud losses reported down ~18% (method and window not recorded)",
     ],
   },
   {

@@ -230,7 +230,7 @@ export const witzeal: Case = {
   title: "Onboarding Funnel Redesign",
   opening: "Only 12% of new users played a game on day one.",
   standfirst: "A 12.2% Day-7 number looked like a retention problem. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control.",
-  description: "Case study: only 12% of new users at Witzeal played a game on day one. Diagnosed as activation, not retention; five onboarding changes tested in a 30/70 controlled rollout. D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4%.",
+  description: "Case study: only 12% of new users at Witzeal played a game on day one. Diagnosed as activation, not retention; five onboarding changes shipped as one bundle and tested in a 30/70 controlled rollout: Day-7 retention 12.2% control vs 25.4% treatment (+13.2 pp). D0 gameplay was 12% before the redesign and 33% after; that comparison basis isn't recorded.",
   headline: [],
   headerVisual: { type: "evidence", primary: "d7", secondary: "d0" },
   stages: [
@@ -315,7 +315,7 @@ export const witzeal: Case = {
     },
     {
       id: "result", label: "Result",
-      title: "More new players reached a game, and more were still playing on Day 7.",
+      title: "More new players in the treatment arm were still playing on Day 7.",
       body: ["The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control. The positive direction continued into the first month (M0); later figures aren't available, so none are shown."],
       visual: { type: "evidence", primary: "d7", secondary: "d0" },
     },
@@ -491,7 +491,7 @@ export const behaviour: Case = {
   title: "Behavioural Loops & Gamification",
   opening: "DAU had plateaued for two straight months.",
   standfirst: "Teachers had flagged early prototypes as “too game-y”. The product idea: one configurable behavioural system connecting student engagement and faculty workflows, not a set of isolated game mechanics.",
-  description: "Case study: a configurable behavioural engagement system at Edfora (Glorifire and the Stakeholder platform), connecting student engagement and faculty workflows: actionable items, points, streaks, badges, avatars, rank and level, leaderboards, a Hall of Fame, analytics, and a myPlan accuracy feedback loop. No engagement or business outcome is attributed to the system.",
+  description: "Case study: a configurable behavioural engagement system at Edfora (Glorifire and the Stakeholder platform), connecting student engagement and faculty workflows: actionable items, points, streaks, badges, avatars, rank and level, leaderboards, a Hall of Fame, analytics, and a myPlan accuracy feedback loop. DAU and session time were reported up after launch; no retention or business outcome is claimed, and no change is causally attributed.",
   headline: [],
   headerVisual: { type: "ecosystem" },
   scope: "Edfora · Glorifire (students) and the Stakeholder platform (faculty and stakeholders).",
@@ -501,6 +501,11 @@ export const behaviour: Case = {
       title: "Flat daily use, in a product with two audiences.",
       body: ["Glorifire is where students practice; the Stakeholder platform is where faculty and stakeholders follow and guide them. Daily active use had been flat for two months."],
       visual: { type: "signal", items: [{ value: "2 months", label: "of flat DAU" }] },
+    },
+    {
+      id: "ownership", label: "Ownership",
+      title: "I owned gamification end to end.",
+      body: ["With full charge from the CEO, I identified the problem and the behaviours to reward, defined points, badges and streaks, made the product decisions, and drove development through live launch."],
     },
     {
       id: "constraint", label: "Constraint",
@@ -555,14 +560,14 @@ export const behaviour: Case = {
           "Teachers flagged early prototypes as “too game-y”.",
           "The system includes points, streaks, badges, avatars, rank and level, leaderboards, a Hall of Fame, analytics and configurable behaviour-based actionable items.",
           "myPlan has faculty Correct / Incorrect verification, and accurate feedback earns 100 points.",
+          "The résumé's quiz and gamification layer is this Glorifire system.",
+          "I had end-to-end product ownership of gamification.",
         ],
         gaps: [
-          "DAU up 12–15% and average session time up ~15% are résumé-level observations after a quiz and gamification layer, with no method, control or window recorded.",
-          "Whether that quiz and gamification layer is exactly the same system as Glorifire's isn't established.",
+          "DAU was reported up 12–15% and average session time up ~15% after the quiz and gamification layer launched; the measurement method, window and control aren't recorded, so the change isn't causally attributed.",
           "100K+ is Edfora-wide reach, not this system's.",
-          "The personal ownership boundary, which parts of the system were mine, isn't established.",
         ],
-        note: "No engagement, retention or business outcome is attributed to this behavioural system.",
+        note: "DAU and session time were reported up after launch; no retention or business outcome is claimed, and no change is causally attributed.",
       },
     },
     {

@@ -146,7 +146,7 @@ export function SelectedWork() {
                 <div className="min-[375px]:grid min-[375px]:grid-cols-[5.75rem_minmax(0,1fr)] min-[375px]:gap-x-3 lg:block">
                   <p className="flex h-6 items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="outcome" />Evidence</p>
                   <div className="mt-1 min-[375px]:mt-0">
-                    {"delta" in c ? <IndexEvidence id={c.delta} /> : <p className="text-[15px] leading-6 text-ink lg:mt-1.5">{c.evidenceShort}</p>}
+                    {"delta" in c ? <IndexEvidence id={c.delta} caption={"deltaCaption" in c ? c.deltaCaption : undefined} /> : <p className="text-[15px] leading-6 text-ink lg:mt-1.5">{c.evidenceShort}</p>}
                     <p aria-hidden className="mt-3 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Read the case <Arrow /></p>
                   </div>
                 </div>
@@ -160,12 +160,12 @@ export function SelectedWork() {
 }
 
 /** A result as one line of evidence for the index: the change, what it counts, and its caveat. */
-function IndexEvidence({ id }: { id: DeltaId }) {
+function IndexEvidence({ id, caption }: { id: DeltaId; caption?: string }) {
   const d = deltas[id];
   return (
     <div className="lg:mt-1.5">
       <p className="text-2xl font-bold tracking-[-0.03em] proportional-nums text-ink">{d.before ? <><span className="text-subtle">{d.before}</span> <span aria-hidden className="font-normal text-subtle">→</span><span className="sr-only">to</span> </> : null}{d.after}</p>
-      <p className="mt-0.5 text-[13px] leading-5 text-muted">{d.label} · {d.method}</p>
+      <p className="mt-0.5 text-[13px] leading-5 text-muted">{d.label} · {caption ?? d.method}</p>
       {d.note ? <p className="text-[13px] leading-5 text-accent">{d.note}</p> : null}
     </div>
   );
@@ -178,7 +178,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
     <ol className="mt-7">
       {flagships.map((c) => {
         const outcome = "delta" in c
-          ? { kind: "outcome" as const, label: "Outcome", content: <Delta id={c.delta} size="sm" showContext={false} /> }
+          ? { kind: "outcome" as const, label: "Outcome", content: <Delta id={c.delta} size="sm" showContext={false} caption={"deltaCaption" in c ? c.deltaCaption : undefined} /> }
           : { kind: "outcome" as const, label: "Evidence", content: <p>{c.evidence}</p> };
         return (
           <li key={c.slug}>

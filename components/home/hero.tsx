@@ -39,10 +39,10 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Three results, each with how it was measured and where it happened. */}
+        {/* Two results, each with how it was measured and where it happened. */}
         <section aria-label="Proof" className="mt-9 border-t border-ink pt-6 lg:mt-10">
-          <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Three results, three kinds of judgment</p>
-          <ul className="mt-5 grid gap-7 md:grid-cols-3 md:gap-8">
+          <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Two results, two kinds of judgment</p>
+          <ul className="mt-5 grid gap-7 md:grid-cols-2 md:gap-8">
             {hero.proof.map((p) => (
               <li key={p.id} className="flex min-w-0 flex-col">
                 <Delta id={p.id} size="sm" showContext={false} />
