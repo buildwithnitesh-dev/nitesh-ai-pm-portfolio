@@ -768,6 +768,20 @@ export const technical = {
 
 /** What each phase taught (About). First-person draft copy, built only from the facts above, for Nitesh to approve. */
 export const about = {
+  /** Editorial profile header. Positioning lines, not quantified claims; the bio uses only facts stated elsewhere on the site. */
+  headline: "I build products at the intersection of growth, consumer experience and AI.",
+  bio: [
+    "I started by writing the product: four-plus years as the only Android developer on a marketplace app, then release management for enterprise web applications. That order still shapes how I work: I scope with engineering, not around it.",
+    "Gaming at Baazi Games and Witzeal taught me how users behave and how growth and monetization work. At Edfora I worked on adaptive practice, doubt resolution and engagement systems. AI is my current direction, through an independent prototype rather than a role.",
+  ],
+  capabilities: [
+    { name: "Growth", text: "Activation, retention and experimentation." },
+    { name: "Consumer", text: "Experiences designed around user behaviour." },
+    { name: "EdTech", text: "Personalization and learning products at scale." },
+    { name: "AI", text: "Practical, responsible AI product judgment." },
+  ],
+  /** Served from /public. The portrait renders only when this file exists; there is no placeholder or generated stand-in. */
+  portrait: { src: "/about/nitesh-portrait.jpg", alt: "Nitesh Tiwari, in glasses, a blazer and a white shirt" },
   opening: "I started by writing the product.",
   intro: "Before I owned roadmaps, I spent four-plus years as the only Android developer on a marketplace app, and then standardized releases for enterprise web applications. That order still shapes how I work: I scope with engineering, not around it.",
   phases: [

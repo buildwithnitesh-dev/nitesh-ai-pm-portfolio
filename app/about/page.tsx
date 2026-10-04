@@ -1,9 +1,12 @@
 import { Container } from "@/components/container";
 import { CopyEmail } from "@/components/home/copy-email";
 import { ResumeCta } from "@/components/resume-cta";
+import Image from "next/image";
 import Link from "next/link";
-import { Arrow, Mono, SectionHeader, button } from "@/components/ui";
-import { about, arc, contact, principles, profile, roles, status, technical } from "@/content/portfolio";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { Arrow, Mono, button } from "@/components/ui";
+import { about, arc, contact, principles, profile, roles, technical } from "@/content/portfolio";
 import { pageMetadata } from "@/content/meta";
 
 export const metadata = pageMetadata({
@@ -12,25 +15,52 @@ export const metadata = pageMetadata({
   description: "Nitesh Tiwari, Senior Product Manager: from sole Android developer to release management, gaming, growth, EdTech personalization and AI, and the four principles behind the work. ~7 years in product management, 10+ years in technology.",
 });
 
+// Checked at build time (the page is static): the portrait shows only once the real photo is in /public.
+const hasPortrait = existsSync(join(process.cwd(), "public", about.portrait.src));
+
 export default function AboutPage() {
   return (
     <main id="main" className="flex-1">
       <Container className="py-14 lg:py-20">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
-          <SectionHeader as="h1" label="About" title={about.opening} intro={about.intro} />
-          {/* No photo: an identity card from the canonical profile stands in, deliberately text-only. */}
-          <aside aria-label="At a glance" className="border-t-2 border-ink pt-5">
-            <p className="font-serif text-3xl leading-none">{profile.name}</p>
-            <dl className="mt-5 grid gap-3 text-[15px] leading-6">
-              {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location], ...(status.availability ? [["Status", status.availability]] as const : [])] as const).map(([k, v]) => (
-                <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3">
-                  <dt><Mono className="text-muted">{k}</Mono></dt>
-                  <dd className="text-ink">{v}</dd>
-                </div>
-              ))}
-            </dl>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+          <aside aria-label="Profile" className="sm:max-lg:grid sm:max-lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:max-lg:items-end sm:max-lg:gap-8">
+            {hasPortrait ? (
+              <div className="relative aspect-[4/5] w-full overflow-hidden bg-line">
+                <Image src={about.portrait.src} alt={about.portrait.alt} fill preload sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+              </div>
+            ) : null}
+            <div className={`border-t-2 border-ink pt-4 ${hasPortrait ? "mt-5 sm:max-lg:mt-0" : ""}`}>
+              <p className="font-serif text-3xl leading-none text-ink">{profile.name}</p>
+              <p className="mt-2 text-[15px] font-medium text-ink">{profile.role}</p>
+              <p className="mt-1 text-[13px] leading-5 text-muted">{profile.experience}</p>
+              <p className="text-[13px] leading-5 text-muted">{profile.location}</p>
+              <a href={contact.linkedin} target="_blank" rel="noreferrer" className="mt-3 inline-flex min-h-6 items-center gap-1 text-[13px] font-medium text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span></a>
+            </div>
           </aside>
+
+          <div className="border-l-2 border-accent pl-4 min-[375px]:pl-5 sm:pl-8 lg:self-start">
+            <p className="text-[13px] font-medium text-accent">About</p>
+            <h1 className="mt-3 font-serif text-[1.8rem] leading-[1.1] text-ink min-[375px]:text-[2.1rem] min-[375px]:leading-[1.08] sm:text-5xl">{about.headline}</h1>
+            <p className="mt-4 text-[15px] font-semibold tracking-wide text-ink">{profile.positioning}</p>
+            <div className="mt-6 grid max-w-2xl gap-4 text-[17px] leading-8 text-ink/85">
+              {about.bio.map((b) => <p key={b.slice(0, 24)}>{b}</p>)}
+            </div>
+            <div className="mt-7 grid gap-3 min-[375px]:grid-cols-2 sm:flex sm:flex-wrap">
+              <Link href="/work" className={`${button.primary} px-5 min-[375px]:col-span-2`}>View my work <Arrow /></Link>
+              <ResumeCta label="Download résumé" className={`${button.secondary} px-3 sm:px-5`} />
+              <a href={contact.linkedin} target="_blank" rel="noreferrer" className={`${button.secondary} px-3 sm:px-5`}>LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span></a>
+            </div>
+          </div>
         </div>
+
+        <ul aria-label="Capabilities" className="mt-12 grid grid-cols-2 border-t border-ink lg:mt-16 lg:grid-cols-4">
+          {about.capabilities.map((c, i) => (
+            <li key={c.name} className={`border-b border-line py-4 pr-4 lg:border-b-0 lg:py-5 lg:pr-6 ${i % 2 ? "pl-4 border-l border-line" : ""} ${i > 0 ? "lg:border-l lg:border-line lg:pl-6" : ""}`}>
+              <p className="text-[15px] font-bold text-ink">{c.name}</p>
+              <p className="mt-1 text-[14px] leading-6 text-muted">{c.text}</p>
+            </li>
+          ))}
+        </ul>
 
         <section aria-labelledby="phases" className="mt-16">
           <h2 id="phases" className="font-medium text-[13px] text-accent">What each role taught me, and what I build now</h2>

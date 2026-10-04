@@ -183,7 +183,7 @@ Simplified signup/login · email fetched automatically · OTP auto-read · first
 | 4.4 | SQL, event schema design, LTV:CAC, revenue forecasting, pricing strategy (R competencies) | R | UNKNOWN (no case evidence) | Do not surface as claims. |
 | 4.5 | Current status: Edfora ends Jul 2026; current availability | R | **NEEDS_USER_INPUT** | Placeholder only. Do not state "available" or "open to work" beyond the existing "Open to Senior Product Manager and Product Manager roles". |
 | 4.6 | Certifications (Jul 2026): Becoming an AI-First Product Leader; Generative AI for Product Managers; Data-Driven Product Management (LinkedIn Learning) | R | VERIFIED | Optional: list factually in About. Never present as AI experience. |
-| 4.7 | Photo | — | Absent | No photo, avatar or generated image. |
+| 4.7 | Photo | To be supplied by Nitesh | About only | Authentic photo, cropped ~4:5, no retouching or generated face; not on the homepage hero, never a circular avatar. Renders only once the file is at `public/about/nitesh-portrait.jpg`. |
 
 ---
 
