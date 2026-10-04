@@ -14,7 +14,7 @@ export function DomainTransfer() {
   return (
     <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
-        <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each proved in real-money gaming and in EdTech. Every line links to its evidence." />
+        <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each proved in real-money gaming and in EdTech." />
         <table className="mt-7 hidden w-full table-fixed border-t border-ink text-left md:table">
           <caption className="sr-only">Each capability with evidence from gaming and from EdTech</caption>
           <colgroup><col className="w-[12rem]" /><col /><col /></colgroup>
@@ -29,19 +29,19 @@ export function DomainTransfer() {
             {domains.map((d) => (
               <tr key={d.capability} className="border-b border-line align-baseline">
                 <th scope="row" className="py-3 pr-6 text-[16px] font-bold tracking-[-0.01em] text-ink">{d.capability}</th>
-                <td className="py-3 pr-8"><EvidenceLink {...d.gaming} /></td>
-                <td className="py-3"><EvidenceLink {...d.edtech} /></td>
+                <td className="py-3 pr-8"><EvidenceLink text={d.gaming.text} href={d.gaming.href} /></td>
+                <td className="py-3"><EvidenceLink text={d.edtech.text} href={d.edtech.href} /></td>
               </tr>
             ))}
           </tbody>
         </table>
         <ol className="mt-6 border-t border-ink md:hidden">
           {domains.map((d) => (
-            <li key={d.capability} className="border-b border-line py-3.5">
-              <p className="text-[16px] font-bold text-ink">{d.capability}</p>
-              <dl className="mt-1 grid gap-1">
-                <div><dt className="inline text-[13px] font-medium text-muted">Gaming · </dt><dd className="inline"><EvidenceLink {...d.gaming} /></dd></div>
-                <div><dt className="inline text-[13px] font-medium text-muted">EdTech · </dt><dd className="inline"><EvidenceLink {...d.edtech} /></dd></div>
+            <li key={d.capability} className="border-b border-line py-3">
+              <p className="text-[15px] font-bold text-ink">{d.capability}</p>
+              <dl className="mt-0.5 grid grid-cols-[3.75rem_minmax(0,1fr)] gap-x-2 text-[15px] leading-6">
+                <dt className="text-[13px] leading-6 font-medium text-muted">Gaming</dt><dd><EvidenceLink text={d.gaming.short} href={d.gaming.href} /></dd>
+                <dt className="text-[13px] leading-6 font-medium text-muted">EdTech</dt><dd><EvidenceLink text={d.edtech.short} href={d.edtech.href} /></dd>
               </dl>
             </li>
           ))}
@@ -53,34 +53,32 @@ export function DomainTransfer() {
 
 function EvidenceLink({ text, href }: { text: string; href: string }) {
   return (
-    <Link href={href} className="group text-[15px] leading-6 text-ink decoration-accent/40 underline-offset-4 hover:text-accent hover:underline">
+    <Link href={href} className="group inline-block min-h-6 text-[15px] leading-6 text-ink decoration-accent/40 underline-offset-4 hover:text-accent hover:underline">
       {text}<span aria-hidden className="ml-1.5 text-subtle transition-colors group-hover:text-accent">→</span>
     </Link>
   );
 }
 
-/** 06 · The career as a transformation, not a timeline: what each phase taught, and one proof. */
+/** 06 · The career as an arc: what each phase added, not a résumé. Proof for each phase lives on /about. */
 export function CareerArc() {
   return (
     <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
         <SectionHeader compact id="arc-title" index="06" label="Career" title="Six phases. Each added a layer of the job." />
-        <ol className="mt-7">
+        <ol className="mt-6 border-t border-line">
           {arc.map((a, i) => {
             const last = i === arc.length - 1;
             return (
-              <li key={a.verb} className="grid gap-x-4 gap-y-1 border-t border-line py-4 grid-cols-[5.5rem_minmax(0,1fr)] md:grid-cols-[7rem_13rem_minmax(0,1fr)_minmax(0,1fr)] md:gap-x-8">
-                <p className={`text-[15px] tabular-nums ${last ? "font-semibold text-accent" : "text-muted"}`}>{a.years}</p>
-                <div>
-                  <h3 className={`font-serif text-2xl leading-none ${last ? "text-accent" : "text-ink"}`}>{a.verb}</h3>
-                  <p className="mt-1 text-sm text-muted">{a.org} · {a.field}</p>
-                </div>
-                <p className="col-start-2 text-[15px] leading-6 text-ink md:col-start-auto">{a.taught}</p>
-                <p className="col-start-2 text-[15px] leading-6 text-muted md:col-start-auto">{a.proof}</p>
+              <li key={a.verb} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-line py-3 md:grid-cols-[7rem_10rem_minmax(0,1fr)_minmax(0,1.1fr)] md:gap-x-8">
+                <h3 className={`font-serif text-xl leading-tight md:order-2 ${last ? "text-accent" : "text-ink"}`}>{a.verb}</h3>
+                <p className={`text-[13px] tabular-nums md:order-1 md:text-[15px] ${last ? "font-semibold text-accent" : "text-muted"}`}>{a.years}</p>
+                <p className="col-span-2 text-sm text-muted md:order-3 md:col-span-1">{a.role} · {a.org}</p>
+                <p className="col-span-2 text-[15px] leading-6 text-ink md:order-4 md:col-span-1">{a.taught}</p>
               </li>
             );
           })}
         </ol>
+        <p className="mt-5"><MoreLink href="/about">The proof behind each phase</MoreLink></p>
       </Container>
     </section>
   );
@@ -103,15 +101,13 @@ export function SelectedWork() {
 
         {/* The hero already carries this story's result; here it leads with the decision. */}
         <article className="group relative mt-6 border-t border-ink pt-6 pb-7 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
-          <div className="grid gap-x-14 gap-y-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-end">
-            <div>
-              <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{lead.index}</span>&nbsp;&nbsp;{lead.capability}</p>
-              <h3 className="mt-2 font-serif text-[2.2rem] leading-[1.02] text-ink sm:text-[2.9rem]">
-                <Link href={lead.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{lead.title}</Link>
-              </h3>
-              <p className="mt-2 text-sm text-muted">{lead.company} · myPAT · {lead.role}</p>
-            </div>
-            <p className="max-w-xl text-xl leading-snug text-ink">{lead.problem}</p>
+          <div className="max-w-3xl">
+            <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{lead.index}</span>&nbsp;&nbsp;{lead.capability}</p>
+            <h3 className="mt-2 font-serif text-[2.2rem] leading-[1.02] text-ink sm:text-[2.9rem]">
+              <Link href={lead.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{lead.title}</Link>
+            </h3>
+            <p className="mt-2 text-sm text-muted">{lead.company} · myPAT · {lead.role}</p>
+            <p className="mt-3 text-xl leading-snug text-ink">{lead.problem}</p>
           </div>
           <Trace
             wide

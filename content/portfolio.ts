@@ -173,27 +173,28 @@ export const shareProof = ["d7", "tat"] as const satisfies readonly DeltaId[];
  */
 export const domains: readonly {
   capability: string;
-  gaming: { text: string; href: string };
-  edtech: { text: string; href: string };
+  /** `short` is the same evidence in fewer words, for phones. */
+  gaming: { text: string; short: string; href: string };
+  edtech: { text: string; short: string; href: string };
 }[] = [
-  { capability: "Activation", gaming: { text: "Five changes to the first 60 seconds, all aimed at the first game", href: "/work/onboarding-funnel-redesign" }, edtech: { text: "A stuck learner's next step in minutes, not a day: hints and peer answers before escalation", href: "/work/doubt-resolution" } },
-  { capability: "Retention", gaming: { text: "Day-7 retention lifted by fixing activation, not by paying for re-engagement", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "D14 return rate ~18% higher than the holdout cohort (relative)", href: "/work/doubt-resolution#outcome" } },
-  { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", href: "/decisions#experimentation" }, edtech: { text: "1,000-student cohort-gated pilot against a holdout", href: "/work/doubt-resolution#pilot" } },
-  { capability: "Segmentation", gaming: { text: "Journeys redesigned per behavioural cluster instead of one default", href: "/decisions#segmented-journeys" }, edtech: { text: "Questions matched to each learner's estimated ability (3PL IRT)", href: "/work/adaptive-assignment-engine#system" } },
-  { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% modeled support-cost avoidance", href: "/work/doubt-resolution#decision" } },
-  { capability: "Risk", gaming: { text: "~18% lower fraud losses after rules-based anomaly detection", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", href: "/work/doubt-resolution#gate" } },
-  { capability: "Funnel diagnosis", gaming: { text: "Loss traced to signup and OTP verification, before the first game", href: "/work/onboarding-funnel-redesign#diagnosis" }, edtech: { text: "Low completion read against each learner's performance: one sequence failing in two directions", href: "/work/adaptive-assignment-engine#problem" } },
-  { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", href: "/work/behavioural-loops" } },
+  { capability: "Activation", gaming: { text: "Five changes to the first 60 seconds, all aimed at the first game", short: "Five changes to the first 60 seconds", href: "/work/onboarding-funnel-redesign" }, edtech: { text: "A stuck learner's next step in minutes, not a day: hints and peer answers before escalation", short: "A stuck learner's next step in minutes, not a day", href: "/work/doubt-resolution" } },
+  { capability: "Retention", gaming: { text: "Day-7 retention lifted by fixing activation, not by paying for re-engagement", short: "D7 lifted by fixing activation, not paying for it", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "D14 return rate ~18% higher than the holdout cohort (relative)", short: "D14 return ~18% higher vs holdout (relative)", href: "/work/doubt-resolution#outcome" } },
+  { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", short: "30/70 rollout, ~50K users; a testing program", href: "/decisions#experimentation" }, edtech: { text: "1,000-student cohort-gated pilot against a holdout", short: "1,000-student gated pilot vs holdout", href: "/work/doubt-resolution#pilot" } },
+  { capability: "Segmentation", gaming: { text: "Journeys redesigned per behavioural cluster instead of one default", short: "Journeys per behavioural cluster", href: "/decisions#segmented-journeys" }, edtech: { text: "Questions matched to each learner's estimated ability (3PL IRT)", short: "Questions matched to ability (3PL IRT)", href: "/work/adaptive-assignment-engine#system" } },
+  { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", short: "Bonuses by segment ROI, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% modeled support-cost avoidance", short: "~60% modeled support-cost avoidance", href: "/work/doubt-resolution#decision" } },
+  { capability: "Risk", gaming: { text: "~18% lower fraud losses after rules-based anomaly detection", short: "~18% lower fraud losses (anomaly rules)", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", short: "90% accuracy circuit-breaker, rollback", href: "/work/doubt-resolution#gate" } },
+  { capability: "Funnel diagnosis", gaming: { text: "Loss traced to signup and OTP verification, before the first game", short: "Loss traced to signup and OTP", href: "/work/onboarding-funnel-redesign#diagnosis" }, edtech: { text: "Low completion read against each learner's performance: one sequence failing in two directions", short: "Completion read against learner ability", href: "/work/adaptive-assignment-engine#problem" } },
+  { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", short: "Live scores sunset at <6% usage", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", short: "Configurable rewards for students and faculty", href: "/work/behavioural-loops" } },
 ];
 
 /** Built → Shipped → Measured → Grew → Personalized → AI: what each phase taught, and the proof. */
 export const arc = [
-  { verb: "Built", field: "Android engineering", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
-  { verb: "Shipped", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Standardized releases for enterprise web applications across four distributed teams." },
-  { verb: "Measured", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
-  { verb: "Grew", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
-  { verb: "Personalized", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "Adaptive practice, doubt resolution and engagement systems on products that reach 100K+ learners." },
-  { verb: "AI", field: "Current direction", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
+  { verb: "Built", role: "Android Developer", field: "Android engineering", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
+  { verb: "Shipped", role: "Program & Release Manager", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Standardized releases for enterprise web applications across four distributed teams." },
+  { verb: "Measured", role: "Product Manager", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
+  { verb: "Grew", role: "Product Manager", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
+  { verb: "Personalized", role: "Senior Product Manager", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "Adaptive practice, doubt resolution and engagement systems on products that reach 100K+ learners." },
+  { verb: "AI", role: "Learner Diagnostic prototype", field: "Current direction", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
 ] as const;
 
 /* -------------------------------------------------------------------------- */
@@ -218,9 +219,9 @@ export const flagships = [
     brief: "Hybrid of hints, verified peer answers and SME escalation, behind a 90% accuracy gate.",
     /** The AI judgment in three beats, shown on the homepage only for this story. */
     aiPath: [
-      { kind: "signal", label: "Considered", text: "An AI resolver: scale, and less dependence on faculty" },
+      { kind: "signal", label: "Considered", text: "An AI resolver, for scale" },
       { kind: "decision", label: "Selected", text: "A hybrid: step-wise hints, verified peer answers, SME escalation" },
-      { kind: "tradeoff", label: "Quality gate", text: "A hard 90% accuracy circuit-breaker, with a rollback" },
+      { kind: "tradeoff", label: "Quality gate", text: "90% accuracy, with an agreed rollback" },
       { kind: "outcome", label: "Not shipped", text: "The AI resolver, as the final solution" },
     ],
     summary: "An AI resolver, a tutor marketplace, or a hybrid. The hybrid was chosen on RICE and unit economics, held to a 90% accuracy gate in a 1,000-student pilot, and the AI resolver was not shipped.",
