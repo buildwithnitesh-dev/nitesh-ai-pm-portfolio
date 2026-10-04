@@ -59,25 +59,35 @@ function EvidenceLink({ text, href }: { text: string; href: string }) {
   );
 }
 
-/** 06 · The career as an arc: what each phase added, not a résumé. Proof for each phase lives on /about. */
+/**
+ * 06 · The career as an arc: five roles, each adding a layer of the job, then
+ * the independent product building that continues it. Proof lives on /about.
+ */
 export function CareerArc() {
+  const jobs = arc.filter((a) => !("independent" in a));
+  const now = arc.find((a) => "independent" in a);
   return (
     <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
-        <SectionHeader compact id="arc-title" index="06" label="Career" title="Six phases. Each added a layer of the job." />
+        <SectionHeader compact id="arc-title" index="06" label="Career" title="Five roles. Each added a layer of the job." />
         <ol className="mt-6 border-t border-line">
-          {arc.map((a, i) => {
-            const last = i === arc.length - 1;
-            return (
-              <li key={a.verb} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-line py-3 md:grid-cols-[7rem_10rem_minmax(0,1fr)_minmax(0,1.1fr)] md:gap-x-8">
-                <h3 className={`font-serif text-xl leading-tight md:order-2 ${last ? "text-accent" : "text-ink"}`}>{a.verb}</h3>
-                <p className={`text-[13px] tabular-nums md:order-1 md:text-[15px] ${last ? "font-semibold text-accent" : "text-muted"}`}>{a.years}</p>
-                <p className="col-span-2 text-sm text-muted md:order-3 md:col-span-1">{a.role} · {a.org}</p>
-                <p className="col-span-2 text-[15px] leading-6 text-ink md:order-4 md:col-span-1">{a.taught}</p>
-              </li>
-            );
-          })}
+          {jobs.map((a) => (
+            <li key={a.verb} className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 border-b border-line py-3 md:grid-cols-[7rem_10rem_minmax(0,1fr)_minmax(0,1.1fr)] md:gap-x-8">
+              <h3 className="font-serif text-xl leading-tight text-ink md:order-2">{a.verb}</h3>
+              <p className="text-[13px] tabular-nums text-muted md:order-1 md:text-[15px]">{a.years}</p>
+              <p className="col-span-2 text-sm text-muted md:order-3 md:col-span-1">{a.role} · {a.org}</p>
+              <p className="col-span-2 text-[15px] leading-6 text-ink md:order-4 md:col-span-1">{a.taught}</p>
+            </li>
+          ))}
         </ol>
+        {now ? (
+          <div className="mt-4 grid gap-x-8 gap-y-1 border-b border-dashed border-line-strong pb-3 md:grid-cols-[7rem_10rem_minmax(0,1fr)_minmax(0,1.1fr)] md:items-baseline">
+            <p className="text-[13px] font-semibold text-accent md:text-[15px]">{now.years}</p>
+            <h3 className="font-serif text-xl leading-tight text-accent">{now.verb}</h3>
+            <p className="text-sm text-muted">{now.role} · {now.org}<span className="sr-only"> (independent work, not a role)</span></p>
+            <p className="text-[15px] leading-6 text-ink">{now.taught}</p>
+          </div>
+        ) : null}
         <p className="mt-5"><MoreLink href="/about">The proof behind each phase</MoreLink></p>
       </Container>
     </section>

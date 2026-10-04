@@ -187,14 +187,18 @@ export const domains: readonly {
   { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", short: "Live scores sunset at <6% usage", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", short: "Configurable rewards for students and faculty", href: "/work/behavioural-loops" } },
 ];
 
-/** Built → Shipped → Measured → Grew → Personalized → AI: what each phase taught, and the proof. */
+/**
+ * Five roles (Built → Shipped → Measured → Grew → Personalized), then AI as
+ * continued, independent product building: what each taught, and the proof.
+ * The last entry is not employment; `independent` marks it everywhere it is shown.
+ */
 export const arc = [
   { verb: "Built", role: "Android Developer", field: "Android engineering", org: "Direct Create", years: "2014–2018", taught: "How software gets built.", proof: "Sole Android developer: built the app from scratch, crash rate down ~30%." },
   { verb: "Shipped", role: "Program & Release Manager", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Standardized releases for enterprise web applications across four distributed teams." },
   { verb: "Measured", role: "Product Manager", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
   { verb: "Grew", role: "Product Manager", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
   { verb: "Personalized", role: "Senior Product Manager", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "Adaptive practice, doubt resolution and engagement systems on products that reach 100K+ learners." },
-  { verb: "AI", role: "Learner Diagnostic prototype", field: "Current direction", org: "Independent", years: "Now", taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
+  { verb: "AI", role: "Independent prototype", field: "Current direction", org: "AI Learner Diagnostic", years: "Now", independent: true, taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
 ] as const;
 
 /* -------------------------------------------------------------------------- */

@@ -19,7 +19,7 @@ export function GET() {
     `Resume (PDF): ${siteUrl}${contact.resumeUrl}`,
     "",
     "## Career",
-    ...arc.map((a) => `- ${a.verb} (${a.org}, ${a.years}): ${a.taught} ${a.proof}`),
+    ...arc.map((a) => `- ${a.verb} (${"independent" in a ? `${a.role}, ${a.org}, independent work, not a role` : `${a.role}, ${a.org}`}, ${a.years}): ${a.taught} ${a.proof}`),
     "",
     "## Flagship case studies",
     ...Object.values(cases).map((c) => `- [${c.capability}: ${c.title}](${siteUrl}/work/${c.slug}): ${c.description}`),

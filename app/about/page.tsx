@@ -33,19 +33,23 @@ export default function AboutPage() {
         </div>
 
         <section aria-labelledby="phases" className="mt-16">
-          <h2 id="phases" className="font-medium text-[13px] text-accent">What each phase taught me</h2>
+          <h2 id="phases" className="font-medium text-[13px] text-accent">What each role taught me, and what I build now</h2>
           <ol className="mt-6 border-t border-ink">
-            {about.phases.map((p, i) => (
-              <li key={p.verb} className="grid gap-3 border-b border-line py-7 md:grid-cols-[12rem_minmax(0,1fr)_minmax(0,0.8fr)] md:gap-10">
+            {about.phases.map((p, i) => {
+              // The last entry is independent product building, not a role: unnumbered, and labelled as such.
+              const independent = "independent" in arc[i];
+              return (
+              <li key={p.verb} className={`grid gap-3 py-7 md:grid-cols-[12rem_minmax(0,1fr)_minmax(0,0.8fr)] md:gap-10 ${independent ? "border-b border-dashed border-line-strong" : "border-b border-line"}`}>
                 <div>
-                  <Mono className="text-subtle">{String(i + 1).padStart(2, "0")} · {arc[i].years}</Mono>
-                  <p className="mt-1 font-serif text-4xl leading-none text-ink">{p.verb}</p>
-                  <p className="mt-2 text-sm text-muted">{arc[i].org}</p>
+                  <Mono className={independent ? "text-accent" : "text-subtle"}>{independent ? `${arc[i].years} · independent, not a role` : `${String(i + 1).padStart(2, "0")} · ${arc[i].years}`}</Mono>
+                  <p className={`mt-1 font-serif text-4xl leading-none ${independent ? "text-accent" : "text-ink"}`}>{p.verb}</p>
+                  <p className="mt-2 text-sm text-muted">{independent ? `${arc[i].role} · ${arc[i].org}` : arc[i].org}</p>
                 </div>
                 <p className="text-lg leading-8 text-ink">{p.text}</p>
                 <p className="text-sm leading-6 text-muted md:border-l md:border-line md:pl-6">{arc[i].proof}</p>
               </li>
-            ))}
+              );
+            })}
           </ol>
         </section>
 
