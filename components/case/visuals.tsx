@@ -112,7 +112,7 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
                 <dt className="sr-only">{e.label}</dt>
                 <dd className="text-4xl font-bold tracking-[-0.035em] text-ink proportional-nums">{e.value}</dd>
                 <dd className="mt-1.5 text-sm leading-6 text-ink">{e.label}</dd>
-                {e.detail ? <dd className="tabular-nums text-[13px] text-muted">{e.detail}</dd> : null}
+                {e.detail ? <dd className="text-[13px] text-muted">{e.detail}</dd> : null}
               </div>
             ))}
           </dl>

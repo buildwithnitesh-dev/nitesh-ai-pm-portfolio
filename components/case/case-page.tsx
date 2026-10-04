@@ -33,7 +33,8 @@ export function CasePage({ c }: { c: Case }) {
             </nav>
           </div>
           <p className="mt-10 text-lg font-semibold text-accent sm:text-xl">{c.capability}</p>
-          <h1 className="mt-4 max-w-5xl font-serif text-[2.9rem] leading-[1.02] tracking-tight text-balance text-ink sm:text-6xl lg:text-7xl">{c.opening}</h1>
+          {/* A long, descriptive headline steps down one size so it doesn't fill a phone's first screen. */}
+          <h1 className={`mt-4 max-w-5xl font-serif tracking-tight text-balance text-ink ${c.opening.length > 80 ? "text-[2rem] leading-[1.08] sm:text-5xl lg:text-6xl" : "text-[2.9rem] leading-[1.02] sm:text-6xl lg:text-7xl"}`}>{c.opening}</h1>
           <p className="mt-4 text-sm text-muted">{c.title} · {c.company} · {c.domain} · {c.role}</p>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
           {c.headline.length || c.headerVisual ? (

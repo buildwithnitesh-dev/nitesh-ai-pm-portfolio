@@ -9,7 +9,7 @@ import { pageMetadata } from "@/content/meta";
 export const metadata = pageMetadata({
   path: "/ai-lab",
   title: "AI Lab",
-  description: "AI product judgment from Nitesh Tiwari: problem first, model second. A real decision where an AI resolver was weighed against a 90% quality gate and not shipped, and an independent prototype with a deterministic baseline and an evaluation harness. No evaluation has been run.",
+  description: "AI product judgment from Nitesh Tiwari: problem first, model second. A real decision where an AI auto-resolver was evaluated against a 90% quality gate and not shipped as the first solution, and an independent prototype with a deterministic baseline and an evaluation harness. No evaluation has been run.",
 });
 
 const legend: { status: BuildStatus; meaning: string }[] = [

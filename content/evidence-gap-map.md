@@ -334,3 +334,21 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | Removed | "Didn't choose: hard-coded rewards" and "Defined: the actionable behaviours" (reasoning or ownership not on record); the linear five-stage loop; the student/faculty split (now in the hero). |
 | Route | /work/behavioral-loops redirects (308) to /work/behavioural-loops. |
 | Product screen (2026-10-04) | Real Glorifire student screen supplied by Nitesh, at `public/work/glorifire-myrewards.webp`: the myRewards panel with myPoints, myStreaks, myBadges and myLeaderboard. Cropped at the right edge only, to leave out a learner's name and photo; nothing inside the UI altered. Shown on the student side as product evidence that the experience existed, not as proof of ownership or outcome. The faculty side stays a diagram: no faculty screen is on record, so no dashboard, names or numbers are drawn. |
+
+## 16. Doubt Resolution facts confirmed by Nitesh (2026-10-04)
+
+Supersedes the pilot size, TAT definition, D14, cost and accuracy treatment in sections 8 and 12.
+
+| Item | Confirmed treatment |
+|---|---|
+| Headline | "Reducing Doubt Turn-Around Time (TAT) from 24 Hours to <15 Minutes via a Hybrid Peer & Guided-Hint Architecture" |
+| Context | Peak JEE exam preparation; myPAT and Glorifire; a ~24-hour bottleneck; students studying late at night blocked. |
+| Ownership | First person, end to end: discovery, user research, AI vs. tutor vs. hybrid evaluation, RICE scoring, unit economics modeling, PRD, UX flows, cross-functional engineering coordination, academic team alignment, cohort pilot design, telemetry implementation, phased launch. No claim that Nitesh wrote production code. |
+| Options | A. AI auto-resolver (fast, scalable, low variable faculty cost; risk of incorrect answers damaging academic trust). B. 1-on-1 live tutor marketplace (high accuracy; poor off-hours scalability and unit economics, operational overhead). C. Hybrid P2P community + guided hints (chosen). |
+| Pilot | 10,000 JEE students (replaces 1,000). Duration, split, holdout size and significance still not recorded. |
+| Median TAT | ~24 h → <15 min. ~24 h is the peak exam-preparation bottleneck; <15 min is the median TAT measured in the 10,000-student pilot cohort and stable after the live rollout, for the ~70% repetitive-doubt pool. Measured. |
+| D14 retention | +18% against the pilot holdout / A-B cohort vs. the standard queue. Measured; shown as a relative change, consistent with the earlier record. |
+| Cost | ~60% support and operational cost reduction. Derived from avoided SME and faculty headcount scaling against ticket growth; not a directly observed financial saving. |
+| Accuracy | >90% maintained, audited through SME sampling and post-resolution satisfaction ratings. A quality guardrail, against a 90% circuit-breaker. |
+| AI | "AI was evaluated as a strategic option but was not shipped as the first solution because academic trust and answer-quality risk outweighed its scalability advantage at that stage." Never "rejected". |
+| Verdict | D-10 moves from Pilot to Shipped (phased launch, live rollout). |

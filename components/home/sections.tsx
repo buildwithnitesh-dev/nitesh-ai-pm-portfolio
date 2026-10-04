@@ -283,7 +283,7 @@ export function AiLabTeaser() {
       <Container>
         <SectionHeader compact id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first. A deterministic baseline, an evaluation, named failure modes, guardrails and a human override come before it, and sometimes the answer is not to ship it." />
         <p className="mt-6 border-t border-ink pt-5 text-[15px] leading-6 text-ink sm:text-base">
-          <span className="font-semibold">In the field.</span> In myPAT doubt resolution, an AI resolver was weighed against a hard 90% accuracy gate and not shipped; a hybrid was.{" "}
+          <span className="font-semibold">In the field.</span> In doubt resolution, an AI auto-resolver was evaluated as a strategic option and not shipped as the first solution: academic trust and answer-quality risk outweighed its scale. A hybrid shipped behind a 90% accuracy gate.{" "}
           <Link href={aiLab.field.href} className="inline-flex min-h-6 items-center gap-1 font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">The decision behind it<span aria-hidden> →</span></Link>
         </p>
         <article className="group relative mt-7 grid gap-6 border-t border-line pt-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
