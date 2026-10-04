@@ -218,9 +218,10 @@ export const flagships = [
     brief: "Hybrid of hints, verified peer answers and SME escalation, behind a 90% accuracy gate.",
     /** The AI judgment in three beats, shown on the homepage only for this story. */
     aiPath: [
-      { kind: "signal", label: "Considered", text: "An AI resolver, for scale" },
-      { kind: "decision", label: "Selected", text: "A hybrid, behind a 90% accuracy gate" },
-      { kind: "tradeoff", label: "Not shipped", text: "The AI resolver, as the final solution" },
+      { kind: "signal", label: "Considered", text: "An AI resolver: scale, and less dependence on faculty" },
+      { kind: "decision", label: "Selected", text: "A hybrid: step-wise hints, verified peer answers, SME escalation" },
+      { kind: "tradeoff", label: "Quality gate", text: "A hard 90% accuracy circuit-breaker, with a rollback" },
+      { kind: "outcome", label: "Not shipped", text: "The AI resolver, as the final solution" },
     ],
     summary: "An AI resolver, a tutor marketplace, or a hybrid. The hybrid was chosen on RICE and unit economics, held to a 90% accuracy gate in a 1,000-student pilot, and the AI resolver was not shipped.",
     decision: "Step-wise hints, verified peer answers and SME escalation, behind a 90% accuracy gate. The AI resolver was not shipped.",

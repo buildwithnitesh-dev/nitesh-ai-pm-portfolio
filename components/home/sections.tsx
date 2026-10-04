@@ -101,30 +101,30 @@ export function SelectedWork() {
           <MoreLink href="/work">All work</MoreLink>
         </div>
 
-        <article className="group relative mt-6 grid gap-8 border-t border-ink pt-7 pb-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
-          <div className="flex flex-col">
-            <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{lead.index}</span>&nbsp;&nbsp;{lead.capability}</p>
-            <h3 className="mt-2.5 font-serif text-[2.2rem] leading-[1.02] text-ink sm:text-[2.9rem]">
-              <Link href={lead.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{lead.title}</Link>
-            </h3>
-            <p className="mt-2 text-sm text-muted">{lead.company} · myPAT · {lead.role}</p>
-            <p className="mt-4 max-w-xl text-xl leading-snug text-ink">{lead.problem}</p>
-            <p aria-hidden className="mt-auto hidden items-center gap-2 pt-6 text-[15px] font-medium text-accent lg:inline-flex">The decision behind it <Arrow /></p>
+        {/* The hero already carries this story's result; here it leads with the decision. */}
+        <article className="group relative mt-6 border-t border-ink pt-6 pb-7 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
+          <div className="grid gap-x-14 gap-y-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-end">
+            <div>
+              <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{lead.index}</span>&nbsp;&nbsp;{lead.capability}</p>
+              <h3 className="mt-2 font-serif text-[2.2rem] leading-[1.02] text-ink sm:text-[2.9rem]">
+                <Link href={lead.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{lead.title}</Link>
+              </h3>
+              <p className="mt-2 text-sm text-muted">{lead.company} · myPAT · {lead.role}</p>
+            </div>
+            <p className="max-w-xl text-xl leading-snug text-ink">{lead.problem}</p>
           </div>
-          <div className="min-w-0">
-            <Delta id={lead.delta} size="md" showContext={false} />
-            <Trace
-              className="mt-7"
-              steps={lead.aiPath.map((x) => ({ kind: x.kind as StepKind, label: x.label, content: x.text }))}
-            />
-            <p aria-hidden className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-accent lg:hidden">The decision behind it <Arrow /></p>
-          </div>
+          <Trace
+            wide
+            className="mt-6"
+            steps={lead.aiPath.map((x) => ({ kind: x.kind as StepKind, label: x.label, content: x.text }))}
+          />
+          <p aria-hidden className="mt-5 inline-flex items-center gap-2 text-[15px] font-medium text-accent">The decision behind it <Arrow /></p>
         </article>
 
         <ol className="border-t border-line">
           {rest.map((c) => (
             <li key={c.slug}>
-              <article className="group relative grid gap-4 border-b border-line py-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.9fr)_minmax(0,0.85fr)] lg:gap-10">
+              <article className="group relative grid gap-3 border-b border-line py-5 focus-within:outline-2 lg:gap-4 lg:py-6 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.9fr)_minmax(0,0.85fr)] lg:gap-10">
                 <div>
                   <p className="text-[13px] font-semibold text-accent"><span className="tabular-nums text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
                   <h3 className="mt-1.5 font-serif text-2xl leading-tight text-ink sm:text-[1.75rem]">
@@ -133,14 +133,16 @@ export function SelectedWork() {
                   <p className="mt-1 text-[13px] text-muted">{c.company} · {c.domain.replace(/^EdTech · /, "")}</p>
                   <p className="mt-2.5 text-[15px] leading-6 text-ink/85">{c.problem}</p>
                 </div>
-                <div>
-                  <p className="flex items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</p>
-                  <p className="mt-1.5 text-[15px] leading-6 text-ink">{c.brief}</p>
+                <div className="min-[375px]:grid min-[375px]:grid-cols-[5.75rem_minmax(0,1fr)] min-[375px]:gap-x-3 lg:block">
+                  <p className="flex h-6 items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</p>
+                  <p className="mt-1 text-[15px] leading-6 text-ink min-[375px]:mt-0 lg:mt-1.5">{c.brief}</p>
                 </div>
-                <div>
-                  <p className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="outcome" />{"delta" in c ? "Evidence" : "Evidence: the system"}</p>
-                  {"delta" in c ? <IndexEvidence id={c.delta} /> : <p className="mt-1.5 text-[15px] leading-6 text-ink">{c.evidenceShort}</p>}
-                  <p aria-hidden className="mt-3 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Read the case <Arrow /></p>
+                <div className="min-[375px]:grid min-[375px]:grid-cols-[5.75rem_minmax(0,1fr)] min-[375px]:gap-x-3 lg:block">
+                  <p className="flex h-6 items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="outcome" />Evidence</p>
+                  <div className="mt-1 min-[375px]:mt-0">
+                    {"delta" in c ? <IndexEvidence id={c.delta} /> : <p className="text-[15px] leading-6 text-ink lg:mt-1.5">{c.evidenceShort}</p>}
+                    <p aria-hidden className="mt-3 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Read the case <Arrow /></p>
+                  </div>
                 </div>
               </article>
             </li>
@@ -155,7 +157,7 @@ export function SelectedWork() {
 function IndexEvidence({ id }: { id: DeltaId }) {
   const d = deltas[id];
   return (
-    <div className="mt-1.5">
+    <div className="lg:mt-1.5">
       <p className="text-2xl font-bold tracking-[-0.03em] proportional-nums text-ink">{d.before ? <><span className="text-subtle">{d.before}</span> <span aria-hidden className="font-normal text-subtle">→</span><span className="sr-only">to</span> </> : null}{d.after}</p>
       <p className="mt-0.5 text-[13px] leading-5 text-muted">{d.label} · {d.method}</p>
       {d.note ? <p className="text-[13px] leading-5 text-accent">{d.note}</p> : null}
@@ -207,6 +209,9 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
 }
 
 /** 04 · Short product-judgment snapshots: signal, decision, outcome or learning. */
+/** Phones: the stage label sits in a narrow column beside its text instead of on its own line. */
+const row = "min-[375px]:grid min-[375px]:grid-cols-[5.75rem_minmax(0,1fr)] min-[375px]:gap-x-3 sm:block";
+
 export function DecisionsTeaser() {
   const pick = ["fanblaze", "experimentation", "myplan-accuracy"].map((id) => decisions.find((d) => d.id === id)!);
   return (
@@ -219,10 +224,12 @@ export function DecisionsTeaser() {
         <ol className="mt-7 border-t border-ink">
           {pick.map((d) => {
             const signal = d.stages.find((x) => x.term === "Signal") ?? d.stages[0];
+            // The homepage shows the signal's first sentence; the full signal is on /decisions.
+            const signalText = signal.text.split(/(?<=\.) /)[0];
             const decision = d.stages.find((x) => x.term === "Decision");
             const end = d.learning ?? d.results?.[0]?.text ?? d.note;
             return (
-              <li key={d.id} className="grid gap-3 border-b border-line py-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
+              <li key={d.id} className="grid gap-2.5 border-b border-line py-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
                 <div>
                   <p className="flex items-center gap-2.5 text-[13px] font-medium text-muted"><span className="tabular-nums">{d.code}</span><VerdictTag verdict={d.verdict} />{d.product ?? d.company}</p>
                   <h3 className="mt-2.5 font-serif text-2xl leading-tight text-ink">
@@ -230,9 +237,9 @@ export function DecisionsTeaser() {
                   </h3>
                 </div>
                 <dl className="grid gap-2.5 text-[15px] leading-6 sm:grid-cols-3 sm:gap-6">
-                  <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="signal" />Signal</dt><dd className="mt-1 text-ink/85">{signal.text}</dd></div>
-                  {decision ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</dt><dd className="mt-1 text-ink">{decision.text}</dd></div> : null}
-                  {end ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind={d.learning ? "learning" : "outcome"} />{d.learning ? "Learning" : "Outcome"}</dt><dd className="mt-1 text-ink/85">{end}</dd></div> : null}
+                  <div className={row}><dt className="flex h-6 items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="signal" />Signal</dt><dd className="mt-1 text-ink/85 min-[375px]:mt-0 sm:mt-1">{signalText}</dd></div>
+                  {decision ? <div className={row}><dt className="flex h-6 items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</dt><dd className="mt-1 text-ink min-[375px]:mt-0 sm:mt-1">{decision.text}</dd></div> : null}
+                  {end ? <div className={row}><dt className="flex h-6 items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind={d.learning ? "learning" : "outcome"} />{d.learning ? "Learning" : "Outcome"}</dt><dd className="mt-1 text-ink/85 min-[375px]:mt-0 sm:mt-1">{end}</dd></div> : null}
                 </dl>
               </li>
             );
@@ -269,8 +276,11 @@ export function AiLabTeaser() {
     <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-10 lg:py-14">
       <Container>
         <SectionHeader compact id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first. A deterministic baseline, an evaluation, named failure modes, guardrails and a human override come before it, and sometimes the answer is not to ship it." />
-        <FieldExample className="mt-7" />
-        <article className="group relative mt-9 grid gap-6 border-t border-ink pt-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
+        <p className="mt-6 border-t border-ink pt-5 text-[15px] leading-6 text-ink sm:text-base">
+          <span className="font-semibold">In the field.</span> In myPAT doubt resolution, an AI resolver was weighed against a hard 90% accuracy gate and not shipped; a hybrid was.{" "}
+          <Link href={aiLab.field.href} className="inline-flex min-h-6 items-center gap-1 font-medium text-accent underline decoration-accent/30 underline-offset-4 hover:decoration-accent">The decision behind it<span aria-hidden> →</span></Link>
+        </p>
+        <article className="group relative mt-7 grid gap-6 border-t border-line pt-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
           <div>
             <p className="text-[13px] font-medium text-muted">{build.status}</p>
             <h3 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
