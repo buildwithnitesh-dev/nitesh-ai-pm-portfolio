@@ -684,7 +684,7 @@ export const roles: readonly Role[] = [
     summary: "Across Edfora's products and systems, including myPAT, Glorifire, Stakeholder, Glorifire Ops, Adaptive Practice, myAdvisor and myPlan: roadmap and prioritization for learning and engagement experiences on web and mobile, with engineering, design, content and business teams.",
     highlights: [
       "3PL IRT-based adaptive assignments: across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after (not attributed to the engine alone)",
-      "Quiz and gamification layer shaped by teachers who found early prototypes “too game-y”: DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.",
+      "Early prototypes were flagged by teachers as “too game-y”. DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.",
       "myPAT doubt resolution: chose a hybrid over an AI resolver and a tutor marketplace on RICE and unit economics; 1,000-student pilot behind a 90% accuracy gate; median resolution time ~24 h → <15 min; D14 return rate ~18% higher than holdout (relative); ~60% modeled support-cost avoidance",
       "Real-time engagement dashboards for faculty replaced a monthly spreadsheet pull",
       "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, on products that reach 100K+ learners",
