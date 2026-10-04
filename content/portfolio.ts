@@ -514,7 +514,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: [{ text: "DAU up ~12–15%, average session time up ~15%", basis: "As recorded on the résumé: before/after, no method or control, and not attributed to the behavioural system on its own" }],
+    results: [{ text: "DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.", basis: "As recorded on the résumé: before/after, no method or control, and not attributed to the behavioural system on its own" }],
     caseHref: "/work/behavioural-loops",
   },
   {
