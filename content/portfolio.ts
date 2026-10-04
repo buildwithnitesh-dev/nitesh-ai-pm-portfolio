@@ -82,7 +82,34 @@ export type Delta = {
   note?: string;
   /** The story behind the number. */
   href: string;
+  /*
+   * Evidence-aware fields (optional; used by the case evidence figure).
+   * A change is only ever computed or drawn when `comparisonValid` is true.
+   */
+  /** What each end of the comparison is, e.g. "control" and "treatment". */
+  fromLabel?: string;
+  toLabel?: string;
+  /** Unit for the computed change; "pp" = percentage points, never a relative uplift. */
+  changeUnit?: "pp";
+  comparisonValid?: boolean;
+  precision?: "exact" | "approximate";
+  evidenceType?: "experimental" | "before-after" | "observational" | "modeled" | "directional";
+  /** Experiment metadata, shown as context, not as outcomes. */
+  contextItems?: readonly string[];
+  caveats?: readonly string[];
+  businessImplication?: string;
 };
+
+/**
+ * The change between the two ends of a delta, or null when the comparison isn't
+ * valid (e.g. the comparison basis isn't recorded). Rounded to one decimal so
+ * floating-point noise never reaches the page.
+ */
+export function changeOf(d: Delta): { value: string; unit: "pp" } | null {
+  if (!d.comparisonValid || d.changeUnit !== "pp" || d.from === undefined || d.to === undefined) return null;
+  const v = Math.round((d.to - d.from) * 10) / 10;
+  return { value: `${v > 0 ? "+" : ""}${v.toFixed(1)}`, unit: "pp" };
+}
 
 export const deltas: Record<DeltaId, Delta> = {
   d0: {
@@ -93,6 +120,10 @@ export const deltas: Record<DeltaId, Delta> = {
     detail: "12% is the documented baseline before the redesign. The record lists 33% among the rollout's results but doesn't say whether it was read against the concurrent control or as the level after launch, so it is shown as a change in level, not as a test result.",
     context: "Witzeal · onboarding redesign",
     href: "/work/onboarding-funnel-redesign#result",
+    comparisonValid: false,
+    precision: "approximate",
+    evidenceType: "before-after",
+    caveats: ["12% is the pre-redesign baseline; whether 33% was read against the concurrent control is not recorded."],
   },
   d7: {
     label: "Day-7 retention",
@@ -103,6 +134,18 @@ export const deltas: Record<DeltaId, Delta> = {
     context: "Witzeal · onboarding redesign",
     note: "Bundle result · definition not recorded",
     href: "/work/onboarding-funnel-redesign#result",
+    fromLabel: "control",
+    toLabel: "treatment",
+    changeUnit: "pp",
+    comparisonValid: true,
+    precision: "exact",
+    evidenceType: "experimental",
+    contextItems: ["~50K users", "~3 weeks", "30/70 controlled rollout"],
+    caveats: [
+      "Five onboarding changes shipped together, including a ₹15 free-game incentive; causal isolation was limited.",
+      "Day-7 definition and statistical significance were not recorded.",
+    ],
+    businessImplication: "The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control.",
   },
   completion: {
     label: "Assignment completion",

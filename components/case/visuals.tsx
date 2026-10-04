@@ -1,5 +1,6 @@
 import { Delta } from "@/components/delta";
 import { Trace } from "@/components/trace";
+import { EvidenceFigure } from "./evidence";
 import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
 
@@ -345,6 +346,9 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
           {v.note ? <figcaption className="mt-3 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
         </figure>
       );
+
+    case "evidence":
+      return <EvidenceFigure primary={v.primary} secondary={v.secondary} />;
 
     case "trace":
       return (

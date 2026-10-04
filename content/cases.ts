@@ -28,6 +28,7 @@ export type Visual =
   | { type: "loop"; steps: readonly { stage: string; items: readonly string[] }[]; note?: string }
   | { type: "split"; sides: readonly { who: string; items: readonly string[] }[]; note?: string }
   | { type: "matrix"; columns: readonly string[]; /** Phone labels, same meaning. */ short?: readonly string[]; rows: readonly { name: string; cells: readonly string[]; chosen?: boolean }[]; note?: string }
+  | { type: "evidence"; primary: DeltaId; secondary?: DeltaId }
   | { type: "trace"; steps: readonly { kind: "signal" | "decision" | "tradeoff" | "outcome" | "learning"; label: string; text: string }[]; note?: string };
 
 export type Stage = {
@@ -222,7 +223,8 @@ export const witzeal: Case = {
   opening: "Only 12% of new users played a game on day one.",
   standfirst: "A 12.2% Day-7 number looked like a retention problem. The funnel said activation. Five changes to the first 60 seconds, tested against a 30% control.",
   description: "Case study: only 12% of new users at Witzeal played a game on day one. Diagnosed as activation, not retention; five onboarding changes tested in a 30/70 controlled rollout. D0 gameplay 12% → 33%, Day-7 retention 12.2% → 25.4%.",
-  headline: ["d0", "d7"],
+  headline: [],
+  headerVisual: { type: "evidence", primary: "d7", secondary: "d0" },
   stages: [
     {
       id: "context", label: "Context",
@@ -306,8 +308,8 @@ export const witzeal: Case = {
     {
       id: "result", label: "Result",
       title: "More new players reached a game, and more were still playing on Day 7.",
-      body: ["Day-7 retention rose 13.2 percentage points, control against treatment, and the positive direction continued into the first month (M0). Later figures aren't available, so none are shown."],
-      visual: { type: "deltas", ids: ["d7", "d0"] },
+      body: ["The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control. The positive direction continued into the first month (M0); later figures aren't available, so none are shown."],
+      visual: { type: "evidence", primary: "d7", secondary: "d0" },
     },
     {
       id: "business", label: "Business link",
@@ -321,7 +323,7 @@ export const witzeal: Case = {
           { metric: "First deposit", measured: false },
           { metric: "Net gaming revenue", measured: false },
         ],
-        note: "Business outcome was not measured in the original analysis.",
+        note: "The experiment measured activation and retention; the original analysis did not establish the downstream revenue impact.",
       },
     },
     {

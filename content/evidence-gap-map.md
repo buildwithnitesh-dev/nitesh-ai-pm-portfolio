@@ -301,3 +301,14 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | Outcomes | Median TAT ~24 h → <15 min; D14 ~18% relative vs. holdout; ~60% modeled support-cost avoidance (not a saving). |
 | Trade-off matrix | Qualitative cells (product reasoning), labelled as such; not scores. |
 | Not shipped / Learning | Labelled product reasoning. No production AI, model or LLM claim. The hybrid is attributed to product & growth, not to Nitesh personally. |
+
+---
+
+## 13. Witzeal evidence visuals (2026-10-04)
+
+| Item | Treatment |
+|---|---|
+| D7 | Hero evidence: 12.2% control → 25.4% treatment, **+13.2 percentage points** (computed only because `comparisonValid` is true). Context: ~50K users · ~3 weeks · 30/70 controlled rollout. Caveats: bundle of five changes incl. ₹15 free games (causal isolation limited); Day-7 definition and significance not recorded. Caption: "The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control." |
+| D0 | Supporting only: 12% → 33%, "Comparison basis not recorded", `comparisonValid: false` so no change is computed or drawn. |
+| Business chain | D0 and D7 measured; first deposit and NGR not measured. Caption: "The experiment measured activation and retention; the original analysis did not establish the downstream revenue impact." |
+| Excluded | GMV ~10% WoW, 48% retention, relative uplifts (+108%, 2×), significance, confidence intervals, retention curves, invented D0 arm values, funnel percentages. Bonus spend stays in its own decision (D-02), not in this case. |
