@@ -6,7 +6,7 @@ import { StageMarker, Trace, type StepKind } from "@/components/trace";
 import { VerdictTag } from "@/components/decision-card";
 import { Arrow, MoreLink, SectionHeader, StatusLabel, button } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
-import { about, aiLab, arc, contact, decisions, domains, flagships, technical } from "@/content/portfolio";
+import { about, aiLab, arc, contact, decisions, deltas, domains, flagships, technical, type DeltaId } from "@/content/portfolio";
 import { CopyEmail } from "./copy-email";
 
 /** 03 · The same capabilities, proved in two consumer domains. */
@@ -86,18 +86,80 @@ export function CareerArc() {
   );
 }
 
-/** 02 · Four deep stories, each drawn as signal → decision → trade-off → outcome. */
+/**
+ * 02 · The homepage index of the four flagship stories: proof and curiosity,
+ * not the cases themselves. Doubt Resolution leads with its result and the AI
+ * judgment call; the other three are one ruled row each. Depth lives on /work.
+ */
 export function SelectedWork() {
+  const [lead, ...rest] = flagships;
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line pt-8 pb-10 lg:pt-10 lg:pb-14">
       <Container>
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeader compact id="work-title" index="02" label="Selected work" title="Four product stories, in depth." intro="The signal, the call, what it cost, and what the evidence does and doesn't prove." />
+        <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+          <SectionHeader compact id="work-title" index="02" label="Selected work" title="Four product stories, in depth." />
           <MoreLink href="/work">All work</MoreLink>
         </div>
-        <WorkStories />
+
+        <article className="group relative mt-6 grid gap-8 border-t border-ink pt-7 pb-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-14">
+          <div className="flex flex-col">
+            <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{lead.index}</span>&nbsp;&nbsp;{lead.capability}</p>
+            <h3 className="mt-2.5 font-serif text-[2.2rem] leading-[1.02] text-ink sm:text-[2.9rem]">
+              <Link href={lead.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{lead.title}</Link>
+            </h3>
+            <p className="mt-2 text-sm text-muted">{lead.company} · myPAT · {lead.role}</p>
+            <p className="mt-4 max-w-xl text-xl leading-snug text-ink">{lead.problem}</p>
+            <p aria-hidden className="mt-auto hidden items-center gap-2 pt-6 text-[15px] font-medium text-accent lg:inline-flex">The decision behind it <Arrow /></p>
+          </div>
+          <div className="min-w-0">
+            <Delta id={lead.delta} size="md" showContext={false} />
+            <Trace
+              className="mt-7"
+              steps={lead.aiPath.map((x) => ({ kind: x.kind as StepKind, label: x.label, content: x.text }))}
+            />
+            <p aria-hidden className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-accent lg:hidden">The decision behind it <Arrow /></p>
+          </div>
+        </article>
+
+        <ol className="border-t border-line">
+          {rest.map((c) => (
+            <li key={c.slug}>
+              <article className="group relative grid gap-4 border-b border-line py-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.9fr)_minmax(0,0.85fr)] lg:gap-10">
+                <div>
+                  <p className="text-[13px] font-semibold text-accent"><span className="tabular-nums text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
+                  <h3 className="mt-1.5 font-serif text-2xl leading-tight text-ink sm:text-[1.75rem]">
+                    <Link href={c.href} className="stretched-link outline-none transition-colors group-hover:text-accent">{c.title}</Link>
+                  </h3>
+                  <p className="mt-1 text-[13px] text-muted">{c.company} · {c.domain.replace(/^EdTech · /, "")}</p>
+                  <p className="mt-2.5 text-[15px] leading-6 text-ink/85">{c.problem}</p>
+                </div>
+                <div>
+                  <p className="flex items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</p>
+                  <p className="mt-1.5 text-[15px] leading-6 text-ink">{c.brief}</p>
+                </div>
+                <div>
+                  <p className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="outcome" />{"delta" in c ? "Evidence" : "Evidence: the system"}</p>
+                  {"delta" in c ? <IndexEvidence id={c.delta} /> : <p className="mt-1.5 text-[15px] leading-6 text-ink">{c.evidenceShort}</p>}
+                  <p aria-hidden className="mt-3 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Read the case <Arrow /></p>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
       </Container>
     </section>
+  );
+}
+
+/** A result as one line of evidence for the index: the change, what it counts, and its caveat. */
+function IndexEvidence({ id }: { id: DeltaId }) {
+  const d = deltas[id];
+  return (
+    <div className="mt-1.5">
+      <p className="text-2xl font-bold tracking-[-0.03em] proportional-nums text-ink">{d.before ? <><span className="text-subtle">{d.before}</span> <span aria-hidden className="font-normal text-subtle">→</span><span className="sr-only">to</span> </> : null}{d.after}</p>
+      <p className="mt-0.5 text-[13px] leading-5 text-muted">{d.label} · {d.method}</p>
+      {d.note ? <p className="text-[13px] leading-5 text-accent">{d.note}</p> : null}
+    </div>
   );
 }
 
