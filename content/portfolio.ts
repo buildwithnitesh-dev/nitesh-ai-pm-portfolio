@@ -464,7 +464,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use behavioral clustering to find the segments that behaved differently, then redesign the journey for each." },
       { term: "Trade-off", text: "Every extra journey is more to build, test and maintain. Segmentation pays off when segments are few and clearly different." },
     ],
-    results: [{ text: "Session duration up ~35%, retention up ~25%", basis: "Reported: session duration up ~35%, retention up ~25% · method, window and unit (relative or points) not recorded" }],
+    results: [{ text: "Session duration and retention reported up ~35% and ~25% respectively", basis: "method, window and unit (relative or points) not recorded" }],
   },
   {
     id: "pokerbaazi-matchmaking",
