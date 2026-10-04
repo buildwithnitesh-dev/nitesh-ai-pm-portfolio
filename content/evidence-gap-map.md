@@ -323,3 +323,13 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | Problem | "A fixed sequence couldn't adapt to different learner ability levels: some questions were too hard, others too easy." No drop-off reduction claim, no research findings. |
 | Scope | Core Practice & Learning Experience. 100K+ appears only as Edfora's overall product reach. Team unchanged; the APM is not described as a report. |
 | Excluded | "+27 percentage points" / "+27pp" / relative uplift, AI/ML/LLM framing, mastery or learning-curve claims, causal attribution of 18 → 45, RICE scores, stakeholder disagreement, significance, confidence intervals. |
+
+## 15. Behavioural Loops visuals (2026-10-04)
+
+| Item | Treatment |
+|---|---|
+| Hero | Two-sided ecosystem map under one product idea, "One configurable behavioural system, connecting student engagement and faculty workflows." Students · Glorifire: Action → Points · Streaks · Badges → Avatars · Rank / Level → Leaderboards · Hall of Fame. Faculty and stakeholders · Stakeholder platform: Analytics · Leaderboards; configurable behaviour-based actionable items; myPlan loop (system-generated myPlan → faculty confirm Correct / Incorrect → 100 points for accurate feedback). Who configures the items isn't stated. |
+| Narrative | Signal (DAU plateau, two months) → Constraint ("too game-y") → Product decision → System · students → System · faculty → Trade-off → Evidence → Learning → Next. |
+| Evidence | "What the record supports" vs "What isn't established". DAU 12–15% and session time ~15% stay résumé-level observations with no method, control or window; whether the quiz and gamification layer is the Glorifire system isn't established; 100K+ is Edfora-wide reach; the personal ownership boundary isn't established. |
+| Removed | "Didn't choose: hard-coded rewards" and "Defined: the actionable behaviours" (reasoning or ownership not on record); the linear five-stage loop; the student/faculty split (now in the hero). |
+| Route | /work/behavioral-loops redirects (308) to /work/behavioural-loops. |

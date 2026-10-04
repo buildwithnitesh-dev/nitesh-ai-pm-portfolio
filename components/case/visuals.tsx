@@ -1,6 +1,7 @@
 import { Delta } from "@/components/delta";
 import { Trace } from "@/components/trace";
 import { AdaptiveLoop } from "./adaptive-loop";
+import { EcosystemMap } from "./ecosystem-map";
 import { EvidenceFigure } from "./evidence";
 import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
@@ -364,6 +365,26 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
         <figure>
           <Trace wide steps={v.steps.map((x) => ({ kind: x.kind, label: x.label, content: x.text }))} />
           {v.note ? <figcaption className="mt-4 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
+        </figure>
+      );
+
+    case "ecosystem":
+      return <EcosystemMap />;
+
+    case "known":
+      return (
+        <figure>
+          <div className="grid border-t border-ink sm:grid-cols-2 sm:gap-x-10">
+            {([["What the record supports", v.supports, "bg-ink"], ["What isn't established", v.gaps, "border-[1.5px] border-ink bg-background"]] as const).map(([h, items, mark]) => (
+              <div key={h} className="border-b border-line py-5">
+                <p className="text-[15px] font-bold text-ink">{h}</p>
+                <ul className="mt-3 grid gap-2.5 text-[15px] leading-6 text-ink/85">
+                  {items.map((it) => <li key={it} className="flex gap-3"><span aria-hidden className={`mt-[7px] h-[9px] w-[9px] shrink-0 ${mark}`} />{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+          {v.note ? <figcaption className="mt-3 text-[13px] leading-5 text-muted">{v.note}</figcaption> : null}
         </figure>
       );
 
