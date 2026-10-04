@@ -73,7 +73,7 @@ export const doubt: Case = {
   title: "Doubt Resolution",
   opening: "Reducing Doubt Turn-Around Time (TAT) from 24 Hours to <15 Minutes via a Hybrid Peer & Guided-Hint Architecture",
   standfirst: "During peak JEE exam preparation, doubt resolution on myPAT and Glorifire took about 24 hours, and students studying late at night got blocked. The dilemma: reduce resolution friction without scaling human support linearly, while preserving academic accuracy and trust.",
-  description: "Case study: doubt resolution on myPAT and Glorifire at Edfora, owned end to end as Senior PM. An AI auto-resolver, a 1-on-1 tutor marketplace and a hybrid were evaluated on RICE and unit economics; the hybrid of guided hints, verified peer solutions and SME escalation was piloted with 10,000 JEE students. Median TAT ~24 h → <15 min; D14 retention +18% against a pilot holdout; ~60% support-cost reduction (derived); >90% accuracy maintained. AI was evaluated but not shipped as the first solution.",
+  description: "Case study: doubt resolution on myPAT and Glorifire at Edfora, owned end to end as Senior PM. An AI auto-resolver, a 1-on-1 tutor marketplace and a hybrid were evaluated on RICE and unit economics; the hybrid of guided hints, verified peer solutions and SME escalation was piloted with 10,000 JEE students. Median TAT ~24 h → <15 min; +18% D14 retention, measured via a pilot holdout / A-B cohort; ~60% support-cost reduction (derived); >90% accuracy maintained. AI was evaluated but not shipped as the first solution.",
   headline: ["tat"],
   compact: true,
   headerVisual: {
@@ -90,8 +90,8 @@ export const doubt: Case = {
     {
       id: "signal", label: "Signal",
       title: "At peak JEE exam preparation, doubt resolution took about 24 hours.",
-      body: ["During peak JEE exam preparation, myPAT and Glorifire faced a doubt-resolution bottleneck of about 24 hours. A doubt is a learner stuck on a question; SMEs and faculty resolved them, so a student studying late at night could stay blocked until morning. Tagging logged tickets showed most were repetitive."],
-      visual: { type: "signal", items: [{ value: "~70%", label: "of logged tickets repetitive or pattern-based (approximate, from sample tagging of logged tickets)" }] },
+      body: ["During peak JEE exam preparation, myPAT and Glorifire faced a doubt-resolution bottleneck of about 24 hours. A doubt is a learner stuck on a question; SMEs and faculty resolved them, so a student studying late at night could stay blocked until morning. Approximately 70% of logged tickets were repetitive/pattern-based questions."],
+      visual: { type: "signal", items: [{ value: "~70%", label: "of logged tickets were repetitive/pattern-based questions" }] },
     },
     {
       id: "ownership", label: "Ownership",
@@ -184,7 +184,7 @@ export const doubt: Case = {
         type: "ledger",
         items: [
           { value: "<15 min", label: "median doubt-resolution TAT, from ~24 h", detail: "Measured · median TAT in the 10,000-student JEE pilot cohort, stable as the median after the live rollout, for the ~70% repetitive-doubt pool. ~24 h was the peak exam-preparation bottleneck. Median, doubt created → first qualifying resolution." },
-          { value: "+18%", label: "D14 retention against the pilot holdout", detail: "Measured · pilot holdout / A-B cohort against the standard queue. A relative change, not percentage points." },
+          { value: "+18%", label: "D14 retention", detail: "Measured via a pilot holdout / A-B cohort against the standard queue" },
           { value: ">90%", label: "resolution accuracy maintained", detail: "Quality guardrail · audited through SME sampling and post-resolution satisfaction ratings" },
           { value: "~60%", label: "support and operational cost reduction", detail: "Derived · calculated from avoided SME and faculty headcount scaling against ticket growth" },
         ],

@@ -233,7 +233,7 @@ export const domains: readonly {
   edtech: { text: string; short: string; href: string };
 }[] = [
   { capability: "Activation", gaming: { text: "Five changes to the first 60 seconds, all aimed at the first game", short: "Five changes to the first 60 seconds", href: "/work/onboarding-funnel-redesign" }, edtech: { text: "A stuck learner's next step in minutes, not a day: hints and peer answers before escalation", short: "A stuck learner's next step in minutes, not a day", href: "/work/doubt-resolution" } },
-  { capability: "Retention", gaming: { text: "Day-7 retention lifted by fixing activation, not by paying for re-engagement", short: "D7 lifted by fixing activation, not paying for it", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "D14 retention +18% against the pilot holdout", short: "D14 retention +18% vs pilot holdout", href: "/work/doubt-resolution#outcome" } },
+  { capability: "Retention", gaming: { text: "Day-7 retention lifted by fixing activation, not by paying for re-engagement", short: "D7 lifted by fixing activation, not paying for it", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "+18% D14 retention, measured via a pilot holdout / A-B cohort", short: "+18% D14 retention (pilot holdout / A-B)", href: "/work/doubt-resolution#outcome" } },
   { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", short: "30/70 rollout, ~50K users; a testing program", href: "/decisions#experimentation" }, edtech: { text: "10,000-student cohort-gated pilot against a holdout", short: "10,000-student gated pilot vs holdout", href: "/work/doubt-resolution#pilot" } },
   { capability: "Segmentation", gaming: { text: "Journeys redesigned per behavioural cluster instead of one default", short: "Journeys per behavioural cluster", href: "/decisions#segmented-journeys" }, edtech: { text: "Questions matched to each learner's estimated ability (3PL IRT)", short: "Questions matched to ability (3PL IRT)", href: "/work/adaptive-assignment-engine#system" } },
   { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", short: "Bonuses by segment ROI, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% support-cost reduction (derived)", short: "~60% support-cost reduction (derived)", href: "/work/doubt-resolution#decision" } },
@@ -549,7 +549,7 @@ export const decisions: readonly Decision[] = [
       { term: "Signal", text: "During peak JEE exam preparation, doubt resolution on myPAT and Glorifire faced a bottleneck of about 24 hours; students studying late at night could get blocked." },
       { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
       { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
-      { term: "Evidence", text: "Initial sample tagging of logged tickets, with question-ID overlap, suggested ~70% of doubts were repetitive or pattern-matching. An approximate, sample-derived figure, not an automated classifier." },
+      { term: "Evidence", text: "Approximately 70% of logged tickets were repetitive/pattern-based questions." },
       { term: "Ownership", text: "Senior PM, end to end: discovery, user research, the AI vs. tutor vs. hybrid evaluation, RICE scoring, unit economics modeling, PRD, UX flows, engineering coordination, academic team alignment, cohort pilot design, telemetry and phased launch." },
       { term: "Decision", text: "I evaluated the alternatives using RICE prioritization and unit economics. Selected: a step-wise guided hint system, verified peer solutions, and SME and faculty escalation for complex cases." },
       { term: "Guardrails", text: "Step-wise hints instead of direct answer dumps; verified mentor and peer credibility signals; SME and faculty escalation; a pilot with 10,000 JEE students; and a circuit-breaker quality gate at 90% accuracy, with SME sampling and post-resolution satisfaction monitoring." },
@@ -560,7 +560,7 @@ export const decisions: readonly Decision[] = [
     ],
     delta: "tat",
     results: [
-      { text: "D14 retention +18% against the pilot holdout", basis: "Measured: pilot holdout / A-B cohort against the standard queue" },
+      { text: "+18% D14 retention", basis: "Measured via a pilot holdout / A-B cohort against the standard queue" },
       { text: ">90% resolution accuracy maintained", basis: "Quality guardrail: audited through SME sampling and post-resolution satisfaction ratings" },
       { text: "~60% support and operational cost reduction", basis: "Derived: calculated from avoided SME and faculty headcount scaling against ticket growth; not a directly observed financial saving" },
     ],
@@ -687,7 +687,7 @@ export const roles: readonly Role[] = [
     highlights: [
       "3PL IRT-based adaptive assignments: across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after (not attributed to the engine alone)",
       "Early prototypes were flagged by teachers as “too game-y”. DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.",
-      "Doubt resolution on myPAT and Glorifire, owned end to end: evaluated an AI auto-resolver, a tutor marketplace and a hybrid on RICE and unit economics; 10,000-student pilot behind a 90% accuracy circuit-breaker; median TAT ~24 h → <15 min; D14 retention +18% against the pilot holdout; >90% accuracy maintained; ~60% support-cost reduction (derived)",
+      "Doubt resolution on myPAT and Glorifire, owned end to end: evaluated an AI auto-resolver, a tutor marketplace and a hybrid on RICE and unit economics; 10,000-student pilot behind a 90% accuracy circuit-breaker; median TAT ~24 h → <15 min; +18% D14 retention, measured via a pilot holdout / A-B cohort; >90% accuracy maintained; ~60% support-cost reduction (derived)",
       "Real-time engagement dashboards for faculty replaced a monthly spreadsheet pull",
       "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, on products that reach 100K+ learners",
     ],
