@@ -52,16 +52,16 @@ export function CasePage({ c }: { c: Case }) {
 
       <Container className="grid grid-cols-[minmax(0,1fr)] gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
         <aside><StageRail items={c.stages.map(({ id, label }) => ({ id, label }))} /></aside>
-        <div className="grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] gap-16">
+        <div className={`grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] ${c.compact ? "gap-8 sm:gap-10 lg:gap-14" : "gap-16"}`}>
           {c.stages.map((s, i) => (
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="scroll-mt-24">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
                 <p className="inline-flex items-center gap-3 text-[15px] font-semibold text-ink"><StageMarker kind={kindOf(s.label)} /><span className="tabular-nums font-normal text-subtle">{String(i + 1).padStart(2, "0")}</span>{s.label}</p>
                 {s.reasoning ? <EvidenceTag kind="reasoning" /> : null}
               </div>
-              <h2 id={`${s.id}-title`} className="mt-6 font-serif text-3xl leading-tight text-balance text-ink sm:text-[2.4rem]">{s.title}</h2>
-              {s.body?.map((p) => <p key={p} className="mt-4 text-base leading-8 text-ink/80 sm:text-[17px]">{p}</p>)}
-              {s.visual ? <div className="mt-8"><StageVisual v={s.visual} /></div> : null}
+              <h2 id={`${s.id}-title`} className={`${c.compact ? "mt-4" : "mt-6"} font-serif text-3xl leading-tight text-balance text-ink sm:text-[2.4rem]`}>{s.title}</h2>
+              {s.body?.map((p) => <p key={p} className={`${c.compact ? "mt-3 leading-7 sm:leading-8" : "mt-4 leading-8"} text-base text-ink/80 sm:text-[17px]`}>{p}</p>)}
+              {s.visual ? <div className={c.compact ? "mt-5 sm:mt-7" : "mt-8"}><StageVisual v={s.visual} compact={c.compact} /></div> : null}
             </section>
           ))}
         </div>

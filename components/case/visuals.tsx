@@ -4,15 +4,19 @@ import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
 
 /** Renders one stage's visual. Every visual is static, server-rendered markup. */
-export function StageVisual({ v }: { v: Visual }) {
+/**
+ * `compact` keeps the same content but packs it tighter on phones (label beside
+ * value, smaller gaps). Only cases that opt in use it.
+ */
+export function StageVisual({ v, compact = false }: { v: Visual; compact?: boolean }) {
   switch (v.type) {
     case "facts":
       return (
         <dl className="grid border-t border-ink sm:grid-cols-2 sm:gap-x-10">
           {v.items.map((f) => (
-            <div key={f.term} className="border-b border-line py-4">
-              <dt><Mono className="text-muted">{f.term}</Mono></dt>
-              <dd className="mt-1.5 text-sm leading-6 text-ink">{f.value}</dd>
+            <div key={f.term} className={compact ? "grid gap-0.5 border-b border-line py-2.5 min-[375px]:grid-cols-[7.5rem_minmax(0,1fr)] min-[375px]:gap-x-3 sm:block sm:py-4" : "border-b border-line py-4"}>
+              <dt><Mono className={/^Not in the record/.test(f.term) ? "text-accent" : "text-muted"}>{f.term}</Mono></dt>
+              <dd className={`text-sm leading-6 text-ink ${compact ? "sm:mt-1.5" : "mt-1.5"}`}>{f.value}</dd>
             </div>
           ))}
         </dl>
@@ -22,7 +26,7 @@ export function StageVisual({ v }: { v: Visual }) {
       return (
         <ul className="grid border-t border-ink sm:grid-cols-2 sm:gap-x-10">
           {v.items.map((s) => (
-            <li key={s.label} className="border-b border-line py-6">
+            <li key={s.label} className={`border-b border-line ${compact ? "py-4" : "py-6"}`}>
               <p className="text-5xl font-bold tracking-[-0.035em] text-ink proportional-nums">{s.value}</p>
               <p className="mt-2 text-sm leading-6 text-muted">{s.label}</p>
             </li>
@@ -64,14 +68,14 @@ export function StageVisual({ v }: { v: Visual }) {
       return (
         <ol className="grid border-t border-ink">
           {v.items.map((o, i) => (
-            <li key={o.name} className={`grid gap-3 border-b border-line py-6 pl-5 md:grid-cols-[13rem_1fr_1fr] md:gap-8 ${o.chosen ? "border-l-2 border-l-accent" : "border-l-2 border-l-transparent"}`}>
+            <li key={o.name} className={`grid border-b border-line pl-5 md:grid-cols-[13rem_1fr_1fr] md:gap-8 ${compact ? "gap-1.5 py-4 md:py-6" : "gap-3 py-6"} ${o.chosen ? "border-l-2 border-l-accent" : "border-l-2 border-l-transparent"}`}>
               <div>
-                <Mono className="text-subtle">Option {String.fromCharCode(65 + i)}</Mono>
-                <p className="mt-1 font-serif text-xl leading-snug text-ink">{o.name}</p>
-                {o.chosen ? <p className="mt-2 inline-flex items-center gap-1.5 font-medium text-[13px] text-accent"><span aria-hidden className="h-2 w-2 rotate-45 bg-accent" />Chosen</p> : null}
+                <Mono className={`text-subtle ${compact ? "hidden md:inline" : ""}`}>Option {String.fromCharCode(65 + i)}</Mono>
+                <p className={`font-serif text-xl leading-snug text-ink ${compact ? "md:mt-1" : "mt-1"}`}>{compact ? <span className="md:hidden">{String.fromCharCode(65 + i)}. </span> : null}{o.name}{compact && o.chosen ? <span className="ml-2 align-middle font-sans text-[13px] font-medium text-accent md:hidden">◆ Chosen</span> : null}</p>
+                {o.chosen ? <p className={`mt-2 items-center gap-1.5 font-medium text-[13px] text-accent ${compact ? "hidden md:inline-flex" : "inline-flex"}`}><span aria-hidden className="h-2 w-2 rotate-45 bg-accent" />Chosen</p> : null}
               </div>
-              <div><Mono className="text-muted">Works because</Mono><p className="mt-1 text-sm leading-6 text-ink/85">{o.works}</p></div>
-              <div><Mono className={o.chosen ? "text-accent" : "text-muted"}>{o.chosen ? "Costs" : "Falls short because"}</Mono><p className="mt-1 text-sm leading-6 text-ink/85">{o.fails}</p></div>
+              <div className={compact ? "grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-2 md:block" : ""}><Mono className="text-muted">{compact ? <><span className="md:hidden">Gains</span><span className="hidden md:inline">Works because</span></> : "Works because"}</Mono><p className={`text-sm leading-6 text-ink/85 ${compact ? "md:mt-1" : "mt-1"}`}>{o.works}</p></div>
+              <div className={compact ? "grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-2 md:block" : ""}><Mono className={o.chosen ? "text-accent" : "text-muted"}>{compact ? <><span className="md:hidden">{o.chosen ? "Costs" : "Risk"}</span><span className="hidden md:inline">{o.chosen ? "Costs" : "Falls short because"}</span></> : o.chosen ? "Costs" : "Falls short because"}</Mono><p className={`text-sm leading-6 text-ink/85 ${compact ? "md:mt-1" : "mt-1"}`}>{o.fails}</p></div>
             </li>
           ))}
         </ol>
@@ -101,7 +105,7 @@ export function StageVisual({ v }: { v: Visual }) {
         <figure className="border-t border-ink">
           <dl className="grid sm:grid-cols-3 sm:gap-x-10">
             {v.items.map((e) => (
-              <div key={e.label} className="border-b border-line py-5 sm:border-0">
+              <div key={e.label} className={`border-b border-line sm:border-0 ${compact ? "py-4 sm:py-5" : "py-5"}`}>
                 <dt className="sr-only">{e.label}</dt>
                 <dd className="text-4xl font-bold tracking-[-0.035em] text-ink proportional-nums">{e.value}</dd>
                 <dd className="mt-1.5 text-sm leading-6 text-ink">{e.label}</dd>
@@ -277,7 +281,7 @@ export function StageVisual({ v }: { v: Visual }) {
       return (
         <dl className="grid border-t border-ink">
           {v.rows.map((r) => (
-            <div key={r.term} className="grid gap-1 border-b border-line py-3.5 sm:grid-cols-[9.5rem_1fr] sm:gap-6">
+            <div key={r.term} className={compact ? "grid gap-0.5 border-b border-line py-2.5 min-[375px]:grid-cols-[6.5rem_minmax(0,1fr)] min-[375px]:gap-x-3 sm:grid-cols-[9.5rem_1fr] sm:gap-6 sm:py-3.5" : "grid gap-1 border-b border-line py-3.5 sm:grid-cols-[9.5rem_1fr] sm:gap-6"}>
               <dt><Mono className={r.term === "Chose" ? "text-accent" : "text-muted"}>{r.term}</Mono></dt>
               <dd className={`text-sm leading-6 ${r.term === "Chose" ? "font-medium text-ink" : "text-ink/85"}`}>{r.text}</dd>
             </div>
@@ -332,8 +336,8 @@ export function StageVisual({ v }: { v: Visual }) {
             {v.rows.map((r) => (
               <li key={r.name} className={`border-b py-3 ${r.chosen ? "border-accent" : "border-line"}`}>
                 <p className={`flex items-center gap-2 font-bold ${r.chosen ? "text-accent" : "text-ink"}`}>{r.chosen ? <span aria-hidden className="h-2 w-2 rotate-45 bg-accent" /> : null}{r.name}{r.chosen ? <span className="sr-only"> (chosen)</span> : null}</p>
-                <dl className="mt-1 grid grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] gap-x-3 gap-y-0.5 text-[15px] leading-6">
-                  {r.cells.map((c, i) => <div key={i} className="contents"><dt className="text-[13px] leading-6 text-muted">{v.columns[i]}</dt><dd className="text-ink/85">{c}</dd></div>)}
+                <dl className={`mt-1 grid gap-x-3 gap-y-0.5 text-[15px] leading-6 ${v.short ? "grid-cols-[5.5rem_minmax(0,1fr)]" : "grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)]"}`}>
+                  {r.cells.map((c, i) => <div key={i} className="contents"><dt className="text-[13px] leading-6 text-muted">{v.short?.[i] ?? v.columns[i]}</dt><dd className="text-ink/85">{c}</dd></div>)}
                 </dl>
               </li>
             ))}
