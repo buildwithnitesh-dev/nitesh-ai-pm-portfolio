@@ -26,7 +26,7 @@ export default function AboutPage() {
           <aside aria-label="Profile" className="sm:max-lg:grid sm:max-lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:max-lg:items-end sm:max-lg:gap-8">
             {hasPortrait ? (
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-line">
-                <Image src={about.portrait.src} alt={about.portrait.alt} fill preload sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+                <Image src={about.portrait.src} alt={about.portrait.alt} fill preload unoptimized sizes="(min-width: 1024px) 40vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
               </div>
             ) : null}
             <div className={`border-t-2 border-ink pt-4 ${hasPortrait ? "mt-5 sm:max-lg:mt-0" : ""}`}>

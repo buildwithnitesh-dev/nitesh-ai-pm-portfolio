@@ -781,7 +781,7 @@ export const about = {
     { name: "AI", text: "Practical, responsible AI product judgment." },
   ],
   /** Served from /public. The portrait renders only when this file exists; there is no placeholder or generated stand-in. */
-  portrait: { src: "/about/nitesh-portrait.jpg", alt: "Nitesh Tiwari, in glasses, a blazer and a white shirt" },
+  portrait: { src: "/about/nitesh-portrait.jpg", alt: "Nitesh Tiwari in glasses, a navy blazer and a white T-shirt" },
   opening: "I started by writing the product.",
   intro: "Before I owned roadmaps, I spent four-plus years as the only Android developer on a marketplace app, and then standardized releases for enterprise web applications. That order still shapes how I work: I scope with engineering, not around it.",
   phases: [
