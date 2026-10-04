@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackLink } from "@/components/back-link";
 import { Container } from "@/components/container";
 import { Arrow, EvidenceTag, type EvidenceKind } from "@/components/ui";
 import { StageRail, type RailItem } from "@/components/case/stage-rail";
@@ -26,14 +27,17 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
     <main id="main" className="flex-1">
       <header className="border-b border-line">
         <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
-          <nav aria-label="Breadcrumb" className="text-sm text-muted">
-            <ol className="flex flex-wrap items-center gap-2">
-              <li><Link href="/ai-lab" className="inline-flex min-h-6 items-center hover:text-ink">← AI Lab</Link></li>
-              <li aria-hidden className="text-line-strong">/</li>
-              <li aria-current="page" className="text-ink">{meta.title}</li>
-            </ol>
-          </nav>
-          <p className="mt-12 text-[15px] font-semibold text-accent">{meta.type}</p>
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+            <BackLink href="/ai-lab" label="Back to AI Lab" />
+            <nav aria-label="Breadcrumb" className="text-sm text-muted">
+              <ol className="flex flex-wrap items-center gap-2">
+                <li><Link href="/ai-lab" className="inline-flex min-h-6 items-center hover:text-ink">AI Lab</Link></li>
+                <li aria-hidden className="text-line-strong">/</li>
+                <li aria-current="page" className="text-ink">{meta.title}</li>
+              </ol>
+            </nav>
+          </div>
+          <p className="mt-10 text-[15px] font-semibold text-accent">{meta.type}</p>
           <h1 className="mt-4 max-w-5xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-7xl">{meta.title}</h1>
           <p className="mt-6 max-w-3xl text-xl leading-8 text-muted">{meta.subtitle}</p>
 
@@ -82,7 +86,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
         </Container>
       </section>
 
-      <Container className="grid gap-10 py-14 lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <Container className="grid gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
         <aside><StageRail items={toc} label="On this page" /></aside>
         <div className="grid max-w-3xl gap-20">{children}</div>
       </Container>

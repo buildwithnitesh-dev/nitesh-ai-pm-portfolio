@@ -316,8 +316,7 @@ export const witzeal: Case = {
     {
       id: "result", label: "Result",
       title: "More new players in the treatment arm were still playing on Day 7.",
-      body: ["The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control. The positive direction continued into the first month (M0); later figures aren't available, so none are shown."],
-      visual: { type: "evidence", primary: "d7", secondary: "d0" },
+      body: ["The redesigned onboarding arm recorded 13.2 percentage points higher Day-7 retention than the concurrent control. The positive direction continued into the first month (M0); later figures aren't available, so none are shown.", "The figure at the top of this page carries the full evidence: control and treatment, both caveats, how it was measured, and D0 with its unrecorded comparison basis."],
     },
     {
       id: "business", label: "Business link",

@@ -1,3 +1,4 @@
+import { BackLink } from "@/components/back-link";
 import { Container } from "@/components/container";
 import { CopyEmail } from "@/components/home/copy-email";
 import { ResumeCta } from "@/components/resume-cta";
@@ -21,8 +22,9 @@ const hasPortrait = existsSync(join(process.cwd(), "public", about.portrait.src)
 export default function AboutPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="py-14 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
+      <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        <BackLink href="/" label="Back to home" />
+        <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <aside aria-label="Profile" className="sm:max-lg:grid sm:max-lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:max-lg:items-end sm:max-lg:gap-8">
             {hasPortrait ? (
               <div className="relative aspect-[4/5] w-full overflow-hidden bg-line">

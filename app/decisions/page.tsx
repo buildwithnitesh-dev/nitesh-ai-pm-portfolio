@@ -1,3 +1,4 @@
+import { BackLink } from "@/components/back-link";
 import { Container } from "@/components/container";
 import { DecisionCard } from "@/components/decision-card";
 import { Mono, SectionHeader } from "@/components/ui";
@@ -13,8 +14,9 @@ export const metadata = pageMetadata({
 export default function DecisionsPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="py-14 lg:py-20">
-        <SectionHeader as="h1" label="Decisions" title="Smaller calls, same discipline." intro="Short snapshots of product judgment: the signal, the call, and the outcome or learning, including the bets that were stopped. The deep stories live in Work." />
+      <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        <BackLink href="/" label="Back to home" />
+        <div className="mt-8 lg:mt-10"><SectionHeader as="h1" label="Decisions" title="Smaller calls, same discipline." intro="Short snapshots of product judgment: the signal, the call, and the outcome or learning, including the bets that were stopped. The deep stories live in Work." /></div>
         <nav aria-label="Decisions" className="mt-10">
           <ol className="flex flex-wrap gap-2">
             {decisions.map((d) => (
@@ -24,7 +26,7 @@ export default function DecisionsPage() {
         </nav>
         <ol className="mt-14 border-t border-ink">
           {decisions.map((d) => (
-            <li key={d.id} className="border-b border-line py-9 lg:grid lg:grid-cols-[14rem_minmax(0,1fr)] lg:gap-12">
+            <li key={d.id} className="border-b border-line py-9 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16">
               <div className="mb-6 lg:mb-0">
                 <Mono className="text-accent">{d.area}</Mono>
                 <p className="mt-2 text-sm text-muted">{d.role}</p>

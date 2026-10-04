@@ -27,7 +27,7 @@ export function DomainTransfer() {
           </thead>
           <tbody>
             {domains.map((d) => (
-              <tr key={d.capability} className="border-b border-line align-baseline">
+              <tr key={d.capability} className="border-b border-line align-top">
                 <th scope="row" className="py-3 pr-6 text-[16px] font-bold tracking-[-0.01em] text-ink">{d.capability}</th>
                 <td className="py-3 pr-8"><EvidenceLink text={d.gaming.text} href={d.gaming.href} /></td>
                 <td className="py-3"><EvidenceLink text={d.edtech.text} href={d.edtech.href} /></td>

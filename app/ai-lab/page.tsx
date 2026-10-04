@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BackLink } from "@/components/back-link";
 import { Container } from "@/components/container";
 import { FieldExample } from "@/components/home/sections";
 import { Arrow, Mono, SectionHeader, StatusLabel, StatusMark } from "@/components/ui";
@@ -24,8 +25,9 @@ export default function AiLabPage() {
   return (
     <main id="main" className="flex-1">
       <section className="border-b border-line bg-stone">
-        <Container className="py-14 lg:py-20">
-          <SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} />
+        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+          <BackLink href="/" label="Back to home" />
+          <div className="mt-8 lg:mt-10"><SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} /></div>
           <ul aria-label="What each status means" className="mt-10 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
             {legend.map((l) => (
               <li key={l.status} className="grid gap-1">

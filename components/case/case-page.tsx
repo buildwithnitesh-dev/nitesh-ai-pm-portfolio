@@ -1,3 +1,4 @@
+import { BackLink } from "@/components/back-link";
 import Link from "next/link";
 import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
@@ -21,9 +22,9 @@ export function CasePage({ c }: { c: Case }) {
   return (
     <main id="main" className="flex-1">
       <header className="border-b border-line">
-        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-14">
           <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
-            <Link href="/work" className="group inline-flex min-h-11 items-center gap-2 text-[15px] font-medium text-accent"><span aria-hidden className="transition-transform group-hover:-translate-x-1">←</span> Back to Work</Link>
+            <BackLink href="/work" label="Back to Work" />
             <nav aria-label="Breadcrumb" className="text-sm text-muted">
               <ol className="flex flex-wrap items-center gap-2">
                 <li><Link href="/work" className="inline-flex min-h-6 items-center hover:text-ink">Work</Link></li>
