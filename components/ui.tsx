@@ -44,8 +44,9 @@ export function Mono({ children, className = "" }: { children: React.ReactNode; 
 
 /** Section header: a short label with a rule, then a heavy statement. */
 export function SectionHeader({
-  id, index, label, title, intro, as: As = "h2",
-}: { id?: string; index?: string; label: string; title: React.ReactNode; intro?: React.ReactNode; as?: "h1" | "h2" }) {
+  id, index, label, title, intro, as: As = "h2", compact = false,
+}: { id?: string; index?: string; label: string; title: React.ReactNode; intro?: React.ReactNode; as?: "h1" | "h2"; compact?: boolean }) {
+  // `compact` is the homepage's section scale: the thesis stays the largest type on the page.
   return (
     <div className="max-w-3xl">
       <p className="flex items-center gap-3 text-[13px] font-medium text-accent">
@@ -53,8 +54,8 @@ export function SectionHeader({
         <span>{label}</span>
         <span aria-hidden className="h-px w-10 bg-accent/40" />
       </p>
-      <As id={id} className="mt-4 font-serif text-[2.1rem] leading-[1.05] text-balance text-ink sm:text-[3.1rem]">{title}</As>
-      {intro ? <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8">{intro}</p> : null}
+      <As id={id} className={compact ? "mt-3 font-serif text-[1.9rem] leading-[1.06] text-balance text-ink sm:text-[2.6rem]" : "mt-4 font-serif text-[2.1rem] leading-[1.05] text-balance text-ink sm:text-[3.1rem]"}>{title}</As>
+      {intro ? <p className={compact ? "mt-3 max-w-2xl text-base leading-7 text-muted sm:text-[17px]" : "mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg sm:leading-8"}>{intro}</p> : null}
     </div>
   );
 }

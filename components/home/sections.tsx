@@ -6,42 +6,42 @@ import { StageMarker, Trace, type StepKind } from "@/components/trace";
 import { VerdictTag } from "@/components/decision-card";
 import { Arrow, MoreLink, SectionHeader, StatusLabel, button } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
-import { about, aiLab, arc, contact, decisions, domains, flagships, profile, technical } from "@/content/portfolio";
+import { about, aiLab, arc, contact, decisions, domains, flagships, technical } from "@/content/portfolio";
 import { CopyEmail } from "./copy-email";
 
 /** 03 · The same capabilities, proved in two consumer domains. */
 export function DomainTransfer() {
   return (
-    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
-        <SectionHeader id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each with evidence from real-money gaming and from EdTech. Every line links to the story and its caveats." />
-        <table className="mt-12 hidden w-full table-fixed border-t border-ink text-left md:table">
+        <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each proved in real-money gaming and in EdTech. Every line links to its evidence." />
+        <table className="mt-7 hidden w-full table-fixed border-t border-ink text-left md:table">
           <caption className="sr-only">Each capability with evidence from gaming and from EdTech</caption>
           <colgroup><col className="w-[12rem]" /><col /><col /></colgroup>
           <thead>
             <tr className="border-b border-line">
-              <th scope="col" className="py-3 pr-6 text-[13px] font-medium text-muted">Capability</th>
-              <th scope="col" className="py-3 pr-8 text-[13px] font-medium text-muted">Gaming <span className="font-normal">· Witzeal, Baazi Games</span></th>
-              <th scope="col" className="py-3 text-[13px] font-medium text-muted">EdTech <span className="font-normal">· Edfora</span></th>
+              <th scope="col" className="py-2.5 pr-6 text-[13px] font-medium text-muted">Capability</th>
+              <th scope="col" className="py-2.5 pr-8 text-[13px] font-medium text-muted">Gaming <span className="font-normal">· Witzeal, Baazi Games</span></th>
+              <th scope="col" className="py-2.5 text-[13px] font-medium text-muted">EdTech <span className="font-normal">· Edfora</span></th>
             </tr>
           </thead>
           <tbody>
             {domains.map((d) => (
               <tr key={d.capability} className="border-b border-line align-baseline">
-                <th scope="row" className="py-4 pr-6 text-[17px] font-bold tracking-[-0.01em] text-ink">{d.capability}</th>
-                <td className="py-4 pr-8"><EvidenceLink {...d.gaming} /></td>
-                <td className="py-4"><EvidenceLink {...d.edtech} /></td>
+                <th scope="row" className="py-3 pr-6 text-[16px] font-bold tracking-[-0.01em] text-ink">{d.capability}</th>
+                <td className="py-3 pr-8"><EvidenceLink {...d.gaming} /></td>
+                <td className="py-3"><EvidenceLink {...d.edtech} /></td>
               </tr>
             ))}
           </tbody>
         </table>
-        <ol className="mt-10 border-t border-ink md:hidden">
+        <ol className="mt-6 border-t border-ink md:hidden">
           {domains.map((d) => (
-            <li key={d.capability} className="border-b border-line py-5">
-              <p className="text-[17px] font-bold text-ink">{d.capability}</p>
-              <dl className="mt-2 grid gap-2">
-                <div><dt className="text-[13px] font-medium text-muted">Gaming</dt><dd><EvidenceLink {...d.gaming} /></dd></div>
-                <div><dt className="text-[13px] font-medium text-muted">EdTech</dt><dd><EvidenceLink {...d.edtech} /></dd></div>
+            <li key={d.capability} className="border-b border-line py-3.5">
+              <p className="text-[16px] font-bold text-ink">{d.capability}</p>
+              <dl className="mt-1 grid gap-1">
+                <div><dt className="inline text-[13px] font-medium text-muted">Gaming · </dt><dd className="inline"><EvidenceLink {...d.gaming} /></dd></div>
+                <div><dt className="inline text-[13px] font-medium text-muted">EdTech · </dt><dd className="inline"><EvidenceLink {...d.edtech} /></dd></div>
               </dl>
             </li>
           ))}
@@ -62,21 +62,21 @@ function EvidenceLink({ text, href }: { text: string; href: string }) {
 /** 06 · The career as a transformation, not a timeline: what each phase taught, and one proof. */
 export function CareerArc() {
   return (
-    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
-        <SectionHeader id="arc-title" index="06" label="Career" title="Six phases. Each added a layer of the job." intro="How software gets built, how it ships, how users behave, how growth works, how a product adapts to each person. AI is the next application of the same discipline." />
-        <ol className="mt-12">
+        <SectionHeader compact id="arc-title" index="06" label="Career" title="Six phases. Each added a layer of the job." />
+        <ol className="mt-7">
           {arc.map((a, i) => {
             const last = i === arc.length - 1;
             return (
-              <li key={a.verb} className="grid gap-2 border-t border-line py-7 md:grid-cols-[7rem_13rem_minmax(0,1fr)_minmax(0,1fr)] md:gap-8">
+              <li key={a.verb} className="grid gap-x-4 gap-y-1 border-t border-line py-4 grid-cols-[5.5rem_minmax(0,1fr)] md:grid-cols-[7rem_13rem_minmax(0,1fr)_minmax(0,1fr)] md:gap-x-8">
                 <p className={`text-[15px] tabular-nums ${last ? "font-semibold text-accent" : "text-muted"}`}>{a.years}</p>
                 <div>
-                  <h3 className={`font-serif text-3xl leading-none ${last ? "text-accent" : "text-ink"}`}>{a.verb}</h3>
-                  <p className="mt-1.5 text-sm text-muted">{a.org} · {a.field}</p>
+                  <h3 className={`font-serif text-2xl leading-none ${last ? "text-accent" : "text-ink"}`}>{a.verb}</h3>
+                  <p className="mt-1 text-sm text-muted">{a.org} · {a.field}</p>
                 </div>
-                <p className="text-base leading-7 text-ink">{a.taught}</p>
-                <p className="text-[15px] leading-7 text-muted">{a.proof}</p>
+                <p className="col-start-2 text-[15px] leading-6 text-ink md:col-start-auto">{a.taught}</p>
+                <p className="col-start-2 text-[15px] leading-6 text-muted md:col-start-auto">{a.proof}</p>
               </li>
             );
           })}
@@ -89,10 +89,10 @@ export function CareerArc() {
 /** 02 · Four deep stories, each drawn as signal → decision → trade-off → outcome. */
 export function SelectedWork() {
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeader id="work-title" index="02" label="Selected work" title="Four product stories, in depth." intro="A strategic trade-off, an activation fix, a personalization system and a behavioural system: the signal, the call, what it cost, and what the evidence does and doesn't prove." />
+          <SectionHeader compact id="work-title" index="02" label="Selected work" title="Four product stories, in depth." intro="The signal, the call, what it cost, and what the evidence does and doesn't prove." />
           <MoreLink href="/work">All work</MoreLink>
         </div>
         <WorkStories />
@@ -105,14 +105,14 @@ export function SelectedWork() {
 export function WorkStories({ headingLevel = "h3", withSummary = false }: { headingLevel?: "h2" | "h3"; withSummary?: boolean }) {
   const H = headingLevel;
   return (
-    <ol className="mt-10">
+    <ol className="mt-7">
       {flagships.map((c) => {
         const outcome = "delta" in c
           ? { kind: "outcome" as const, label: "Outcome", content: <Delta id={c.delta} size="sm" showContext={false} /> }
           : { kind: "outcome" as const, label: "Evidence", content: <p>{c.evidence}</p> };
         return (
           <li key={c.slug}>
-            <article className="group relative border-t border-ink py-9 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:py-11">
+            <article className="group relative border-t border-ink py-7 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:py-8">
               <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
                 <div>
                   <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
@@ -127,7 +127,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
               </div>
               <Trace
                 wide
-                className="mt-8"
+                className="mt-6"
                 steps={[
                   { kind: "signal", content: c.opening },
                   { kind: "decision", content: c.decision },
@@ -135,7 +135,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
                   outcome,
                 ]}
               />
-              <p aria-hidden className="mt-6 inline-flex items-center gap-2 text-[15px] font-medium text-accent lg:hidden">Read the case <Arrow /></p>
+              <p aria-hidden className="mt-4 inline-flex items-center gap-2 text-[15px] font-medium text-accent lg:hidden">Read the case <Arrow /></p>
             </article>
           </li>
         );
@@ -148,26 +148,26 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
 export function DecisionsTeaser() {
   const pick = ["fanblaze", "experimentation", "myplan-accuracy"].map((id) => decisions.find((d) => d.id === id)!);
   return (
-    <section id="decisions" aria-labelledby="decisions-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
+    <section id="decisions" aria-labelledby="decisions-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <SectionHeader id="decisions-title" index="04" label="Decisions" title="Smaller calls, same discipline." intro="Snapshots of product judgment, including the bets that didn't work. The full library has eleven." />
+          <SectionHeader compact id="decisions-title" index="04" label="Decisions" title="Smaller calls, same discipline." intro="Snapshots of product judgment, including the bets that were stopped." />
           <MoreLink href="/decisions">All {decisions.length} decisions</MoreLink>
         </div>
-        <ol className="mt-10 border-t border-ink">
+        <ol className="mt-7 border-t border-ink">
           {pick.map((d) => {
             const signal = d.stages.find((x) => x.term === "Signal") ?? d.stages[0];
             const decision = d.stages.find((x) => x.term === "Decision");
             const end = d.learning ?? d.results?.[0]?.text ?? d.note;
             return (
-              <li key={d.id} className="grid gap-4 border-b border-line py-7 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
+              <li key={d.id} className="grid gap-3 border-b border-line py-5 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
                 <div>
                   <p className="flex items-center gap-2.5 text-[13px] font-medium text-muted"><span className="tabular-nums">{d.code}</span><VerdictTag verdict={d.verdict} />{d.product ?? d.company}</p>
                   <h3 className="mt-2.5 font-serif text-2xl leading-tight text-ink">
                     <Link href={`/decisions#${d.id}`} className="hover:text-accent">{d.title}</Link>
                   </h3>
                 </div>
-                <dl className="grid gap-3 text-[15px] leading-6 sm:grid-cols-3 sm:gap-6">
+                <dl className="grid gap-2.5 text-[15px] leading-6 sm:grid-cols-3 sm:gap-6">
                   <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind="signal" />Signal</dt><dd className="mt-1 text-ink/85">{signal.text}</dd></div>
                   {decision ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-accent"><StageMarker kind="decision" />Decision</dt><dd className="mt-1 text-ink">{decision.text}</dd></div> : null}
                   {end ? <div><dt className="flex items-center gap-2 text-[13px] font-medium text-muted"><StageMarker kind={d.learning ? "learning" : "outcome"} />{d.learning ? "Learning" : "Outcome"}</dt><dd className="mt-1 text-ink/85">{end}</dd></div> : null}
@@ -181,24 +181,19 @@ export function DecisionsTeaser() {
   );
 }
 
-/** 07 · The person behind the work, in brief. */
+/** 07 · The person behind the work, in brief: how the engineering years show up in the product calls. */
 export function AboutTeaser() {
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 border-b border-line py-14 lg:py-20">
-      <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:gap-16">
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+      <Container className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
         <div>
-          <SectionHeader id="about-title" index="07" label="About" title={about.opening} intro={about.intro} />
-          <p className="mt-6"><MoreLink href="/about">About me, and how I work</MoreLink></p>
+          <SectionHeader compact id="about-title" index="07" label="About" title={about.opening} intro={about.intro} />
+          <p className="mt-5"><MoreLink href="/about">About me, and how I work</MoreLink></p>
         </div>
-        <div className="border-t border-ink pt-6 lg:mt-12">
-          <p className="font-serif text-2xl leading-snug text-ink">“{technical.insight.text}”</p>
-          <p className="mt-2 text-[13px] font-medium text-muted">{technical.insight.source}</p>
-          <dl className="mt-6 grid gap-2 text-[15px] leading-6">
-            {([["Role", profile.role], ["Focus", profile.positioning], ["Experience", profile.experience], ["Based in", profile.location]] as const).map(([k, v]) => (
-              <div key={k} className="grid grid-cols-[6.5rem_1fr] gap-3 border-b border-line pb-2"><dt className="text-[13px] font-medium text-muted">{k}</dt><dd className="text-ink">{v}</dd></div>
-            ))}
-          </dl>
-        </div>
+        <figure className="border-t border-ink pt-5">
+          <blockquote className="font-serif text-2xl leading-snug text-ink">“{technical.insight.text}”</blockquote>
+          <figcaption className="mt-2 text-[13px] font-medium text-muted">{technical.insight.source}</figcaption>
+        </figure>
       </Container>
     </section>
   );
@@ -209,11 +204,11 @@ export function AiLabTeaser() {
   const build = aiLab.builds[0];
   const order: BuildStatus[] = ["Implemented", "Designed", "Planned", "Needs input"];
   return (
-    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-14 lg:py-20">
+    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-10 lg:py-14">
       <Container>
-        <SectionHeader id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first: a deterministic baseline, an evaluation and a quality gate come before it, and sometimes the answer is not to ship it." />
-        <FieldExample className="mt-10" />
-        <article className="group relative mt-14 grid gap-8 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
+        <SectionHeader compact id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first. A deterministic baseline, an evaluation, named failure modes, guardrails and a human override come before it, and sometimes the answer is not to ship it." />
+        <FieldExample className="mt-7" />
+        <article className="group relative mt-9 grid gap-6 border-t border-ink pt-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
           <div>
             <p className="text-[13px] font-medium text-muted">{build.status}</p>
             <h3 className="mt-3 font-serif text-3xl leading-tight text-ink sm:text-4xl">
@@ -221,7 +216,7 @@ export function AiLabTeaser() {
             </h3>
             <p className="mt-4 text-[15px] leading-7 text-muted">{build.statusNote}</p>
           </div>
-          <ul aria-label="Build status" className="grid content-start gap-4">
+          <ul aria-label="Build status" className="grid content-start gap-2.5">
             {order.map((st) => {
               const parts = buildSpec.filter((x) => x.status === st).map((x) => x.part);
               return (
@@ -233,7 +228,7 @@ export function AiLabTeaser() {
             })}
           </ul>
         </article>
-        <p className="mt-10"><MoreLink href="/ai-lab">Inside the AI Lab</MoreLink></p>
+        <p className="mt-7"><MoreLink href="/ai-lab">Inside the AI Lab</MoreLink></p>
       </Container>
     </section>
   );
@@ -243,13 +238,13 @@ export function AiLabTeaser() {
 export function FieldExample({ className = "" }: { className?: string }) {
   const f = aiLab.field;
   return (
-    <section aria-labelledby="field-title" className={`border-t border-ink pt-8 ${className}`}>
+    <section aria-labelledby="field-title" className={`border-t border-ink pt-6 ${className}`}>
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <h3 id="field-title" className="font-serif text-2xl text-ink sm:text-3xl">{f.title}</h3>
         <p className="text-[13px] font-medium text-muted">{f.context}</p>
       </div>
-      <Trace className="mt-7" steps={f.steps.map((x) => ({ kind: x.kind as StepKind, content: x.text }))} />
-      <p className="mt-6"><MoreLink href={f.href}>Read the case</MoreLink></p>
+      <Trace className="mt-5" steps={f.steps.map((x) => ({ kind: x.kind as StepKind, content: x.text }))} />
+      <p className="mt-5"><MoreLink href={f.href}>Read the case</MoreLink></p>
     </section>
   );
 }
@@ -257,12 +252,12 @@ export function FieldExample({ className = "" }: { className?: string }) {
 /** 08 · Every way to get in touch, and a path to the person behind the work. */
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-14 lg:py-20">
-      <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-10 lg:py-14">
+      <Container className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
         <div>
-          <SectionHeader id="contact-title" index="08" label="Contact" title="Hiring for a product role? Let's talk." intro={`Open to ${contact.lookingFor}. Delhi NCR, and Mumbai where it makes sense.`} />
+          <SectionHeader compact id="contact-title" index="08" label="Contact" title="Hiring for a product role? Let's talk." intro={`Open to ${contact.lookingFor}. Delhi NCR, and Mumbai where it makes sense.`} />
         </div>
-        <div className="border-t border-ink pt-8">
+        <div className="border-t border-ink pt-6">
           <CopyEmail email={contact.email} />
           <div className="mt-4 grid gap-3 sm:grid-cols-3">
             <a href={`mailto:${contact.email}`} className={`${button.primary} px-4`}>Email</a>
