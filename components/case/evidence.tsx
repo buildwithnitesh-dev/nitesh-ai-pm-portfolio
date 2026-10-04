@@ -6,7 +6,7 @@ import { changeOf, deltas, type DeltaId } from "@/content/portfolio";
  * context, its caveats and a one-line implication; then an optional secondary
  * result at smaller size. A change is drawn only when the comparison is valid.
  */
-export function EvidenceFigure({ primary, secondary }: { primary: DeltaId; secondary?: DeltaId }) {
+export function EvidenceFigure({ primary, secondary, size = "lg" }: { primary: DeltaId; secondary?: DeltaId; size?: "lg" | "md" }) {
   const d = deltas[primary];
   const change = changeOf(d);
   const s = secondary ? deltas[secondary] : null;
@@ -17,12 +17,12 @@ export function EvidenceFigure({ primary, secondary }: { primary: DeltaId; secon
         <div className="mt-2 flex flex-wrap items-end gap-x-6 gap-y-3">
           <p className="flex items-end gap-x-3 font-bold tracking-[-0.03em] proportional-nums">
             <span className="grid">
-              <span className="text-[2.4rem] leading-none text-subtle sm:text-5xl">{d.before}</span>
+              <span className={`leading-none text-subtle ${size === "lg" ? "text-[2.4rem] sm:text-5xl" : "text-3xl sm:text-4xl"}`}>{d.before}</span>
               {d.fromLabel ? <span className="mt-1.5 text-[13px] font-medium tracking-normal text-muted">{d.fromLabel}</span> : null}
             </span>
-            <span aria-hidden className="pb-6 text-2xl font-normal text-subtle">→</span>
+            <span aria-hidden className={`font-normal text-subtle ${size === "lg" ? "pb-6 text-2xl" : "pb-5 text-xl"}`}>→</span>
             <span className="grid">
-              <span className="text-[2.4rem] leading-none text-ink sm:text-5xl">{d.after}</span>
+              <span className={`leading-none text-ink ${size === "lg" ? "text-[2.4rem] sm:text-5xl" : "text-3xl sm:text-4xl"}`}>{d.after}</span>
               {d.toLabel ? <span className="mt-1.5 text-[13px] font-medium tracking-normal text-accent">{d.toLabel}</span> : null}
             </span>
           </p>
@@ -34,7 +34,7 @@ export function EvidenceFigure({ primary, secondary }: { primary: DeltaId; secon
         </div>
         {d.from !== undefined && d.to !== undefined && d.max ? <Shift from={d.from} to={d.to} max={d.max} /> : null}
         {d.contextItems ? <p className="mt-4 text-[13px] font-medium text-ink">{d.contextItems.join(" · ")}</p> : null}
-        {d.businessImplication ? <figcaption className="mt-4 max-w-2xl text-[17px] leading-7 text-ink">{d.businessImplication}</figcaption> : null}
+        {d.businessImplication ? <figcaption className={`mt-4 max-w-2xl text-ink ${size === "lg" ? "text-[17px] leading-7" : "text-[15px] leading-6"}`}>{d.businessImplication}</figcaption> : null}
         {d.caveats ? (
           <ul className="mt-3 grid gap-1 text-[13px] leading-5 text-muted">
             {d.caveats.map((c) => <li key={c} className="flex gap-2"><span aria-hidden className="mt-[5px] inline-block h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] border-current" />{c}</li>)}

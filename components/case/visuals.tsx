@@ -1,5 +1,6 @@
 import { Delta } from "@/components/delta";
 import { Trace } from "@/components/trace";
+import { AdaptiveLoop } from "./adaptive-loop";
 import { EvidenceFigure } from "./evidence";
 import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
@@ -348,7 +349,15 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
       );
 
     case "evidence":
-      return <EvidenceFigure primary={v.primary} secondary={v.secondary} />;
+      return <EvidenceFigure primary={v.primary} secondary={v.secondary} size={v.size} />;
+
+    case "adaptive-hero":
+      return (
+        <div className="grid gap-8">
+          <AdaptiveLoop />
+          <div className="border-t border-line pt-6"><EvidenceFigure primary={v.outcome} size="md" /></div>
+        </div>
+      );
 
     case "trace":
       return (

@@ -156,6 +156,18 @@ export const deltas: Record<DeltaId, Delta> = {
     context: "Edfora · adaptive assignments",
     note: "Not attributed to the adaptive system alone",
     href: "/work/adaptive-assignment-engine#result",
+    fromLabel: "static path",
+    toLabel: "after the adaptive system",
+    comparisonValid: false,
+    precision: "exact",
+    evidenceType: "before-after",
+    contextItems: ["Before / after", "2-year academic-cycle dataset"],
+    caveats: [
+      "Observed across the academic cycles before and after the adaptive system; not attributed to the engine alone.",
+      "How completion was counted isn't recorded.",
+      "Learning mastery was not captured.",
+    ],
+    businessImplication: "Assignment completion rose from 18% to 45% across the academic cycles before and after the adaptive system launched; the change is observed, not attributed to the engine alone.",
   },
   bonus: {
     label: "Bonus & discount spend",

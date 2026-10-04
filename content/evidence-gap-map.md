@@ -312,3 +312,14 @@ Edfora is the employer; the role is Senior Product Manager (Jul 2023 – Jul 202
 | D0 | Supporting only: 12% → 33%, "Comparison basis not recorded", `comparisonValid: false` so no change is computed or drawn. |
 | Business chain | D0 and D7 measured; first deposit and NGR not measured. Caption: "The experiment measured activation and retention; the original analysis did not establish the downstream revenue impact." |
 | Excluded | GMV ~10% WoW, 48% retention, relative uplifts (+108%, 2×), significance, confidence intervals, retention curves, invented D0 arm values, funnel percentages. Bonus spend stays in its own decision (D-02), not in this case. |
+
+## 14. Adaptive Practice visuals (2026-10-04)
+
+| Item | Treatment |
+|---|---|
+| Hero loop | Inputs (raw student data, 3PL question parameters, content IDs) → Ability (θ per concept, from historical performance) → Score (P(θ) from b, a, c) → Select (near current ability; the more discriminating question when candidates are comparable) → Respond (correct → harder, incorrect → easier) → Update θ → back to Score. Label: "3PL Item Response Theory · statistical model · not an LLM". Only PRD mechanics shown. |
+| Edge cases | Pinned to their steps: initial ability estimation (method not recorded), questions missing 3PL parameters, several questions with the same median P(θ). Handling is not described because it isn't in the evidence. |
+| Completion | Supporting figure: 18% static path → 45% after the adaptive system, "Before / after · 2-year academic-cycle dataset". `comparisonValid: false`, `evidenceType: "before-after"`, so no change is computed or drawn. Caveats: observed, not attributed to the engine alone; how completion was counted isn't recorded; learning mastery was not captured. |
+| Problem | "A fixed sequence couldn't adapt to different learner ability levels: some questions were too hard, others too easy." No drop-off reduction claim, no research findings. |
+| Scope | Core Practice & Learning Experience. 100K+ appears only as Edfora's overall product reach. Team unchanged; the APM is not described as a report. |
+| Excluded | "+27 percentage points" / "+27pp" / relative uplift, AI/ML/LLM framing, mastery or learning-curve claims, causal attribution of 18 → 45, RICE scores, stakeholder disagreement, significance, confidence intervals. |

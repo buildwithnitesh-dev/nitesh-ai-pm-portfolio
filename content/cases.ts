@@ -28,7 +28,8 @@ export type Visual =
   | { type: "loop"; steps: readonly { stage: string; items: readonly string[] }[]; note?: string }
   | { type: "split"; sides: readonly { who: string; items: readonly string[] }[]; note?: string }
   | { type: "matrix"; columns: readonly string[]; /** Phone labels, same meaning. */ short?: readonly string[]; rows: readonly { name: string; cells: readonly string[]; chosen?: boolean }[]; note?: string }
-  | { type: "evidence"; primary: DeltaId; secondary?: DeltaId }
+  | { type: "evidence"; primary: DeltaId; secondary?: DeltaId; size?: "lg" | "md" }
+  | { type: "adaptive-hero"; outcome: DeltaId }
   | { type: "trace"; steps: readonly { kind: "signal" | "decision" | "tradeoff" | "outcome" | "learning"; label: string; text: string }[]; note?: string };
 
 export type Stage = {
@@ -377,8 +378,9 @@ export const edfora: Case = {
   opening: "Every learner was getting the same next question.",
   standfirst: "A fixed practice sequence was too hard for some learners and too easy for others. Three ways to fix difficulty fit; the one chosen was a 3PL IRT engine.",
   description: "Case study: a 3PL IRT-based adaptive assignment engine at Edfora. Across a 2-year academic-cycle dataset, assignment completion was 18% on the static path and 45% after the adaptive system was introduced, not attributed to the engine alone.",
-  headline: ["completion"],
-  scope: "Edfora's learning and engagement products reached 100K+ learners overall; that figure is not specific to this engine.",
+  headline: [],
+  headerVisual: { type: "adaptive-hero", outcome: "completion" },
+  scope: "Scope: Core Practice & Learning Experience. Context: Edfora's products reach 100K+ learners overall; that figure is not specific to this engine.",
   stages: [
     {
       id: "context", label: "Context",
@@ -387,12 +389,12 @@ export const edfora: Case = {
         "I owned the roadmap and prioritization, the problem analysis, the PRD and adaptive product logic, and post-launch tracking. I worked with engineering on the build, design on the experience, and academic leads on the learning requirements.",
         "The roadmap was RICE-based, fed by regular interviews and usability tests with students and faculty.",
       ],
-      visual: { type: "facts", items: [{ term: "Role", value: "Senior PM, Core Practice & Learning Experience" }, { term: "Team", value: "1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads" }, { term: "Period", value: "Jul 2023 – Jul 2026" }, { term: "Reach", value: "100K+ learners across Edfora's products (not this engine alone)" }] },
+      visual: { type: "facts", items: [{ term: "Role", value: "Senior PM, Core Practice & Learning Experience" }, { term: "Team", value: "1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads" }, { term: "Period", value: "Jul 2023 – Jul 2026" }, { term: "Edfora context", value: "100K+ learners across Edfora's products overall; not this engine's reach" }] },
     },
     {
       id: "problem", label: "Problem",
       title: "One sequence fails in two directions.",
-      body: ["Low assignment completion was a key driver of learners dropping off. Learners who were behind met questions they couldn't answer; learners who were ahead met questions they already knew."],
+      body: ["A fixed sequence couldn't adapt to different learner ability levels: some questions were too hard, others too easy."],
       visual: { type: "fit" },
     },
     {
@@ -438,16 +440,6 @@ export const edfora: Case = {
       id: "system", label: "System",
       title: "Learner ability on one side, question parameters on the other.",
       body: ["The PRD specifies the loop end to end: initialization, ability calculation, concept selection, question assignment, response evaluation, ability update and difficulty adjustment, until the practice ends. Its inputs are raw student data, each question's 3PL parameters and content IDs."],
-      visual: {
-        type: "system",
-        steps: [
-          { step: "Estimate", detail: "Ability (θ) per concept, from historical performance" },
-          { step: "Score", detail: "P(θ) for each candidate, from difficulty (b), discrimination (a) and guessing (c)" },
-          { step: "Serve", detail: "A question near current ability; when candidates are comparable, the more discriminating one goes first" },
-          { step: "Update", detail: "θ after every response: a correct answer moves the next question harder, an incorrect one easier" },
-        ],
-        edge: ["Initial ability estimation (a new learner)", "Questions missing 3PL parameters", "Several questions with the same median P(θ)"],
-      },
     },
     {
       id: "cold-start", label: "Cold start",
@@ -462,7 +454,7 @@ export const edfora: Case = {
     {
       id: "result", label: "Result",
       title: "Completion: 18% → 45%.",
-      visual: { type: "deltas", ids: ["completion"], notes: ["+27 percentage points, before vs. after."] },
+      body: ["18% on the static path, 45% after the adaptive system, across a 2-year academic-cycle dataset. The figure at the top of this page carries the full evidence: an observed change, not attributed to the engine alone."],
     },
     {
       id: "attribution", label: "Attribution",
