@@ -18,17 +18,17 @@ export function Hero() {
     // `relative isolate`: the decorative network sits behind the Hero content and is clipped to the Hero.
     <section aria-labelledby="hero-title" className="relative isolate border-b border-line">
       <ProductIntelligenceNetwork />
-      <Container className="pt-9 pb-10 lg:pt-12 lg:pb-12">
+      <Container className="pt-7 pb-10 sm:pt-9 lg:pt-12 lg:pb-12">
         <p data-network-quiet className="text-[17px] font-extrabold tracking-[0.05em] text-ink uppercase min-[375px]:text-xl min-[375px]:tracking-[0.08em] lg:text-[22px]">{hero.role}</p>
         <p data-network-quiet className="mt-1.5 text-xl leading-tight text-muted min-[375px]:text-[22px] lg:text-[26px]">
           {first}
           {rest.map((r) => <span key={r}> <span className="text-accent">×</span> {r}</span>)}
         </p>
-        <h1 data-network-quiet id="hero-title" className="mt-6 max-w-6xl font-serif text-[2.15rem] leading-[1.02] min-[375px]:text-[2.6rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem] xl:text-[4.75rem]">
+        <h1 data-network-quiet id="hero-title" className="mt-5 sm:mt-6 max-w-6xl font-serif text-[2.15rem] leading-[1.02] min-[375px]:text-[2.6rem] text-balance text-ink sm:text-[3.5rem] lg:text-[4.25rem] xl:text-[4.75rem]">
           {/* A no-break space before the last word keeps it from standing alone on a line. */}
           {hero.headline.replace(/ (\S+)$/, "\u00a0$1")}
         </h1>
-        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+        <div className="mt-6 grid gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div data-network-quiet>
             <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
             <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}<span className="text-muted"> · Edfora · Witzeal · Baazi Games</span></p>
@@ -45,7 +45,7 @@ export function Hero() {
         </div>
 
         {/* Two results, each with how it was measured and where it happened. */}
-        <section data-network-quiet aria-label="Proof" className="mt-7 border-t border-ink pt-5 sm:mt-9 sm:pt-6 lg:mt-10">
+        <section data-network-quiet aria-label="Proof" className="mt-6 border-t border-ink pt-5 sm:mt-9 sm:pt-6 lg:mt-10">
           <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Selected product outcomes</p>
           <ul className="mt-4 grid gap-7 sm:mt-5 md:grid-cols-2 md:gap-8">
             {hero.proof.map((p) => (
