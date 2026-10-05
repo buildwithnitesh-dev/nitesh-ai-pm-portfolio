@@ -5,7 +5,7 @@ import { ResumeCta } from "@/components/resume-cta";
 import { ProductIntelligenceNetwork } from "@/components/home/product-intelligence-network";
 import { StageMarker } from "@/components/trace";
 import { Arrow, button } from "@/components/ui";
-import { contact, hero, profile } from "@/content/portfolio";
+import { contact, hero, profile, status } from "@/content/portfolio";
 
 /**
  * Who, what kind of PM, what he believes, then three results that prove it:
@@ -32,6 +32,7 @@ export function Hero() {
           <div data-network-quiet>
             <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
             <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}<span className="text-muted"> · Edfora · Witzeal · Baazi Games</span></p>
+            {status.availability ? <p className="mt-1 text-[15px] text-ink">{status.availability.replace(/ · .*/, "")}<span className="text-muted">{status.availability.replace(/^[^·]*(?= · )/, "")}</span></p> : null}
           </div>
           {/* From 375px the two buttons share a row on phones, so the first result reaches the first screen; narrower phones stack them. */}
           <div data-network-quiet className="grid gap-3 min-[375px]:grid-cols-[auto_minmax(0,1fr)] min-[375px]:gap-x-2.5 sm:flex sm:flex-row sm:items-center sm:gap-3">

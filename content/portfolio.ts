@@ -755,11 +755,8 @@ export const roles: readonly Role[] = [
   },
 ];
 
-/**
- * Current status. NEEDS_USER_INPUT: availability after the Edfora role (Jul 2026)
- * isn't in the record. While this is null, nothing is rendered.
- */
-export const status: { availability: string | null } = { availability: null };
+/** Current status, shown as one quiet line in the hero. While this is null, nothing is rendered. */
+export const status: { availability: string | null } = { availability: "Open to Senior PM roles · Delhi NCR / Mumbai" };
 
 /**
  * Technical depth, as PM leverage rather than an engineering résumé. Each line
