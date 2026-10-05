@@ -22,7 +22,7 @@ export function CasePage({ c }: { c: Case }) {
   return (
     <main id="main" className="flex-1">
       <header className="border-b border-line">
-        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-14">
+        <Container className="pt-4 pb-10 lg:pt-6 lg:pb-12">
           <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
             <BackLink href="/work" label="Back to Work" />
             <nav aria-label="Breadcrumb" className="text-sm text-muted">
@@ -33,13 +33,13 @@ export function CasePage({ c }: { c: Case }) {
               </ol>
             </nav>
           </div>
-          <p className="mt-10 text-lg font-semibold text-accent sm:text-xl">{c.capability}</p>
+          <p className="mt-3 text-lg font-semibold text-accent sm:text-xl lg:mt-4">{c.capability}</p>
           {/* A long, descriptive headline steps down one size so it doesn't fill a phone's first screen. */}
           <h1 className={`mt-4 max-w-5xl font-serif tracking-tight text-balance text-ink ${c.opening.length > 80 ? "text-[1.7rem] leading-[1.12] min-[375px]:text-[2rem] min-[375px]:leading-[1.08] sm:text-5xl lg:text-6xl" : "text-[2.9rem] leading-[1.02] sm:text-6xl lg:text-7xl"}`}>{c.opening}</h1>
           <p className="mt-4 text-sm text-muted">{c.title} · {c.company} · {c.domain} · {c.role}</p>
-          <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
+          <p className="mt-5 max-w-3xl text-lg leading-8 text-muted">{c.standfirst}</p>
           {c.headline.length || c.headerVisual ? (
-            <div className="mt-10 grid gap-8 border-y-2 border-ink py-8">
+            <div className="mt-8 grid gap-8 border-y-2 border-ink py-8">
               {c.headline.length ? (
                 <div className={`grid gap-8 ${c.headline.length > 1 ? "md:grid-cols-2" : ""}`}>
                   {c.headline.map((id) => <Delta key={id} id={id} size="md" layout={c.headline.length > 1 ? "stack" : "row"} />)}
@@ -52,7 +52,7 @@ export function CasePage({ c }: { c: Case }) {
         </Container>
       </header>
 
-      <Container className="grid grid-cols-[minmax(0,1fr)] gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <Container className="grid grid-cols-[minmax(0,1fr)] gap-10 pt-10 pb-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:pt-12 lg:pb-20">
         <aside><StageRail items={c.stages.map(({ id, label }) => ({ id, label }))} /></aside>
         <div className={`grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] ${c.compact ? "gap-8 sm:gap-10 lg:gap-14" : "gap-16"}`}>
           {c.stages.map((s, i) => (

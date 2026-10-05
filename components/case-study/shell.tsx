@@ -26,7 +26,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
   return (
     <main id="main" className="flex-1">
       <header className="border-b border-line">
-        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        <Container className="pt-4 pb-10 lg:pt-6 lg:pb-12">
           <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
             <BackLink href="/ai-lab" label="Back to AI Lab" />
             <nav aria-label="Breadcrumb" className="text-sm text-muted">
@@ -37,11 +37,11 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
               </ol>
             </nav>
           </div>
-          <p className="mt-10 text-[15px] font-semibold text-accent">{meta.type}</p>
+          <p className="mt-3 text-[15px] font-semibold text-accent lg:mt-4">{meta.type}</p>
           <h1 className="mt-4 max-w-5xl font-serif text-5xl leading-[1.03] tracking-tight text-ink sm:text-6xl lg:text-7xl">{meta.title}</h1>
-          <p className="mt-6 max-w-3xl text-xl leading-8 text-muted">{meta.subtitle}</p>
+          <p className="mt-5 max-w-3xl text-xl leading-8 text-muted">{meta.subtitle}</p>
 
-          <dl className={`mt-12 grid gap-x-8 border-y-2 border-ink sm:grid-cols-2 ${meta.role ? "lg:grid-cols-[1.4fr_1fr_1fr_1fr]" : "lg:grid-cols-[1.5fr_1fr_1fr]"}`}>
+          <dl className={`mt-8 grid gap-x-8 border-y-2 border-ink sm:grid-cols-2 ${meta.role ? "lg:grid-cols-[1.4fr_1fr_1fr_1fr]" : "lg:grid-cols-[1.5fr_1fr_1fr]"}`}>
             <div className="border-b border-line py-5 lg:border-0">
               <dt className="text-[13px] font-medium text-muted">Outcome</dt>
               <dd className="mt-2 text-2xl leading-snug font-bold tracking-[-0.02em] text-ink">{meta.outcome}</dd>
@@ -86,7 +86,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
         </Container>
       </section>
 
-      <Container className="grid gap-10 py-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:py-20">
+      <Container className="grid gap-10 pt-10 pb-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:pt-12 lg:pb-20">
         <aside><StageRail items={toc} label="On this page" /></aside>
         <div className="grid max-w-3xl gap-20">{children}</div>
       </Container>

@@ -16,11 +16,11 @@ export const metadata = pageMetadata({
 export default function WorkPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+      <Container className="pt-4 pb-14 lg:pt-6 lg:pb-20">
         <BackLink href="/" label="Back to home" />
-        <div className="mt-8 lg:mt-10"><SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Four product stories in depth, then the smaller calls as short snapshots, including the bets that were stopped, then the AI Lab." /></div>
+        <div className="mt-2 lg:mt-3"><SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Four product stories in depth, then the smaller calls as short snapshots, including the bets that were stopped, then the AI Lab." /></div>
 
-        <section aria-labelledby="flagships" className="mt-16">
+        <section aria-labelledby="flagships" className="mt-10">
           <h2 id="flagships" className="font-medium text-[13px] text-accent">Four stories</h2>
           <WorkStories headingLevel="h3" withSummary />
         </section>

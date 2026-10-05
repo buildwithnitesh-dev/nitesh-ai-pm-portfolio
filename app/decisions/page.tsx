@@ -14,9 +14,9 @@ export const metadata = pageMetadata({
 export default function DecisionsPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+      <Container className="pt-4 pb-14 lg:pt-6 lg:pb-20">
         <BackLink href="/" label="Back to home" />
-        <div className="mt-8 lg:mt-10"><SectionHeader as="h1" label="Decisions" title="Smaller calls, same discipline." intro="Short snapshots of product judgment: the signal, the call, and the outcome or learning, including the bets that were stopped. The deep stories live in Work." /></div>
+        <div className="mt-2 lg:mt-3"><SectionHeader as="h1" label="Decisions" title="Smaller calls, same discipline." intro="Short snapshots of product judgment: the signal, the call, and the outcome or learning, including the bets that were stopped. The deep stories live in Work." /></div>
         <nav aria-label="Decisions" className="mt-10">
           <ol className="flex flex-wrap gap-2">
             {decisions.map((d) => (

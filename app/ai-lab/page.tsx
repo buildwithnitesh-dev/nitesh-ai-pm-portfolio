@@ -25,10 +25,10 @@ export default function AiLabPage() {
   return (
     <main id="main" className="flex-1">
       <section className="border-b border-line bg-stone">
-        <Container className="pt-10 pb-14 lg:pt-14 lg:pb-20">
+        <Container className="pt-4 pb-10 lg:pt-6 lg:pb-12">
           <BackLink href="/" label="Back to home" />
-          <div className="mt-8 lg:mt-10"><SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} /></div>
-          <ul aria-label="What each status means" className="mt-10 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-2 lg:mt-3"><SectionHeader as="h1" label="AI Lab" title={aiLab.headline} intro={aiLab.sub} /></div>
+          <ul aria-label="What each status means" className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-4">
             {legend.map((l) => (
               <li key={l.status} className="grid gap-1">
                 <StatusLabel status={l.status} />
@@ -36,11 +36,11 @@ export default function AiLabPage() {
               </li>
             ))}
           </ul>
-          <p className="mt-10 max-w-2xl text-[15px] leading-7 text-muted">{aiLab.professional}</p>
+          <p className="mt-8 max-w-2xl text-[15px] leading-7 text-muted">{aiLab.professional}</p>
         </Container>
       </section>
 
-      <Container className="py-14 lg:py-20">
+      <Container className="pt-10 pb-14 lg:pt-12 lg:pb-20">
         <h2 className="font-medium text-[13px] text-accent">In the field</h2>
         <FieldExample className="mt-6 mb-20" />
         <h2 className="font-medium text-[13px] text-accent">Current build</h2>
