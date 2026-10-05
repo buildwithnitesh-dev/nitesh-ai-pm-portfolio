@@ -37,12 +37,12 @@ export const contact = {
 export const seo = {
   title: `${profile.name} · Senior Product Manager · Growth, Consumer & AI`,
   description:
-    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% (+13.2 pp) in a 30/70 controlled rollout; median doubt-resolution time ~24 h → <15 min with a gated hybrid, after evaluating an AI auto-resolver.",
+    "Senior Product Manager · Growth × Consumer × AI. Day-7 retention 12.2% → 25.4% (+13.2 pp) in a 30/70 controlled rollout; doubt resolution from a ~24 h peak bottleneck (reported) to a <15 min median in a 10,000-student pilot, with a gated hybrid chosen after evaluating an AI auto-resolver.",
   /** Shorter title and description for link previews (WhatsApp, LinkedIn, Slack, X). */
   share: {
     title: "Nitesh Tiwari · Senior Product Manager · Growth × Consumer × AI",
     description: "Retention is won before the retention metric. ~7 years in product management, 10+ in technology: find where users drop before they reach value, and fix the product first.",
-    imageAlt: "Nitesh Tiwari, Senior Product Manager, Growth × Consumer × AI. Day-7 retention 12.2% to 25.4% in a controlled rollout; median doubt-resolution time about 24 hours to under 15 minutes.",
+    imageAlt: "Nitesh Tiwari, Senior Product Manager, Growth × Consumer × AI. Day-7 retention 12.2% to 25.4% in a controlled rollout; doubt resolution from a reported 24-hour peak to a measured median under 15 minutes in a pilot.",
   },
 };
 
@@ -60,8 +60,21 @@ export const nav = [
 
 export type DeltaId = "d0" | "d7" | "completion" | "bonus" | "learners" | "tat";
 
+/**
+ * The kind of evidence behind a number, shown as a text label wherever the
+ * number is: Measured (read from a test, a pilot or an audit), Reported (on
+ * record, with method, window or basis not recorded), Derived (calculated
+ * from other figures, not observed) or Observed (a before/after or usage
+ * reading with no control).
+ */
+export type Evidence = "Measured" | "Reported" | "Derived" | "Observed";
+
 export type Delta = {
   label: string;
+  /** The kind of evidence behind the result (the "after" value). */
+  evidence: Evidence;
+  /** Set only when the comparison base is a different kind of evidence from the result. */
+  beforeEvidence?: Evidence;
   /** Display strings, exactly as reported. */
   before?: string;
   after: string;
@@ -114,6 +127,7 @@ export function changeOf(d: Delta): { value: string; unit: "pp" } | null {
 export const deltas: Record<DeltaId, Delta> = {
   d0: {
     label: "D0 gameplay",
+    evidence: "Reported",
     before: "12%", after: "33%", from: 12, to: 33, max: 40,
     method: "Before/after level · comparison basis not recorded",
     definition: "Share of new users who played a game on their first day.",
@@ -127,6 +141,7 @@ export const deltas: Record<DeltaId, Delta> = {
   },
   d7: {
     label: "Day-7 retention",
+    evidence: "Measured",
     before: "12.2%", after: "25.4%", from: 12.2, to: 25.4, max: 30,
     method: "Controlled rollout · 30/70 · ~50K users · 3 weeks",
     definition: "Definition not recorded: the original experiment record doesn't capture the denominator.",
@@ -149,6 +164,7 @@ export const deltas: Record<DeltaId, Delta> = {
   },
   completion: {
     label: "Assignment completion",
+    evidence: "Observed",
     before: "18%", after: "45%", from: 18, to: 45, max: 60,
     method: "Before/after · 2-year academic-cycle dataset",
     definition: "Definition not recorded: how completion was counted isn't captured in the analysis.",
@@ -171,6 +187,7 @@ export const deltas: Record<DeltaId, Delta> = {
   },
   bonus: {
     label: "Bonus & discount spend",
+    evidence: "Reported",
     after: "~20% ↓",
     method: "Directional · retention held · flat tiers → expected ROI per segment",
     definition: "Bonus and discount spend after allocation moved from flat tiers to expected ROI per segment.",
@@ -179,16 +196,19 @@ export const deltas: Record<DeltaId, Delta> = {
     href: "/decisions#bonus-allocation",
   },
   tat: {
-    label: "Median doubt-resolution time",
+    label: "Doubt-resolution time",
+    evidence: "Measured",
+    beforeEvidence: "Reported",
     before: "~24 h", after: "<15 min",
-    method: "Measured · median TAT · 10,000-student JEE pilot, stable after rollout",
-    definition: "Median timestamp delta between doubt_created and first_qualifying_resolution_event.",
-    detail: "~24 h was the peak JEE exam-preparation bottleneck. <15 min is the median TAT measured in the 10,000-student JEE pilot cohort and stable as the median after the live rollout, for the ~70% repetitive-doubt pool. Percentiles and the measurement window aren't recorded.",
+    method: "~24 h peak bottleneck (reported) → <15 min median for the repetitive-doubt pool, 10,000-student pilot",
+    definition: "<15 min: median timestamp delta between doubt_created and first_qualifying_resolution_event.",
+    detail: "~24 h was a reported peak bottleneck, not a median: the backlog could stretch toward a day across nights, weekends and exam-season bursts during JEE preparation. <15 min is the median TAT measured in the 2-week, 10,000-student JEE pilot and stable as the median after the live rollout, for the ~70% repetitive-doubt pool. Percentiles aren't recorded.",
     context: "Edfora · myPAT and Glorifire doubt resolution",
     href: "/decisions#doubt-resolution",
   },
   learners: {
     label: "Learners reached",
+    evidence: "Reported",
     after: "100K+",
     method: "Across Edfora's learning and engagement products",
     definition: "Reach of Edfora's products overall; not active users, and not one feature.",
@@ -209,7 +229,7 @@ export const hero = {
   role: profile.role,
   headline: "Retention is won before the retention metric.",
   positioning: profile.positioning,
-  lede: "I find where users drop before they reach value, fix the product before reaching for incentives, and hold AI to a measured quality gate before it ships — with an engineer's view of how it gets built.",
+  lede: "I find where users drop before they reach value, fix the product before reaching for incentives, and set the quality bar before deciding where AI belongs — with an engineer's view of how it gets built.",
   /** Two results, one per kind of strength: a controlled activation test and a strategic trade-off. The bonus figure stays on D-02, where its context is shown. */
   proof: [
     { id: "d7", context: "Witzeal · onboarding, controlled rollout", href: "/work/onboarding-funnel-redesign" },
@@ -232,13 +252,10 @@ export const domains: readonly {
   edtech: { text: string; short: string; href: string };
 }[] = [
   { capability: "Activation", gaming: { text: "Five changes to the first 60 seconds, all aimed at the first game", short: "Five changes to the first 60 seconds", href: "/work/onboarding-funnel-redesign" }, edtech: { text: "A stuck learner's next step in minutes, not a day: hints and peer answers before escalation", short: "A stuck learner's next step in minutes, not a day", href: "/work/doubt-resolution" } },
-  { capability: "Retention", gaming: { text: "D7 +13.2 pp for a five-change bundle, incl. ₹15 free games", short: "D7 +13.2 pp for a five-change bundle, incl. ₹15 free games", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "+18% D14 retention, measured via a pilot holdout / A-B cohort", short: "+18% D14 retention (pilot holdout / A-B)", href: "/work/doubt-resolution#outcome" } },
-  { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", short: "30/70 rollout, ~50K users; a testing program", href: "/decisions#experimentation" }, edtech: { text: "10,000-student cohort-gated pilot against a holdout", short: "10,000-student gated pilot vs holdout", href: "/work/doubt-resolution#pilot" } },
-  { capability: "Segmentation", gaming: { text: "Journeys redesigned per behavioural cluster instead of one default", short: "Journeys per behavioural cluster", href: "/decisions#segmented-journeys" }, edtech: { text: "Questions matched to each learner's estimated ability (3PL IRT)", short: "Questions matched to ability (3PL IRT)", href: "/work/adaptive-assignment-engine#system" } },
+  { capability: "Retention", gaming: { text: "D7 +13.2 pp for a five-change bundle, incl. ₹15 free games", short: "D7 +13.2 pp for a five-change bundle, incl. ₹15 free games", href: "/work/onboarding-funnel-redesign#result" }, edtech: { text: "+18% relative uplift in D14 retention, measured via a pilot holdout / A-B cohort", short: "+18% relative uplift in D14 retention", href: "/work/doubt-resolution#outcome" } },
+  { capability: "Experimentation", gaming: { text: "30/70 controlled rollout on ~50K users; a testing program at Baazi Games", short: "30/70 rollout, ~50K users; a testing program", href: "/decisions#experimentation" }, edtech: { text: "2-week, 10,000-student cohort-gated pilot against a holdout", short: "2-week, 10,000-student pilot vs holdout", href: "/work/doubt-resolution#pilot" } },
   { capability: "Incentive economics", gaming: { text: "Bonuses by expected ROI per segment instead of flat tiers, retention held", short: "Bonuses by segment ROI, retention held", href: "/decisions#bonus-allocation" }, edtech: { text: "Hybrid chosen on RICE and unit economics: ~60% support-cost reduction (derived)", short: "~60% support-cost reduction (derived)", href: "/work/doubt-resolution#decision" } },
-  { capability: "Risk", gaming: { text: "Rules-based anomaly detection; fraud losses reported ~18% lower", short: "Fraud losses reported ~18% lower", href: "/about#baazi" }, edtech: { text: "A hard 90% accuracy circuit-breaker with an agreed rollback", short: "90% accuracy circuit-breaker, rollback", href: "/work/doubt-resolution#gate" } },
   { capability: "Funnel diagnosis", gaming: { text: "Loss traced to signup and OTP verification, before the first game", short: "Loss traced to signup and OTP", href: "/work/onboarding-funnel-redesign#diagnosis" }, edtech: { text: "Low completion read against each learner's performance: one sequence failing in two directions", short: "Completion read against learner ability", href: "/work/adaptive-assignment-engine#problem" } },
-  { capability: "Behavioural engagement", gaming: { text: "Live scores sunset at under 6% usage; effort moved to pre-match intent", short: "Live scores sunset at <6% usage", href: "/decisions#fanblaze" }, edtech: { text: "A configurable reward system across students and faculty: points, streaks, badges, rank, Hall of Fame", short: "Configurable rewards for students and faculty", href: "/work/behavioural-loops" } },
 ];
 
 /**
@@ -251,7 +268,7 @@ export const arc = [
   { verb: "Shipped", role: "Program & Release Manager", field: "Program & release", org: "PwC India", years: "2019", taught: "How software ships.", proof: "Standardized releases for enterprise web applications across four distributed teams." },
   { verb: "Measured", role: "Product Manager", field: "Experimentation", org: "Baazi Games", years: "2019–2022", taught: "How users behave, and how to measure it.", proof: "Experimentation, segmentation and risk across PokerBaazi, Lagai Khai and FanBlaze." },
   { verb: "Grew", role: "Product Manager", field: "Growth", org: "Witzeal Technologies", years: "2022–2023", taught: "How growth and monetization work.", proof: "Onboarding, bonus economics and lifecycle messaging for a real-money gaming platform." },
-  { verb: "Personalized", role: "Senior Product Manager", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "Adaptive practice, doubt resolution and engagement systems on products that reach 100K+ learners." },
+  { verb: "Personalized", role: "Senior Product Manager", field: "Learning products", org: "Edfora", years: "2023–2026", taught: "How a product adapts to each user.", proof: "Adaptive practice, doubt resolution and engagement systems. Edfora's products reached 100K+ learners overall." },
   { verb: "AI", role: "Independent prototype", field: "Current direction", org: "AI Learner Diagnostic", years: "Now", independent: true, taught: "The same discipline, applied to AI-native products.", proof: "AI Learner Diagnostic: an independent prototype, evaluation designed before any model work." },
 ] as const;
 
@@ -275,14 +292,14 @@ export const flagships = [
     /** Homepage index: the problem in one line, and the decision in a few words. */
     problem: "Reduce resolution friction without scaling human support linearly.",
     brief: "Hybrid of hints, verified peer answers and SME escalation, behind a 90% accuracy gate.",
-    /** The AI judgment in three beats, shown on the homepage only for this story. */
-    aiPath: [
-      { kind: "signal", label: "Evaluated", text: "An AI auto-resolver, as a strategic option" },
+    /** The decision path, shown on the homepage only for this story. The AI judgment is told once, in the homepage AI section. */
+    path: [
+      { kind: "signal", label: "Signal", text: "~70% of logged tickets were repetitive, pattern-based questions" },
       { kind: "decision", label: "Selected", text: "A hybrid: guided hints, verified peer solutions, SME escalation" },
-      { kind: "tradeoff", label: "Quality gate", text: "Circuit-breaker at 90%; >90% accuracy maintained" },
-      { kind: "outcome", label: "Not shipped first", text: "The AI auto-resolver, while answer-quality risk outweighed its scale" },
+      { kind: "tradeoff", label: "Quality gate", text: "A 90% accuracy circuit-breaker on the hybrid; >90% accuracy maintained" },
+      { kind: "outcome", label: "Piloted", text: "Two weeks, 10,000 JEE students, against a holdout; then a phased launch" },
     ],
-    summary: "An AI auto-resolver, a tutor marketplace, or a hybrid. I evaluated them on RICE and unit economics; the hybrid was piloted with 10,000 JEE students behind a 90% accuracy circuit-breaker, and the AI auto-resolver was evaluated but not shipped as the first solution.",
+    summary: "An AI auto-resolver, a tutor marketplace, or a hybrid. I evaluated them on RICE and unit economics; the hybrid was piloted for two weeks with 10,000 JEE students behind a 90% accuracy circuit-breaker, and the AI auto-resolver was evaluated but not shipped as the first solution.",
     decision: "Guided hints, verified peer solutions and SME escalation, behind a 90% accuracy circuit-breaker. The AI auto-resolver was evaluated but not shipped as the first solution.",
     tradeoff: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through.",
     delta: "tat" as DeltaId,
@@ -340,11 +357,11 @@ export const flagships = [
     title: "Behavioural Loops & Gamification",
     opening: "DAU had been flat for two straight months.",
     problem: "DAU had been flat for two straight months, and teachers found early prototypes “too game-y”.",
-    brief: "A configurable behavioural layer across students and faculty, not one-off rewards.",
+    brief: "One configurable behavioural loop across students and faculty, rather than isolated point mechanics.",
     /** Short evidence line for the homepage index. */
-    evidenceShort: "The system: actions → points, streaks, badges → rank → leaderboards, Hall of Fame → analytics. DAU reported up 12–15% after launch; not causally attributed.",
-    summary: "A configurable behavioural engagement system across student and faculty workflows: actions tied to points, streaks and badges, progression through avatars and rank, recognition on leaderboards and a Hall of Fame, and analytics for faculty.",
-    decision: "A configurable behavioural layer built around product actions, not one-off rewards, for students and faculty alike.",
+    evidenceShort: "DAU reported up 12–15% after launch; not causally attributed.",
+    summary: "A configurable behavioural engagement system across students and faculty: rewards tied to product actions, visible progression and recognition, and analytics for faculty, built as one loop rather than isolated point mechanics.",
+    decision: "A configurable behavioural loop built around product actions, rather than isolated point mechanics, for students and faculty alike.",
     tradeoff: "Motivate students without looking gimmicky to the teachers who had flagged early prototypes as “too game-y”.",
     /** Engagement figures are reported for this system, not causally attributed; no retention or business outcome is claimed. */
     evidence: "Behaviour → reward → progression → recognition → analytics, configurable per action. DAU and session time were reported up after launch; no retention or business outcome is claimed, and no change is causally attributed.",
@@ -372,7 +389,7 @@ export type Decision = {
   stages: readonly { term: string; text: string }[];
   /** Evidence: a Delta, or plain documented results, each with how it was measured where that is short. */
   delta?: DeltaId;
-  results?: readonly { text: string; basis?: string }[];
+  results?: readonly { text: string; basis?: string; evidence?: Evidence }[];
   details?: readonly { term: string; items: readonly string[] }[];
   learning?: string;
   note?: string;
@@ -397,7 +414,7 @@ export const decisions: readonly Decision[] = [
       { term: "Why it missed", text: "Users already followed scores elsewhere, fantasy intent was mostly pre-match, and the low-latency sports API added cost without matching value." },
       { term: "Decision", text: "Sunset the feature and move the effort to starting-XI notifications, injury alerts and head-to-head stats." },
     ],
-    results: [{ text: "<6% of match-day users used it", basis: "Observed after launch" }, { text: "~2 min longer sessions" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits" }],
+    results: [{ text: "<6% of match-day users used it", basis: "after launch", evidence: "Observed" }, { text: "~2 min longer sessions", evidence: "Observed" }, { text: "No meaningful uplift in contest joins, lineup changes or re-deposits", evidence: "Observed" }],
     learning: "Users came for fantasy execution, not passive score consumption.",
   },
   {
@@ -414,7 +431,7 @@ export const decisions: readonly Decision[] = [
       { term: "Trade-off", text: "Cutting incentives in real-money gaming can quietly hurt retention, the main risk going in. It only reads as a win because both numbers moved the right way." },
     ],
     delta: "bonus",
-    results: [{ text: "Retention held" }],
+    results: [{ text: "Retention held", evidence: "Reported" }],
     note: "The objective was incremental NGR per rupee of bonus spend. The NGR outcome wasn't captured, so the result is reported as spend and retention.",
     details: [
       { term: "Segments", items: ["New / onboarding", "High-value / core LTV drivers", "Low-value / recreational", "Dormant / at-risk"] },
@@ -464,7 +481,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Use behavioral clustering to find the segments that behaved differently, then redesign the journey for each." },
       { term: "Trade-off", text: "Every extra journey is more to build, test and maintain. Segmentation pays off when segments are few and clearly different." },
     ],
-    results: [{ text: "Session duration and retention reported up ~35% and ~25% respectively", basis: "method, window and unit (relative or points) not recorded" }],
+    results: [{ text: "Session duration and retention reported up ~35% and ~25% respectively", basis: "method, window and unit (relative or points) not recorded", evidence: "Reported" }],
   },
   {
     id: "pokerbaazi-matchmaking",
@@ -515,7 +532,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "Keep the quiz and gamification layer, and work with design so the mechanics don't feel gimmicky to teachers." },
       { term: "Trade-off", text: "In a classroom product, teacher trust is part of the engagement loop, so some raw engagement is worth trading for credibility." },
     ],
-    results: [{ text: "DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.", basis: "Reported before/after for the Glorifire quiz and gamification layer; measurement method, window and control not recorded, so not causally attributed." }],
+    results: [{ text: "DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.", basis: "Reported before/after for the Glorifire quiz and gamification layer; measurement method, window and control not recorded, so not causally attributed.", evidence: "Reported" }],
     caseHref: "/work/behavioural-loops",
   },
   {
@@ -547,25 +564,16 @@ export const decisions: readonly Decision[] = [
     role: "Senior Product Manager",
     verdict: "Shipped",
     stages: [
-      { term: "Signal", text: "During peak JEE exam preparation, doubt resolution on myPAT and Glorifire faced a bottleneck of about 24 hours; students studying late at night could get blocked." },
-      { term: "Problem", text: "Reduce resolution friction without scaling human faculty operations linearly." },
-      { term: "Positions", text: "Engineering wanted an AI-first resolver, for scale and lower recurring faculty dependency. Faculty wanted human resolution, for accuracy and academic integrity. Product and growth proposed a hybrid for high-frequency, lower-complexity doubts, with escalation for complex ones." },
-      { term: "Evidence", text: "Approximately 70% of logged tickets were repetitive/pattern-based questions." },
-      { term: "Ownership", text: "Senior PM, end to end: discovery, user research, the AI vs. tutor vs. hybrid evaluation, RICE scoring, unit economics modeling, PRD, UX flows, engineering coordination, academic team alignment, cohort pilot design, telemetry and phased launch." },
-      { term: "Decision", text: "I evaluated the alternatives using RICE prioritization and unit economics. Selected: a step-wise guided hint system, verified peer solutions, and SME and faculty escalation for complex cases." },
-      { term: "Guardrails", text: "Step-wise hints instead of direct answer dumps; verified mentor and peer credibility signals; SME and faculty escalation; a pilot with 10,000 JEE students; and a circuit-breaker quality gate at 90% accuracy, with SME sampling and post-resolution satisfaction monitoring." },
+      { term: "Signal", text: "During peak JEE exam preparation, doubt resolution on myPAT and Glorifire faced a bottleneck of about 24 hours; students studying late at night could get blocked. About 70% of logged tickets were repetitive, pattern-based questions." },
+      { term: "Decision", text: "Evaluated an AI auto-resolver, a 1-on-1 tutor marketplace and a hybrid on RICE and unit economics. Selected the hybrid: step-wise guided hints, verified peer solutions, and SME and faculty escalation, behind a 90% accuracy circuit-breaker. The AI auto-resolver was not shipped as the first solution." },
       { term: "Trade-off", text: "Scale against academic integrity: take the repetitive volume off faculty without letting unverified answers through." },
-    ],
-    details: [
-      { term: "Options considered", items: ["A. AI auto-resolver: evaluated as a strategic option, not shipped as the first solution", "B. 1-on-1 live tutor marketplace: not chosen", "C. Hybrid P2P community + guided hints, with escalation: chosen"] },
     ],
     delta: "tat",
     results: [
-      { text: "+18% D14 retention", basis: "Measured via a pilot holdout / A-B cohort against the standard queue" },
-      { text: ">90% resolution accuracy maintained", basis: "Quality guardrail: audited through SME sampling and post-resolution satisfaction ratings" },
-      { text: "~60% support and operational cost reduction", basis: "Derived: calculated from avoided SME and faculty headcount scaling against ticket growth; not a directly observed financial saving" },
+      { text: "+18% relative uplift in D14 retention", basis: "pilot holdout / A-B cohort against the standard queue", evidence: "Measured" },
+      { text: ">90% resolution accuracy maintained on the hybrid", basis: "quality guardrail, audited through SME sampling and post-resolution satisfaction ratings", evidence: "Measured" },
+      { text: "~60% support and operational cost reduction", basis: "calculated from avoided SME and faculty headcount scaling against ticket growth; not a directly observed financial saving", evidence: "Derived" },
     ],
-    note: "AI was evaluated as a strategic option but was not shipped as the first solution because academic trust and answer-quality risk outweighed its scalability advantage at that stage.",
     caseHref: "/work/doubt-resolution",
   },
   {
@@ -581,7 +589,7 @@ export const decisions: readonly Decision[] = [
       { term: "Decision", text: "As the sole Android developer, proposed one app where people choose their role, then built it from scratch with the CEO and CTO." },
       { term: "Trade-off", text: "More role logic inside one product, against one codebase, one app to market and a lower technology bill for a small team." },
     ],
-    results: [{ text: "Platform context: 400+ maker shops and 100+ designers" }],
+    results: [{ text: "Platform context: 400+ maker shops and 100+ designers", evidence: "Reported" }],
     note: "An Android Developer role, not product management. The platform figures describe scale; they are not claimed as a result of this decision.",
   },
 ];
@@ -613,7 +621,7 @@ export const principles = [
     n: "04",
     title: "AI needs evaluation.",
     body: "Agree the rubric, the failure modes and the launch gate before anyone argues about the demo.",
-    example: { text: "In doubt resolution, the quality bar was a number before launch: a 90% accuracy circuit-breaker with a rollback, and >90% accuracy was maintained by SME sampling. The AI auto-resolver was evaluated and not shipped as the first solution.", label: "Edfora · Doubt resolution", href: "/work/doubt-resolution#gate" },
+    example: { text: "In doubt resolution, the quality bar was a number before launch: the shipped hybrid ran behind a 90% accuracy circuit-breaker with a rollback, and >90% accuracy was maintained by SME sampling. The AI auto-resolver was evaluated and not shipped as the first solution.", label: "Edfora · Doubt resolution", href: "/work/doubt-resolution#gate" },
   },
 ] as const;
 
@@ -632,7 +640,7 @@ export const aiLab = {
     steps: [
       { kind: "signal", text: "An AI auto-resolver was fast and highly scalable; the risk was incorrect answers damaging academic trust." },
       { kind: "decision", text: "A hybrid of guided hints, verified peer solutions and SME escalation, behind a 90% accuracy circuit-breaker with a rollback." },
-      { kind: "outcome", text: "Median TAT ~24 h → <15 min; >90% accuracy maintained. AI was evaluated but not shipped as the first solution." },
+      { kind: "outcome", text: "From a ~24 h reported peak to a <15 min median for repetitive doubts in the pilot; >90% accuracy held on the hybrid. AI was evaluated but not shipped as the first solution." },
     ],
   },
   spine: ["Problem", "AI role", "System", "Evaluation", "Failure modes", "Product metric"],
@@ -688,9 +696,9 @@ export const roles: readonly Role[] = [
     highlights: [
       "3PL IRT-based adaptive assignments: across a 2-year academic-cycle dataset, completion was 18% on the static path and 45% after (not attributed to the engine alone)",
       "Early prototypes were flagged by teachers as “too game-y”. DAU was reported up 12–15% after the quiz and gamification layer. Average session time was reported up ~15%.",
-      "Doubt resolution on myPAT and Glorifire, owned end to end: evaluated an AI auto-resolver, a tutor marketplace and a hybrid on RICE and unit economics; 10,000-student pilot behind a 90% accuracy circuit-breaker; median TAT ~24 h → <15 min; +18% D14 retention, measured via a pilot holdout / A-B cohort; >90% accuracy maintained; ~60% support-cost reduction (derived)",
+      "Doubt resolution on myPAT and Glorifire, owned end to end: evaluated an AI auto-resolver, a tutor marketplace and a hybrid on RICE and unit economics; 2-week, 10,000-student pilot behind a 90% accuracy circuit-breaker; from a ~24 h peak bottleneck (reported) to a <15 min median for repetitive doubts (measured); +18% relative uplift in D14 retention, measured via a pilot holdout / A-B cohort; >90% accuracy maintained; ~60% support-cost reduction (derived)",
       "Real-time engagement dashboards for faculty replaced a monthly spreadsheet pull",
-      "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile, on products that reach 100K+ learners",
+      "Interviews and usability tests with students and faculty fed a RICE-based roadmap; 5+ features shipped across web and mobile. Edfora's products reached 100K+ learners overall",
     ],
   },
   {

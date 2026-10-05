@@ -5,16 +5,16 @@
  * the page. No quotes, numbers or outcomes beyond the documented record.
  */
 
-import type { DeltaId } from "./portfolio";
+import type { DeltaId, Evidence } from "./portfolio";
 
 export type Visual =
   | { type: "facts"; items: readonly { term: string; value: string }[] }
-  | { type: "signal"; items: readonly { value: string; label: string }[] }
+  | { type: "signal"; items: readonly { value: string; label: string; evidence?: Evidence }[] }
   | { type: "readings"; items: readonly { label: string; where: string; build: string; chosen?: boolean }[] }
   | { type: "hypothesis"; if: string; then: string; measure: string }
   | { type: "options"; items: readonly { name: string; works: string; fails: string; chosen?: boolean }[] }
   | { type: "path"; title: string; steps: readonly { step: string; change: string }[] }
-  | { type: "ledger"; items: readonly { value: string; label: string; detail?: string }[]; note?: string }
+  | { type: "ledger"; items: readonly { value: string; label: string; detail?: string; evidence?: Evidence }[]; note?: string }
   | { type: "fit" }
   | { type: "system"; steps: readonly { step: string; detail: string }[]; edge: readonly string[] }
   | { type: "experiment"; control: number; treatment: number; duration: string; users: string; measures: string }
@@ -73,7 +73,7 @@ export const doubt: Case = {
   title: "Doubt Resolution",
   opening: "Reducing Doubt Turn-Around Time (TAT) from 24 Hours to <15 Minutes via a Hybrid Peer & Guided-Hint Architecture",
   standfirst: "During peak JEE exam preparation, doubt resolution on myPAT and Glorifire took about 24 hours, and students studying late at night got blocked. The dilemma: reduce resolution friction without scaling human support linearly, while preserving academic accuracy and trust.",
-  description: "Case study: doubt resolution on myPAT and Glorifire at Edfora, owned end to end as Senior PM. An AI auto-resolver, a 1-on-1 tutor marketplace and a hybrid were evaluated on RICE and unit economics; the hybrid of guided hints, verified peer solutions and SME escalation was piloted with 10,000 JEE students. Median TAT ~24 h → <15 min; +18% D14 retention, measured via a pilot holdout / A-B cohort; ~60% support-cost reduction (derived); >90% accuracy maintained. AI was evaluated but not shipped as the first solution.",
+  description: "Case study: doubt resolution on myPAT and Glorifire at Edfora, owned end to end as Senior PM. An AI auto-resolver, a 1-on-1 tutor marketplace and a hybrid were evaluated on RICE and unit economics; the hybrid of guided hints, verified peer solutions and SME escalation was piloted for two weeks with 10,000 JEE students. Doubt resolution went from a ~24 h peak bottleneck (reported) to a <15 min median for the repetitive-doubt pool (measured); +18% relative uplift in D14 retention, measured via a pilot holdout / A-B cohort; ~60% support-cost reduction (derived); >90% accuracy maintained on the hybrid. AI was evaluated but not shipped as the first solution.",
   headline: ["tat"],
   compact: true,
   headerVisual: {
@@ -81,17 +81,17 @@ export const doubt: Case = {
     steps: [
       { kind: "signal", label: "Evaluated", text: "An AI auto-resolver, as a strategic option" },
       { kind: "decision", label: "Selected", text: "A hybrid: guided hints, verified peer solutions, SME escalation" },
-      { kind: "tradeoff", label: "Quality gate", text: "Circuit-breaker at 90%; >90% accuracy maintained" },
+      { kind: "tradeoff", label: "Quality gate", text: "The hybrid, behind a 90% circuit-breaker; >90% accuracy maintained" },
       { kind: "outcome", label: "Not shipped first", text: "The AI auto-resolver, while answer-quality risk outweighed its scale" },
     ],
   },
-  scope: "Senior PM ownership, end to end: from discovery to phased launch. ~24 h was the peak JEE exam-preparation bottleneck; <15 min is the median TAT measured in the 10,000-student pilot cohort and stable after the live rollout, for the ~70% repetitive-doubt pool.",
+  scope: "Senior PM ownership, end to end: from discovery to phased launch. ~24 h was a reported peak bottleneck, not a median; <15 min is the median TAT measured in the 2-week, 10,000-student pilot and stable after the live rollout, for the ~70% repetitive-doubt pool.",
   stages: [
     {
       id: "signal", label: "Signal",
       title: "At peak JEE exam preparation, doubt resolution took about 24 hours.",
       body: ["During peak JEE exam preparation, myPAT and Glorifire faced a doubt-resolution bottleneck of about 24 hours. A doubt is a learner stuck on a question; SMEs and faculty resolved them, so a student studying late at night could stay blocked until morning. Approximately 70% of logged tickets were repetitive/pattern-based questions."],
-      visual: { type: "signal", items: [{ value: "~70%", label: "of logged tickets were repetitive/pattern-based questions" }] },
+      visual: { type: "signal", items: [{ value: "~70%", label: "of logged tickets were repetitive/pattern-based questions", evidence: "Reported" }] },
     },
     {
       id: "ownership", label: "Ownership",
@@ -174,8 +174,8 @@ export const doubt: Case = {
     },
     {
       id: "pilot", label: "Pilot",
-      title: "10,000 JEE students first, against a holdout, then a phased launch.",
-      visual: { type: "facts", items: [{ term: "Cohort", value: "A 10,000-student JEE pilot, cohort-gated to limit the blast radius" }, { term: "Compared", value: "Guided-hint access vs. the standard response queue, with a holdout" }, { term: "Then", value: "A phased launch to live rollout" }, { term: "Not in the record", value: "Pilot duration, the split, holdout size and statistical significance" }] },
+      title: "10,000 JEE students for two weeks, against a holdout, then a phased launch.",
+      visual: { type: "facts", items: [{ term: "Cohort", value: "A 10,000-student JEE pilot, cohort-gated to limit the blast radius" }, { term: "Duration", value: "2 weeks (14 days)" }, { term: "Compared", value: "Guided-hint access vs. the standard response queue, with a holdout" }, { term: "Pilot read", value: "Resolution speed, SLA performance and initial CSAT" }, { term: "Then", value: "A phased launch to live rollout" }, { term: "Not in the record", value: "The split, holdout size and statistical significance" }] },
     },
     {
       id: "outcome", label: "Outcome",
@@ -183,12 +183,12 @@ export const doubt: Case = {
       visual: {
         type: "ledger",
         items: [
-          { value: "<15 min", label: "median doubt-resolution TAT, from ~24 h", detail: "Measured · median TAT in the 10,000-student JEE pilot cohort, stable as the median after the live rollout, for the ~70% repetitive-doubt pool. ~24 h was the peak exam-preparation bottleneck. Median, doubt created → first qualifying resolution." },
-          { value: "+18%", label: "D14 retention", detail: "Measured via a pilot holdout / A-B cohort against the standard queue" },
-          { value: ">90%", label: "resolution accuracy maintained", detail: "Quality guardrail · audited through SME sampling and post-resolution satisfaction ratings" },
-          { value: "~60%", label: "support and operational cost reduction", detail: "Derived · calculated from avoided SME and faculty headcount scaling against ticket growth" },
+          { value: "<15 min", label: "median doubt-resolution TAT, from a ~24 h reported peak", detail: "Median in the 2-week, 10,000-student JEE pilot, stable after the live rollout, for the ~70% repetitive-doubt pool; doubt created → first qualifying resolution. ~24 h was a peak bottleneck, not a median.", evidence: "Measured" },
+          { value: "+18%", label: "relative uplift in D14 retention", detail: "Pilot holdout / A-B cohort against the standard queue", evidence: "Measured" },
+          { value: ">90%", label: "resolution accuracy maintained on the hybrid", detail: "Quality guardrail, audited through SME sampling and post-resolution satisfaction ratings", evidence: "Measured" },
+          { value: "~60%", label: "support and operational cost reduction", detail: "Calculated from avoided SME and faculty headcount scaling against ticket growth", evidence: "Derived" },
         ],
-        note: "Median TAT and D14 are measured; accuracy is an audited quality guardrail; the ~60% is derived from avoided headcount scaling, not a directly observed financial saving.",
+        note: "The ~60% is derived from avoided headcount scaling, not a directly observed financial saving.",
       },
     },
     {
@@ -199,8 +199,8 @@ export const doubt: Case = {
         type: "trace",
         steps: [
           { kind: "signal", label: "Evaluated", text: "An AI auto-resolver: fast, highly scalable, low variable faculty cost" },
-          { kind: "tradeoff", label: "Weighed against", text: "Academic trust and answer-quality risk, and a 90% quality bar" },
-          { kind: "outcome", label: "Not shipped first", text: "The hybrid shipped behind the gate instead" },
+          { kind: "tradeoff", label: "Weighed against", text: "Academic trust and answer-quality risk, against its scale" },
+          { kind: "outcome", label: "Not shipped first", text: "The hybrid shipped instead, behind a 90% accuracy circuit-breaker" },
         ],
         note: "No AI resolver, model or LLM went into production in this decision.",
       },
@@ -217,6 +217,11 @@ export const doubt: Case = {
           "A hybrid can beat a binary AI-versus-human choice: automate the repetitive volume, keep people where judgment matters.",
         ],
       },
+    },
+    {
+      id: "differently", label: "Differently", reasoning: true,
+      title: "What I'd do differently: progressive disclosure from day one.",
+      body: ["I would have designed the guided-hint experience around progressive disclosure from day one: starting with the smallest useful hint, then escalating toward peer or SME support only when needed. This would preserve the student's opportunity to reason before seeing a full solution. This is a product reflection, not a measured finding."],
     },
   ],
 };
@@ -244,7 +249,7 @@ export const witzeal: Case = {
       id: "signal", label: "Signal",
       title: "Two numbers, both around 12%.",
       body: ["Read quickly, a 12.2% Day-7 number is a retention problem, and it points toward reminders, rewards and re-engagement."],
-      visual: { type: "signal", items: [{ value: "12%", label: "of new users played a game on day one (D0)" }, { value: "12.2%", label: "Day-7 retention" }] },
+      visual: { type: "signal", items: [{ value: "12%", label: "of new users played a game on day one (D0)", evidence: "Reported" }, { value: "12.2%", label: "Day-7 retention", evidence: "Measured" }] },
     },
     {
       id: "diagnosis", label: "Diagnosis",
@@ -398,6 +403,11 @@ export const edfora: Case = {
       visual: { type: "facts", items: [{ term: "Role", value: "Senior PM, Core Practice & Learning Experience" }, { term: "Team", value: "1 PM (me), 1 APM, 1 designer, 5–7 engineers, 2–3 academic leads" }, { term: "Period", value: "Jul 2023 – Jul 2026" }, { term: "Edfora context", value: "100K+ learners across Edfora's products overall; not this engine's reach" }] },
     },
     {
+      id: "objective", label: "Objective",
+      title: "Find each learner's gaps, and keep them practising.",
+      visual: { type: "record", rows: [{ term: "Product", text: "Identify each learner's learning gaps, and give them a personalized difficulty trajectory" }, { term: "Business", text: "More engagement and time spent in practice, fewer remedial drop-offs and, in the end, support for renewal and subscription conversion" }, { term: "Not claimed", text: "No engagement, drop-off, renewal or conversion result is on record for this engine" }] },
+    },
+    {
       id: "problem", label: "Problem",
       title: "One sequence fails in two directions.",
       body: ["A fixed sequence couldn't adapt to different learner ability levels: some questions were too hard, others too easy."],
@@ -473,6 +483,11 @@ export const edfora: Case = {
       body: ["Personalize only where it clearly improves the job; everywhere else, a stable default wins. Ability-based matching is harder to explain, depends on well-calibrated questions, and a new learner's first questions carry the most uncertainty."],
     },
     {
+      id: "differently", label: "Differently", reasoning: true,
+      title: "What I'd do differently: calibrate and hold out earlier.",
+      body: ["I would establish dynamic difficulty calibration and an explicit holdout strategy earlier, so the adaptive system could be evaluated not only on completion but also on learning effectiveness and incremental impact. This is a product reflection, not a measured finding."],
+    },
+    {
       id: "next", label: "Next", reasoning: true,
       title: "What I would do next",
       visual: { type: "next", items: ["Hold out a share of learners on the static path, to isolate the engine's effect from everything else that changed.", "Read completion by ability band, starting with new learners, whose first questions carry the most uncertainty."] },
@@ -489,7 +504,7 @@ export const behaviour: Case = {
   role: "Senior Product Manager · Jul 2023 – Jul 2026",
   title: "Behavioural Loops & Gamification",
   opening: "DAU had plateaued for two straight months.",
-  standfirst: "Teachers had flagged early prototypes as “too game-y”. The product idea: one configurable behavioural system connecting student engagement and faculty workflows, not a set of isolated game mechanics.",
+  standfirst: "Teachers had flagged early prototypes as “too game-y”. The product idea: one configurable behavioural loop connecting student engagement and faculty workflows, rather than isolated point mechanics.",
   description: "Case study: a configurable behavioural engagement system at Edfora (Glorifire and the Stakeholder platform), connecting student engagement and faculty workflows: actionable items, points, streaks, badges, avatars, rank and level, leaderboards, a Hall of Fame, analytics, and a myPlan accuracy feedback loop. DAU and session time were reported up after launch; no retention or business outcome is claimed, and no change is causally attributed.",
   headline: [],
   headerVisual: { type: "ecosystem" },
@@ -499,7 +514,12 @@ export const behaviour: Case = {
       id: "signal", label: "Signal",
       title: "Flat daily use, in a product with two audiences.",
       body: ["Glorifire is where students practice; the Stakeholder platform is where faculty and stakeholders follow and guide them. Daily active use had been flat for two months."],
-      visual: { type: "signal", items: [{ value: "2 months", label: "of flat DAU" }] },
+      visual: { type: "signal", items: [{ value: "2 months", label: "of flat DAU", evidence: "Reported" }] },
+    },
+    {
+      id: "objective", label: "Objective",
+      title: "A daily practice habit, not a notification habit.",
+      body: ["The objective was higher DAU and better D7 and D14 retention through a sustainable daily practice loop, with less dependence on paid, notification-driven engagement. These were the objectives: only reported DAU and session-time changes are on record, and no retention or cost result is claimed."],
     },
     {
       id: "ownership", label: "Ownership",
@@ -509,12 +529,15 @@ export const behaviour: Case = {
     {
       id: "constraint", label: "Constraint",
       title: "Teachers found early prototypes “too game-y”.",
-      body: ["Faculty are part of this product, not only students. Any engagement mechanic had to motivate students without looking gimmicky to the teachers who had flagged the early prototypes."],
+      body: [
+        "Faculty are part of this product, not only students. Any engagement mechanic had to motivate students without looking gimmicky to the teachers who had flagged the early prototypes.",
+        "Teacher feedback described early prototypes as “too game-y”, prompting a shift toward more academic, achievement-oriented progress cues: professional progress indicators, academic badges and skill-mastery indicators. This is qualitative feedback and a design decision; no measured improvement is attributed to the change.",
+      ],
     },
     {
       id: "decision", label: "Product decision",
-      title: "One configurable system, not isolated game mechanics.",
-      body: ["The system is built around configurable behaviour-based actionable items: rewards attach to product actions, and the same mechanics reach students and faculty, rather than each feature carrying its own one-off reward."],
+      title: "One configurable loop, not isolated point mechanics.",
+      body: ["The system is built around configurable behaviour-based actionable items: rewards attach to product actions, and the same mechanics reach students and faculty. It was designed as one behavioural loop rather than isolated point mechanics."],
       visual: {
         type: "record",
         rows: [
@@ -573,6 +596,11 @@ export const behaviour: Case = {
       id: "learning", label: "Learning", reasoning: true,
       title: "Design the rules, not the rewards.",
       body: ["A reward is only as good as the behaviour it is tied to. Making actions configurable lets one system reinforce different behaviours for students and for faculty, and the myPlan reward shows the pattern: pay for the behaviour that keeps the product honest."],
+    },
+    {
+      id: "differently", label: "Differently", reasoning: true,
+      title: "What I'd do differently: shared goals before solo streaks.",
+      body: ["I would shift the emphasis from individual streaks toward collaborative squad and classroom goals. Individual leaderboards tend to reward students who are already ahead and can discourage the ones further behind, who are often the students the loop most needs to keep. This is a product reflection, not a measured finding."],
     },
     {
       id: "next", label: "Next", reasoning: true,

@@ -28,7 +28,7 @@ export function EcosystemMap() {
       <div className="border-l-2 border-accent pl-4">
         <p className="text-[13px] font-medium text-accent">The product idea</p>
         <p className="mt-1 text-xl leading-7 font-semibold tracking-[-0.01em] text-ink sm:text-2xl sm:leading-8">One configurable behavioural system, connecting student engagement and faculty workflows.</p>
-        <p className="mt-2 max-w-2xl text-[15px] leading-6 text-muted">Rewards attach to configurable behaviour-based actionable items, so the same mechanics serve both sides instead of a set of isolated game features.</p>
+        <p className="mt-2 max-w-2xl text-[15px] leading-6 text-muted">Rewards attach to configurable behaviour-based actionable items, so the same mechanics serve both sides as one behavioural loop rather than isolated point mechanics.</p>
       </div>
 
       <section aria-label="Student side" className="mt-7 border-t border-ink pt-5">

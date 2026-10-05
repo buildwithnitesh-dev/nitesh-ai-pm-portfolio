@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Decision, Verdict } from "@/content/portfolio";
 import { Delta } from "./delta";
+import { ProofLabel } from "./proof-label";
 import { StageMarker, kindOf } from "./trace";
 import { Mono } from "./ui";
 
@@ -73,7 +74,7 @@ export function DecisionCard({ d, variant = "full", headingLevel = "h3" }: { d: 
             {(compact ? d.results.slice(0, d.delta ? 1 : 2) : d.results).map((r) => (
               <li key={r.text} className="flex gap-2">
                 <span aria-hidden className="mt-[7px] h-2 w-2 shrink-0 bg-ink" />
-                <span>{r.text}{r.basis ? <span className="text-muted"> · {r.basis}</span> : null}</span>
+                <span>{r.evidence ? <><ProofLabel kind={r.evidence} className="mr-2" /><span className="sr-only">: </span></> : null}{r.text}{r.basis ? <span className="text-muted"> · {r.basis}</span> : null}</span>
               </li>
             ))}
           </ul>

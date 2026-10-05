@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { deltas, type DeltaId } from "@/content/portfolio";
+import { ProofLabel, proofText } from "@/components/proof-label";
 
 /**
  * Delta: a number as evidence. Before → after, drawn on the metric's own axis
@@ -13,7 +14,7 @@ export function Delta({
   const d = deltas[id];
   const hasAxis = d.from !== undefined && d.to !== undefined && d.max;
   const value = size === "lg" ? "text-[2.6rem] sm:text-6xl" : size === "md" ? "text-4xl sm:text-[2.75rem]" : "text-3xl";
-  const summary = `${d.label}: ${d.before ? `${d.before} to ` : ""}${d.after}. ${caption ?? d.method}.${d.note ? ` ${d.note}.` : ""}`;
+  const summary = `${d.label}: ${d.before ? `${d.before} to ` : ""}${d.after}. ${proofText(d.evidence, d.beforeEvidence)}. ${caption ?? d.method}.${d.note ? ` ${d.note}.` : ""}`;
   // The <details> holds interactive content, so the figure can't be one opaque label when it is present.
   const label = explain ? undefined : summary;
 
@@ -22,7 +23,7 @@ export function Delta({
     <figure aria-label={label} className={`min-w-0 ${row ? "grid gap-x-10 gap-y-3 md:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] md:items-end" : ""}`}>
       {explain ? <p className="sr-only">{summary}</p> : null}
       <div className="min-w-0">
-        <p aria-hidden className="text-[13px] font-medium text-muted">{d.label}</p>
+        <p aria-hidden className="flex flex-wrap items-baseline gap-x-2.5 text-[13px] font-medium text-muted">{d.label}<ProofLabel kind={d.evidence} before={d.beforeEvidence} /></p>
         <p aria-hidden className={`mt-1.5 flex flex-wrap items-baseline gap-x-3 font-bold tracking-[-0.03em] whitespace-nowrap proportional-nums ${value}`}>
           {d.before ? <span className="text-subtle">{d.before}</span> : null}
           {d.before ? <span aria-hidden className="font-normal text-subtle">→</span> : null}

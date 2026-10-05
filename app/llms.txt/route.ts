@@ -1,5 +1,6 @@
 import { cases } from "@/content/cases";
-import { aiLab, arc, contact, decisions, deltas, profile, roles } from "@/content/portfolio";
+import { aiLab, arc, changeOf, contact, decisions, deltas, profile, roles } from "@/content/portfolio";
+import { proofText } from "@/components/proof-label";
 import { siteUrl } from "@/content/site";
 
 export const dynamic = "force-static";
@@ -8,8 +9,14 @@ export const dynamic = "force-static";
 export function GET() {
   const d = (id: keyof typeof deltas) => {
     const x = deltas[id];
-    return `${x.label} ${x.before ? `${x.before} → ` : ""}${x.after} (${x.method}${x.note ? `; ${x.note}` : ""}). ${x.definition}${x.detail ? ` ${x.detail}` : ""}`;
+    const ends = x.fromLabel && x.toLabel ? `${x.before} ${x.fromLabel} → ${x.after} ${x.toLabel}` : `${x.before ? `${x.before} → ` : ""}${x.after}`;
+    const change = changeOf(x);
+    return `[${proofText(x.evidence, x.beforeEvidence).toUpperCase()}] ${x.label} ${ends}${change ? `, ${change.value} ${change.unit}` : ""} (${x.method}${x.note ? `; ${x.note}` : ""}). ${x.definition}${x.detail ? ` ${x.detail}` : ""}`;
   };
+  /** The doubt-resolution results that aren't deltas, as the decision record states them. */
+  const doubtResults = (decisions.find((x) => x.id === "doubt-resolution")?.results ?? []).map(
+    (r) => `- ${r.evidence ? `[${r.evidence.toUpperCase()}] ` : ""}${r.text}${r.basis ? ` (${r.basis})` : ""} — Edfora · doubt resolution`,
+  );
   const lines = [
     `# ${profile.name}`,
     "",
@@ -25,10 +32,15 @@ export function GET() {
     ...Object.values(cases).map((c) => `- [${c.capability}: ${c.title}](${siteUrl}/work/${c.slug}): ${c.description}`),
     "",
     "## Documented outcomes",
-    ...(["d0", "d7", "completion", "bonus", "tat", "learners"] as const).map((id) => `- ${d(id)} — ${deltas[id].context}`),
+    "Evidence labels: MEASURED (a test, pilot or audit), REPORTED (on record; method, window or basis not recorded), DERIVED (calculated, not observed), OBSERVED (before/after or usage, no control).",
+    `- ${d("d7")} — ${deltas.d7.context}`,
+    `- ${d("tat")} — ${deltas.tat.context}`,
+    `- ${d("completion")} — ${deltas.completion.context}`,
+    ...doubtResults,
+    ...(["d0", "bonus", "learners"] as const).map((id) => `- ${d(id)} — ${deltas[id].context}`),
     "",
     "## Decisions",
-    ...decisions.map((x) => `- ${x.title} (${x.product ? `${x.company} · ${x.product}` : x.company}, ${x.verdict}): ${x.stages.map((s) => `${s.term}: ${s.text}`).join(" ")}${x.results ? ` Results: ${x.results.map((r) => (r.basis ? `${r.text} (${r.basis})` : r.text)).join("; ")}.` : ""}${x.note ? ` Note: ${x.note}` : ""}`),
+    ...decisions.map((x) => `- ${x.title} (${x.product ? `${x.company} · ${x.product}` : x.company}, ${x.verdict}): ${x.stages.map((s) => `${s.term}: ${s.text}`).join(" ")}${x.results ? ` Results: ${x.results.map((r) => `${r.evidence ? `[${r.evidence.toUpperCase()}] ` : ""}${r.basis ? `${r.text} (${r.basis})` : r.text}`).join("; ")}.` : ""}${x.note ? ` Note: ${x.note}` : ""}`),
     "",
     "## AI Lab",
     `${aiLab.sub} ${aiLab.professional}`,

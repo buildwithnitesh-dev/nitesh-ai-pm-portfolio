@@ -3,6 +3,7 @@ import { Container } from "@/components/container";
 import { Delta } from "@/components/delta";
 import { ResumeCta } from "@/components/resume-cta";
 import { StageMarker, Trace, type StepKind } from "@/components/trace";
+import { ProofLabel } from "@/components/proof-label";
 import { VerdictTag } from "@/components/decision-card";
 import { Arrow, MoreLink, SectionHeader, StatusLabel, button } from "@/components/ui";
 import { buildSpec, type BuildStatus } from "@/content/ai-diagnostic";
@@ -14,7 +15,7 @@ export function DomainTransfer() {
   return (
     <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-8 lg:py-10">
       <Container>
-        <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each proved in real-money gaming and in EdTech." />
+        <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Five consumer-growth capabilities, each proved in real-money gaming and in EdTech." />
         <table className="mt-7 hidden w-full table-fixed border-t border-ink text-left md:table">
           <caption className="sr-only">Each capability with evidence from gaming and from EdTech</caption>
           <colgroup><col className="w-[12rem]" /><col /><col /></colgroup>
@@ -122,7 +123,7 @@ export function SelectedWork() {
           <Trace
             wide
             className="mt-6"
-            steps={lead.aiPath.map((x) => ({ kind: x.kind as StepKind, label: x.label, content: x.text }))}
+            steps={lead.path.map((x) => ({ kind: x.kind as StepKind, label: x.label, content: x.text }))}
           />
           <p aria-hidden className="mt-5 inline-flex items-center gap-2 text-[15px] font-medium text-accent">The decision behind it <Arrow /></p>
         </article>
@@ -165,7 +166,7 @@ function IndexEvidence({ id, caption }: { id: DeltaId; caption?: string }) {
   return (
     <div className="lg:mt-1.5">
       <p className="text-2xl font-bold tracking-[-0.03em] proportional-nums text-ink">{d.before ? <><span className="text-subtle">{d.before}</span> <span aria-hidden className="font-normal text-subtle">→</span><span className="sr-only">to</span> </> : null}{d.after}</p>
-      <p className="mt-0.5 text-[13px] leading-5 text-muted">{d.label} · {caption ?? d.method}</p>
+      <p className="mt-0.5 text-[13px] leading-5 text-muted"><ProofLabel kind={d.evidence} before={d.beforeEvidence} className="mr-2" /><span className="sr-only">: </span>{d.label} · {caption ?? d.method}</p>
       {d.note ? <p className="text-[13px] leading-5 text-accent">{d.note}</p> : null}
     </div>
   );

@@ -2,6 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { deltas, profile, retentionHeadline, seo, shareProof } from "@/content/portfolio";
+import { proofText } from "@/components/proof-label";
 
 export const alt = seo.share.imageAlt;
 export const size = { width: 1200, height: 630 };
@@ -29,7 +30,7 @@ const LINE = 400;
 export default function Image() {
   const stats = shareProof.map((id) => {
     const d = deltas[id];
-    return { value: d.before ? `${d.before} → ${d.after}` : d.after, label: d.label, note: d.note };
+    return { value: d.before ? `${d.before} → ${d.after}` : d.after, label: `${d.label} · ${proofText(d.evidence, d.beforeEvidence)}`, note: d.note };
   });
   const from = Math.round((LINE * retentionHeadline.before) / retentionHeadline.after);
   return new ImageResponse(

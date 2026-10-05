@@ -28,21 +28,22 @@ export function Hero() {
         <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <p className="max-w-2xl text-lg leading-8 text-muted">{hero.lede}</p>
-            <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}</p>
+            <p className="mt-4 text-[15px] tabular-nums text-ink">{profile.experience}<span className="text-muted"> · Edfora · Witzeal · Baazi Games</span></p>
           </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+          {/* From 375px the two buttons share a row on phones, so the first result reaches the first screen; narrower phones stack them. */}
+          <div className="grid gap-3 min-[375px]:grid-cols-[auto_minmax(0,1fr)] min-[375px]:gap-x-2.5 sm:flex sm:flex-row sm:items-center sm:gap-3">
             <a href="#work" className={`group ${button.primary}`}>Explore the work <Arrow /></a>
             <ResumeCta label="Resume" className={button.secondary} />
-            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start text-[15px] font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="inline-flex min-h-6 items-center gap-1 self-start justify-self-start text-[15px] min-[375px]:col-span-2 font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent sm:ml-2 sm:self-auto">
               LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span>
             </a>
           </div>
         </div>
 
         {/* Two results, each with how it was measured and where it happened. */}
-        <section aria-label="Proof" className="mt-9 border-t border-ink pt-6 lg:mt-10">
-          <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Two results, two kinds of judgment</p>
-          <ul className="mt-5 grid gap-7 md:grid-cols-2 md:gap-8">
+        <section aria-label="Proof" className="mt-7 border-t border-ink pt-5 sm:mt-9 sm:pt-6 lg:mt-10">
+          <p className="flex items-center gap-2.5 text-[15px] font-semibold text-ink"><StageMarker kind="outcome" />Selected product outcomes</p>
+          <ul className="mt-4 grid gap-7 sm:mt-5 md:grid-cols-2 md:gap-8">
             {hero.proof.map((p) => (
               <li key={p.id} className="flex min-w-0 flex-col">
                 <Delta id={p.id} size="sm" showContext={false} />

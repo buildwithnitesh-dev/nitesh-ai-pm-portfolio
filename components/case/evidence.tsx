@@ -1,4 +1,5 @@
 import { changeOf, deltas, type DeltaId } from "@/content/portfolio";
+import { ProofLabel } from "@/components/proof-label";
 
 /**
  * Evidence figure for a case: one hero result drawn as a shift line (open circle
@@ -13,7 +14,7 @@ export function EvidenceFigure({ primary, secondary, size = "lg" }: { primary: D
   return (
     <figure className="grid gap-7">
       <div>
-        <p className="text-[13px] font-semibold text-ink">{d.label}</p>
+        <p className="flex flex-wrap items-baseline gap-x-2.5 text-[13px] font-semibold text-ink">{d.label}<ProofLabel kind={d.evidence} before={d.beforeEvidence} /></p>
         <div className="mt-2 flex flex-wrap items-end gap-x-6 gap-y-3">
           <p className="flex items-end gap-x-3 font-bold tracking-[-0.03em] proportional-nums">
             <span className="grid">
@@ -55,7 +56,7 @@ export function EvidenceFigure({ primary, secondary, size = "lg" }: { primary: D
 
       {s ? (
         <div className="border-t border-line pt-5">
-          <p className="text-[13px] font-semibold text-muted">{s.label} <span className="font-normal">· supporting</span></p>
+          <p className="flex flex-wrap items-baseline gap-x-2.5 text-[13px] font-semibold text-muted"><span>{s.label} <span className="font-normal">· supporting</span></span><ProofLabel kind={s.evidence} before={s.beforeEvidence} /></p>
           <p className="mt-1.5 text-2xl font-bold tracking-[-0.03em] proportional-nums">
             <span className="text-subtle">{s.before}</span> <span aria-hidden className="font-normal text-subtle">→</span><span className="sr-only">to</span> <span className="text-ink">{s.after}</span>
             {changeOf(s) ? <span className="ml-3 text-[15px] font-semibold text-accent">{changeOf(s)!.value} percentage points</span> : null}

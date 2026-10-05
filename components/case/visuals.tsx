@@ -3,6 +3,7 @@ import { Trace } from "@/components/trace";
 import { AdaptiveLoop } from "./adaptive-loop";
 import { EcosystemMap } from "./ecosystem-map";
 import { EvidenceFigure } from "./evidence";
+import { ProofLabel } from "@/components/proof-label";
 import { EvidenceTag, Mono } from "@/components/ui";
 import type { Visual } from "@/content/cases";
 
@@ -31,7 +32,7 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
           {v.items.map((s) => (
             <li key={s.label} className={`border-b border-line ${compact ? "py-4" : "py-6"}`}>
               <p className="text-5xl font-bold tracking-[-0.035em] text-ink proportional-nums">{s.value}</p>
-              <p className="mt-2 text-sm leading-6 text-muted">{s.label}</p>
+              <p className="mt-2 text-sm leading-6 text-muted">{s.label}{s.evidence ? <><span className="sr-only">. </span><ProofLabel kind={s.evidence} className="ml-2.5" /></> : null}</p>
             </li>
           ))}
         </ul>
@@ -111,7 +112,7 @@ export function StageVisual({ v, compact = false }: { v: Visual; compact?: boole
               <div key={e.label} className={`border-b border-line sm:border-0 ${compact ? "py-4 sm:py-5" : "py-5"}`}>
                 <dt className="sr-only">{e.label}</dt>
                 <dd className="text-4xl font-bold tracking-[-0.035em] text-ink proportional-nums">{e.value}</dd>
-                <dd className="mt-1.5 text-sm leading-6 text-ink">{e.label}</dd>
+                <dd className="mt-1.5 text-sm leading-6 text-ink">{e.label}{e.evidence ? <><span className="sr-only">. </span><ProofLabel kind={e.evidence} className="ml-2.5" /></> : null}</dd>
                 {e.detail ? <dd className="text-[13px] text-muted">{e.detail}</dd> : null}
               </div>
             ))}
