@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
-import { AdaptiveAssignmentCaseStudy } from "@/components/case-study-page";
-import { caseMetadata } from "@/content/case-metadata";
+import { CasePage } from "@/components/case/case-page";
+import { edfora } from "@/content/cases";
+import { pageMetadata } from "@/content/meta";
 
-export const metadata: Metadata = caseMetadata(
-  "adaptive-assignment-engine",
-  "Case study: a 3PL IRT-based adaptive practice engine at Edfora matched question difficulty to each learner’s ability. Across a 2-year academic-cycle dataset, assignment completion was 18% on the static path and 45% after.",
-);
+export const metadata = pageMetadata({ path: "/work/adaptive-assignment-engine", title: edfora.title, description: edfora.description, type: "article" });
 
-export default function Page() { return <AdaptiveAssignmentCaseStudy/>; }
+export default function Page() {
+  return <CasePage c={edfora} />;
+}

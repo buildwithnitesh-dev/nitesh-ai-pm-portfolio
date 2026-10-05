@@ -1,16 +1,22 @@
-import { AiLab } from "@/components/home/ai-lab";
-import { Contact } from "@/components/home/contact";
-import { Experience } from "@/components/home/experience";
 import { Hero } from "@/components/home/hero";
-import { HowIWork } from "@/components/home/how-i-work";
-import { Impact } from "@/components/home/impact";
-import { Work } from "@/components/home/work";
+import { AboutTeaser, AiLabTeaser, CareerArc, Contact, DecisionsTeaser, DomainTransfer, SelectedWork } from "@/components/home/sections";
 
 /**
- * Recruiter order: proof (impact, work), then who did it (experience), then
- * how the decisions get made (principles, decision log, capabilities), the
- * AI lab, and contact.
+ * The homepage reads at three depths: 15 seconds (who, what kind of PM, the
+ * thesis and three results), the four deep stories right after, then range,
+ * decisions, AI judgment, career and the person for the reader who stays.
  */
 export function HomePage() {
-  return <><Hero/><Impact/><Work/><Experience/><HowIWork/><AiLab/><Contact/></>;
+  return (
+    <>
+      <Hero />
+      <SelectedWork />
+      <DomainTransfer />
+      <DecisionsTeaser />
+      <AiLabTeaser />
+      <CareerArc />
+      <AboutTeaser />
+      <Contact />
+    </>
+  );
 }

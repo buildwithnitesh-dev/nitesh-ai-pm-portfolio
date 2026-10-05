@@ -23,14 +23,14 @@ export function CopyEmail({ email }: { email: string }) {
   }
 
   return (
-    <div className="flex items-center justify-between gap-3 rounded-full border border-line-strong bg-background py-1.5 pr-1.5 pl-5">
-      <span className="min-w-0 font-mono text-sm text-ink [overflow-wrap:anywhere]">
+    <div className="flex items-center justify-between gap-3 rounded-md border border-line-strong bg-panel py-1.5 pr-1.5 pl-4">
+      <span className="min-w-0 tabular-nums text-sm text-ink [overflow-wrap:anywhere]">
         {at > 0 ? <>{email.slice(0, at + 1)}<wbr />{email.slice(at + 1)}</> : email}
       </span>
       <button
         type="button"
         onClick={copy}
-        className="h-9 shrink-0 rounded-full bg-accent-soft px-4 text-xs text-accent transition-colors hover:bg-accent-tint"
+        className="h-9 shrink-0 rounded-md bg-accent-soft px-4 text-[13px] text-accent transition-colors hover:bg-accent-tint"
       >
         {state === "copied" ? "Copied ✓" : state === "failed" ? "Select to copy" : "Copy"}
       </button>

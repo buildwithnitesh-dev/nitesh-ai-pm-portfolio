@@ -94,11 +94,11 @@ export function DiagnosticDemo() {
   const result = diagnose(answers);
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-line bg-panel shadow-[0_30px_70px_-40px_rgba(17,17,16,0.35)]">
+    <div className="overflow-hidden rounded-lg border border-ink/80 bg-panel">
       {/* App chrome: signals this is a product surface with a clear mode. */}
       <div className="flex items-center justify-between gap-3 border-b border-line bg-background px-5 py-3">
         <p className="text-sm font-medium text-ink">Learner Diagnostic</p>
-        <p className="inline-flex items-center gap-2 rounded-full border border-line px-2.5 py-1 text-[11px] text-muted">
+        <p className="inline-flex items-center gap-2 rounded-sm border border-line px-2 py-1 text-[13px] text-muted">
           <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-data-muted" />
           Demo mode · deterministic
         </p>
@@ -107,15 +107,15 @@ export function DiagnosticDemo() {
       <div className="p-5 sm:p-8">
         {phase === "intro" ? (
           <div className="fade-up">
-            <p className="text-xs tracking-[0.16em] text-accent uppercase">Try it · 3 signals, ~1 minute</p>
+            <p className="text-[13px] font-semibold text-accent">Try it · 3 signals, ~1 minute</p>
             <h3 className="mt-3 font-serif text-3xl leading-tight text-ink">See the diagnostic loop, not just the architecture.</h3>
             <p className="mt-4 max-w-xl text-sm leading-7 text-muted">
               Answer three representative learner-signal questions. The prototype turns those signals into a transparent diagnosis, states how confident it is, and hands the final call to the educator.
             </p>
-            <p className="mt-4 max-w-xl text-xs leading-5 text-muted">
-              This is a deterministic product prototype, not a claim of production model performance. The production architecture below would use an LLM, retrieval, evaluation data, and human controls.
+            <p className="mt-4 max-w-xl text-[13px] leading-5 text-muted">
+              This is the rules-only baseline, not an LLM and not a claim of model performance. A model-based version would add retrieval and a model for diagnosis, and would have to beat this baseline on the evaluation first.
             </p>
-            <button type="button" onClick={() => setPhase("question")} className="group mt-7 inline-flex h-11 items-center gap-2 rounded-full bg-ink px-5 text-sm text-panel transition-colors hover:bg-accent">
+            <button type="button" onClick={() => setPhase("question")} className="group mt-7 inline-flex h-11 items-center gap-2 rounded-md bg-ink px-5 text-sm text-panel transition-colors hover:bg-accent">
               Start diagnostic <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
             </button>
           </div>
@@ -127,11 +127,11 @@ export function DiagnosticDemo() {
               {questions.map((q, i) => (
                 <li key={q.skill} aria-current={i === index ? "step" : undefined}>
                   <span className={`block h-1 rounded-full transition-colors ${i <= index ? "bg-accent" : "bg-data-track"}`} />
-                  <span className={`mt-2 block text-[11px] ${i === index ? "text-ink" : "text-subtle"}`}>{i + 1}. {q.skill}</span>
+                  <span className={`mt-2 block text-[13px] ${i === index ? "text-ink" : "text-subtle"}`}>{i + 1}. {q.skill}</span>
                 </li>
               ))}
             </ol>
-            <p className="mt-8 text-xs tracking-[0.16em] text-accent uppercase">Learner signal · {index + 1} of {questions.length}</p>
+            <p className="mt-8 text-[13px] font-semibold text-accent">Learner signal · {index + 1} of {questions.length}</p>
             <h3 ref={headingRef} tabIndex={-1} className="mt-3 font-serif text-2xl leading-snug text-ink outline-none sm:text-3xl">{questions[index].prompt}</h3>
             <div role="group" aria-label="Choose a response" className="mt-7 grid gap-2.5">
               {questions[index].options.map((o, oi) => {
@@ -143,7 +143,7 @@ export function DiagnosticDemo() {
                     onClick={() => choose(o.value)}
                     className={`group flex items-center gap-4 rounded-lg border px-4 py-3.5 text-left text-sm leading-6 transition-colors ${picked ? "border-accent bg-accent-soft text-ink" : "border-line bg-background text-ink hover:border-ink"}`}
                   >
-                    <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong font-mono text-[11px] text-muted group-hover:border-ink">{String.fromCharCode(65 + oi)}</span>
+                    <span aria-hidden className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-line-strong tabular-nums text-[13px] text-muted group-hover:border-ink">{String.fromCharCode(65 + oi)}</span>
                     {o.label}
                   </button>
                 );
@@ -157,7 +157,7 @@ export function DiagnosticDemo() {
           <div className="fade-up grid gap-6">
             <div className="flex flex-wrap items-start justify-between gap-6">
               <div>
-                <p className="text-xs tracking-[0.16em] text-accent uppercase">Diagnostic output</p>
+                <p className="text-[13px] font-semibold text-accent">Diagnostic output</p>
                 <h3 ref={headingRef} tabIndex={-1} className="mt-2 font-serif text-3xl leading-tight text-ink outline-none">{result.level}</h3>
               </div>
               <ConfidenceMeter level={result.confidence} />
@@ -172,7 +172,7 @@ export function DiagnosticDemo() {
 
             <div className="grid gap-4 sm:grid-cols-2">
               <section aria-label="Why this diagnosis" className="rounded-lg border border-line bg-background p-5">
-                <p className="text-xs tracking-[0.16em] text-muted uppercase">Why: the evidence used</p>
+                <p className="text-[13px] font-medium text-muted">Why: the evidence used</p>
                 <ul className="mt-3 grid gap-3">
                   {questions.map((q, i) => {
                     const ok = aligned(answers[i] ?? "");
@@ -182,7 +182,7 @@ export function DiagnosticDemo() {
                         <span aria-hidden className={ok ? "text-accent" : "text-subtle"}>{ok ? "●" : "○"}</span>
                         <span>
                           <span className="text-ink">{q.skill}:</span> <span className="text-muted">{label}</span>
-                          <span className="mt-0.5 block text-xs text-subtle">{ok ? "Consistent with the signal" : "Conflicts with the signal, so confidence drops"}</span>
+                          <span className="mt-0.5 block text-[13px] text-subtle">{ok ? "Consistent with the signal" : "Conflicts with the signal, so confidence drops"}</span>
                         </span>
                       </li>
                     );
@@ -191,11 +191,11 @@ export function DiagnosticDemo() {
               </section>
               <div className="grid gap-4">
                 <section aria-label="Detected gaps" className="rounded-lg border border-line bg-background p-5">
-                  <p className="text-xs tracking-[0.16em] text-muted uppercase">Detected gaps</p>
+                  <p className="text-[13px] font-medium text-muted">Detected gaps</p>
                   <ul className="mt-3 grid gap-1.5 text-sm leading-6 text-ink">{result.gaps.map((g) => <li key={g}>· {g}</li>)}</ul>
                 </section>
                 <section aria-label="Next-best action" className="rounded-lg border border-accent/30 bg-accent-soft/60 p-5">
-                  <p className="text-xs tracking-[0.16em] text-accent uppercase">Next-best action</p>
+                  <p className="text-[13px] font-semibold text-accent">Next-best action</p>
                   <p className="mt-2 text-sm leading-6 text-ink">{result.next}</p>
                 </section>
               </div>
@@ -211,11 +211,11 @@ export function DiagnosticDemo() {
               <div className="flex flex-wrap gap-2">
                 {review === "pending" ? (
                   <>
-                    <button type="button" onClick={() => setReview("accepted")} className="h-10 rounded-full bg-ink px-4 text-sm text-panel transition-colors hover:bg-accent">Accept plan</button>
-                    <button type="button" onClick={() => setReview("overridden")} className="h-10 rounded-full border border-line-strong px-4 text-sm text-ink transition-colors hover:border-ink">Override</button>
+                    <button type="button" onClick={() => setReview("accepted")} className="h-10 rounded-md bg-ink px-4 text-sm text-panel transition-colors hover:bg-accent">Accept plan</button>
+                    <button type="button" onClick={() => setReview("overridden")} className="h-10 rounded-md border border-line-strong px-4 text-sm text-ink transition-colors hover:border-ink">Override</button>
                   </>
                 ) : null}
-                <button type="button" onClick={reset} className="h-10 rounded-full px-4 text-sm text-muted transition-colors hover:text-ink">Run again</button>
+                <button type="button" onClick={reset} className="h-10 rounded-md px-4 text-sm text-muted transition-colors hover:text-ink">Run again</button>
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@ function ConfidenceMeter({ level }: { level: Confidence }) {
   const n = steps.indexOf(level) + 1;
   return (
     <div className="min-w-[10rem]">
-      <p className="text-xs text-muted">Confidence: <span className="font-medium text-ink">{level}</span></p>
+      <p className="text-[13px] font-medium text-muted">Confidence: <span className="font-medium text-ink">{level}</span></p>
       <div aria-hidden className="mt-2 grid grid-cols-3 gap-[2px]">
         {steps.map((s, i) => <span key={s} className={`h-1.5 first:rounded-l-full last:rounded-r-full ${i < n ? "bg-accent" : "bg-data-track"}`} />)}
       </div>
