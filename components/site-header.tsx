@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { contact, nav, profile } from "@/content/portfolio";
+import { about, contact, nav, profile } from "@/content/portfolio";
 import { Container } from "./container";
 import { ResumeCta } from "./resume-cta";
 
@@ -29,8 +29,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-line/80 bg-background/92 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" onClick={() => setOpen(false)} className="group flex min-h-11 items-center gap-2.5 text-ink">
-          <span aria-hidden className="h-2.5 w-2.5 rotate-45 bg-accent" />
+        <Link href="/" onClick={() => setOpen(false)} className="group flex min-h-11 items-center gap-3 text-ink">
+          {/* The real portrait from About, cropped to the face by CSS only; the image file itself is unchanged. */}
+          <span
+            aria-hidden
+            className="h-[34px] w-[34px] shrink-0 rounded-full border border-line-strong bg-stone bg-no-repeat lg:h-[38px] lg:w-[38px]"
+            style={{ backgroundImage: `url(${about.portrait.src})`, backgroundSize: "230%", backgroundPosition: "27.5% 8.4%" }}
+          />
           <span className="text-[17px] font-extrabold tracking-[-0.02em] transition-colors group-hover:text-accent">{profile.name}</span>
         </Link>
 
