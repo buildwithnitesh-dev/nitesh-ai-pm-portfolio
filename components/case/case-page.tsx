@@ -54,7 +54,7 @@ export function CasePage({ c }: { c: Case }) {
 
       <Container className="grid grid-cols-[minmax(0,1fr)] gap-10 pt-10 pb-12 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:pt-12 lg:pb-14">
         <aside><StageRail items={c.stages.map(({ id, label }) => ({ id, label }))} /></aside>
-        <div className={`grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] gap-8 sm:gap-10 lg:gap-14`}>
+        <div className={`grid min-w-0 max-w-3xl grid-cols-[minmax(0,1fr)] gap-10 sm:gap-10 lg:gap-14`}>
           {c.stages.map((s, i) => (
             <section key={s.id} id={s.id} aria-labelledby={`${s.id}-title`} className="scroll-mt-24">
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-3">
