@@ -68,7 +68,7 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
       </header>
 
       <section aria-labelledby="tldr-title" className="border-b border-line bg-panel">
-        <Container className="py-12 lg:py-16">
+        <Container className="py-10 lg:py-12">
           <div className="flex flex-wrap items-baseline justify-between gap-3">
             <h2 id="tldr-title" className="font-serif text-3xl text-ink">The 30-second version</h2>
             <a href={`#${toc[0].id}`} className="group text-sm text-muted hover:text-ink">Read the full story <span aria-hidden className="inline-block transition-transform group-hover:translate-y-0.5">↓</span></a>
@@ -86,9 +86,9 @@ export function CaseStudyShell({ meta, tldr, toc, children }: { meta: Meta; tldr
         </Container>
       </section>
 
-      <Container className="grid gap-10 pt-10 pb-14 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:pt-12 lg:pb-20">
+      <Container className="grid gap-10 pt-10 pb-12 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16 lg:pt-12 lg:pb-14">
         <aside><StageRail items={toc} label="On this page" /></aside>
-        <div className="grid max-w-3xl gap-20">{children}</div>
+        <div className="grid max-w-3xl gap-12 lg:gap-16">{children}</div>
       </Container>
 
       <MoreNav />
@@ -138,7 +138,7 @@ export function PullQuote({ children }: { children: React.ReactNode }) {
 function MoreNav() {
   return (
     <nav aria-label="More" className="border-t border-ink">
-      <Container className="grid gap-10 py-16 lg:grid-cols-[1fr_auto] lg:items-end">
+      <Container className="grid gap-10 py-12 lg:grid-cols-[1fr_auto] lg:items-end">
         <Link href="/work" className="group block">
           <p className="font-medium text-[13px] text-accent">Professional work</p>
           <p className="mt-3 font-serif text-4xl leading-tight text-ink transition-colors group-hover:text-accent sm:text-5xl">The flagship cases <Arrow /></p>

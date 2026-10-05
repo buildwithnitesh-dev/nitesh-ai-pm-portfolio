@@ -4,7 +4,7 @@ import { Container } from "./container";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-line py-12">
+    <footer className="border-t border-line py-10">
       <Container className="grid gap-10 sm:grid-cols-[1fr_auto] sm:items-end">
         <div>
           <p className="flex items-center gap-2.5 text-xl font-extrabold tracking-[-0.02em] text-ink"><span aria-hidden className="h-2.5 w-2.5 rotate-45 bg-accent" />{profile.name}</p>

@@ -12,7 +12,7 @@ import { CopyEmail } from "./copy-email";
 /** 03 · The same capabilities, proved in two consumer domains. */
 export function DomainTransfer() {
   return (
-    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+    <section id="range" aria-labelledby="range-title" className="scroll-mt-20 border-b border-line py-8 lg:py-10">
       <Container>
         <SectionHeader compact id="range-title" index="03" label="Range" title="Same PM. Different domains." intro="Eight consumer-growth capabilities, each proved in real-money gaming and in EdTech." />
         <table className="mt-7 hidden w-full table-fixed border-t border-ink text-left md:table">
@@ -67,7 +67,7 @@ export function CareerArc() {
   const jobs = arc.filter((a) => !("independent" in a));
   const now = arc.find((a) => "independent" in a);
   return (
-    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+    <section id="arc" aria-labelledby="arc-title" className="scroll-mt-20 border-b border-line py-8 lg:py-10">
       <Container>
         <SectionHeader compact id="arc-title" index="06" label="Career" title="Five roles. Each added a layer of the job." />
         <ol className="mt-6 border-t border-line">
@@ -102,7 +102,7 @@ export function CareerArc() {
 export function SelectedWork() {
   const [lead, ...rest] = flagships;
   return (
-    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line pt-8 pb-10 lg:pt-10 lg:pb-14">
+    <section id="work" aria-labelledby="work-title" className="scroll-mt-20 border-b border-line pt-8 pb-8 lg:pt-10 lg:pb-10">
       <Container>
         <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           <SectionHeader compact id="work-title" index="02" label="Selected work" title="Four product stories, in depth." />
@@ -182,7 +182,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
           : { kind: "outcome" as const, label: "Evidence", content: <p>{c.evidence}</p> };
         return (
           <li key={c.slug}>
-            <article className="group relative border-t border-ink py-7 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:py-8">
+            <article className="group relative border-t border-ink py-6 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent lg:py-7">
               <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-10">
                 <div>
                   <p className="text-[15px] font-semibold text-accent"><span className="tabular-nums text-subtle">{c.index}</span>&nbsp;&nbsp;{c.capability}</p>
@@ -197,7 +197,7 @@ export function WorkStories({ headingLevel = "h3", withSummary = false }: { head
               </div>
               <Trace
                 wide
-                className="mt-6"
+                className="mt-5"
                 steps={[
                   { kind: "signal", content: c.opening },
                   { kind: "decision", content: c.decision },
@@ -221,7 +221,7 @@ const row = "min-[375px]:grid min-[375px]:grid-cols-[5.75rem_minmax(0,1fr)] min-
 export function DecisionsTeaser() {
   const pick = ["fanblaze", "experimentation", "myplan-accuracy"].map((id) => decisions.find((d) => d.id === id)!);
   return (
-    <section id="decisions" aria-labelledby="decisions-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+    <section id="decisions" aria-labelledby="decisions-title" className="scroll-mt-20 border-b border-line py-8 lg:py-10">
       <Container>
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <SectionHeader compact id="decisions-title" index="04" label="Decisions" title="Smaller calls, same discipline." intro="Snapshots of product judgment, including the bets that were stopped." />
@@ -259,7 +259,7 @@ export function DecisionsTeaser() {
 /** 07 · The person behind the work, in brief: how the engineering years show up in the product calls. */
 export function AboutTeaser() {
   return (
-    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 border-b border-line py-10 lg:py-14">
+    <section id="about" aria-labelledby="about-title" className="scroll-mt-20 border-b border-line py-8 lg:py-10">
       <Container className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
         <div>
           <SectionHeader compact id="about-title" index="07" label="About" title={about.opening} intro={about.intro} />
@@ -279,7 +279,7 @@ export function AiLabTeaser() {
   const build = aiLab.builds[0];
   const order: BuildStatus[] = ["Implemented", "Designed", "Planned", "Needs input"];
   return (
-    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-10 lg:py-14">
+    <section id="ai" aria-labelledby="ai-title" className="scroll-mt-20 border-b border-line bg-stone py-8 lg:py-10">
       <Container>
         <SectionHeader compact id="ai-title" index="05" label="AI" title={aiLab.headline} intro="The model is the last decision, not the first. A deterministic baseline, an evaluation, named failure modes, guardrails and a human override come before it, and sometimes the answer is not to ship it." />
         <p className="mt-6 border-t border-ink pt-5 text-[15px] leading-6 text-ink sm:text-base">
@@ -330,7 +330,7 @@ export function FieldExample({ className = "" }: { className?: string }) {
 /** 08 · Every way to get in touch, and a path to the person behind the work. */
 export function Contact() {
   return (
-    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-10 lg:py-14">
+    <section id="contact" aria-labelledby="contact-title" className="scroll-mt-20 py-8 lg:py-10">
       <Container className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] lg:items-end lg:gap-16">
         <div>
           <SectionHeader compact id="contact-title" index="08" label="Contact" title="Hiring for a product role? Let's talk." intro={`Open to ${contact.lookingFor}. Delhi NCR, and Mumbai where it makes sense.`} />

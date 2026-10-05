@@ -22,7 +22,7 @@ const hasPortrait = existsSync(join(process.cwd(), "public", about.portrait.src)
 export default function AboutPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="pt-4 pb-14 lg:pt-6 lg:pb-20">
+      <Container className="pt-4 pb-12 lg:pt-6 lg:pb-14">
         <BackLink href="/" label="Back to home" />
         <div className="mt-3 grid gap-8 lg:mt-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <aside aria-label="Profile" className="sm:max-lg:grid sm:max-lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] sm:max-lg:items-end sm:max-lg:gap-8">
@@ -55,7 +55,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <ul aria-label="Capabilities" className="mt-12 grid grid-cols-2 border-t border-ink lg:mt-16 lg:grid-cols-4">
+        <ul aria-label="Capabilities" className="mt-10 grid grid-cols-2 border-t border-ink lg:mt-12 lg:grid-cols-4">
           {about.capabilities.map((c, i) => (
             <li key={c.name} className={`border-b border-line py-4 pr-4 lg:border-b-0 lg:py-5 lg:pr-6 ${i % 2 ? "pl-4 border-l border-line" : ""} ${i > 0 ? "lg:border-l lg:border-line lg:pl-6" : ""}`}>
               <p className="text-[15px] font-bold text-ink">{c.name}</p>
@@ -64,14 +64,14 @@ export default function AboutPage() {
           ))}
         </ul>
 
-        <section aria-labelledby="phases" className="mt-16">
+        <section aria-labelledby="phases" className="mt-12 lg:mt-14">
           <h2 id="phases" className="font-medium text-[13px] text-accent">What each role taught me, and what I build now</h2>
           <ol className="mt-6 border-t border-ink">
             {about.phases.map((p, i) => {
               // The last entry is independent product building, not a role: unnumbered, and labelled as such.
               const independent = "independent" in arc[i];
               return (
-              <li key={p.verb} className={`grid gap-3 py-7 md:grid-cols-[12rem_minmax(0,1fr)_minmax(0,0.8fr)] md:gap-10 ${independent ? "border-b border-dashed border-line-strong" : "border-b border-line"}`}>
+              <li key={p.verb} className={`grid gap-3 py-5 md:grid-cols-[12rem_minmax(0,1fr)_minmax(0,0.8fr)] md:gap-10 ${independent ? "border-b border-dashed border-line-strong" : "border-b border-line"}`}>
                 <div>
                   <Mono className={independent ? "text-accent" : "text-subtle"}>{independent ? `${arc[i].years} · independent, not a role` : `${String(i + 1).padStart(2, "0")} · ${arc[i].years}`}</Mono>
                   <p className={`mt-1 font-serif text-4xl leading-none ${independent ? "text-accent" : "text-ink"}`}>{p.verb}</p>
@@ -85,7 +85,7 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section id="technical" aria-labelledby="technical-title" className="mt-20 scroll-mt-24">
+        <section id="technical" aria-labelledby="technical-title" className="mt-12 lg:mt-16 scroll-mt-24">
           <h2 id="technical-title" className="font-serif text-4xl text-ink">{technical.title}</h2>
           <blockquote className="mt-6 max-w-3xl border-l-2 border-accent pl-5">
             <p className="font-serif text-2xl leading-snug text-ink sm:text-3xl">{technical.insight.text}</p>
@@ -101,12 +101,12 @@ export default function AboutPage() {
           </dl>
         </section>
 
-        <section id="approach" aria-labelledby="approach-title" className="mt-20 scroll-mt-24">
+        <section id="approach" aria-labelledby="approach-title" className="mt-12 lg:mt-16 scroll-mt-24">
           <h2 id="approach-title" className="font-serif text-4xl text-ink">How I work</h2>
           <p className="mt-3 max-w-2xl text-base leading-7 text-muted">Four principles, each with a place in the work where it shows.</p>
           <ol className="mt-8 border-t border-ink">
             {principles.map((p) => (
-              <li key={p.n} className="grid gap-5 border-b border-line py-8 lg:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
+              <li key={p.n} className="grid gap-5 border-b border-line py-6 lg:grid-cols-[4rem_minmax(0,1fr)_minmax(0,1fr)] lg:gap-10">
                 <p className="tabular-nums text-2xl text-accent">{p.n}</p>
                 <div>
                   <h3 className="font-serif text-3xl leading-tight text-ink">{p.title}</h3>
@@ -122,11 +122,11 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section aria-labelledby="experience" className="mt-20">
+        <section aria-labelledby="experience" className="mt-12 lg:mt-16">
           <h2 id="experience" className="font-serif text-4xl text-ink">Experience</h2>
           <ol className="mt-6 border-t border-ink">
             {roles.map((r) => (
-              <li key={r.id} id={r.id} className="grid scroll-mt-24 gap-4 border-b border-line py-8 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-10">
+              <li key={r.id} id={r.id} className="grid scroll-mt-24 gap-4 border-b border-line py-6 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-10">
                 <div>
                   <Mono className="text-muted">{r.period}</Mono>
                   <p className="mt-1 text-[13px] text-subtle">{r.location}</p>
@@ -143,7 +143,7 @@ export default function AboutPage() {
           </ol>
         </section>
 
-        <section aria-labelledby="contact" className="mt-20 grid gap-8 border-t-2 border-ink pt-10 lg:grid-cols-2 lg:items-end">
+        <section aria-labelledby="contact" className="mt-12 lg:mt-16 grid gap-8 border-t-2 border-ink pt-8 lg:grid-cols-2 lg:items-end">
           <div>
             <h2 id="contact" className="font-serif text-4xl leading-tight text-ink">Hiring for a product role? Let&apos;s talk.</h2>
             <p className="mt-3 text-sm leading-6 text-muted">Open to {contact.lookingFor}. {profile.location}.</p>

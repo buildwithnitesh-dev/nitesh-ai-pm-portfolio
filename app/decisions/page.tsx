@@ -14,7 +14,7 @@ export const metadata = pageMetadata({
 export default function DecisionsPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="pt-4 pb-14 lg:pt-6 lg:pb-20">
+      <Container className="pt-4 pb-12 lg:pt-6 lg:pb-14">
         <BackLink href="/" label="Back to home" />
         <div className="mt-2 lg:mt-3"><SectionHeader as="h1" label="Decisions" title="Smaller calls, same discipline." intro="Short snapshots of product judgment: the signal, the call, and the outcome or learning, including the bets that were stopped. The deep stories live in Work." /></div>
         <nav aria-label="Decisions" className="mt-10">
@@ -24,9 +24,9 @@ export default function DecisionsPage() {
             ))}
           </ol>
         </nav>
-        <ol className="mt-14 border-t border-ink">
+        <ol className="mt-10 border-t border-ink">
           {decisions.map((d) => (
-            <li key={d.id} className="border-b border-line py-9 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16">
+            <li key={d.id} className="border-b border-line py-7 lg:grid lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-16">
               <div className="mb-6 lg:mb-0">
                 <Mono className="text-accent">{d.area}</Mono>
                 <p className="mt-2 text-sm text-muted">{d.role}</p>

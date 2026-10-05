@@ -16,7 +16,7 @@ export const metadata = pageMetadata({
 export default function WorkPage() {
   return (
     <main id="main" className="flex-1">
-      <Container className="pt-4 pb-14 lg:pt-6 lg:pb-20">
+      <Container className="pt-4 pb-12 lg:pt-6 lg:pb-14">
         <BackLink href="/" label="Back to home" />
         <div className="mt-2 lg:mt-3"><SectionHeader as="h1" label="Work" title="Product decisions, with the evidence behind them." intro="Four product stories in depth, then the smaller calls as short snapshots, including the bets that were stopped, then the AI Lab." /></div>
 
@@ -25,7 +25,7 @@ export default function WorkPage() {
           <WorkStories headingLevel="h3" withSummary />
         </section>
 
-        <section aria-labelledby="library" className="mt-20">
+        <section aria-labelledby="library" className="mt-12 lg:mt-16">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <h2 id="library" className="font-serif text-4xl text-ink">Decision library <span className="block text-base font-normal tracking-normal text-muted">Short snapshots: signal, decision, outcome or learning.</span></h2>
             <MoreLink href="/decisions">Read every decision</MoreLink>
@@ -47,7 +47,7 @@ export default function WorkPage() {
           </ul>
         </section>
 
-        <section aria-labelledby="lab" className="mt-20 border-t border-ink pt-8">
+        <section aria-labelledby="lab" className="mt-12 lg:mt-16 border-t border-ink pt-8">
           <Mono className="text-accent">AI Lab</Mono>
           <h2 id="lab" className="mt-4 font-serif text-4xl">{aiLab.headline}</h2>
           <p className="mt-3 max-w-2xl text-muted">{aiLab.sub}</p>

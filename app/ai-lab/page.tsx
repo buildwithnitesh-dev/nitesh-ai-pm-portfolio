@@ -40,9 +40,9 @@ export default function AiLabPage() {
         </Container>
       </section>
 
-      <Container className="pt-10 pb-14 lg:pt-12 lg:pb-20">
+      <Container className="pt-10 pb-12 lg:pt-12 lg:pb-14">
         <h2 className="font-medium text-[13px] text-accent">In the field</h2>
-        <FieldExample className="mt-6 mb-20" />
+        <FieldExample className="mt-6 mb-12 lg:mb-16" />
         <h2 className="font-medium text-[13px] text-accent">Current build</h2>
         <article className="group relative mt-6 border-t border-ink pt-8 focus-within:outline-2 focus-within:outline-offset-4 focus-within:outline-accent">
           <Mono className="text-muted">{build.status}</Mono>
@@ -61,11 +61,11 @@ export default function AiLabPage() {
           <p className="mt-8 inline-flex items-center gap-2 text-[15px] font-medium text-accent">Open the build <Arrow /></p>
         </article>
 
-        <section aria-labelledby="ai-principles" className="mt-20">
+        <section aria-labelledby="ai-principles" className="mt-12 lg:mt-16">
           <h2 id="ai-principles" className="font-serif text-4xl text-ink">What I hold every AI build to</h2>
           <ol className="mt-6 grid border-t border-ink md:grid-cols-2 md:gap-x-12">
             {aiLab.principles.map(([t, b], i) => (
-              <li key={t} className="border-b border-line py-7">
+              <li key={t} className="border-b border-line py-6">
                 <Mono className="text-accent">{String(i + 1).padStart(2, "0")}</Mono>
                 <h3 className="mt-3 font-serif text-2xl text-ink">{t}</h3>
                 <p className="mt-3 text-[15px] leading-7 text-muted">{b}</p>
