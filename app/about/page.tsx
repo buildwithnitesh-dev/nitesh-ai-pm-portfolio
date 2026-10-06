@@ -49,7 +49,7 @@ export default function AboutPage() {
             </div>
             <div className="mt-7 grid gap-3 min-[375px]:grid-cols-2 sm:flex sm:flex-wrap">
               <Link href="/work" className={`${button.primary} px-5 min-[375px]:col-span-2`}>View my work <Arrow /></Link>
-              <ResumeCta label="Download résumé" className={`${button.secondary} px-3 sm:px-5`} />
+              <ResumeCta label="Resume" className={`${button.secondary} px-3 sm:px-5`} />
               <a href={contact.linkedin} target="_blank" rel="noreferrer" className={`${button.secondary} px-3 sm:px-5`}>LinkedIn <span aria-hidden>↗</span><span className="sr-only">(opens in a new tab)</span></a>
             </div>
           </div>
